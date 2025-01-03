@@ -47,4 +47,5 @@ Route::get('/information', [InformationController::class, 'index'])->name('infor
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
 // Logowanie
+// Route::get('/forms/login', [LoginController::class, 'login'])->name('forms.login');
 Route::get('/login', [LoginController::class, 'index'])->name('login');

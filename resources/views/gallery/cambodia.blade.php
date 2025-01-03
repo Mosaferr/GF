@@ -6,6 +6,8 @@
     <style>
         .carousel-inner, .container, .row, .image, .card .footer {visibility: hidden;}
     </style>
+    <link rel="stylesheet" href="{{ asset('css/spotlight.min.css') }}">
+    <script src="{{ asset('js/spotlight.min.js') }}"></script>
 @endsection
 
 @section('gallery-header')
@@ -18,64 +20,64 @@
 
 @section('gallery-content')
 	<div class="col-sm-6 col-md-4 col-lg-3">
-		<a href="{{ asset('img/trip/camb1.jpg') }}" data-toggle="lightbox" data-gallery="g-gallery">
+		<a class="spotlight" href="{{ asset('img/trip/camb1.jpg') }}">
 			<div class="image shadow"><img src="{{ asset('img/trip/sm-camb1.jpg') }}" alt="sm-cambodia1" class="img-thumbnail"></div>
 		</a>
 	</div>
 	<div class="col-sm-6 col-md-4 col-lg-3">
-		<a href="{{ asset('img/trip/camb2.jpg') }}" data-toggle="lightbox" data-gallery="g-gallery">
+		<a class="spotlight" href="{{ asset('img/trip/camb2.jpg') }}">
 			<div class="image shadow"><img src="{{ asset('img/trip/sm-camb2.jpg') }}" alt="sm-cambodia2" class="img-thumbnail"></div>
 		</a>
 	</div>
 	<div class="col-sm-6 col-md-4 col-lg-3">
-		<a href="{{ asset('img/trip/camb3.jpg') }}" data-toggle="lightbox" data-gallery="g-gallery">
+		<a class="spotlight" href="{{ asset('img/trip/camb3.jpg') }}">
 			<div class="image shadow"><img src="{{ asset('img/trip/sm-camb3.jpg') }}" alt="sm-cambodia3" class="img-thumbnail"></div>
 		</a>
 	</div>
 	<div class="col-sm-6 col-md-4 col-lg-3">
-		<a href="{{ asset('img/trip/camb4.jpg') }}" data-toggle="lightbox" data-gallery="g-gallery">
+		<a class="spotlight" href="{{ asset('img/trip/camb4.jpg') }}">
 			<div class="image shadow"><img src="{{ asset('img/trip/sm-camb4.jpg') }}" alt="sm-cambodia4" class="img-thumbnail"></div>
 		</a>
 	</div>
 
 	<div class="col-sm-6 col-md-4 col-lg-3">
-		<a href="{{ asset('img/trip/camb5.jpg') }}" data-toggle="lightbox" data-gallery="g-gallery">
+		<a class="spotlight" href="{{ asset('img/trip/camb5.jpg') }}">
 			<div class="image shadow"><img src="{{ asset('img/trip/sm-camb5.jpg') }}" alt="sm-cambodia5" class="img-thumbnail"></div>
 		</a>
 	</div>
 	<div class="col-sm-6 col-md-4 col-lg-3">
-		<a href="{{ asset('img/trip/camb6.jpg') }}" data-toggle="lightbox" data-gallery="g-gallery">
+		<a class="spotlight" href="{{ asset('img/trip/camb6.jpg') }}">
 			<div class="image shadow"><img src="{{ asset('img/trip/sm-camb6.jpg') }}" alt="sm-cambodia6" class="img-thumbnail"></div>
 		</a>
 	</div>
 	<div class="col-sm-6 col-md-4 col-lg-3">
-		<a href="{{ asset('img/trip/camb7.jpg') }}" data-toggle="lightbox" data-gallery="g-gallery">
+		<a class="spotlight" href="{{ asset('img/trip/camb7.jpg') }}">
 			<div class="image shadow"><img src="{{ asset('img/trip/sm-camb7.jpg') }}" alt="sm-cambodia7" class="img-thumbnail"></div>
 		</a>
 	</div>
 	<div class="col-sm-6 col-md-4 col-lg-3">
-		<a href="{{ asset('img/trip/camb8.jpg') }}" data-toggle="lightbox" data-gallery="g-gallery">
+		<a class="spotlight" href="{{ asset('img/trip/camb8.jpg') }}">
 			<div class="image shadow"><img src="{{ asset('img/trip/sm-camb8.jpg') }}" alt="sm-cambodia8" class="img-thumbnail"></div>
 		</a>
 	</div>
 
 	<div class="col-sm-6 col-md-4 col-lg-3">
-		<a href="{{ asset('img/trip/camb9.jpg') }}" data-toggle="lightbox" data-gallery="g-gallery">
+		<a class="spotlight" href="{{ asset('img/trip/camb9.jpg') }}">
 			<div class="image shadow"><img src="{{ asset('img/trip/sm-camb9.jpg') }}" alt="sm-cambodia9" class="img-thumbnail"></div>
 		</a>
 	</div>
 	<div class="col-sm-6 col-md-4 col-lg-3">
-		<a href="{{ asset('img/trip/camb10.jpg') }}" data-toggle="lightbox" data-gallery="g-gallery">
+		<a class="spotlight" href="{{ asset('img/trip/camb10.jpg') }}">
 			<div class="image shadow"><img src="{{ asset('img/trip/sm-camb10.jpg') }}" alt="sm-cambodia10" class="img-thumbnail"></div>
 		</a>
 	</div>
 	<div class="col-sm-6 col-md-4 col-lg-3">
-		<a href="{{ asset('img/trip/camb11.jpg') }}" data-toggle="lightbox" data-gallery="g-gallery">
+		<a class="spotlight" href="{{ asset('img/trip/camb11.jpg') }}">
 			<div class="image shadow"><img src="{{ asset('img/trip/sm-camb11.jpg') }}" alt="sm-cambodia11" class="img-thumbnail"></div>
 		</a>
 	</div>
 	<div class="col-sm-6 col-md-4 col-lg-3">
-		<a href="{{ asset('img/trip/camb12.jpg') }}" data-toggle="lightbox" data-gallery="g-gallery">
+		<a class="spotlight" href="{{ asset('img/trip/camb12.jpg') }}">
 			<div class="image shadow"><img src="{{ asset('img/trip/sm-camb12.jpg') }}" alt="sm-cambodia12" class="img-thumbnail"></div>
 		</a>
 	</div>

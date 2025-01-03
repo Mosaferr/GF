@@ -4,15 +4,15 @@
 @section('title', 'Informacje')
 @section('head-scripts')
 	@vite('resources/js/hidden.js')
-{{-- <style>
+	{{-- <style>
         .carousel-inner, .container, .row, .image, .card .footer {visibility: hidden;}
     </style> --}}
 
-	{{-- <link rel="stylesheet" href="spotlight.min.css"> --}}
     <link rel="stylesheet" href="{{ asset('css/spotlight.min.css') }}">
-
-	{{-- <script src="spotlight.min.js"></script> --}}
     <script src="{{ asset('js/spotlight.min.js') }}"></script>
+
+	{{-- <link rel="stylesheet" href="spotlight.min.css"> --}}
+	{{-- <script src="spotlight.min.js"></script> --}}
 @endsection
 
 @section('content')
@@ -182,9 +182,6 @@
 						<a class="spotlight" href="{{ asset('img/main/info.jpg') }}">
 							<img src="{{ asset('img/main/info.jpg') }}" alt="Monk in Angkor" class="img-thumbnail shadow">
 						</a>
-						{{-- <a href="{{ asset('img/main/info.jpg') }}" data-toggle="lightbox">
-							<img src="{{ asset('img/main/info.jpg') }}" alt="Monk in Angkor" class="img-thumbnail shadow">
-						</a> --}}
 					</div>
 					<div class="d-flex justify-content-center">
 						<a href="f-reservation.html" class="btn btn-warning w-100 mt-4 shadow">Wyślij zgłoszenie</a>

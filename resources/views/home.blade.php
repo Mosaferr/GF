@@ -7,6 +7,8 @@
     {{-- <style>
         .carousel-inner, .container, .row, .image, .card .footer {visibility: hidden;}
     </style> --}}
+    <link rel="stylesheet" href="{{ asset('css/spotlight.min.css') }}">
+    <script src="{{ asset('js/spotlight.min.js') }}"></script>
 @endsection
 
 @section('content')
@@ -254,7 +256,7 @@
 
                     <div class="col-lg-3 col-md-4 col-sm-12 col-12 px-4 d-flex flex-column justify-content-center">
                         <div class="image shadow mt-3">
-                            <a href="{{ asset('img/main/term.jpg') }}" data-toggle="lightbox">
+                            <a class="spotlight" href="{{ asset('img/main/term.jpg') }}">
                                 <img src="{{ asset('img/main/term.jpg') }}" alt="Apsara in Angkor Wat" class="img-thumbnail">
                             </a>
                         </div>
@@ -281,7 +283,7 @@
                 <div class="row g-md-4 g-lg-5 mx-sm-1 mx-md-2 lg-md-0">
                     <div class="col-lg-7 col-md-7 col-sm-12 col-12 d-flex flex-column justify-content-center">
                         <div class="image shadow mb-3">
-                            <a href="{{ asset('img/main/szyte.jpg') }}" data-toggle="lightbox">
+                            <a class="spotlight" href="{{ asset('img/main/szyte.jpg') }}">
                                 <img src="{{ asset('img/main/szyte.jpg') }}" alt="Bamboo train" class="img-thumbnail">
                             </a>
                         </div>

@@ -17,15 +17,10 @@ export default defineConfig({
                 'resources/js/hidden.js',
                 'resources/js/fading.js',
                 'resources/js/links.js',
-                // 'resources/js/lightbox.js',
                 'resources/js/eye.js',
                 'resources/js/participants.js',
-                // 'public/js/index.bundle.min.js'
             ],
             refresh: true,
         }),
     ],
-    build: {
-        sourcemap: false, // Wyłączenie map źródłowych
-    },
 });

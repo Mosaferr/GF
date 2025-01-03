@@ -1,4 +1,4 @@
-<!-- resources/views/f-login.blade.php -->
+<!-- resources/views/forms/login.blade.php -->
 @extends('layouts.app')
 
 @section('title', 'Logowanie')
