@@ -1,0 +1,311 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins|Tenor+Sans&subset=latin,latin-ext');
+@import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css');
+
+body{
+    font-family: 'Poppins', sans-serif;
+    /* margin: 0;
+    padding: 0; */
+}
+
+/*---------------------------------------------   NAVBAR   ---*/
+.navbar{
+    font-family: 'Tenor Sans', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+}
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+    position: absolute;
+}
+/* 
+.nav-item .active {
+    color: #fff;
+    background-color: #007bff;
+}
+ */
+/*---------------------------------------------   GÓRNY MARGINES na każdej stronie   ---*/
+.index-margin-top {
+    margin-top: 60px;
+}
+.custom-margin-top {
+    margin-top: 120px;
+}
+
+/*---------------------------------------------   KARUZELA   ---*/
+/* #carousel {
+    width: 100%;
+}
+
+.carousel-inner img {
+    width: 100%;
+    height: auto;
+} */
+
+/*---------------------------------------------   GALERIE   ---*/
+.menu-text{
+    font-family: 'Tenor Sans', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+}
+.menu-country{
+    font-family: 'Tenor Sans', sans-serif;
+    text-transform: uppercase;
+    font-weight: 600;
+    /* font-size: 18px; */
+}
+
+/*---------------------------------------------   TYTUŁY I ŚRÓDTYTUŁY   ---*/
+h1, h2 {
+text-shadow: 1px 1px 2px grey;
+}
+
+
+/*---------------------------------------------   CZARNE TŁO W LITHGBOKSIE   ---*/
+.modal-content {
+    background-color: black !important;
+}
+
+/*---------------------------------------------   CHOWA ELEMENTY PRZED WYWOŁANIEM OPÓŹNIENIA   ---*/
+.hidden {
+    visibility: hidden;
+}
+
+/*---------------------------------------------   ZMIANA ROZMIARU FONTU   ---*/
+/* h5 {
+font-size: clamp(16px, 2.5vw, 24px);
+} */
+
+.about-text{
+    font-size: clamp(16px, 1.6vw, 19px);
+}
+.onrequest-text{
+    font-size: clamp(15px, 1.5vw, 17px);
+}
+
+.card-text,
+.table-term,
+#program-tab-pane,
+#information-tab-pane,
+#registration-tab-pane{
+    font-size: clamp(14px, 1.4vw, 16px);
+}
+
+/*---------------------------------------------   ZOOM KART I WIDEO   ---*/
+.card,
+.video-scale {
+    transition: transform 0.5s ease;
+}
+.card:hover,
+.video-scale:hover {
+    transform: scale(1.1);
+}
+
+/*---   ZOOM ZDJĘĆ   ---*/
+.image {
+    overflow: hidden
+    }
+    .image img {
+        width: 100%;
+        transition: transform 1s ease
+        /* transition: all 1s ease-in-out */
+    }
+    .image:hover img {
+        transform: scale(1.5);
+    }
+
+/*---------------------------------------------   ANIMACJA CYTATU w ona.html   ---*/
+.line1 {
+    opacity: 0;                         /* Początkowo ukryta */
+    animation: fadeIn 3s forwards;      /* Animacja pojawiania się */
+    animation-delay: 3s;                /* Opóźnienie dla pierwszej linii */
+}
+.line2 {
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+    animation-delay: 5s;
+}
+@keyframes fadeIn {                     /* Kluczowe klatki dla animacji pojawiania się */
+    to { opacity: 1; }                  /* Końcowy stan z pełną widocznością */
+}
+
+
+/*--------------------------------------------- ZOOM I BOX w gallery.html ---*/
+.gal-image {
+    position: relative;
+    overflow: hidden;
+}
+.gal-image img {
+    width: 100%;
+    transition: transform 1s ease, filter 1s ease;
+}
+.overlay {
+    position: absolute;
+    inset: 0;                       /* Skrócony zapis dla top, left, right, bottom */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    transition-delay: 0.5s;
+}
+.text-box {
+    background: rgba(100, 100, 100, 0.5);
+    border: 1px solid white;
+    padding: 20px 50px;
+    text-align: center;
+}
+.gal-image .text {
+    font-family: 'Tenor Sans', sans-serif;
+    color: white;
+    font-size: 24px;
+}
+.gal-image:hover img {
+    transform: scale(1.5);
+    filter: blur(2px);
+}
+.gal-image:hover .overlay {
+    opacity: 1;
+}
+
+/*--------------------------------------------- BOX FORMULARZA w contact.html ---*/
+.contact-image {
+    position: relative;
+    display: inline-block;
+}
+.contact-form-box {
+    position: absolute;
+    top: 6%;
+    left: 1.5%;
+    background: rgba(10, 10, 10, 0.6);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    width: 100%;
+    max-width: 550px;
+}
+.contact-form-box form .form-group {
+    position: relative;
+    margin-bottom: 30px;
+}
+.floating-label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: #a83838;
+    transition: all 0.5s ease;
+    pointer-events: none;
+}
+.contact-form-box form .form-control {
+    width: 100%;
+    padding: 10px;
+    transition: all 0.5s ease;
+}
+.contact-form-box form .form-control:focus + .floating-label,
+.contact-form-box form .form-control:not(:placeholder-shown) + .floating-label {
+    top: -25px;
+    left: 1px;
+    color: #e1e1e1;
+    font-size: 15px;
+}
+.contact-form-box form .btn {
+    width: 100%;
+}
+
+
+/*--------------------------------------------- BOX FORMULARZA w f-login.html ---*/
+.login-image {
+    position: relative;
+    display: inline-block;
+}
+.login-form-box {
+    position: absolute;
+    top: 3%;
+    left: 1.5%;
+    background: rgba(10, 10, 10, 0.6);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    width: 100%;
+    max-width: 500px;
+}
+.login-form-box form .form-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+.floating-label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: #a83838;
+    transition: all 0.5s ease;
+    pointer-events: none;
+}
+.login-form-box form .form-control {
+    width: 100%;
+    padding: 10px;
+    transition: all 0.5s ease;
+}
+.login-form-box form .form-control:focus + .floating-label,
+.login-form-box form .form-control:not(:placeholder-shown) + .floating-label {
+    top: -25px;
+    left: 1px;
+    color: #e1e1e1;
+    font-size: 15px;
+}
+.login-form-box form .btn {
+    width: 100%;
+}
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+.forgot-password {
+    display: block;
+    margin: -20px 0 5px 0;
+    color: #fff;
+    text-decoration: none;
+    text-align: right;
+}
+.forgot-password:hover {
+    color: #ffc107;
+    text-decoration: underline;
+}
+
+
+/*--------------------------------------------- FORMULARZE ---*/
+.form-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+
+/*--------------------------------------------- FOOTER ---*/
+footer {
+    margin-top: 80px;
+    font-size: 0.85rem; /* 0.85 = rozmiar odpowiadający fs-6 w Bootstrap */
+    }
+
+.list-group-item a {
+    color: inherit; /* Kolor tekstu dziedziczy z listy */
+    text-decoration: none;
+}
+
+.list-group-item a:hover {
+    color: brown;
+    text-decoration: underline;
+}
+footer .list-group-item a {
+    color: inherit; /* Kolor tekstu dziedziczy z listy */
+    text-decoration: none;
+}
+
+footer .list-group-item a:hover {
+    color: lightgreen;
+}
