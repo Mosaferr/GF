@@ -3,7 +3,10 @@
 
 @section('title', 'Galeria: Argentyna')
 @section('head-scripts')
-    @vite('resources/js/hidden.js')
+	@vite('resources/js/hidden.js')
+	{{-- <style>
+        .carousel-inner, .container, .row, .image, .card .footer {visibility: hidden;}
+    </style> --}}
 @endsection
 
 @section('gallery-header')

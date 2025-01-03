@@ -38,5 +38,4 @@
 @section('scripts')
     <script src="{{ asset('js/scrollreveal.min.js') }}"></script>
     @vite('resources/js/fading.js')
-    <script src="{{ asset('js/lightbox.bundle.min.js') }}"></script>
 @endsection

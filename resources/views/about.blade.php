@@ -3,7 +3,9 @@
 
 @section('title', 'O Nas')
 @section('head-scripts')
-    @vite('resources/js/hidden.js')
+    <style>
+        .carousel-inner, .container, .row, .image, .card .footer {visibility: hidden;}
+    </style>
 @endsection
 
 @section('content')

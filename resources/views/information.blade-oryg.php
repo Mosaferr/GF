@@ -7,12 +7,6 @@
 {{-- <style>
         .carousel-inner, .container, .row, .image, .card .footer {visibility: hidden;}
     </style> --}}
-
-	{{-- <link rel="stylesheet" href="spotlight.min.css"> --}}
-    <link rel="stylesheet" href="{{ asset('css/spotlight.min.css') }}">
-
-	{{-- <script src="spotlight.min.js"></script> --}}
-    <script src="{{ asset('js/spotlight.min.js') }}"></script>
 @endsection
 
 @section('content')
@@ -179,12 +173,9 @@
 
 				<div class="col-lg-4 col-md-6 col-sm-12 col-12 px-4">
 					<div class="image shadow">
-						<a class="spotlight" href="{{ asset('img/main/info.jpg') }}">
+						<a href="{{ asset('img/main/info.jpg') }}" data-toggle="lightbox">
 							<img src="{{ asset('img/main/info.jpg') }}" alt="Monk in Angkor" class="img-thumbnail shadow">
 						</a>
-						{{-- <a href="{{ asset('img/main/info.jpg') }}" data-toggle="lightbox">
-							<img src="{{ asset('img/main/info.jpg') }}" alt="Monk in Angkor" class="img-thumbnail shadow">
-						</a> --}}
 					</div>
 					<div class="d-flex justify-content-center">
 						<a href="f-reservation.html" class="btn btn-warning w-100 mt-4 shadow">Wyślij zgłoszenie</a>
@@ -198,4 +189,5 @@
 @section('scripts')
     <script src="{{ asset('js/scrollreveal.min.js') }}"></script>
     @vite('resources/js/fading.js')
+    @vite('resources/js/lightbox.js')
 @endsection

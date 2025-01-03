@@ -4,6 +4,9 @@
 @section('title', 'Strona Główna')
 @section('head-scripts')
     @vite('resources/js/hidden.js')
+    {{-- <style>
+        .carousel-inner, .container, .row, .image, .card .footer {visibility: hidden;}
+    </style> --}}
 @endsection
 
 @section('content')
@@ -343,5 +346,4 @@
     <script src="{{ asset('js/scrollreveal.min.js') }}"></script>
     @vite('resources/js/fading.js')
     @vite('resources/js/links.js')
-    <script src="{{ asset('lightbox.bundle.min.js') }}"></script>
 @endsection
