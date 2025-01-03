@@ -41,15 +41,13 @@
 				<div class="col-md-12 text-center mt-4">
 					<p>Logować mogą się jedynie osoby, które zarezerwowały, bądź wykupiły jedną z naszych wypraw.</p>
 					<div class="d-flex justify-content-center">
-						<a href="excursions.html" class="btn btn-warning shadow">Poznaj nasze wyprawy</a>
+						<a href="{{ route('excursions') }}" class="btn btn-warning shadow">Poznaj nasze wyprawy</a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</main>
 @endsection
-
-{{-- @vite('resources/js/eye.js') --}}
 
 @section('scripts')
     <script src="{{ asset('js/scrollreveal.min.js') }}"></script>

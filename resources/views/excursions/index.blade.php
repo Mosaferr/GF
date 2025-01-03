@@ -1,7 +1,7 @@
-<!-- resources/views/XXXXX.blade.php -->
+<!-- resources/views/excursions/index.blade.php -->
 @extends('layouts.app')
 
-@section('title', 'XXXXX')
+@section('title', 'Wyprawy')
 @section('head-scripts')
     @vite('resources/js/hidden.js')
 @endsection
@@ -20,7 +20,7 @@
 				<div class="col-sm-6 col-md-4">
 					<div class="card shadow">
 						<div class="bg-image">
-							<a href="exc-argetina.html">
+							<a href="{{ route('excursions.argentina') }}">
 								<img src="{{ asset('img/main/trip-arg.jpg') }}" class="img-fluid"/>
 							</a>
 						</div>
@@ -28,7 +28,7 @@
 							<h5 class="card-title">Argentyna i Chile</h5>
 							<p class="card-text">Boskie Buenos, Północna Patagonia, Valparaiso, Aconcagua. I wodospady Iguazu. I inne atrakcje...</p>
 							<div class="text-center">
-								<a href="exc-argetina.html" class="btn btn-success btn-sm shadow">Zobacz program</a>
+								<a href="{{ route('excursions.argentina') }}" class="btn btn-success btn-sm shadow">Zobacz program</a>
 							</div>
 						</div>
 					</div>
@@ -36,7 +36,7 @@
 				<div class="col-sm-6 col-md-4">
 					<div class="card shadow">
 						<div class="bg-image">
-							<a href="exc-indonesia.html">
+							<a href="{{ route('excursions.indonesia') }}">
 								<img src="{{ asset('img/main/trip-indo.jpg') }}" class="img-fluid"/>
 							</a>
 						</div>
@@ -44,7 +44,7 @@
 							<h5 class="card-title">Indonezja</h5>
 							<p class="card-text">Starożytne świątynie, wyjątkowe wulkany, jedyna w swoim rodzaju kultura i religia Bali. I może delfiny...</p>
 							<div class="text-center">
-								<a href="exc-indonesia.html" class="btn btn-success btn-sm shadow">Zobacz program</a>
+								<a href="{{ route('excursions.indonesia') }}" class="btn btn-success btn-sm shadow">Zobacz program</a>
 							</div>
 						</div>
 					</div>
@@ -52,7 +52,7 @@
 				<div class="col-sm-6 col-md-4">
 					<div class="card shadow">
 						<div class="bg-image">
-							<a href="exc-cambodia.html">
+							<a href="{{ route('excursions.cambodia') }}">
 								<img src="{{ asset('img/main/trip-camb.jpg') }}" class="img-fluid"/>
 							</a>
 						</div>
@@ -60,7 +60,7 @@
 							<h5 class="card-title">Kambodża</h5>
 							<p class="card-text">Z Bangkoku do Batambang i łodzią do Siem Reap. Angkor Wat. Phnom Penh i interior. I plaża...</p>
 							<div class="text-center">
-								<a href="exc-cambodia.html" class="btn btn-success btn-sm shadow">Zobacz program</a>
+								<a href="{{ route('excursions.cambodia') }}" class="btn btn-success btn-sm shadow">Zobacz program</a>
 							</div>
 						</div>
 					</div>
@@ -68,7 +68,7 @@
 				<div class="col-sm-6 col-md-4">
 					<div class="card shadow">
 						<div class="bg-image">
-							<a href="exc-peru.html">
+							<a href="{{ route('excursions.peru') }}">
 								<img src="{{ asset('img/main/trip-peru.jpg') }}" class="img-fluid"/>
 							</a>
 						</div>
@@ -76,7 +76,7 @@
 							<h5 class="card-title">Peru i Boliwia</h5>
 							<p class="card-text">Lima, Cusco, La Paz, pływające wioski na jeziorze Titicaca, dawne stolice Inków. I Machu Picchu...</p>
 							<div class="text-center">
-								<a href="exc-peru.html" class="btn btn-success btn-sm shadow">Zobacz program</a>
+								<a href="{{ route('excursions.peru') }}" class="btn btn-success btn-sm shadow">Zobacz program</a>
 							</div>
 						</div>
 					</div>
@@ -84,7 +84,7 @@
 				<div class="col-sm-6 col-md-4">
 					<div class="card shadow">
 						<div class="bg-image">
-							<a href="exc-sri_lanka.html">
+							<a href="{{ route('excursions.sri_lanka') }}">
 								<img src="{{ asset('img/main/trip-sri.jpg') }}" class="img-fluid"/>
 							</a>
 						</div>
@@ -92,7 +92,7 @@
 							<h5 class="card-title">Sri Lanka</h5>
 							<p class="card-text">Pradawne stolice, wyjątkowe świątnie i niesamowita przyroda. Herbaciane wzgórza i dzikie słonie...</p>
 							<div class="text-center">
-								<a href="exc-sri_lanka.html" class="btn btn-success btn-sm shadow">Zobacz program</a>
+								<a href="{{ route('excursions.sri_lanka') }}" class="btn btn-success btn-sm shadow">Zobacz program</a>
 							</div>
 						</div>
 					</div>
@@ -100,7 +100,7 @@
 				<div class="col-sm-6 col-md-4">
 					<div class="card shadow">
 						<div class="bg-image">
-							<a href="exc-tibet.html">
+							<a href="{{ route('excursions.tibet') }}">
 								<img src="{{ asset('img/main/trip-tibet.jpg') }}" class="img-fluid"/>
 							</a>
 						</div>
@@ -108,7 +108,7 @@
 							<h5 class="card-title">Tybet, Chiny</h5>
 							<p class="card-text">Chińskie pandy i Wielki Mur. Tybetańska kultura, wizyta w Pałacu Dalajlamy i pod Mount Everestem... </p>
 							<div class="text-center">
-								<a href="exc-tibet.html" class="btn btn-success btn-sm shadow">Zobacz program</a>
+								<a href="{{ route('excursions.tibet') }}" class="btn btn-success btn-sm shadow">Zobacz program</a>
 							</div>
 						</div>
 					</div>

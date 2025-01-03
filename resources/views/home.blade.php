@@ -113,7 +113,7 @@
                     <div class="col-sm-4">
                         <div class="card shadow">
                             <div class="bg-image">
-                                <a href="exc-peru.html">
+                                <a href="{{ route('excursions.peru') }}">
                                     <img src="{{ asset('img/main/trip-peru.jpg') }}" class="img-fluid"/>
                                 </a>
                             </div>
@@ -121,7 +121,7 @@
                                 <h5 class="card-title shadow accordion bg-success-subtle rounded p-2">Peru i Boliwia</h5>
                                 <p class="card-text mt-3">Lima, Cusco, La Paz. Królestwo Inków z Machu Picchu na czele. Lamy, wioski na jeziorze Titicaca...</p>
                                 <div class="text-center">
-                                    <a href="exc-peru.html" class="btn btn-success shadow"><small>Zobacz program</small></a>
+                                    <a href="{{ route('excursions.peru') }}" class="btn btn-success shadow"><small>Zobacz program</small></a>
                                 </div>
                             </div>
                         </div>
@@ -130,7 +130,7 @@
                     <div class="col-sm-4">
                         <div class="card shadow">
                             <div class="bg-image">
-                                <a href="exc-tibet.html">
+                                <a href="{{ route('excursions.tibet') }}">
                                     <img src="{{ asset('img/main/trip-tibet.jpg') }}" class="img-fluid"/>
                                 </a>
                             </div>
@@ -138,7 +138,7 @@
                                 <h5 class="card-title shadow bg-success-subtle rounded p-2">Tybet, w Chinach</h5>
                                 <p class="card-text mt-3">Święta Lhasa, odległe klasztory, spotkania z michami, wycieczka pod Mout Everest...</p>
                                 <div class="text-center">
-                                    <a href="exc-tibet.html" class="btn btn-success shadow"><small>Zobacz program</small></a>
+                                    <a href="{{ route('excursions.tibet') }}" class="btn btn-success shadow"><small>Zobacz program</small></a>
                                 </div>
                             </div>
                         </div>
@@ -147,7 +147,7 @@
                     <div class="col-sm-4">
                         <div class="card shadow">
                             <div class="bg-image">
-                                <a href="exc-cambodia.html">
+                                <a href="{{ route('excursions.cambodia') }}">
                                     <img src="{{ asset('img/main/trip-camb.jpg') }}" class="img-fluid"/>
                                 </a>
                             </div>
@@ -155,14 +155,14 @@
                                 <h5 class="card-title shadow bg-success-subtle rounded p-2">Kambodża</h5>
                                 <p class="card-text mt-3">Angkor Wat i starożytne świątynie. Czerwoni Khmerzy i dzisiejsze królestwo. I relaks nad oceanem...</p>
                                 <div class="text-center">
-                                    <a href="exc-cambodia.html" class="btn btn-success shadow"><small>Zobacz program</small></a>
+                                    <a href="{{ route('excursions.cambodia') }}" class="btn btn-success shadow"><small>Zobacz program</small></a>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="d-flex justify-content-center">
-                        <a href="excursions.html" class="btn btn-warning w-100 shadow">Poznaj więcej naszych wypraw</a>
+                        <a href="{{ route('excursions') }}" class="btn btn-warning w-100 shadow">Poznaj więcej naszych wypraw</a>
                     </div>
                 </div>
             </div>
@@ -202,7 +202,7 @@
                                     <th scope="row">14.07 - 27.07.2024</th>
                                     <td>W tango pod Andami</td>
                                     <td>Argentyna, Chile</td>
-                                    <td class="text-center"><a href="exc-argetina.html" class="btn btn-primary btn-sm shadow">Program</a></td>
+                                    <td class="text-center"><a href="{{ route('excursions.argentina') }}" class="btn btn-primary btn-sm shadow">Program</a></td>
                                 </tr>
                                 <tr class="align-middle">
                                     <td class="text-center">
@@ -211,7 +211,7 @@
                                     <th scope="row">28.07 - 11.08.2024</th>
                                     <td>Królestwo w dżungli</td>
                                     <td>Kambodża</td>
-                                    <td class="text-center"><a href="exc-cambodia.html" class="btn btn-primary btn-sm shadow">Program</a></td>
+                                    <td class="text-center"><a href="{{ route('excursions.cambodia') }}" class="btn btn-primary btn-sm shadow">Program</a></td>
                                 </tr>
                                 <tr class="align-middle">
                                     <td class="text-center">
@@ -221,7 +221,7 @@
                                     <th scope="row">04.08 - 17.08.2024</th>
                                     <td>Na Dachu Świata</td>
                                     <td>Tybet, Chiny</td>
-                                    <td class="text-center"><a href="exc-tibet.html" class="btn btn-primary btn-sm shadow">Program</a></td>
+                                    <td class="text-center"><a href="{{ route('excursions.tibet') }}" class="btn btn-primary btn-sm shadow">Program</a></td>
                                 </tr>
                                 <tr class="align-middle">
                                     <td class="text-center">
@@ -231,7 +231,7 @@
                                     <th scope="row">13.09 - 23.09.2024</th>
                                     <td>W krainie kultu Słońca</td>
                                     <td>Peru, Boliwia</td>
-                                    <td class="text-center"><a href="exc-peru.html" class="btn btn-primary btn-sm shadow">Program</a></td>
+                                    <td class="text-center"><a href="{{ route('excursions.peru') }}" class="btn btn-primary btn-sm shadow">Program</a></td>
                                 </tr>
                                 <tr class="align-middle">
                                     <td class="text-center">
@@ -240,12 +240,12 @@
                                     <th scope="row">03.10 - 13.10.2024</th>
                                     <td>W świecie kontrastów</td>
                                     <td>Indonezja</td>
-                                    <td class="text-center"><a href="exc-indonesia.html" class="btn btn-primary btn-sm shadow">Program</a></td>
+                                    <td class="text-center"><a href="{{ route('excursions.indonesia') }}" class="btn btn-primary btn-sm shadow">Program</a></td>
                                 </tr>
                             </tbody>
                         </table>
                         <div class="d-flex justify-content-center">
-                            <a href="terms.html" class="btn btn-warning w-100 mt-2 shadow">Zobacz inne terminy</a>
+                            <a href="{{ route('terms') }}" class="btn btn-warning w-100 mt-2 shadow">Zobacz inne terminy</a>
                         </div>
                     </div>
 
@@ -340,12 +340,8 @@
 @endsection
 
 @section('scripts')
-    <!-- Warunkowo załaduj dodatkowe skrypty -->
-    {{-- <script src="{{ asset('js/hidden.js') }}"></script> --}}
     <script src="{{ asset('js/scrollreveal.min.js') }}"></script>
-    {{-- <script src="{{ asset('js/fading.js') }}"></script> --}}
     @vite('resources/js/fading.js')
     @vite('resources/js/links.js')
-    {{-- @vite('resources/js/index.bundle.min.js') --}}
     <script src="{{ asset('lightbox.bundle.min.js') }}"></script>
 @endsection

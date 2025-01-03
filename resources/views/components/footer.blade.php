@@ -19,28 +19,28 @@
                 <p><b>Mapa strony</b></p>
                 <ul>
                     <li class="list-group-item"><i class="bi bi-file-earmark-text"></i>&nbsp;
-                        <a href="index.html">Strona główna</a>
+                        <a href="{{ route('home') }}">Strona główna</a>
                     </li>
                     <li class="list-group-item"><i class="bi bi-file-earmark-text"></i>&nbsp;
-                        <a href="about.html">O nas</a>
+                        <a href="{{ route('about') }}">O nas</a>
                         </li>
                     <li class="list-group-item"><i class="bi bi-file-earmark-text"></i>&nbsp;
-                        <a href="excursions.html">Wyprawy</a>
+                        <a href="{{ route('excursions') }}">Wyprawy</a>
                     </li>
                     <li class="list-group-item"><i class="bi bi-file-earmark-text"></i>&nbsp;
-                        <a href="terms.html">Terminy</a>
+                        <a href="{{ route('terms') }}">Terminy</a>
                     </li>
                     <li class="list-group-item"><i class="bi bi-file-earmark-text"></i>&nbsp;
-                        <a href="gallery.html">Galeria</a>
+                        <a href="{{ route('gallery') }}">Galeria</a>
                     </li>
                     <li class="list-group-item"><i class="bi bi-file-earmark-text"></i>&nbsp;
-                        <a href="information.html">Informacje</a>
+                        <a href="{{ route('information') }}">Informacje</a>
                     </li>
                     <li class="list-group-item"><i class="bi bi-file-earmark-text"></i>&nbsp;
-                        <a href="contact.html">Kontakt</a>
+                        <a href="{{ route('contact') }}">Kontakt</a>
                     </li>
                     <li class="list-group-item"><i class="bi bi-file-earmark-text"></i>&nbsp;
-                        <a href="f-login.html">Logowanie</a>
+                        <a href="{{ route('login') }}">Logowanie</a>
                     </li>
                 </ul>
             </div>
@@ -50,27 +50,27 @@
                 <ul>
                     <li class="list-group-item">
                         <i class="bi bi-globe-americas"></i>&nbsp;
-                        <a href="exc-argetina.html">Argentyna i Chile</a>
+                        <a href="{{ route('excursions.argentina') }}">Argentyna i Chile</a>
                     </li>
                     <li class="list-group-item">
                         <i class="bi bi-globe-central-south-asia"></i>&nbsp;
-                        <a href="exc-indonesia.html">Indonezja</a>
+                        <a href="{{ route('excursions.indonesia') }}">Indonezja</a>
                     </li>
                     <li class="list-group-item">
                         <i class="bi bi-globe-central-south-asia"></i>&nbsp;
-                        <a href="exc-cambodia.html">Kambodża</a>
+                        <a href="{{ route('excursions.cambodia') }}">Kambodża</a>
                     </li>
                     <li class="list-group-item">
                         <i class="bi bi-globe-americas"></i>&nbsp;
-                        <a href="exc-peru.html">Peru i Boliwia</a>
+                        <a href="{{ route('excursions.peru') }}">Peru i Boliwia</a>
                     </li>
                     <li class="list-group-item">
                         <i class="bi bi-globe-central-south-asia"></i>&nbsp;
-                        <a href="exc-sri_lanka.html">Sri Lanka</a>
+                        <a href="{{ route('excursions.sri_lanka') }}">Sri Lanka</a>
                     </li>
                     <li class="list-group-item">
                         <i class="bi bi-globe-central-south-asia"></i>&nbsp;
-                        <a href="exc-tibet.html">Tybet. W Chinach</a>
+                        <a href="{{ route('excursions.tibet') }}">Tybet. W Chinach</a>
                     </li>
                 </ul>
             </div>
@@ -79,25 +79,25 @@
                 <p><b>Ważne dokumenty</b></p>
                 <ul>
                     <li class="list-group-item"><i class="bi bi-file-earmark-pdf"></i>&nbsp;
-                        <a href="docs/regulamin_serwisu_internetowego.pdf" target = "_blanc">Regulamin serwisu</a>
+                        <a href="{{ asset('docs/regulamin_serwisu_internetowego.pdf') }}" target="_blank">Regulamin serwisu</a>
                     </li>
                     <li class="list-group-item"><i class="bi bi-file-earmark-pdf"></i>&nbsp;
-                        <a href="docs/polityka_prywatnosci.pdf" target = "_blanc">Polityka prywatności</a>
+                        <a href="{{ asset('docs/polityka_prywatnosci.pdf') }}" target="_blank">Polityka prywatności</a>
                     </li>
                     <li class="list-group-item"><i class="bi bi-file-earmark-pdf"></i>&nbsp;
-                        <a href="docs/owu.pdf" target = "_blanc">Warunki uczestnictwa</a>
+                        <a href="{{ asset('docs/owu.pdf') }}" target="_blank">Warunki uczestnictwa</a>
                     </li>
                     <li class="list-group-item"><i class="bi bi-file-earmark-pdf"></i>&nbsp;
-                        <a href="docs/standardowy_formularz.pdf" target = "_blanc">Formularz informacyjny</a>
+                        <a href="{{ asset('docs/standardowy_formularz.pdf') }}" target="_blank">Formularz informacyjny</a>
                     </li>
                     <li class="list-group-item"><i class="bi bi-file-earmark-pdf"></i>&nbsp;
-                        <a href="docs/ow_ubezpieczenie_podrozy.pdf" target = "_blanc">Ubezpieczenie podróży</a>
+                        <a href="{{ asset('docs/ow_ubezpieczenie_podrozy.pdf') }}" target="_blank">Ubezpieczenie podróży</a>
                     </li>
                     <li class="list-group-item"><i class="bi bi-file-earmark-pdf"></i>&nbsp;
-                        <a href="docs/ow_ubezpieczenie_rezygnacji.pdf" target = "_blanc">Ubezpieczenie rezygnacji</a>
+                        <a href="{{ asset('docs/ow_ubezpieczenie_rezygnacji.pdf') }}" target="_blank">Ubezpieczenie rezygnacji</a>
                     </li>
                     <li class="list-group-item"><i class="bi bi-file-earmark-pdf"></i>&nbsp;
-                        <a href="docs/instrkucja_dla_ubezpieczonych.pdf" target = "_blanc">Instrukcja dla ubezpieczonych</a>
+                        <a href="{{ asset('docs/instrkucja_dla_ubezpieczonych.pdf') }}" target="_blank">instrukcja dla ubezpieczonych</a>
                     </li>
                 </ul>
                 <p class="text-center mb-0">&copy; 2024 Glob<i>Frotter</i>.pl</p>

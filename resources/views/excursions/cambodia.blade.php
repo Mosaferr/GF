@@ -1,37 +1,14 @@
-<!-- resources/views/XXXXX.blade.php -->
+<!-- resources/views/excursions/cambodia.blade.php -->
 @extends('layouts.app')
 
-@section('title', 'XXXXX')
+@section('title', 'Kambodża')
 
 @section('content')
 	<main class="custom-margin-top">
 		<div class="container"   style="max-width: 1100px;">
+            <x-tabs :flags="['Cambodia-xs.gif']" title="Kambodża"/>
 
-			<ul class="nav nav-tabs" id="myTab" role="tablist">
-				<li class="nav-item" role="presentation">
-					<button class="nav-link active" id="program-tab" data-bs-toggle="tab" data-bs-target="#program-tab-pane" type="button" role="tab" aria-controls="program-tab-pane" aria-selected="true">Program</button>
-				</li>
-				<li class="nav-item" role="presentation">
-					<button class="nav-link " id="timetable-tab" data-bs-toggle="tab" data-bs-target="#timetable-tab-pane" type="button" role="tab" aria-controls="timetable-tab-pane" aria-selected="false">Terminy</button>
-				</li>
-				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="information-tab" data-bs-toggle="tab" data-bs-target="#information-tab-pane" type="button" role="tab" aria-controls="information-tab-pane" aria-selected="false">Informacje</button>
-				</li>
-				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="registration-tab" data-bs-toggle="tab" data-bs-target="#registration-tab-pane" type="button" role="tab" aria-controls="registration-tab-pane" aria-selected="false">Zgłoszenie</button>
-				</li>
-			</ul>
-
-			<div class="d-flex align-items-center">
-				<div class="text-start mt-4 mb-3 ms-5 me-auto">
-					<img src="{{ asset('img/flags/Cambodia-xs.gif') }}" alt="Flag of Cambodia" class="me-2">
-					<img src="{{ asset('img/flags/Thailand-xs.gif') }}" alt="Flag of Thailand">
-				</div>
-				<h2 class="mb-0 me-5">Kambodża</h2>
-			</div>
-
-			<div class="tab-content" id="myTabContent">
-
+            <div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active" id="program-tab-pane" role="tabpanel" aria-labelledby="program-tab" tabindex="0">
 					<div class="row ms-2 g-5">
 						<div class="col-lg-7 col-md-6 col-sm-12 col-12 ps-lg-5 mt-lg-5 px-lg-4">
@@ -62,27 +39,27 @@
 
 						<div class="col-lg-5 col-md-6 col-sm-12 col-12 d-flex flex-column justify-content-between">
 
-							<a href="g-cambodia.html">
+							<a href="{{ route('gallery.cambodia') }}">
 								<div class="image shadow"><img src="{{ asset('img/trip/sm-camb13.jpg') }}" alt="sm-cambodia13" class="img-thumbnail img-fluid"></div>
 							</a>
 
-							<a href="g-cambodia.html">
+							<a href="{{ route('gallery.cambodia') }}">
 								<div class="image shadow"><img src="{{ asset('img/trip/sm-camb5.jpg') }}" alt="sm-cambodia5" class="img-thumbnail img-fluid"></div>
 							</a>
 
-							<a href="g-cambodia.html">
+							<a href="{{ route('gallery.cambodia') }}">
 								<div class="image shadow"><img src="{{ asset('img/trip/sm-camb3.jpg') }}" alt="sm-cambodia3" class="img-thumbnail img-fluid"></div>
 							</a>
 
-							<a href="g-cambodia.html">
+							<a href="{{ route('gallery.cambodia') }}">
 								<div class="image shadow"><img src="{{ asset('img/trip/sm-camb11.jpg') }}" alt="sm-cambodia11" class="img-thumbnail img-fluid"></div>
 							</a>
 
-							<a href="g-cambodia.html">
+							<a href="{{ route('gallery.cambodia') }}">
 								<div class="image shadow"><img src="{{ asset('img/trip/sm-camb4.jpg') }}" alt="sm-cambodia4" class="img-thumbnail img-fluid"></div>
 							</a>
 
-							<a href="g-cambodia.html">
+							<a href="{{ route('gallery.cambodia') }}">
 								<div class="image shadow"><img src="{{ asset('img/trip/sm-camb12.jpg') }}" alt="sm-cambodia12" class="img-thumbnail img-fluid"></div>
 							</a>
 						</div>
@@ -117,13 +94,13 @@
 										<th scope="row">Twój termin</th>
 										<td>Podróż na zamówienie</td>
 										<td></td>
-										<td><a href="contact.html" class="btn btn-success shadow"><small> &nbsp; Napisz &nbsp; </small></a></td>
+										<td><a href="{{ route('contact') }}" class="btn btn-success shadow"><small> &nbsp; Napisz &nbsp; </small></a></td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
 						<div class="col-lg-5 col-md-6 col-sm-12 col-12 d-flex flex-column justify-content-between">
-							<a href="g-cambodia.html">
+							<a href="{{ route('gallery.cambodia') }}">
 								<div class="image shadow  mt-5"><img src="{{ asset('img/trip/sm-camb10.jpg') }}" alt="sm-cambodia10" class="img-thumbnail img-fluid"></div>
 							</a>
 						</div>
@@ -148,7 +125,7 @@
 							</ul>
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-12 col-12 d-flex flex-column justify-content-between">
-							<a href="g-cambodia.html">
+							<a href="{{ route('gallery.cambodia') }}">
 								<div class="image shadow  mt-5"><img src="{{ asset('img/trip/sm-camb14.jpg') }}" alt="sm-cambodia14" class="img-thumbnail img-fluid"></div>
 							</a>
 						</div>
@@ -157,37 +134,10 @@
 
 				<div class="tab-pane fade" id="registration-tab-pane" role="tabpanel" aria-labelledby="registration-tab" tabindex="0">
 					<div class="row g-5">
-						<div class="col-lg-6 col-md-6 col-sm-12 col-12 ps-lg-5 mt-lg-5 px-lg-4">
-							<p><h3> Warunki uczestnictwa</h3></p>
-							<p>Przed zarezerwowaniem wycieczki zapoznaj się z regulaminem serwisu, warunkami uczestnictwa oraz wymaganiami wizowymi i paszportowymi, które musisz spełnić, aby udać się w podróż.</p>
-							<p>W razie pytań przejdź do zakładki <a href="contact.html">kontakt</a> i napisz do nas.</p>
-							<ul>
-								<li class="list-group-item"><i class="bi bi-file-earmark-pdf"></i>&nbsp;
-									<a href="docs/regulamin_serwisu_internetowego.pdf" target = "_blanc">Regulamin serwisu internetowego</a>
-								</li>
-								<li class="list-group-item"><i class="bi bi-file-earmark-pdf"></i>&nbsp;
-									<a href="docs/polityka_prywatnosci.pdf" target = "_blanc">Polityka prywatności</a>
-								</li>
-								<li class="list-group-item"><i class="bi bi-file-earmark-pdf"></i>&nbsp;
-									<a href="docs/owu.pdf" target = "_blanc">Ogólne warunki uczestnictwa</a>
-								</li>
-								<li class="list-group-item"><i class="bi bi-file-earmark-pdf"></i>&nbsp;
-									<a href="docs/standardowy_formularz.pdf" target = "_blanc">Standardowy formularz informacyjny</a>
-								</li>
-								<li class="list-group-item"><i class="bi bi-file-earmark-pdf"></i>&nbsp;
-									<a href="docs/ow_ubezpieczenie_podrozy.pdf" target = "_blanc">Ogólne warunki ubezpieczenia "Bezpieczne podróże"</a>
-								</li>
-								<li class="list-group-item"><i class="bi bi-file-earmark-pdf"></i>&nbsp;
-									<a href="docs/ow_ubezpieczenie_rezygnacji.pdf" target = "_blanc">Ogólne warunki ubezpieczenia "Bezpieczne rezerwacje"</a>
-								</li>
-								<li class="list-group-item"><i class="bi bi-file-earmark-pdf"></i>&nbsp;
-									<a href="docs/instrkucja_dla_ubezpieczonych.pdf" target = "_blanc">Instrukcja dla ubezpieczonych</a>
-								</li>
-							</ul>
-						</div>
+						@include('components.warunki')
 
 						<div class="col-lg-6 col-md-6 col-sm-12 col-12 ps-lg-5 mt-lg-5 px-lg-4">
-							<a href="g-cambodia.html">
+							<a href="{{ route('gallery.cambodia') }}">
 								<div class="image shadow  mt-5"><img src="{{ asset('img/trip/sm-camb15.jpg') }}" alt="sm-cambodia15" class="img-thumbnail img-fluid"></div>
 							</a>
 							<div class="d-flex justify-content-center">

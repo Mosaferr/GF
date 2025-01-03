@@ -1,36 +1,14 @@
-<!-- resources/views/XXXXX.blade.php -->
+<!-- resources/views/excursions/sri_lanka.blade.php -->
 @extends('layouts.app')
 
-@section('title', 'XXXXX')
+@section('title', 'Sri Lanka')
 
 @section('content')
 	<main class="custom-margin-top">
 		<div class="container"   style="max-width: 1100px;">
-
-			<ul class="nav nav-tabs" id="myTab" role="tablist">
-				<li class="nav-item" role="presentation">
-					<button class="nav-link active" id="program-tab" data-bs-toggle="tab" data-bs-target="#program-tab-pane" type="button" role="tab" aria-controls="program-tab-pane" aria-selected="true">Program</button>
-				</li>
-				<li class="nav-item" role="presentation">
-					<button class="nav-link " id="timetable-tab" data-bs-toggle="tab" data-bs-target="#timetable-tab-pane" type="button" role="tab" aria-controls="timetable-tab-pane" aria-selected="false">Terminy</button>
-				</li>
-				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="information-tab" data-bs-toggle="tab" data-bs-target="#information-tab-pane" type="button" role="tab" aria-controls="information-tab-pane" aria-selected="false">Informacje</button>
-				</li>
-				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="registration-tab" data-bs-toggle="tab" data-bs-target="#registration-tab-pane" type="button" role="tab" aria-controls="registration-tab-pane" aria-selected="false">Zgłoszenie</button>
-				</li>
-			</ul>
-
-			<div class="d-flex align-items-center">
-				<div class="text-start mt-4 mb-3 ms-5 me-auto">
-					<img src="{{ asset('img/flags/Sri-Lanka-xs.gif') }}" alt="Flag of Sri Lanka" class="me-2">
-				</div>
-				<h2 class="mb-0 me-5">Sri Lanka</h2>
-			</div>
+            <x-tabs :flags="['Sri_Lanka-xs.gif']" title="Sri Lanka"/>
 
 			<div class="tab-content" id="myTabContent">
-
 				<div class="tab-pane fade show active" id="program-tab-pane" role="tabpanel" aria-labelledby="program-tab" tabindex="0">
 					<div class="row ms-2 g-5">
 						<div class="col-lg-7 col-md-6 col-sm-12 col-12 ps-lg-5 mt-lg-5 px-lg-4">
@@ -61,22 +39,22 @@
 						</div>
 
 						<div class="col-lg-5 col-md-6 col-sm-12 col-12 d-flex flex-column justify-content-between">
-							<a href="g-sri_lanka.html">
+							<a href="{{ route('gallery.sri_lanka') }}">
 								<div class="image shadow"><img src="{{ asset('img/trip/sm-sri14.jpg') }}" alt="sm-sri_lanka14" class="img-thumbnail img-fluid"></div>
 							</a>
-							<a href="g-sri_lanka.html">
+							<a href="{{ route('gallery.sri_lanka') }}">
 								<div class="image shadow"><img src="{{ asset('img/trip/sm-sri2.jpg') }}" alt="sm-sri_lanka2" class="img-thumbnail img-fluid"></div>
 							</a>
-							<a href="g-sri_lanka.html">
+							<a href="{{ route('gallery.sri_lanka') }}">
 								<div class="image shadow"><img src="{{ asset('img/trip/sm-sri4.jpg') }}" alt="sm-sri_lanka4" class="img-thumbnail img-fluid"></div>
 							</a>
-							<a href="g-sri_lanka.html">
+							<a href="{{ route('gallery.sri_lanka') }}">
 								<div class="image shadow"><img src="{{ asset('img/trip/sm-sri5.jpg') }}" alt="sm-sri_lanka5" class="img-thumbnail img-fluid"></div>
 							</a>
-							<a href="g-sri_lanka.html">
+							<a href="{{ route('gallery.sri_lanka') }}">
 								<div class="image shadow"><img src="{{ asset('img/trip/sm-sri6.jpg') }}" alt="sm-sri_lanka6" class="img-thumbnail img-fluid"></div>
 							</a>
-							<a href="g-sri_lanka.html">
+							<a href="{{ route('gallery.sri_lanka') }}">
 								<div class="image shadow"><img src="{{ asset('img/trip/sm-sri13.jpg') }}" alt="sm-sri_lanka13" class="img-thumbnail img-fluid"></div>
 							</a>
 						</div>
@@ -111,13 +89,13 @@
 										<td scope="row">Twój termin</td>
 										<th>Podróż na zamówienie</th>
 										<td></td>
-										<td><a href="contact.html" class="btn btn-success btn-sm shadow"><small> &nbsp; Napisz &nbsp; </small></a></td>
+										<td><a href="{{ route('contact') }}" class="btn btn-success btn-sm shadow"><small> &nbsp; Napisz &nbsp; </small></a></td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
 						<div class="col-lg-5 col-md-6 col-sm-12 col-12 d-flex flex-column justify-content-between">
-							<a href="g-sri_lanka.html">
+							<a href="{{ route('gallery.sri_lanka') }}">
 								<div class="image shadow  mt-5"><img src="{{ asset('img/trip/sm-sri11.jpg') }}" alt="sm-sri_lanka11" class="img-thumbnail img-fluid"></div>
 							</a>
 						</div>
@@ -142,7 +120,7 @@
 							</ul>
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-12 col-12 d-flex flex-column justify-content-between">
-							<a href="g-sri_lanka.html">
+							<a href="{{ route('gallery.sri_lanka') }}">
 								<div class="image shadow  mt-5"><img src="{{ asset('img/trip/sm-sri15.jpg') }}" alt="sm-sri_lanka15" class="img-thumbnail img-fluid"></div>
 							</a>
 						</div>
@@ -151,37 +129,11 @@
 
 				<div class="tab-pane fade" id="registration-tab-pane" role="tabpanel" aria-labelledby="registration-tab" tabindex="0">
 					<div class="row g-5">
-						<div class="col-lg-6 col-md-6 col-sm-12 col-12 ps-lg-5 mt-lg-5 px-lg-4">
-							<p><h3> Warunki uczestnictwa</h3></p>
-							<p>Przed zarezerwowaniem wycieczki zapoznaj się z regulaminem serwisu, warunkami uczestnictwa oraz wymaganiami wizowymi i paszportowymi, które musisz spełnić, aby udać się w podróż.</p>
-							<p>W razie pytań przejdź do zakładki <a href="contact.html">kontakt</a> i napisz do nas.</p>
-							<ul>
-								<li class="list-group-item"><i class="bi bi-file-earmark-pdf"></i>&nbsp;
-									<a href="docs/regulamin_serwisu_internetowego.pdf" target = "_blanc">Regulamin serwisu internetowego</a>
-								</li>
-								<li class="list-group-item"><i class="bi bi-file-earmark-pdf"></i>&nbsp;
-									<a href="docs/polityka_prywatnosci.pdf" target = "_blanc">Polityka prywatności</a>
-								</li>
-								<li class="list-group-item"><i class="bi bi-file-earmark-pdf"></i>&nbsp;
-									<a href="docs/owu.pdf" target = "_blanc">Ogólne warunki uczestnictwa</a>
-								</li>
-								<li class="list-group-item"><i class="bi bi-file-earmark-pdf"></i>&nbsp;
-									<a href="docs/standardowy_formularz.pdf" target = "_blanc">Standardowy formularz informacyjny</a>
-								</li>
-								<li class="list-group-item"><i class="bi bi-file-earmark-pdf"></i>&nbsp;
-									<a href="docs/ow_ubezpieczenie_podrozy.pdf" target = "_blanc">Ogólne warunki ubezpieczenia "Bezpieczne podróże"</a>
-								</li>
-								<li class="list-group-item"><i class="bi bi-file-earmark-pdf"></i>&nbsp;
-									<a href="docs/ow_ubezpieczenie_rezygnacji.pdf" target = "_blanc">Ogólne warunki ubezpieczenia "Bezpieczne rezerwacje"</a>
-								</li>
-								<li class="list-group-item"><i class="bi bi-file-earmark-pdf"></i>&nbsp;
-									<a href="docs/instrkucja_dla_ubezpieczonych.pdf" target = "_blanc">Instrukcja dla ubezpieczonych</a>
-								</li>
-							</ul>
-						</div>
+						@include('components.warunki')
+						@include('components.warunki')
 
 						<div class="col-lg-6 col-md-6 col-sm-12 col-12 ps-lg-5 mt-lg-5 px-lg-4">
-							<a href="g-sri_lanka.html">
+							<a href="{{ route('gallery.sri_lanka') }}">
 								<div class="image shadow  mt-5"><img src="{{ asset('img/trip/sm-sri9.jpg') }}" alt="sm-sri_lanka9" class="img-thumbnail img-fluid"></div>
 							</a>
 							<div class="d-flex justify-content-center">

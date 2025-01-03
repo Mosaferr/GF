@@ -2,7 +2,7 @@
 
 <header>
     <nav class="navbar fixed-top navbar-light bg-body-secondary shadow navbar-expand-lg">
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="{{ route('home') }}">
             <img src="{{ asset('img/logo_black.svg') }}" width="23" height="auto" class="d-inline-block ms-sm-4 align-text-bottom" alt="logo">  Glob<i>Frotter</i>.pl
         </a>
 

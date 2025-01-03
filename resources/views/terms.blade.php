@@ -1,9 +1,9 @@
-<!-- resources/views/XXXXX.blade.php -->
+<!-- resources/views/terms.blade.php -->
 @extends('layouts.app')
 
-@section('title', 'GlobFrotter: Terminy')
+@section('title', 'Terminy')
 @section('head-scripts')
-    @vite('resources/js/hidden.js')
+	@vite('resources/js/hidden.js')
 @endsection
 
 @section('content')
@@ -38,7 +38,7 @@
 								<th scope="row">14.07 - 27.07.2024</th>
 								<td>W tango pod Andami</td>
 								<td>Argentyna, Chile</td>
-								<td class="text-center"><a href="exc-argetina.html" class="btn btn-primary btn-sm shadow">Program</a></td>
+								<td class="text-center"><a href="{{ route('excursions.argentina') }}" class="btn btn-primary btn-sm shadow">Program</a></td>
 							</tr>
 							<tr class="align-middle">
 								<td class="text-center">
@@ -47,7 +47,7 @@
 								<th scope="row">28.07 - 11.08.2024</th>
 								<td>Królestwo w dżungli</td>
 								<td>Kambodża</td>
-								<td class="text-center"><a href="exc-cambodia.html" class="btn btn-primary btn-sm shadow">Program</a></td>
+								<td class="text-center"><a href="{{ route('excursions.cambodia') }}" class="btn btn-primary btn-sm shadow">Program</a></td>
 							</tr>
 							<tr class="align-middle">
 								<td class="text-center">
@@ -57,7 +57,7 @@
 								<th scope="row">04.08 - 17.08.2024</th>
 								<td>Na Dachu Świata</td>
 								<td>Tybet, Chiny</td>
-								<td class="text-center"><a href="exc-tibet.html" class="btn btn-primary btn-sm shadow">Program</a></td>
+								<td class="text-center"><a href="{{ route('excursions.tibet') }}" class="btn btn-primary btn-sm shadow">Program</a></td>
 							</tr>
 							<tr class="align-middle">
 								<td class="text-center">
@@ -67,7 +67,7 @@
 								<th scope="row">13.09 - 23.09.2024</th>
 								<td>W krainie kultu Słońca</td>
 								<td>Peru, Boliwia</td>
-								<td class="text-center"><a href="exc-peru.html" class="btn btn-primary btn-sm shadow">Program</a></td>
+								<td class="text-center"><a href="{{ route('excursions.peru') }}" class="btn btn-primary btn-sm shadow">Program</a></td>
 							</tr>
 							<tr class="align-middle">
 								<td class="text-center">
@@ -76,7 +76,7 @@
 								<th scope="row">03.10 - 13.10.2024</th>
 								<td>W świecie kontrastów</td>
 								<td>Indonezja</td>
-								<td class="text-center"><a href="exc-indonesia.html" class="btn btn-primary btn-sm shadow">Program</a></td>
+								<td class="text-center"><a href="{{ route('excursions.indonesia') }}" class="btn btn-primary btn-sm shadow">Program</a></td>
 							</tr>
 							<tr class="align-middle">
 								<td class="text-center">
@@ -86,7 +86,7 @@
 								<th scope="row">10.10 - 27.10.2024</th>
 								<td>Na Dachu Świata</td>
 								<td>Tybet, Chiny</td>
-								<td class="text-center"><a href="exc-tibet.html" class="btn btn-primary btn-sm shadow">Program</a></td>
+								<td class="text-center"><a href="{{ route('excursions.tibet') }}" class="btn btn-primary btn-sm shadow">Program</a></td>
 							</tr>
 							<tr class="align-middle">
 								<td class="text-center">
@@ -95,7 +95,7 @@
 								<th scope="row">14.10 - 07.11.2024</th>
 								<td>Budda, herbata i słonie</td>
 								<td>Sri Lanka</td>
-								<td class="text-center"><a href="exc-sri_lanka.html" class="btn btn-primary btn-sm shadow">Program</a></td>
+								<td class="text-center"><a href="{{ route('excursions.sri_lanka') }}" class="btn btn-primary btn-sm shadow">Program</a></td>
 							</tr>
 							<tr class="align-middle">
 								<td class="text-center">
@@ -105,7 +105,7 @@
 								<th scope="row">14.07 - 27.07.2024</th>
 								<td>W tango pod Andami</td>
 								<td>Argentyna, Chile</td>
-								<td class="text-center"><a href="exc-argetina.html" class="btn btn-primary btn-sm shadow">Program</a></td>
+								<td class="text-center"><a href="{{ route('excursions.argentina') }}" class="btn btn-primary btn-sm shadow">Program</a></td>
 							</tr>
 							<tr class="align-middle">
 								<td class="text-center">
@@ -114,7 +114,7 @@
 								<th scope="row">28.07 - 11.08.2024</th>
 								<td>Królestwo w dżungli</td>
 								<td>Kambodża</td>
-								<td class="text-center"><a href="exc-cambodia.html" class="btn btn-primary btn-sm shadow">Program</a></td>
+								<td class="text-center"><a href="{{ route('excursions.cambodia') }}" class="btn btn-primary btn-sm shadow">Program</a></td>
 							</tr>
 							<tr class="align-middle">
 								<td class="text-center">
@@ -124,7 +124,7 @@
 								<th scope="row">04.08 - 17.08.2024</th>
 								<td>Na Dachu Świata</td>
 								<td>Tybet, Chiny</td>
-								<td class="text-center"><a href="exc-tibet.html" class="btn btn-primary btn-sm shadow">Program</a></td>
+								<td class="text-center"><a href="{{ route('excursions.tibet') }}" class="btn btn-primary btn-sm shadow">Program</a></td>
 							</tr>
 							<tr class="align-middle">
 								<td class="text-center">
@@ -134,7 +134,7 @@
 								<th scope="row">13.09 - 23.09.2024</th>
 								<td>W krainie kultu Słońca</td>
 								<td>Peru, Boliwia</td>
-								<td class="text-center"><a href="exc-peru.html" class="btn btn-primary btn-sm shadow">Program</a></td>
+								<td class="text-center"><a href="{{ route('excursions.peru') }}" class="btn btn-primary btn-sm shadow">Program</a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -157,5 +157,6 @@
 @section('scripts')
     <script src="{{ asset('js/scrollreveal.min.js') }}"></script>
     @vite('resources/js/fading.js')
+	<script src="{{ asset('js/litebox.js') }}"></script>
     <script src="{{ asset('js/lightbox.bundle.min.js') }}"></script>
 @endsection
