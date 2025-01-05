@@ -1,4 +1,4 @@
-<!-- resources/views/XXXXX.blade.php -->
+<!-- resources/views/available.blade.php -->
 @extends('layouts.app')
 
 @section('title', 'XXXXX')

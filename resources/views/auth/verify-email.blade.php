@@ -1,31 +1,67 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
-    </div>
+<!-- resources/views/auth/verify-email.blade.php -->
+@extends('layouts.app')
 
-    @if (session('status') == 'verification-link-sent')
-        <div class="mb-4 font-medium text-sm text-green-600">
-            {{ __('A new verification link has been sent to the email address you provided during registration.') }}
-        </div>
-    @endif
+@section('title', 'Logowanie')
+@section('head-scripts')
+    <style>
+        .carousel-inner, .container, .row, .image, .card .footer {visibility: hidden;}
+    </style>
+@endsection
 
-    <div class="mt-4 flex items-center justify-between">
-        <form method="POST" action="{{ route('verification.send') }}">
-            @csrf
+@section('content')
+    <main class="custom-margin-top">
+        <div class="container mt-5" style="max-width: 1100px;">
+            <div class="row ">
+                <div class="col-md-12 text-center pb-5 mt-3">
+                    <h2>Weryfikacja</h2>
+                </div>
 
-            <div>
-                <x-primary-button>
-                    {{ __('Resend Verification Email') }}
-                </x-primary-button>
+                <div class="col-md-12 text-center">
+                    <div class="login-image shadow position-relative mx-md-4">
+                        <img src="{{ asset('img/main/login.jpg') }}" alt="Chinese youth with cell phones" class="img-fluid">
+                        <div class="login-form-box">
+						
+                            <!-- Session Status -->
+							@if (session('status') == 'verification-link-sent')
+								<div class="boldANDyellow mb-4  mt-1">
+									{{ __('Nowy link weryfikacyjny został wysłany na adres email podany podczas rejestracji.') }}
+								</div>
+							@endif
+
+                            <form method="POST" action="{{ route('verification.send') }}">
+                                @csrf
+
+                                <!-- Thanks for signing up -->
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="boldANDwhite d-flex align-items-center">
+                                        <label for="remember_me" class="ms-2">{{ __('Dziękujemy za rejestrację! Zanim zaczniemy, prosimy o potwierdzenie adresu email, klikając w link, który właśnie do Ciebie wysłaliśmy. Jeśli wiadomość nie dotarła, wyślemy ją ponownie.') }}</label>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-warning mt-2">
+                                    {{ __('Wyślij ponownie') }}
+                                </button>
+                            </form>
+
+							
+							<form method="POST" action="{{ route('logout') }}">
+								@csrf
+
+								<button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+									{{ __('Wyloguj się') }}
+								</button>
+							</form>
+							
+                        </div>
+                    </div>
+                </div>
             </div>
-        </form>
+        </div>
+    </main>
+@endsection
 
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-
-            <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                {{ __('Log Out') }}
-            </button>
-        </form>
-    </div>
-</x-guest-layout>
+@section('scripts')
+    <script src="{{ asset('js/scrollreveal.min.js') }}"></script>
+    @vite('resources/js/fading.js')
+    @vite('resources/js/eye.js')
+@endsection

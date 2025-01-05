@@ -1,7 +1,7 @@
-<!-- resources/views/XXXXX.blade.php -->
+<!-- resources/views/unavailable.blade.php -->
 @extends('layouts.app')
 
-@section('title', 'XXXXX')
+@section('title', 'Brak miejsc')
 @section('head-scripts')
     @vite('resources/js/hidden.js')
 @endsection

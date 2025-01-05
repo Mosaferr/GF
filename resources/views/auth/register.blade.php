@@ -102,7 +102,7 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <x-input-label for="phone" :value="__('Telefon')" class="form-label" />
-                            <x-text-input id="phone" class="form-control" type="text" name="phone" :value="old('phone')" required />
+                            <x-text-input id="phone" class="form-control" type="text" name="phone" :value="old('phone')" />
                             <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                         </div>
 

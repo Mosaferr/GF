@@ -221,7 +221,7 @@ font-size: clamp(16px, 2.5vw, 24px);
     position: absolute;
     top: 1%;
     left: 1%;
-    background: rgba(10, 10, 10, 0.6);
+    background: rgba(10, 10, 10, 0.7);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
@@ -269,6 +269,22 @@ font-size: clamp(16px, 2.5vw, 24px);
     /* text-decoration: none; */
     /* text-align: right; */
 }
+
+.boldANDwhite {
+    display: block;
+    margin: -15px 0 5px 0;
+    color: #fff;
+    /* font-weight: 400; */
+    font-size: 1.05rem;
+}
+.boldANDyellow {
+    display: block;
+    margin: -15px 0 5px 0;
+    color:yellow;
+    /* font-weight: 400; */
+    font-size: 1.05rem;
+}
+
 .forgot-password {
     display: block;
     margin: -15px 0 5px 0;
@@ -291,7 +307,6 @@ font-size: clamp(16px, 2.5vw, 24px);
     border-radius: 5px;
     background-color: #f9f9f9;
 }
-
 
 /*--------------------------------------------- FOOTER ---*/
 footer {

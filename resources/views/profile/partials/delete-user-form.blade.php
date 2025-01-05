@@ -5,7 +5,7 @@
         </h2>
 
         <p class="mt-1 text-sm text-gray-600">
-            {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.') }}
+            {{ __('Po usunięciu konta, wszystkie jego zasoby i dane zostaną trwale usunięte. Przed usunięciem konta prosimy o pobranie wszelkich danych lub informacji, które chcesz zachować.') }}
         </p>
     </header>
 
@@ -20,11 +20,11 @@
             @method('delete')
 
             <h2 class="text-lg font-medium text-gray-900">
-                {{ __('Czy na pewno usunąć Twoje konto?') }}
+                {{ __('Czy na pewno chcesz usunąć swoje konto?') }}
             </h2>
 
             <p class="mt-1 text-sm text-gray-600">
-                {{ __('Once.') }}
+                {{ __('Po usunięciu konta, wszystkie jego zasoby i dane zostaną trwale usunięte. Wprowadź swoje hasło, aby potwierdzić, że chcesz trwale usunąć swoje konto.') }}
             </p>
 
             <div class="mt-6">
