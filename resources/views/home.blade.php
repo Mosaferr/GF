@@ -17,27 +17,27 @@
             <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active" data-bs-interval="3000">
-                        <a href="exc-argetina.html">
+                        <a href="{{ route('excursions.argentina') }}">
                             <img src="{{ asset('img/carousel/car_arg.jpg') }}" class="d-block w-100" alt="Iguazu">
                         </a>
                     </div>
                     <div class="carousel-item" data-bs-interval="3000">
-                        <a href="exc-tibet.html">
+                        <a href="{{ route('excursions.tibet') }}">
                             <img src="{{ asset('img/carousel/car_tibet.jpg') }}" class="d-block w-100" alt="Mount Everest">
                         </a>
                     </div>
                     <div class="carousel-item" data-bs-interval="3000">
-                        <a href="exc-sri_lanka.html">
+                        <a href="{{ route('excursions.sri_lanka') }}">
                             <img src="{{ asset('img/carousel/car_sri.jpg') }}" class="d-block w-100" alt="Słoń">
                         </a>
                     </div>
                     <div class="carousel-item" data-bs-interval="3000">
-                        <a href="exc-peru.html">
+                        <a href="{{ route('excursions.peru') }}">
                             <img src="{{ asset('img/carousel/car_bol.jpg') }}" class="d-block w-100" alt="La Paz">
                         </a>
                     </div>
                     <div class="carousel-item" data-bs-interval="3000">
-                        <a href="exc-indonesia.html">
+                        <a href="{{ route('excursions.indonesia') }}">
                             <img src="{{ asset('img/carousel/car_indo.jpg') }}" class="d-block w-100" alt="Bromo">
                         </a>
                     </div>

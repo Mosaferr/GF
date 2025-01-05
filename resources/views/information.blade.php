@@ -184,7 +184,7 @@
 						</a>
 					</div>
 					<div class="d-flex justify-content-center">
-						<a href="f-reservation.html" class="btn btn-warning w-100 mt-4 shadow">Wyślij zgłoszenie</a>
+						<a href="{{ route('register') }}" class="btn btn-warning w-100 mt-4 shadow">Wyślij zgłoszenie</a>
 					</div>
 				</div>
 			</div>

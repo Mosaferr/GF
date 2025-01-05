@@ -9,7 +9,7 @@ document.getElementById('togglePassword').addEventListener('click', function () 
 });
 
 document.getElementById('toggleConfirmPassword').addEventListener('click', function () {
-    const confirmPasswordField = document.getElementById('confirm_password');
+    const confirmPasswordField = document.getElementById('password_confirmation');
     const type = confirmPasswordField.getAttribute('type') === 'password' ? 'text' : 'password';
     confirmPasswordField.setAttribute('type', type);
 

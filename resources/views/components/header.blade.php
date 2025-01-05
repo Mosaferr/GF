@@ -1,5 +1,4 @@
 <!-- resources/views/components/header.blade.php -->
-
 <header>
     <nav class="navbar fixed-top navbar-light bg-body-secondary shadow navbar-expand-lg">
         <a class="navbar-brand" href="{{ route('home') }}">
@@ -63,9 +62,11 @@
                 </li>
             </ul>
 
-            <a class="nav-link me-5 {{ request()->is('login') ? 'active' : '' }}" href="{{ route('login') }}">
+            @include('components.auth_dropdown')        <!-- Włączenie komponentu logowania (?) i dropdown dla użytkownika -->
+
+            {{-- <a class="nav-link me-5 " href="{{ route('login') }}">
                 <i class="bi bi-box-arrow-in-right fs-3"></i>
-            </a>
+            </a> --}}
         </div>
     </nav>
 </header>

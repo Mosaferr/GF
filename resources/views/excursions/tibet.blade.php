@@ -33,7 +33,7 @@
 							</div>
 
 							<div class="d-flex justify-content-center">
-								<a href="f-reservation.html" class="btn btn-warning w-100 shadow">Wyślij zgłoszenie</a>
+								<a href="{{ route('register') }}" class="btn btn-warning w-100 shadow">Wyślij zgłoszenie</a>
 							</div>
 						</div>
 
@@ -70,19 +70,19 @@
 										<td scope="row">14.07-27.07.2024</td>
 										<td>8200 PLN + 1600 USD</td>
 										<td>Brak miejsc</td>
-										<td><a href="f-reservation.html" class="btn btn-success btn-sm shadow disabled"><small>Rezerwuj</small></a></td>
+										<td><a href="{{ route('register') }}" class="btn btn-success btn-sm shadow disabled"><small>Rezerwuj</small></a></td>
 									</tr>
 									<tr class="align-middle">
 										<td scope="row">28.07-11.08.2024</td>
 										<td>8200 PLN + 1600 USD</td>
 										<td>Brak miejsc</td>
-										<td><a href="f-reservation.html" class="btn btn-success btn-sm shadow"><small>Rezerwuj</small></a></td>
+										<td><a href="{{ route('register') }}" class="btn btn-success btn-sm shadow"><small>Rezerwuj</small></a></td>
 									</tr>
 									<tr class="align-middle">
 										<td scope="row">04.08-17.08.2024</td>
 										<td>8200 PLN + 1600 USD</td>
 										<td>3 wolne miejsca</td>
-										<td><a href="f-reservation.html" class="btn btn-success btn-sm shadow"><small>Rezerwuj</small></a></td>
+										<td><a href="{{ route('register') }}" class="btn btn-success btn-sm shadow"><small>Rezerwuj</small></a></td>
 									</tr>
 									<tr class="align-middle">
 										<td scope="row">Twój termin</td>
@@ -136,7 +136,7 @@
 								<div class="image shadow  mt-5"><img src="{{ asset('img/trip/sm-china13.jpg') }}" alt="sm-china13" class="img-thumbnail img-fluid"></div>
 							</a>
 							<div class="d-flex justify-content-center">
-								<a href="f-reservation.html" class="btn btn-warning w-100 mt-5 shadow">Wyślij zgłoszenie</a>
+								<a href="{{ route('register') }}" class="btn btn-warning w-100 mt-5 shadow">Wyślij zgłoszenie</a>
 							</div>
 						</div>
 					</div>

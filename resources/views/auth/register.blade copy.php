@@ -78,75 +78,52 @@
                 </div>
             </div>
 
-            <h3 class="mt-5">Twoje dane kontaktowe</h3>
+            <h3 class="mt-5"> Twoje dane kontaktowe </h3>
             <div id="participantSection">
                 <div class="participant" id="participantTemplate">
-                    
-                    <!-- Imię -->
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <x-input-label for="name" :value="__('Imię')" class="form-label" />
-                            <x-text-input id="name" class="form-control" type="text" name="name" :value="old('name')" required autofocus />
-                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                            <label for="name" class="form-label">Imię<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="name" name="name[]" required>
                         </div>
-
-                        <!-- Nazwisko -->
                         <div class="col-md-6">
-                            <x-input-label for="last_name" :value="__('Nazwisko')" class="form-label" />
-                            <x-text-input id="last_name" class="form-control" type="text" name="last_name" :value="old('last_name')" required />
-                            <x-input-error :messages="$errors->get('last_name')" class="mt-2" />
+                            <label for="last_name" class="form-label">Nazwisko<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="last_name" name="last_name[]" required>
                         </div>
                     </div>
-
-                    <!-- Telefon -->
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <x-input-label for="phone" :value="__('Telefon')" class="form-label" />
-                            <x-text-input id="phone" class="form-control" type="text" name="phone" :value="old('phone')" required />
-                            <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+                            <label for="phone" class="form-label">Telefon</label>
+                            <input type="text" class="form-control" id="phone" name="phone[]">
                         </div>
-
-                        <!-- Adres email -->
                         <div class="col-md-6">
-                            <x-input-label for="email" :value="__('Adres email')" class="form-label" />
-                            <x-text-input id="email" class="form-control" type="email" name="email" :value="old('email')" required />
-                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                            <label for="email" class="form-label">Adres email<span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" id="email" name="email[]" required>
                         </div>
                     </div>
-
                     <h5 class="login-data mt-4">Dane do logowania</h5>
-                    <div class="login-info">
-                        <p>Jeśli jesteś już zarejestrowany <a href="{{ route('login') }}">przejdź do strony logowania</a></p>
-                    </div>
                     <div class="row mb-3 login-fields">
-                        <!-- Hasło -->
                         <div class="col-md-6">
-                            <x-input-label for="password" :value="__('Hasło')" class="form-label" />
+                            <label for="password" class="form-label">Hasło<span class="text-danger">*</span></label>
                             <div class="form-group position-relative">
-                                <x-text-input id="password" class="form-control" type="password" name="password" required />
+                                <input type="password" class="form-control" id="password" name="password" required>
                                 <i class="bi bi-eye toggle-password" id="togglePassword"></i>
-                                <x-input-error :messages="$errors->get('password')" class="mt-2" />
                             </div>
+                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
                         </div>
-
-                        <!-- Powtórz hasło -->
                         <div class="col-md-6">
-                            <x-input-label for="password_confirmation" :value="__('Powtórz hasło')" class="form-label" />
+                            <label for="confirm_password" class="form-label">Powtórz hasło<span class="text-danger">*</span></label>
                             <div class="form-group position-relative">
-                                <x-text-input id="password_confirmation" class="form-control" type="password" name="password_confirmation" required />
+                                <input type="password" class="form-control" id="confirm_password" name="password_confirmation" required>
                                 <i class="bi bi-eye toggle-password" id="toggleConfirmPassword"></i>
-                                <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                             </div>
+                            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                         </div>
                     </div>
-
-                    <div>
-                        <small class="login-info">Dzięki podaniu hasła, w każdej chwili będziesz mógł zalogować się do serwisu i sprawdzić status swojego zamówienia.</small>
-                    </div>
+                    <small class="login-info">Dzięki podaniu hasła, w każdej chwili będziesz mógł zalogować się do serwisu i sprawdzić status swojego zamówienia.</small>
                 </div>
             </div>
 
-            <!-- Przyciski dodawania/usuwania uczestnika -->
             <div class="row mt-4">
                 <div class="col-md-6">
                     <button type="button" class="btn btn-secondary w-100 shadow" id="addParticipantBtn">Dodaj kolejnego uczestnika</button>
@@ -158,11 +135,12 @@
 
             <div class="row mt-3 mb-3">
                 <div class="col-md-12">
-                    <small class="text-danger">Jeśli każdy uczestnik chce mieć możliwość logowania do serwisu, musi dokonać osobnej rezerwacji.</small>
+                    <small class="text-danger"></span>
+                        Jeśli każdy uczestnik chce mieć możliwość logowania do serwisu, musi dokonać osobnej rezerwacji.
+                    </small>
                 </div>
             </div>
 
-            <!-- Klauzule obowiązkowe -->
             <div class="row mt-4 mb-3">
                 <div class="col-md-12">
                     <strong>Klauzule obowiązkowe</strong><span class="text-danger">*</span>
@@ -175,25 +153,23 @@
                 </div>
             </div>
 
-            <!-- Klauzule nieobowiązkowe -->
             <div class="row mb-3">
                 <div class="col-md-12">
                     <strong>Klauzule nieobowiązkowe</strong>
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="optional_clause" name="optional_clause">
-                        <label class="form-check-label" for="optional_clause"><small>Wyrażam zgodę na przetwarzanie powyższych danych osobowych w celach marketingowych przez firmę GlobFrotter.pl.</small></label>
+                        <label class="form-check-label" for="optional_clause"><small>
+                            Wyrażam zgodę na przetwarzanie powyższych danych osobowych w celach marketingowych przez firmę GlobFrotter.pl.</small>
+                        </label>
                     </div>
                 </div>
             </div>
 
-            <!-- Submit -->
             <div class="row">
                 <div class="col-md-12 text-center">
                     <button type="submit" class="btn btn-warning shadow w-100">Wyślij</button>
                 </div>
             </div>
-
-
 
         </form>
     </div>
