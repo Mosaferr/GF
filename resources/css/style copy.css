@@ -303,9 +303,6 @@ font-size: clamp(16px, 2.5vw, 24px);
     /* text-align: left; */
     color: white;
 }
-.green-text {
-    color: green;
-}
     .button-text {
         background: none;
         border: none;
@@ -344,25 +341,16 @@ font-size: clamp(16px, 2.5vw, 24px);
 }
 
 /*--------------------------------------------- EYE W REGISTER.BLADE ---*/
-.password-field {
-    position: relative;
-}
-
-.specific-password-input {
+.password-input {
     padding-right: 2.5rem; /* Dodaj padding z prawej strony, aby zrobić miejsce na ikonę */
 }
 
-.specific-password-icon {
+.toggle-password {
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
 }
-
-/* Dostosuj według potrzeby */
-/* .specific-error-message {
-    margin-top: 0.5rem; 
-} */
 
 /*--------------------------------------------- FOOTER ---*/
 footer {

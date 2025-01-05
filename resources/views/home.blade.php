@@ -13,7 +13,15 @@
 
 @section('content')
     <main class="index-margin-top">
-        <section id=carousel>
+
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    <section id=carousel>
             <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active" data-bs-interval="3000">
@@ -314,8 +322,37 @@
                         <h2 class="text-center pb-2">Napisz do nas</h2>
                     </div>
                 </div>
-
+                
                 <div class="row m-0">
+
+                    <form action="{{ route('contact.send') }}" method="POST" class="bg-light p-4 m-auto">
+                        @csrf
+                        <div class="col-md-12 p-0 pt-4 pb-4 m-auto">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <input type="text" class="form-control" name="name" required placeholder="Imię">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <input type="email" class="form-control" name="email" required placeholder="Adres email">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <textarea rows="3" class="form-control" name="message" required placeholder="Treść wiadomości"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-warning w-100 mt-2 shadow">Wyślij</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                {{-- <div class="row m-0">
                     <form action="#" class="bg-light p-4 m-auto">
                         <div class="col-md-12 p-0 pt-4 pb-4 m-auto">
                             <div class="row">
@@ -337,7 +374,7 @@
                             </div>
                         </div>
                     </form>
-                </div>
+                </div> --}}
 
             </div>
         </section>

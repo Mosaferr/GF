@@ -10,8 +10,7 @@ use App\Http\Controllers\TermsController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\InformationController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\LoginController;
-
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ProfileController;
 
 // Główna strona
@@ -49,10 +48,9 @@ Route::get('/information', [InformationController::class, 'index'])->name('infor
 
 // Kontakt
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact', [EmailController::class, 'sendEmail'])->name('contact.send');
 
 // Logowanie
-// Route::get('/login', [LoginController::class, 'index'])->name('login');
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

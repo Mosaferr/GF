@@ -1,4 +1,5 @@
 <!-- resources/views/contact.blade.php -->
+
 @extends('layouts.app')
 
 @section('title', 'Kontakt')
@@ -22,17 +23,29 @@
 					<div class="contact-image shadow position-relative mx-md-4">
 						<img src="{{ asset('img/main/contact.jpg') }}" alt="Chinese man" class="img-fluid">
 						<div class="contact-form-box">
-							<form>
+							
+                            @if(session('success'))
+							{{-- <div class="alert alert-success alert-dismissible fade show" role="alert">
+								{{ session('success') }}
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+							</div> --}}
+								<div class="alert alert-success">
+									{{ session('success') }}
+								</div>
+                            @endif
+
+							<form action="{{ route('contact.send') }}" method="POST">
+								@csrf
 								<div class="form-group">
-									<input type="text" class="form-control" id="name" placeholder=" ">
+									<input type="text" class="form-control" name="name" id="name" placeholder=" " required>
 									<label for="name" class="floating-label">Imię:</label>
 								</div>
 								<div class="form-group">
-									<input type="email" class="form-control" id="email" placeholder=" ">
+									<input type="email" class="form-control" name="email" id="email" placeholder=" " required>
 									<label for="email" class="floating-label">Email:</label>
 								</div>
 								<div class="form-group">
-									<textarea class="form-control" id="message" rows="5" placeholder=" "></textarea>
+									<textarea class="form-control" name="message" id="message" rows="5" placeholder=" " required></textarea>
 									<label for="message" class="floating-label">Wiadomość:</label>
 								</div>
 								<button type="submit" class="btn btn-warning">Wyślij</button>

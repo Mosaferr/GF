@@ -115,10 +115,7 @@
                     </div>
 
                     <h5 class="login-data mt-4">Dane do logowania</h5>
-                    <div>
-                        <small class="login-info green-text">Dzięki podaniu hasła, w każdej chwili będziesz mógł zalogować się do serwisu i sprawdzić status swojego zamówienia.</small>
-                    </div>
-                    <div class="login-info mt-2">
+                    <div class="login-info">
                         <p>Jeśli jesteś już zarejestrowany <a href="{{ route('login') }}">przejdź do strony logowania</a></p>
                     </div>
                     
@@ -126,24 +123,26 @@
                         <!-- Hasło -->
                         <div class="col-md-6">
                             <x-input-label for="password" :value="__('Hasło')" class="form-label" />
-                            <div class="position-relative password-field">
-                                <x-text-input id="password" class="form-control specific-password-input" type="password" name="password" required />
-                                <i class="bi bi-eye position-absolute toggle-password specific-password-icon" id="togglePassword"></i>
+                            <div class="position-relative">
+                                <x-text-input id="password" class="form-control password-input" type="password" name="password" required />
+                                <i class="bi bi-eye position-absolute toggle-password" id="togglePassword"></i>
                             </div>
+                            <x-input-error :messages="$errors->get('password')" class="mt-2 red-text" />
                         </div>
                         <!-- Powtórz hasło -->
                         <div class="col-md-6">
                             <x-input-label for="password_confirmation" :value="__('Powtórz hasło')" class="form-label" />
-                            <div class="position-relative password-field">
-                                <x-text-input id="password_confirmation" class="form-control specific-password-input" type="password" name="password_confirmation" required />
-                                <i class="bi bi-eye position-absolute toggle-password specific-password-icon" id="toggleConfirmPassword"></i>
+                            <div class="position-relative">
+                                <x-text-input id="password_confirmation" class="form-control password-input" type="password" name="password_confirmation" required />
+                                <i class="bi bi-eye position-absolute toggle-password" id="toggleConfirmPassword"></i>
                             </div>
+                            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2 red-text" />
                         </div>
                     </div>
-                <!-- Komunikaty o błędach -->
-                <x-input-error :messages="$errors->get('password')" class="mt-2 red-text full-width-error" />
-                <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2 red-text full-width-error" />
                     
+                    <div>
+                        <small class="login-info">Dzięki podaniu hasła, w każdej chwili będziesz mógł zalogować się do serwisu i sprawdzić status swojego zamówienia.</small>
+                    </div>
                 </div>
             </div>
 
