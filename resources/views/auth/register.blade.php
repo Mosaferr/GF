@@ -86,15 +86,19 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <x-input-label for="name" :value="__('Imię')" class="form-label" />
-                            <x-text-input id="name" class="form-control" type="text" name="name" :value="old('name')" required autofocus />
-                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                            {{-- <x-text-input id="name" class="form-control" type="text" name="name" :value="old('name')" autofocus autocomplete="name" /> --}}
+                            <x-text-input id="name" class="form-control" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+                            {{-- <x-text-input id="name" class="form-control" type="text" name="name" :value="old('name')" required autofocus /> --}}
+                            <x-input-error :messages="$errors->get('name')" class="mt-2 red-text" />
                         </div>
 
                         <!-- Nazwisko -->
                         <div class="col-md-6">
                             <x-input-label for="last_name" :value="__('Nazwisko')" class="form-label" />
-                            <x-text-input id="last_name" class="form-control" type="text" name="last_name" :value="old('last_name')" required />
-                            <x-input-error :messages="$errors->get('last_name')" class="mt-2" />
+                            {{-- <x-text-input id="last_name" class="form-control" type="text" name="last_name" :value="old('last_name')" autocomplete="last_name" /> --}}
+                            <x-text-input id="last_name" class="form-control" type="text" name="last_name" :value="old('last_name')" required autocomplete="last_name" />
+                            {{-- <x-text-input id="last_name" class="form-control" type="text" name="last_name" :value="old('last_name')" required /> --}}
+                            <x-input-error :messages="$errors->get('last_name')" class="mt-2 red-text" />
                         </div>
                     </div>
 
@@ -102,15 +106,17 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <x-input-label for="phone" :value="__('Telefon')" class="form-label" />
-                            <x-text-input id="phone" class="form-control" type="text" name="phone" :value="old('phone')" />
-                            <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+                            <x-text-input id="phone" class="form-control" type="text" name="phone" :value="old('phone')" autocomplete="phone"  />
+                            {{-- <x-text-input id="phone" class="form-control" type="text" name="phone" :value="old('phone')" /> --}}
+                            <x-input-error :messages="$errors->get('phone')" class="mt-2 red-text" />
                         </div>
 
                         <!-- Adres email -->
                         <div class="col-md-6">
                             <x-input-label for="email" :value="__('Adres email')" class="form-label" />
-                            <x-text-input id="email" class="form-control" type="email" name="email" :value="old('email')" required />
-                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                            <x-text-input id="email" class="form-control" type="email" name="email" :value="old('email')" required autocomplete="email" />
+                            {{-- <x-text-input id="email" class="form-control" type="email" name="email" :value="old('email')" required /> --}}
+                            <x-input-error :messages="$errors->get('email')" class="mt-2 red-text" />
                         </div>
                     </div>
 
@@ -124,8 +130,9 @@
                             <x-input-label for="password" :value="__('Hasło')" class="form-label" />
                             <div class="form-group position-relative">
                                 <x-text-input id="password" class="form-control" type="password" name="password" required />
+                                {{-- <x-text-input id="password" class="form-control" type="password" name="password" required /> --}}
                                 <i class="bi bi-eye toggle-password" id="togglePassword"></i>
-                                <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                <x-input-error :messages="$errors->get('password')" class="mt-2 red-text" />
                             </div>
                         </div>
 
@@ -134,8 +141,9 @@
                             <x-input-label for="password_confirmation" :value="__('Powtórz hasło')" class="form-label" />
                             <div class="form-group position-relative">
                                 <x-text-input id="password_confirmation" class="form-control" type="password" name="password_confirmation" required />
+                                {{-- <x-text-input id="password_confirmation" class="form-control" type="password" name="password_confirmation" required /> --}}
                                 <i class="bi bi-eye toggle-password" id="toggleConfirmPassword"></i>
-                                <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                                <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2 red-text" />
                             </div>
                         </div>
                     </div>
@@ -146,7 +154,7 @@
                 </div>
             </div>
 
-            <!-- Przyciski dodawania/usuwania uczestnika -->
+            {{-- <!-- Przyciski dodawania/usuwania uczestnika -->
             <div class="row mt-4">
                 <div class="col-md-6">
                     <button type="button" class="btn btn-secondary w-100 shadow" id="addParticipantBtn">Dodaj kolejnego uczestnika</button>
@@ -160,7 +168,7 @@
                 <div class="col-md-12">
                     <small class="text-danger">Jeśli każdy uczestnik chce mieć możliwość logowania do serwisu, musi dokonać osobnej rezerwacji.</small>
                 </div>
-            </div>
+            </div> --}}
 
             <!-- Klauzule obowiązkowe -->
             <div class="row mt-4 mb-3">
@@ -193,15 +201,13 @@
                 </div>
             </div>
 
-
-
         </form>
     </div>
 </main>
 @endsection
 
 @section('scripts')
-    @vite('resources/js/participants.js')
+    {{-- @vite('resources/js/participants.js') --}}
     <script src="{{ asset('js/scrollreveal.min.js') }}"></script>
     @vite('resources/js/fading.js')
     @vite('resources/js/eye.js')

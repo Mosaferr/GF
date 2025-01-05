@@ -1,4 +1,4 @@
-<!-- resources/views/auth/login.blade.php -->
+<!-- resources/views/auth/reset-password.blade.php -->
 @extends('layouts.app')
 
 @section('title', 'Logowanie')
@@ -30,9 +30,11 @@
 
                                 <!-- Email Address -->
                                 <div class="form-group mt-2">
-                                    <input type="email" class="form-control" id="email" name="email" placeholder=" " :value="old('email', $request->email)" required autofocus>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder=" " value="{{ request()->email }}" required autofocus autocomplete="email">
+                                    {{-- <input type="email" class="form-control" id="email" name="email" placeholder=" " :value="old('email', $request->email)" required autofocus autocomplete="email"> --}}
+                                    {{-- <input type="email" class="form-control" id="email" name="email" placeholder=" " :value="old('email', $request->email)" required autofocus> --}}
                                     <label for="email" class="floating-label">Email:</label>
-                                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                    <x-input-error :messages="$errors->get('email')" class="mt-2 yellow-text" />
                                 </div>
 
                                 <!-- Password -->
@@ -40,7 +42,7 @@
                                     <input type="password" class="form-control" id="password" name="password" placeholder=" " required>
                                     <label for="password" class="floating-label">Hasło:</label>
                                     <i class="bi bi-eye toggle-password" id="togglePassword"></i>
-                                    <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                    <x-input-error :messages="$errors->get('password')" class="mt-2 yellow-text" />
                                 </div>
                                 
                                 <!-- Confirm Password -->
@@ -48,7 +50,7 @@
                                     <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder=" " required>
                                     <label for="password_confirmation" class="floating-label">Powtórz hasło:</label>
                                     <i class="bi bi-eye toggle-password" id="toggleConfirmPassword"></i>
-                                    <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                                    <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2 yellow-text" />
                                 </div>
                                 
                                 <button type="submit" class="btn btn-warning mt-2">

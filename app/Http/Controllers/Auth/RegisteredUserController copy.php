@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
-use Illuminate\Support\Facades\Log;
-
 class RegisteredUserController extends Controller
 {
     /**

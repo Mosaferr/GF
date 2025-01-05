@@ -24,15 +24,15 @@
                             <!-- Session Status -->
                             <x-auth-session-status class="mb-4" :status="session('status')" />
 
-                            <!-- Changed text -->
-                            @if (session('status'))
-                                <p class="white-text">Jeśli link nie dotarł, ponownie wyślij swój adres email.</p>
-                            @else
-                                <p class="white-text">Nie pamiętasz swojego hasła? Żaden problem. Podaj nam swój adres email a my wyślemy Ci link do zresetowania hasła i do ustanowienia nowego.</p>
-                            @endif
-
                             <form method="POST" action="{{ route('password.email') }}">
                                 @csrf
+
+                                <!-- Forgot password -->
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="boldANDwhite d-flex align-items-center">
+                                        <label for="remember_me" class="ms-2">{{ __('Nie pamiętasz swojego hasła? Żaden problem. Podaj nam swój adres email a my wyślemy Ci link do zresetowania hasła i do ustanowienia nowego.') }}</label>
+                                    </div>
+                                </div>
 
                                 <!-- Email Address -->
                                 <div class="form-group mt-2">

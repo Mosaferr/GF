@@ -73,6 +73,18 @@ $maxWidth = [
         x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
         x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
     >
-        {{ $slot }}
+
+        {{-- <!-- Kod sprawdzający błędy --> --}}
+        {{-- @if ($errors->any())
+            <div class="alert alert-danger yellow-text">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif --}}
+
+    {{ $slot }}
     </div>
 </div>

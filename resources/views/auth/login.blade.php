@@ -26,11 +26,12 @@
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
 
+
                                 <!-- Email Address -->
                                 <div class="form-group mt-2">
-                                    <input type="email" class="form-control" id="email" name="email" placeholder=" " :value="old('email')" required autofocus>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder=" " :value="old('email')" required autofocus autocomplete="email">
                                     <label for="email" class="floating-label">Email:</label>
-                                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                    <x-input-error :messages="$errors->get('email')" class="mt-2 yellow-text" />
                                 </div>
 
                                 <!-- Password -->
@@ -38,9 +39,9 @@
                                     <input type="password" class="form-control" id="password" name="password" placeholder=" " required>
                                     <label for="password" class="floating-label">Hasło:</label>
                                     <i class="bi bi-eye toggle-password" id="togglePassword"></i>
-                                    <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                    <x-input-error :messages="$errors->get('password')" class="mt-2 yellow-text" />
                                 </div>
-                                
+
                                 <div class="d-flex justify-content-between align-items-center">
                                     <!-- Remember Me -->
                                     <div class="remember-me d-flex align-items-center">
@@ -55,7 +56,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                                                                                
+
                                 <button type="submit" class="btn btn-warning mt-2">
                                     Zaloguj się
                                 </button>
