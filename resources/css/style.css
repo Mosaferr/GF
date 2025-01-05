@@ -219,8 +219,8 @@ font-size: clamp(16px, 2.5vw, 24px);
 }
 .login-form-box {
     position: absolute;
-    top: 3%;
-    left: 1.5%;
+    top: 1%;
+    left: 1%;
     background: rgba(10, 10, 10, 0.6);
     padding: 20px;
     border-radius: 10px;
@@ -262,9 +262,16 @@ font-size: clamp(16px, 2.5vw, 24px);
     transform: translateY(-50%);
     cursor: pointer;
 }
+.remember-me {
+    display: block;
+    margin: -15px 0 5px 0;
+    color: #fff;
+    /* text-decoration: none; */
+    /* text-align: right; */
+}
 .forgot-password {
     display: block;
-    margin: -20px 0 5px 0;
+    margin: -15px 0 5px 0;
     color: #fff;
     text-decoration: none;
     text-align: right;
