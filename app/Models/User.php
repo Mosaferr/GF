@@ -21,6 +21,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'last_name',
         'phone',
         'email',
+        'participant_count', // Dodano nowe pole
         'password',
     ];
 
@@ -45,5 +46,21 @@ class User extends Authenticatable implements MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Relacja z tabelą Clients.
+     */
+    public function clients()
+    {
+        return $this->hasMany(Client::class);
+    }
+
+    /**
+     * Relacja z tabelą User_Dates.
+     */
+    public function dates()
+    {
+        return $this->belongsToMany(Date::class, 'users_dates');
     }
 }
