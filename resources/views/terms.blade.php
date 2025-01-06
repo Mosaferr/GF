@@ -1,4 +1,16 @@
 <!-- resources/views/terms.blade.php -->
+
+@php
+    $countryMap = [
+        'Argentyna, Chile' => 'argentina',
+        'Indonezja' => 'indonesia',
+        'Kambodża' => 'cambodia',
+        'Peru, Boliwia' => 'peru',
+        'Sri Lanka' => 'sri_lanka',
+        'Tybet, Chiny' => 'tibet',
+    ];
+@endphp
+
 @extends('layouts.app')
 
 @section('title', 'Terminy')
@@ -31,113 +43,23 @@
 								<th scope="col"></th>
 							</tr>
 						</thead>
+
 						<tbody>
-							<tr class="align-middle">
-								<td class="text-center">
-									<img src="{{ asset('img/flags/f_arg.png') }}" width="auto" height="25" class="me-1 my-1 shadow" alt="Flag of Argentina">
-									<img src="{{ asset('img/flags/f_chile.png') }}" width="auto" height="25" class="me-1 my-1 shadow" alt="Flag of Chile">
-								</td>
-								<th scope="row">14.07 - 27.07.2024</th>
-								<td>W tango pod Andami</td>
-								<td>Argentyna, Chile</td>
-								<td class="text-center"><a href="{{ route('excursions.argentina') }}" class="btn btn-primary btn-sm shadow">Program</a></td>
-							</tr>
-							<tr class="align-middle">
-								<td class="text-center">
-									<img src="{{ asset('img/flags/f_cam.png') }}" width="auto" height="25" class="me-1 my-1 shadow" alt="Flag of Cambodia">
-								</td>
-								<th scope="row">28.07 - 11.08.2024</th>
-								<td>Królestwo w dżungli</td>
-								<td>Kambodża</td>
-								<td class="text-center"><a href="{{ route('excursions.cambodia') }}" class="btn btn-primary btn-sm shadow">Program</a></td>
-							</tr>
-							<tr class="align-middle">
-								<td class="text-center">
-									<img src="{{ asset('img/flags/f_tib.png') }}" width="auto" height="25" class="me-1 my-1 shadow" alt="">
-									<img src="{{ asset('img/flags/f_chin.png') }}" width="auto" height="25" class="me-1 my-1 shadow" alt="">
-								</td>
-								<th scope="row">04.08 - 17.08.2024</th>
-								<td>Na Dachu Świata</td>
-								<td>Tybet, Chiny</td>
-								<td class="text-center"><a href="{{ route('excursions.tibet') }}" class="btn btn-primary btn-sm shadow">Program</a></td>
-							</tr>
-							<tr class="align-middle">
-								<td class="text-center">
-									<img src="{{ asset('img/flags/f_peru.png') }}" width="auto" height="25" class="me-1 my-1 shadow" alt="Flag of Peru">
-									<img src="{{ asset('img/flags/f_bol.png') }}" width="auto" height="25" class="me-1 my-1 shadow" alt="Flag of Bolivia">
-								</td>
-								<th scope="row">13.09 - 23.09.2024</th>
-								<td>W krainie kultu Słońca</td>
-								<td>Peru, Boliwia</td>
-								<td class="text-center"><a href="{{ route('excursions.peru') }}" class="btn btn-primary btn-sm shadow">Program</a></td>
-							</tr>
-							<tr class="align-middle">
-								<td class="text-center">
-									<img src="{{ asset('img/flags/f_indo.png') }}" width="auto" height="25" class="mx-1 shadow" alt="Flag of Indonesia">
-								</td>
-								<th scope="row">03.10 - 13.10.2024</th>
-								<td>W świecie kontrastów</td>
-								<td>Indonezja</td>
-								<td class="text-center"><a href="{{ route('excursions.indonesia') }}" class="btn btn-primary btn-sm shadow">Program</a></td>
-							</tr>
-							<tr class="align-middle">
-								<td class="text-center">
-									<img src="{{ asset('img/flags/f_tib.png') }}" width="auto" height="25" class="me-1 my-1 shadow" alt="Flag of Tibet">
-									<img src="{{ asset('img/flags/f_chin.png') }}" width="auto" height="25" class="me-1 my-1 shadow" alt="Flag of China">
-								</td>
-								<th scope="row">10.10 - 27.10.2024</th>
-								<td>Na Dachu Świata</td>
-								<td>Tybet, Chiny</td>
-								<td class="text-center"><a href="{{ route('excursions.tibet') }}" class="btn btn-primary btn-sm shadow">Program</a></td>
-							</tr>
-							<tr class="align-middle">
-								<td class="text-center">
-									<img src="{{ asset('img/flags/f_sri.png') }}" width="auto" height="25" class="me-1 my-1 shadow" alt="Flag of Sri Lanka">
-								</td>
-								<th scope="row">14.10 - 07.11.2024</th>
-								<td>Budda, herbata i słonie</td>
-								<td>Sri Lanka</td>
-								<td class="text-center"><a href="{{ route('excursions.sri_lanka') }}" class="btn btn-primary btn-sm shadow">Program</a></td>
-							</tr>
-							<tr class="align-middle">
-								<td class="text-center">
-									<img src="{{ asset('img/flags/f_arg.png') }}" width="auto" height="25" class="me-1 my-1 shadow" alt="Flag of Argentina">
-									<img src="{{ asset('img/flags/f_chile.png') }}" width="auto" height="25" class="me-1 my-1 shadow" alt="Flag of Chile">
-								</td>
-								<th scope="row">14.07 - 27.07.2024</th>
-								<td>W tango pod Andami</td>
-								<td>Argentyna, Chile</td>
-								<td class="text-center"><a href="{{ route('excursions.argentina') }}" class="btn btn-primary btn-sm shadow">Program</a></td>
-							</tr>
-							<tr class="align-middle">
-								<td class="text-center">
-									<img src="{{ asset('img/flags/f_cam.png') }}" width="auto" height="25" class="me-1 my-1 shadow" alt="Flag of Cambodia">
-								</td>
-								<th scope="row">28.07 - 11.08.2024</th>
-								<td>Królestwo w dżungli</td>
-								<td>Kambodża</td>
-								<td class="text-center"><a href="{{ route('excursions.cambodia') }}" class="btn btn-primary btn-sm shadow">Program</a></td>
-							</tr>
-							<tr class="align-middle">
-								<td class="text-center">
-									<img src="{{ asset('img/flags/f_tib.png') }}" width="auto" height="25" class="me-1 my-1 shadow" alt="Flag of Tibet">
-									<img src="{{ asset('img/flags/f_chin.png') }}" width="auto" height="25" class="me-1 my-1 shadow" alt="Flag of China">
-								</td>
-								<th scope="row">04.08 - 17.08.2024</th>
-								<td>Na Dachu Świata</td>
-								<td>Tybet, Chiny</td>
-								<td class="text-center"><a href="{{ route('excursions.tibet') }}" class="btn btn-primary btn-sm shadow">Program</a></td>
-							</tr>
-							<tr class="align-middle">
-								<td class="text-center">
-									<img src="{{ asset('img/flags/f_peru.png') }}" width="auto" height="25" class="me-1 my-1 shadow" alt="Flag of Peru">
-									<img src="{{ asset('img/flags/f_bol.png') }}" width="auto" height="25" class="me-1 my-1 shadow" alt="Flag of Bolivia">
-								</td>
-								<th scope="row">13.09 - 23.09.2024</th>
-								<td>W krainie kultu Słońca</td>
-								<td>Peru, Boliwia</td>
-								<td class="text-center"><a href="{{ route('excursions.peru') }}" class="btn btn-primary btn-sm shadow">Program</a></td>
-							</tr>
+							@foreach ($dates as $date)
+								<tr class="align-middle">
+									<td class="text-center">{!! $date->trip->flag !!}</td>
+									<th scope="row">
+										{{ \Carbon\Carbon::parse($date->start_date)->format('d.m') }} -
+										{{ \Carbon\Carbon::parse($date->end_date)->format('d.m.Y') }}
+									</th>
+									<td>{{ $date->trip->trip_name }}</td>
+									<td>{{ $date->trip->country }}</td>
+									<td class="text-center">
+										<a href="{{ route('excursions.' . $countryMap[$date->trip->country]) }}" class="btn btn-primary btn-sm shadow">Program</a>
+									</td>
+									{{-- <td class="text-center"><a href="{{ route('excursions.argentina') }}" class="btn btn-primary btn-sm shadow">Program</a></td> --}}
+								</tr>
+							@endforeach
 						</tbody>
 					</table>
 				</div>

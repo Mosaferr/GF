@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Date;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        return view('home');
+        $dates = Date::with('trip')->limit(5)->get();
+        return view('home', compact('dates'));
     }
 }

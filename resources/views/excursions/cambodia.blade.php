@@ -72,29 +72,31 @@
 							<p><h3>Terminy i cena</h3></p>
 							<table class="table table-striped table-hover">
 								<tbody>
+														
+									@foreach ($dates as $date)
+										<tr class="align-middle">
+											<th scope="row">
+												{{ \Carbon\Carbon::parse($date->start_date)->format('d.m') }} - {{ \Carbon\Carbon::parse($date->end_date)->format('d.m.Y') }}
+											</th>
+											<td class="text-center">
+												{{ $date->price }} PLN
+											</td>
+											<td>
+												{{ $date->available_seats == 0 ? 'Brak wolnych miejsc' : ($date->available_seats == 1 ? '1 wolne miejsce' : $date->available_seats . ' wolne miejsca') }}
+											</td>
+											<td>
+												<a href="{{ route('register') }}" class="btn btn-success btn-sm shadow {{ $date->available_seats > 0 ? '' : 'disabled' }}">
+													<small>Rezerwuj</small>
+												</a>
+											</td>
+										</tr>
+									@endforeach
+														
 									<tr class="align-middle">
-										<th scope="row">14.07 - 27.07.2024</th>
-										<td>3200 PLN + 700 USD</td>
-										<td>Brak miejsc</td>
-										<td><a href="{{ route('register') }}" class="btn btn-success shadow disabled"><small>Rezerwuj</small></a></td>
-									</tr>
-									<tr class="align-middle">
-										<th scope="row">28.07 - 11.08.2024</th>
-										<td>3200 PLN + 700 USD</td>
-										<td>Brak miejsc</td>
-										<td><a href="{{ route('register') }}" class="btn btn-success shadow"><small>Rezerwuj</small></a></td>
-									</tr>
-									<tr class="align-middle">
-										<th scope="row">04.08 - 17.08.2024</th>
-										<td>3200 PLN + 700 USD</td>
-										<td>3 wolne miejsca</td>
-										<td><a href="{{ route('register') }}" class="btn btn-success shadow"><small>Rezerwuj</small></a></td>
-									</tr>
-									<tr class="align-middle">
-										<th scope="row">Twój termin</th>
-										<td>Podróż na zamówienie</td>
+										<td scope="row">Twój termin</td>
+										<th>Podróż na zamówienie</th>
 										<td></td>
-										<td><a href="{{ route('contact') }}" class="btn btn-success shadow"><small> &nbsp; Napisz &nbsp; </small></a></td>
+										<td><a href="{{ route('contact') }}" class="btn btn-success btn-sm shadow"><small> &nbsp; Napisz &nbsp; </small></a></td>
 									</tr>
 								</tbody>
 							</table>

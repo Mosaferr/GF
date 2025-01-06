@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ExcursionsController;
+use App\Http\Controllers\DatesController;
 use App\Http\Controllers\TermsController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\InformationController;
@@ -29,8 +30,7 @@ Route::get('/excursions/sri_lanka', [ExcursionsController::class, 'sri_lanka'])-
 Route::get('/excursions/tibet', [ExcursionsController::class, 'tibet'])->name('excursions.tibet');
 
 // Terminy
-Route::get('/terms', [TermsController::class, 'index'])->name('terms');
-
+Route::get('/terms', [DatesController::class, 'index'])->name('terms');
 // Galeria
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 Route::get('/gallery/argentina', [GalleryController::class, 'argentina'])->name('gallery.argentina');

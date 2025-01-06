@@ -82,8 +82,8 @@
             <div id="participantSection">
                 <div class="participant" id="participantTemplate">
 
-                    <!-- Imię -->
                     <div class="row mb-3">
+                    <!-- Imię -->
                         <div class="col-md-6">
                             <x-input-label for="name" :value="__('Imię')" class="form-label" />
                             <x-text-input id="name" class="form-control" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
@@ -98,9 +98,15 @@
                         </div>
                     </div>
 
-                    <!-- Telefon -->
                     <div class="row mb-3">
-                        <div class="col-md-6">
+						<!-- Liczba uczestników -->
+                        <div class="col-md-2">
+							<label for="participant_count" class="form-label">Uczestnicy</label>
+							<input type="number" class="form-control" id="participant_count" name="participant_count" value="{{ old('participant_count', 1) }}" required>
+						</div>
+						
+						<!-- Telefon -->
+                        <div class="col-md-4">
                             <x-input-label for="phone" :value="__('Telefon')" class="form-label" />
                             <x-text-input id="phone" class="form-control" type="text" name="phone" :value="old('phone')" autocomplete="phone"  />
                             <x-input-error :messages="$errors->get('phone')" class="mt-2 red-text" />
@@ -114,6 +120,8 @@
                         </div>
                     </div>
 
+
+
                     <h5 class="login-data mt-4">Dane do logowania</h5>
                     <div>
                         <small class="login-info green-text">Dzięki podaniu hasła, w każdej chwili będziesz mógł zalogować się do serwisu i sprawdzić status swojego zamówienia.</small>
@@ -121,7 +129,7 @@
                     <div class="login-info mt-2">
                         <p>Jeśli jesteś już zarejestrowany <a href="{{ route('login') }}">przejdź do strony logowania</a></p>
                     </div>
-                    
+
                     <div class="row mb-3 login-fields">
                         <!-- Hasło -->
                         <div class="col-md-6">

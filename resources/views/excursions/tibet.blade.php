@@ -66,24 +66,28 @@
 							<p><h3>Terminy i cena</h3></p>
 							<table class="table table-striped table-hover">
 								<tbody>
-									<tr class="align-middle">
-										<td scope="row">14.07-27.07.2024</td>
-										<td>8200 PLN + 1600 USD</td>
-										<td>Brak miejsc</td>
-										<td><a href="{{ route('register') }}" class="btn btn-success btn-sm shadow disabled"><small>Rezerwuj</small></a></td>
-									</tr>
-									<tr class="align-middle">
-										<td scope="row">28.07-11.08.2024</td>
-										<td>8200 PLN + 1600 USD</td>
-										<td>Brak miejsc</td>
-										<td><a href="{{ route('register') }}" class="btn btn-success btn-sm shadow"><small>Rezerwuj</small></a></td>
-									</tr>
-									<tr class="align-middle">
-										<td scope="row">04.08-17.08.2024</td>
-										<td>8200 PLN + 1600 USD</td>
-										<td>3 wolne miejsca</td>
-										<td><a href="{{ route('register') }}" class="btn btn-success btn-sm shadow"><small>Rezerwuj</small></a></td>
-									</tr>
+														
+
+									@foreach ($dates as $date)
+										<tr class="align-middle">
+											<th scope="row">
+												{{ \Carbon\Carbon::parse($date->start_date)->format('d.m') }} - {{ \Carbon\Carbon::parse($date->end_date)->format('d.m.Y') }}
+											</th>
+											<td class="text-center">
+												{{ $date->price }} PLN
+											</td>
+											<td>
+												{{ $date->available_seats == 0 ? 'Brak wolnych miejsc' : ($date->available_seats == 1 ? '1 wolne miejsce' : $date->available_seats . ' wolne miejsca') }}
+											</td>
+											<td>
+												<a href="{{ route('register') }}" class="btn btn-success btn-sm shadow {{ $date->available_seats > 0 ? '' : 'disabled' }}">
+													<small>Rezerwuj</small>
+												</a>
+											</td>
+										</tr>
+									@endforeach
+
+														
 									<tr class="align-middle">
 										<td scope="row">Twój termin</td>
 										<th>Podróż na zamówienie</th>

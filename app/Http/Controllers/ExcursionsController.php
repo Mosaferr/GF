@@ -13,31 +13,37 @@ class ExcursionsController extends Controller
 
     public function argentina()
     {
-        return view('excursions.argentina');
+        $dates = \App\Models\Date::where('trip_id', 1)->take(3)->get();
+        return view('excursions.argentina', compact('dates'));
     }
 
     public function indonesia()
     {
-        return view('excursions.indonesia');
+        $dates = \App\Models\Date::where('trip_id', 2)->take(3)->get();
+        return view('excursions.indonesia', compact('dates'));
     }
 
     public function cambodia()
     {
-        return view('excursions.cambodia');
+        $dates = \App\Models\Date::where('trip_id', 3)->take(3)->get();
+        return view('excursions.cambodia', compact('dates'));
     }
 
     public function peru()
     {
-        return view('excursions.peru');
+        $dates = \App\Models\Date::where('trip_id', 4)->take(3)->get();
+        return view('excursions.peru', compact('dates'));
     }
 
     public function sri_lanka()
     {
-        return view('excursions.sri_lanka');
+        $dates = \App\Models\Date::where('trip_id', 5)->take(3)->get();
+        return view('excursions.sri_lanka', compact('dates'));
     }
 
     public function tibet()
     {
-        return view('excursions.tibet');
+        $dates = \App\Models\Date::where('trip_id', 6)->take(3)->get();
+        return view('excursions.tibet', compact('dates'));
     }
 }

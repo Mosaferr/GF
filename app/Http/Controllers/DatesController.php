@@ -9,7 +9,11 @@ class DatesController extends Controller
 {
     public function index()
     {
-        return Date::all();
+        // Pobierz 11 pierwszych wierszy z tabeli Dates wraz z powiązanymi danymi z tabeli Trips
+        $dates = Date::with('trip')->take(11)->get();
+
+        // Przekaż dane do widoku
+        return view('terms', ['dates' => $dates]);
     }
 
     public function store(Request $request)
