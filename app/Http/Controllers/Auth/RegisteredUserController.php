@@ -1,4 +1,5 @@
 <?php
+// app/Http/Controllers/Auth/RegisteredUserController
 
 namespace App\Http\Controllers\Auth;
 
@@ -11,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+
+use Illuminate\Support\Facades\Log;
 
 class RegisteredUserController extends Controller
 {
@@ -29,12 +32,13 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'participant_count' => ['required', 'integer', 'min:1'], 
-            'phone' => ['nullable', 'string', 'max:20'],
+            'phone' => ['nullable', 'string', 'max:20'],        // Dodano to pole
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'participant_count' => ['required', 'integer', 'min:1'],  // Dodano to pole
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -43,8 +47,8 @@ class RegisteredUserController extends Controller
             'last_name' => $request->last_name,
             'phone' => $request->phone,
             'email' => $request->email,
+            'participant_count' => $request->participant_count, // Dodano to pole
             'password' => Hash::make($request->password),
-            'participant_count' => $request->participant_count,
         ]);
 
         event(new Registered($user));
@@ -52,56 +56,5 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         return redirect(route('dashboard', absolute: false));
-    }
-
-    /**
-     * Display a listing of the users.
-     */
-    public function index()
-    {
-        return User::all();
-    }
-
-    /**
-     * Display the specified user.
-     */
-    public function show($id)
-    {
-        return User::findOrFail($id);
-    }
-
-    /**
-     * Update the specified user in storage.
-     */
-    public function update(Request $request, $id)
-    {
-        $user = User::findOrFail($id);
-        $validated = $request->validate([
-            'name' => 'required|max:255',
-            'last_name' => 'required|max:255',
-            'participant_count' => 'required|integer|min:1',
-            'phone' => 'nullable|max:20',
-            'email' => 'required|email|unique:users,email,'.$user->id,
-            'password' => 'nullable|min:8',
-        ]);
-
-        if ($validated['password']) {
-            $validated['password'] = Hash::make($validated['password']);
-        } else {
-            unset($validated['password']);
-        }
-
-        $user->update($validated);
-        return $user;
-    }
-
-    /**
-     * Remove the specified user from storage.
-     */
-    public function destroy($id)
-    {
-        $user = User::findOrFail($id);
-        $user->delete();
-        return response(null, 204);
     }
 }

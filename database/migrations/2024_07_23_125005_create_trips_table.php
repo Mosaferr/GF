@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('trips', function (Blueprint $table) {
             $table->id();
             $table->enum('destination', ['Argentyna i Chile', 'Indonezja', 'Kambodża', 'Peru i Boliwia', 'Sri Lanka', 'Tybet, w Chinach']);
-            $table->string('flag')->nullable();
+            $table->text('flag')->nullable(); // Zmieniono na text
+            // $table->string('flag')->nullable();
             $table->enum('trip_name', ['W tango pod Andami', 'W świecie kontrastów', 'Królestwo w dżungli', 'W krainie kultu Słońca', 'Budda, herbata i słonie', 'Na Dachu Świata']);
             $table->enum('country', ['Argentyna, Chile', 'Indonezja', 'Kambodża', 'Peru, Boliwia', 'Sri Lanka', 'Tybet, Chiny']);
             $table->timestamps();

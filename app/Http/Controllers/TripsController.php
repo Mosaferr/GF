@@ -16,7 +16,7 @@ class TripsController extends Controller
     {
         $validated = $request->validate([
             'destination' => 'required|in:Argentyna i Chile,Indonezja,Kambodża,Peru i Boliwia,Sri Lanka,Tybet, w Chinach',
-            'flag' => 'nullable|max:255',
+            'flag' => 'nullable',
             'trip_name' => 'required|in:W tango pod Andami,W świecie kontrastów,Królestwo w dżungli,W krainie kultu Słońca,Budda, herbata i słonie,Na Dachu Świata',
             'country' => 'required|in:Argentyna, Chile,Indonezja,Kambodża,Peru, Boliwia,Sri Lanka,Tybet, Chiny',
         ]);
@@ -33,7 +33,7 @@ class TripsController extends Controller
         $trip = Trip::findOrFail($id);
         $validated = $request->validate([
             'destination' => 'required|in:Argentyna i Chile,Indonezja,Kambodża,Peru i Boliwia,Sri Lanka,Tybet, w Chinach',
-            'flag' => 'nullable|max:255',
+            'flag' => 'nullable',
             'trip_name' => 'required|in:W tango pod Andami,W świecie kontrastów,Królestwo w dżungli,W krainie kultu Słońca,Budda, herbata i słonie,Na Dachu Świata',
             'country' => 'required|in:Argentyna, Chile,Indonezja,Kambodża,Peru, Boliwia,Sri Lanka,Tybet, Chiny',
         ]);
