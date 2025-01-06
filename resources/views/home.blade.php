@@ -3,10 +3,7 @@
 
 @section('title', 'Strona Główna')
 @section('head-scripts')
-    @vite('resources/js/hidden.js')
-    {{-- <style>
-        .carousel-inner, .container, .row, .image, .card .footer {visibility: hidden;}
-    </style> --}}
+    @vite('resources/css/hide.css')
     <link rel="stylesheet" href="{{ asset('css/spotlight.min.css') }}">
     <script src="{{ asset('js/spotlight.min.js') }}"></script>
 @endsection

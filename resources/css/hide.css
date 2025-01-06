@@ -1,0 +1,7 @@
+.carousel-inner,
+.container,
+.row,
+.image,
+.card .footer {
+    visibility: hidden;
+}

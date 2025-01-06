@@ -3,7 +3,7 @@
 
 @section('title', 'Terminy')
 @section('head-scripts')
-	@vite('resources/js/hidden.js')
+    @vite('resources/css/hide.css')
     <link rel="stylesheet" href="{{ asset('css/spotlight.min.css') }}">
     <script src="{{ asset('js/spotlight.min.js') }}"></script>
 @endsection

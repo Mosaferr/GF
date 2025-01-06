@@ -4,9 +4,7 @@
 
 @section('title', 'Kontakt')
 @section('head-scripts')
-    <style>
-        .carousel-inner, .container, .row, .image, .card .footer {visibility: hidden;}
-    </style>
+    @vite('resources/css/hide.css')
 @endsection
 
 @section('content')

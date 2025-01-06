@@ -2,7 +2,7 @@
 
 @section('title', 'Rezerwacja')
 @section('head-scripts')
-    @vite('resources/js/hidden.js')
+    @vite('resources/css/hide.css')
 @endsection
 
 @section('content')
