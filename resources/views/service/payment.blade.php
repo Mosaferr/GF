@@ -1,13 +1,20 @@
-<!-- resources/views/XXXXX.blade.php -->
+<!-- resources/views/payment.blade.php -->
 @extends('layouts.app')
 
-@section('title', 'XXXXX')
+@section('title', 'Twoja wyprawa')
 @section('head-scripts')
     @vite('resources/css/hide.css')
 @endsection
 
 @section('content')
 	<main class="custom-margin-top">
+		
+		{{-- @if(session('success'))
+			<div class="alert alert-success">
+				{{ session('success') }}
+			</div>
+		@endif --}}
+		
 		<div class="container my-5" style="max-width: 1000px;">
 			<div class="col-md-12 text-center pb-5 mt-3">
 				<h2>Twoja wyprawa</h2>

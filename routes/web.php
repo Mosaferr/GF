@@ -13,6 +13,7 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\RegisteredUserController; // Importowanie kontrolera
 use App\Http\Controllers\DetailedInfoController; // Importowanie kontrolera
+use App\Http\Controllers\PaymentController;
 
 // Główna strona
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -79,5 +80,6 @@ Route::get('/service/unavailable', function () {
 })->name('service.unavailable');
 
 Route::get('/service/detailed_info', [DetailedInfoController::class, 'show'])->name('service.detailed_info');
-Route::post('/service/detailed_info', [DetailedInfoController::class, 'submitDetails'])->name('client.store');
-// Route::post('/submit-details', [DetailedInfoController::class, 'submitDetails'])->name('details.submit');
+Route::post('/service/detailed_info', [DetailedInfoController::class, 'store'])->name('client.store');
+
+Route::get('/service/payment', [PaymentController::class, 'show'])->name('service.payment');

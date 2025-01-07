@@ -53,39 +53,17 @@
 			<form method="POST" action="{{ route('client.store') }}">
 				@csrf
 				<h3> Twoja przygoda </h3>
-
-				
 				<div class="row mb-3">
-					{{-- <div class="form-group">
-						<label for="trip">Wyprawa</label>
-						<input type="text" class="form-control" id="trip" name="trip" readonly>
-					</div>
-					<div class="form-group">
-						<label for="start_date">Termin</label>
-						<input type="text" class="form-control" id="start_date" name="start_date" readonly>
-					</div> --}}
-
 					<div class="col-md-6">
 						<label for="trip" class="form-label">Wyprawa</label>
 						<input type="text" class="form-control" id="trip" name="trip" readonly>
-						{{-- <input type="text" class="form-control" id="wyprawa" name="wyprawa" value="{{ old('wyprawa', session('destination')) }}" required> --}}
 					</div>
 					<div class="col-md-6">
 						<label for="start_date" class="form-label">Termin</label>
 						<input type="text" class="form-control" id="start_date" name="start_date" readonly>
-						{{-- <input type="text" class="form-control" id="termin" name="termin" value="{{ old('termin', session('start_date')) }}" required> --}}
 					</div>
-
-					{{-- <div class="col-md-6">
-						<label for="wyprawa" class="form-label">Wyprawa</label>
-						<input type="text" class="form-control" id="wyprawa" name="wyprawa" value="{{ old('wyprawa', session('destination')) }}" required>
-					</div>
-					<div class="col-md-6">
-						<label for="termin" class="form-label">Termin</label>
-						<input type="text" class="form-control" id="termin" name="termin" value="{{ old('termin', session('start_date')) }}" required>
-					</div> --}}
 				</div>
-				
+
 				<h3 class="mt-5"> Twoje dane osobowe </h3>
 				<div id="participantSection">
 					<div class="participant" id="participantTemplate">
@@ -94,12 +72,11 @@
 							<div class="col-md-6">
 								<label for="name" class="form-label">Imię<span class="text-danger">*</span></label>
 								<input type="text" class="form-control" id="name" name="name" value="{{ old('name', session('name')) }}" required>
-								{{-- <input type="text" class="form-control" id="name" name="name[]" required> --}}
 							</div>
+
 							<div class="col-md-6">
 								<label for="middle_name" class="form-label">Drugie imię</label>
 								<input type="text" class="form-control" id="middle_name" name="middle_name" value="{{ old('middle_name') }}">
-								{{-- <input type="text" class="form-control" id="middle_name" name="middle_name[]"> --}}
 							</div>
 						</div>
 
@@ -132,15 +109,15 @@
 							</div>
 							<div class="col-md-6">
 								<label for="citizenship" class="form-label">Obywatelstwo<span class="text-danger">*</span></label>
-								<select class="form-select" id="citizenship" name="citizenship"  value="{{ old('citizenship') }}" required>
-									<option selected>Wybierz...</option>
-									<option value="polish">Polskie</option>
-									<option value="american">Amerykańskie</option>
-									<option value="british">Brytyjskie</option>
-									<option value="french">Francuskie</option>
-									<option value="german">Niemieckie</option>
-									<option value="ukrainian">Ukraińskie</option>
-									<option value="other">Inne</option>
+								<select class="form-select" id="citizenship" name="citizenship" required>
+									<option value="" disabled selected>Wybierz...</option>
+									<option value="polskie" {{ old('citizenship') == 'polskie' ? 'selected' : '' }}>Polskie</option>
+									<option value="amerykańskie" {{ old('citizenship') == 'amerykańskie' ? 'selected' : '' }}>Amerykańskie</option>
+									<option value="brytyjskie" {{ old('citizenship') == 'brytyjskie' ? 'selected' : '' }}>Brytyjskie</option>
+									<option value="francuskie" {{ old('citizenship') == 'francuskie' ? 'selected' : '' }}>Francuskie</option>
+									<option value="niemieckie" {{ old('citizenship') == 'niemieckie' ? 'selected' : '' }}>Niemieckie</option>
+									<option value="ukraińskie" {{ old('citizenship') == 'ukraińskie' ? 'selected' : '' }}>Ukraińskie</option>
+									<option value="inne" {{ old('citizenship') == 'inne' ? 'selected' : '' }}>Inne</option>
 								</select>
 							</div>
 						</div>
@@ -278,30 +255,6 @@
 						<button type="submit" class="btn btn-warning shadow w-100">Wyślij</button>
 					</div>
 				</div>
-							
-				<script>
-					document.addEventListener('DOMContentLoaded', function() {
-						// Pobierz wartości z localStorage i ustaw je w odpowiednich polach
-						const selectedTrip = localStorage.getItem('selectedTrip');
-						const selectedDate = localStorage.getItem('selectedDate');
-
-						const tripElement = document.getElementById('trip');
-						const dateElement = document.getElementById('start_date');
-
-						if (tripElement && selectedTrip) {
-							tripElement.value = selectedTrip;
-						} else {
-							console.error('Element trip not found or selectedTrip is null');
-						}
-
-						if (dateElement && selectedDate) {
-							dateElement.value = selectedDate;
-						} else {
-							console.error('Element start_date not found or selectedDate is null');
-						}
-					});
-				</script>
-							
 			</form>
 		</div>
 
@@ -309,6 +262,7 @@
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('js/storage.js') }}"></script>
     <script src="{{ asset('js/participants.js') }}"></script>
     <script src="{{ asset('js/scrollreveal.min.js') }}"></script>
     @vite('resources/js/fading.js')

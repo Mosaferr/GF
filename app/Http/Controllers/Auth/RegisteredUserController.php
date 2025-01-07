@@ -28,8 +28,7 @@ class RegisteredUserController extends Controller
     public function create(): View
     {
         $trips = Trip::all(); // Pobieramy wszystkie wyprawy
-        return view('auth.register', ['trips' => $trips]); // Przekazujemy zmienną $trips do widoku
-        // return view('auth.register');
+        return view('auth.register', ['trips' => $trips]);          // Przekazujemy zmienną $trips do widoku
     }
 
     /**
@@ -77,8 +76,7 @@ class RegisteredUserController extends Controller
 
             Auth::login($user);
 
-          // Wyślij powiadomienie email
-            $user->notify(new SpotAvailableNotification());
+            $user->notify(new SpotAvailableNotification());         // Wyślij powiadomienie email
   
             // Zapisanie danych w sesji
             session([

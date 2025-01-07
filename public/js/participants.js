@@ -2,14 +2,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const addParticipantBtn = document.getElementById('addParticipantBtn');
     const removeParticipantBtn = document.getElementById('removeParticipantBtn');
     const participantSection = document.getElementById('participantSection');
-    const participantTemplate = document.getElementById('participantTemplate').cloneNode(true);
+    const participantTemplate = document.getElementById('participantTemplate'); // Pobierz szablon bez klonowania
 
     let participantCount = 1;
 
     addParticipantBtn.addEventListener('click', function() {
         participantCount++;
 
-        const newParticipant = participantTemplate.cloneNode(true);
+        const participantTemplate = document.getElementById('participantTemplate').cloneNode(true);
+    const newParticipant = participantTemplate.cloneNode(true);
         newParticipant.id = '';
 
         // Dodanie nagłówka dla nowego uczestnika
