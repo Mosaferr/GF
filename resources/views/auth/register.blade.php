@@ -54,26 +54,20 @@
             <h3> Twoja przygoda </h3>
             <div class="row mb-3">
                 <div class="col-md-6">
-                    <label for="wyprawa" class="form-label">Wyprawa</label>
-                    <select class="form-select" id="wyprawa" name="wyprawa" required>
+                    <label for="trip" class="form-label">Wyprawa</label>
+                    <select class="form-select" id="trip" name="trip" required>
                         <option selected>Wybierz...</option>
-                        <option value="argentina">Argentyna i Chile</option>
-                        <option value="indonesia">Indonezja</option>
-                        <option value="cambodia">Kambodża</option>
-                        <option value="peru">Peru i Boliwia</option>
-                        <option value="sri_lanka">Sri Lanka</option>
-                        <option value="tibet">Tybet, w Chinach</option>
-                        <option value="inny">Inna</option>
+                        @foreach($trips as $trip)
+                            <option value="{{ $trip->id }}">{{ $trip->destination }}</option>
+                        @endforeach
                     </select>
                 </div>
+
                 <div class="col-md-6">
-                    <label for="termin" class="form-label">Termin</label>
-                    <select class="form-select" id="termin" name="termin" required>
+                    <label for="start_date" class="form-label">Termin</label>
+                    <select class="form-select" id="start_date" name="start_date" required>
                         <option selected>Wybierz...</option>
-                        <option value="argentina_1407">14.07-27.07.2024</option>
-                        <option value="argentina_1407">28.07-11.08.2024</option>
-                        <option value="argentina_1407">04.08-17.08.2024</option>
-                        <option value="argentina_inny">Inny</option>
+                        <!-- Opcje będą dynamicznie ładowane przez JavaScript -->
                     </select>
                 </div>
             </div>
@@ -81,47 +75,34 @@
             <h3 class="mt-5">Twoje dane kontaktowe</h3>
             <div id="participantSection">
                 <div class="participant" id="participantTemplate">
-
                     <div class="row mb-3">
-                    <!-- Imię -->
                         <div class="col-md-6">
                             <x-input-label for="name" :value="__('Imię')" class="form-label" />
                             <x-text-input id="name" class="form-control" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
                             <x-input-error :messages="$errors->get('name')" class="mt-2 red-text" />
                         </div>
-
-                        <!-- Nazwisko -->
                         <div class="col-md-6">
                             <x-input-label for="last_name" :value="__('Nazwisko')" class="form-label" />
                             <x-text-input id="last_name" class="form-control" type="text" name="last_name" :value="old('last_name')" required autocomplete="last_name" />
                             <x-input-error :messages="$errors->get('last_name')" class="mt-2 red-text" />
                         </div>
                     </div>
-
                     <div class="row mb-3">
-						<!-- Liczba uczestników -->
                         <div class="col-md-2">
-							<label for="participant_count" class="form-label">Uczestnicy</label>
-							<input type="number" class="form-control" id="participant_count" name="participant_count" value="{{ old('participant_count', 1) }}" required>
-						</div>
-						
-						<!-- Telefon -->
+                            <label for="participant_count" class="form-label">Uczestnicy</label>
+                            <input type="number" class="form-control" id="participant_count" name="participant_count" value="{{ old('participant_count', 1) }}" required>
+                        </div>
                         <div class="col-md-4">
                             <x-input-label for="phone" :value="__('Telefon')" class="form-label" />
                             <x-text-input id="phone" class="form-control" type="text" name="phone" :value="old('phone')" autocomplete="phone"  />
                             <x-input-error :messages="$errors->get('phone')" class="mt-2 red-text" />
                         </div>
-
-                        <!-- Adres email -->
                         <div class="col-md-6">
                             <x-input-label for="email" :value="__('Adres email')" class="form-label" />
                             <x-text-input id="email" class="form-control" type="email" name="email" :value="old('email')" required autocomplete="email" />
                             <x-input-error :messages="$errors->get('email')" class="mt-2 red-text" />
                         </div>
                     </div>
-
-
-
                     <h5 class="login-data mt-4">Dane do logowania</h5>
                     <div>
                         <small class="login-info green-text">Dzięki podaniu hasła, w każdej chwili będziesz mógł zalogować się do serwisu i sprawdzić status swojego zamówienia.</small>
@@ -129,9 +110,7 @@
                     <div class="login-info mt-2">
                         <p>Jeśli jesteś już zarejestrowany <a href="{{ route('login') }}">przejdź do strony logowania</a></p>
                     </div>
-
                     <div class="row mb-3 login-fields">
-                        <!-- Hasło -->
                         <div class="col-md-6">
                             <x-input-label for="password" :value="__('Hasło')" class="form-label" />
                             <div class="position-relative password-field">
@@ -139,7 +118,6 @@
                                 <i class="bi bi-eye position-absolute toggle-password specific-password-icon" id="togglePassword"></i>
                             </div>
                         </div>
-                        <!-- Powtórz hasło -->
                         <div class="col-md-6">
                             <x-input-label for="password_confirmation" :value="__('Powtórz hasło')" class="form-label" />
                             <div class="position-relative password-field">
@@ -148,14 +126,11 @@
                             </div>
                         </div>
                     </div>
-                <!-- Komunikaty o błędach -->
-                <x-input-error :messages="$errors->get('password')" class="mt-2 red-text full-width-error" />
-                <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2 red-text full-width-error" />
-                    
+                    <x-input-error :messages="$errors->get('password')" class="mt-2 red-text full-width-error" />
+                    <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2 red-text full-width-error" />
                 </div>
             </div>
 
-            <!-- Klauzule obowiązkowe -->
             <div class="row mt-4 mb-3">
                 <div class="col-md-12">
                     <strong>Klauzule obowiązkowe</strong><span class="text-danger">*</span>
@@ -168,7 +143,6 @@
                 </div>
             </div>
 
-            <!-- Klauzule nieobowiązkowe -->
             <div class="row mb-3">
                 <div class="col-md-12">
                     <strong>Klauzule nieobowiązkowe</strong>
@@ -179,13 +153,11 @@
                 </div>
             </div>
 
-            <!-- Submit -->
             <div class="row">
                 <div class="col-md-12 text-center">
                     <button type="submit" class="btn btn-warning shadow w-100">Wyślij</button>
                 </div>
             </div>
-
         </form>
     </div>
 </main>
@@ -194,5 +166,6 @@
 @section('scripts')
     <script src="{{ asset('js/scrollreveal.min.js') }}"></script>
     @vite('resources/js/fading.js')
+    <script src="{{ asset('js/register.js') }}"></script> <!-- Dodanie nowego skryptu -->
     @vite('resources/js/eye.js')
 @endsection

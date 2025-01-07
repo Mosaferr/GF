@@ -28,7 +28,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        // Przekierowanie na wcześniej zamierzoną stronę lub na /service/available, jeśli nie ma takiej strony
+        return redirect()->intended(route('service.available'));
+
+        // return redirect()->intended(route('dashboard', absolute: false));
     }
 
     /**

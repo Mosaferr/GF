@@ -1,7 +1,7 @@
 <!-- resources/views/available.blade.php -->
 @extends('layouts.app')
 
-@section('title', 'XXXXX')
+@section('title', 'Dostępność')
 @section('head-scripts')
     @vite('resources/css/hide.css')
 @endsection

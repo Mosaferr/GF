@@ -1,5 +1,3 @@
-<!-- routes/web.php -->
-
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -7,12 +5,13 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ExcursionsController;
 use App\Http\Controllers\DatesController;
-use App\Http\Controllers\TermsController;
+use App\Http\Controllers\TripsController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\InformationController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Auth\RegisteredUserController; // Importowanie kontrolera
 
 // Główna strona
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -31,6 +30,7 @@ Route::get('/excursions/tibet', [ExcursionsController::class, 'tibet'])->name('e
 
 // Terminy
 Route::get('/terms', [DatesController::class, 'index'])->name('terms');
+
 // Galeria
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 Route::get('/gallery/argentina', [GalleryController::class, 'argentina'])->name('gallery.argentina');
@@ -62,3 +62,19 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+//Nowe routingi
+Route::get('/trips', [TripsController::class, 'getAllTrips']);
+Route::get('/dates/by-trip/{trip_id}', [DatesController::class, 'getDatesByTripId']);
+Route::post('/register', [RegisteredUserController::class, 'store'])->name('register'); // Dodanie trasy
+// Route::post('/register', [RegisteredUserController::class, 'store'])->name('register'); // Dodanie trasy
+
+// Trasy dla dostępności usług
+Route::get('/service/available', function () {
+    return view('service.available');
+    })->middleware(['auth', 'verified'])->name('service.available');
+    // })->name('service.available');
+
+Route::get('/service/unavailable', function () {
+    return view('service.unavailable');
+})->name('service.unavailable');

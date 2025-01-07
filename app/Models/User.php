@@ -57,7 +57,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Relacja z tabelą User_Dates.
+     * Relacja z tabelą Users_Dates.
      */
     public function dates()
     {

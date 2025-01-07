@@ -53,4 +53,11 @@ class DatesController extends Controller
         $date->delete();
         return response(null, 204);
     }
+
+    //nowe, do obsługi formularza rejestracji
+    public function getDatesByTripId($trip_id)
+    {
+        $dates = Date::where('trip_id', $trip_id)->get();
+        return response()->json($dates);
+    }
 }

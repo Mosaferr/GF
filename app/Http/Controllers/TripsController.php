@@ -47,4 +47,11 @@ class TripsController extends Controller
         $trip->delete();
         return response(null, 204);
     }
+
+    //nowe, do obsługi formularza rejestracji
+    public function getAllTrips()
+    {
+        $trips = Trip::all();
+        return response()->json($trips);
+    }
 }
