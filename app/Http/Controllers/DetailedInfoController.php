@@ -12,6 +12,8 @@ use App\Models\ClientDate;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class DetailedInfoController extends Controller
 {
@@ -34,80 +36,69 @@ class DetailedInfoController extends Controller
 
         return view('service.detailed_info', $data);
     }
+																																																		
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'middle_name' => 'nullable|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'birth_date' => 'required|date',
-            'gender' => 'required|string|in:male,female,M,F,Kobieta,Mężczyzna',
-            'phone' => 'nullable|string|max:20',
-            'pesel' => 'required|string|max:11',
-            'citizenship' => 'required|string|in:polskie,amerykańskie,brytyjskie,francuskie,niemieckie,ukraińskie,inne',
-            'passport_number' => 'required|string|max:20',
-            'passport_issue_date' => 'required|date',
-            'passport_expiry_date' => 'required|date|after:passport_issue_date',
-            'street' => 'required|string|max:255',
-            'house_number' => 'required|string|max:10',
-            'apartment_number' => 'nullable|string|max:10',
-            'postal_code' => 'required|string|max:10',
-            'city_name' => 'required|string|max:255',
-        ], [
-            'citizenship.required' => 'Obywatelstwo musi być wybrane.',
-            'passport_expiry_date.after' => 'Data ważności paszportu musi być późniejsza niż data wydania.',
-        ]);
+        // Pobierz zalogowanego użytkownika
+        $user = Auth::user();
+        Log::info('Zalogowany użytkownik: ', ['user_id' => $user->id]);
 
-        $city = City::firstOrCreate(['city_name' => $request->input('city_name')]);
+        // Logowanie całego requestu
+        Log::info('Zawartość requestu: ', ['request' => $request->all()]);
 
-        $citizenship = Citizenship::where('citizenship', $request->input('citizenship'))->first();
-        if (!$citizenship) {
-            throw new \Exception('No citizenship found');
+        // Pobierz dane uczestników
+        $participants = $request->input('participants');
+
+        // Logowanie danych uczestników przed walidacją
+        Log::info('Dane uczestników: ', ['participants' => $participants]);
+
+        // Sprawdź, czy $participants jest tablicą
+        if (is_null($participants) || !is_array($participants)) {
+            Log::error('Brak danych uczestników lub nieprawidłowy format danych.');
+            return response()->json(['error' => 'Nieprawidłowe dane uczestników.'], 400);
         }
 
-        $address = Address::create([
-            'street' => $request->input('street'),
-            'house_number' => $request->input('house_number'),
-            'apartment_number' => $request->input('apartment_number'),
-            'postal_code' => $request->input('postal_code'),
-            'city_id' => $city->id,
-        ]);
-
-        $genderValue = $request->input('gender');
-        if ($genderValue == 'Kobieta' || $genderValue == 'female') {
-            $genderValue = 'F';
-        } elseif ($genderValue == 'Mężczyzna' || $genderValue == 'male') {
-            $genderValue = 'M';
+        // Logowanie każdego uczestnika przed walidacją
+        foreach ($participants as $key => $participant) {
+            Log::info("Dane uczestnika {$key}: ", $participant);
         }
 
-        $client = Client::create([
-            'user_id' => Auth::id(),
-            'name' => $request->input('name'),
-            'middle_name' => $request->input('middle_name'),
-            'last_name' => $request->input('last_name'),
-            'email' => $request->input('email'),
-            'birth_date' => $request->input('birth_date'),
-            'gender' => $genderValue,
-            'phone' => $request->input('phone'),
-            'pesel' => $request->input('pesel'),
-            'citizenship_id' => $citizenship->id,
-            'passport_number' => $request->input('passport_number'),
-            'passport_issue_date' => $request->input('passport_issue_date'),
-            'passport_expiry_date' => $request->input('passport_expiry_date'),
-            'address_id' => $address->id,
-        ]);
+        // Walidacja danych uczestników
+        $rules = [
+            'participants.*.name' => 'required|string|max:255',
+            'participants.*.last_name' => 'required|string|max:255',
+            'participants.*.birth_date' => 'required|date',
+            'participants.*.phone' => 'nullable|string|max:15',
+            'participants.*.email' => 'required|email',
+            'participants.*.pesel' => 'required|string',
+            'participants.*.citizenship' => 'required|string',
+            'participants.*.gender' => 'required|string',
+            // 'participants.*.gender' => 'nullable|string',
+            'participants.*.passport_number' => 'required|string',
+            'participants.*.passport_issue_date' => 'required|date',
+            'participants.*.passport_expiry_date' => 'required|date|after:participants.*.passport_issue_date',
+            'participants.*.street' => 'required|string',
+            'participants.*.house_number' => 'required|string',
+            'participants.*.apartment_number' => 'nullable|string',
+            'participants.*.postal_code' => 'required|string',
+            'participants.*.city_name' => 'required|string',
+        ];
 
-        $tripId = session('destination');
-        $dateId = session('start_date');
+        $validator = Validator::make($request->all(), $rules);
 
-        ClientDate::create([
-            'client_id' => $client->id,
-            'trip_id' => $tripId,
-            'date_id' => $dateId,
-        ]);
-
-        return redirect()->route('service.payment')->with('success', 'Dane zostały zapisane.');
+        if ($validator->fails()) {
+            Log::error('Walidacja nie powiodła się.', ['errors' => $validator->errors()]);
+            return response()->json(['errors' => $validator->errors()], 400);
+        } else {
+            Log::info('Walidacja zakończona sukcesem.');
+            
+            // Logowanie każdego uczestnika po walidacji
+            foreach ($participants as $key => $participant) {
+                Log::info("Walidacja zakończona sukcesem dla uczestnika {$key}: ", $participant);
+            }
+            
+            return response()->json(['message' => 'Walidacja zakończona sukcesem.']);
+        }
     }
 }

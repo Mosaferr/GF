@@ -7,15 +7,16 @@
 @endsection
 
 @section('content')
-	<main class="custom-margin-top">
+{{-- <main class="custom-margin-top"> --}}
 		
-		{{-- @if(session('success'))
+		@if(session('success'))
 			<div class="alert alert-success">
 				{{ session('success') }}
 			</div>
-		@endif --}}
+		@endif
 		
-		<div class="container my-5" style="max-width: 1000px;">
+		<main class="custom-margin-top">
+			<div class="container my-5" style="max-width: 1000px;">
 			<div class="col-md-12 text-center pb-5 mt-3">
 				<h2>Twoja wyprawa</h2>
 			</div>

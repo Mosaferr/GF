@@ -1,0 +1,96 @@
+Logi konsoli:
+Po kliknięciu "Dodaj użytkownika":
+client:495 [vite] connecting...
+participants.js:2 JavaScript file loaded successfully
+client:614 [vite] connected.
+participants.js:29 Add participant button clicked
+participants.js:35 New participant template cloned
+participants.js:42 Header added to new participant
+participants.js:78 Inputs updated for new participant
+participants.js:82 Participant 1 fields:
+participants.js:84 ID: name_1, Name: participants[1][name], Value: , Checked: false
+participants.js:84 ID: middle_name_1, Name: participants[1][middle_name], Value: , Checked: false
+participants.js:84 ID: last_name_1, Name: participants[1][last_name], Value: , Checked: false
+participants.js:84 ID: birth_date_1, Name: participants[1][birth_date], Value: , Checked: false
+participants.js:84 ID: phone_1, Name: participants[1][phone], Value: , Checked: false
+participants.js:84 ID: email_1, Name: participants[1][email], Value: , Checked: false
+participants.js:84 ID: pesel_1, Name: participants[1][pesel], Value: , Checked: false
+participants.js:84 ID: citizenship_1, Name: participants[1][citizenship], Value: , Checked: undefined
+participants.js:84 ID: gender_female_1, Name: participants[1][gender], Value: , Checked: false
+participants.js:84 ID: gender_male_1, Name: participants[1][gender], Value: , Checked: false
+participants.js:84 ID: passport_number_1, Name: participants[1][passport_number], Value: , Checked: false
+participants.js:84 ID: passport_issue_date_1, Name: participants[1][passport_issue_date], Value: , Checked: false
+participants.js:84 ID: passport_expiry_date_1, Name: participants[1][passport_expiry_date], Value: , Checked: false
+participants.js:84 ID: street_1, Name: participants[1][street], Value: , Checked: false
+participants.js:84 ID: house_number_1, Name: participants[1][house_number], Value: , Checked: false
+participants.js:84 ID: apartment_number_1, Name: participants[1][apartment_number], Value: , Checked: false
+participants.js:84 ID: postal_code_1, Name: participants[1][postal_code], Value: , Checked: false
+participants.js:84 ID: city_name_1, Name: participants[1][city_name], Value: , Checked: false
+participants.js:91 New participant added to the section
+participants.js:20 Input event: ID: name_1, Name: participants[1][name], Value: Stanisław, Checked: false
+participants.js:23 Change event: ID: name_1, Name: participants[1][name], Value: Stanisław, Checked: false
+participants.js:20 Input event: ID: last_name_1, Name: participants[1][last_name], Value: Moniuszko, Checked: false
+participants.js:23 Change event: ID: last_name_1, Name: participants[1][last_name], Value: Moniuszko, Checked: false
+participants.js:20 Input event: ID: birth_date_1, Name: participants[1][birth_date], Value: 2024-07-30, Checked: false
+participants.js:23 Change event: ID: birth_date_1, Name: participants[1][birth_date], Value: 2024-07-30, Checked: false
+participants.js:20 Input event: ID: email_1, Name: participants[1][email], Value: m, Checked: false
+participants.js:20 Input event: ID: email_1, Name: participants[1][email], Value: mo, Checked: false
+participants.js:20 Input event: ID: email_1, Name: participants[1][email], Value: mon, Checked: false
+participants.js:20 Input event: ID: email_1, Name: participants[1][email], Value: mon@mail.pl, Checked: false
+participants.js:23 Change event: ID: email_1, Name: participants[1][email], Value: mon@mail.pl, Checked: false
+participants.js:20 Input event: ID: pesel_1, Name: participants[1][pesel], Value: 23456789, Checked: false
+participants.js:23 Change event: ID: pesel_1, Name: participants[1][pesel], Value: 23456789, Checked: false
+participants.js:20 Input event: ID: citizenship_1, Name: participants[1][citizenship], Value: polskie, Checked: undefined
+participants.js:23 Change event: ID: citizenship_1, Name: participants[1][citizenship], Value: polskie, Checked: undefined
+participants.js:106 Participant 1 data before submit:
+participants.js:108 ID: name_1, Name: participants[1][name], Value: Stanisław, Checked: false
+participants.js:108 ID: middle_name_1, Name: participants[1][middle_name], Value: , Checked: false
+participants.js:108 ID: last_name_1, Name: participants[1][last_name], Value: Moniuszko, Checked: false
+participants.js:108 ID: birth_date_1, Name: participants[1][birth_date], Value: 2024-07-30, Checked: false
+participants.js:108 ID: phone_1, Name: participants[1][phone], Value: , Checked: false
+participants.js:108 ID: email_1, Name: participants[1][email], Value: mon@mail.pl, Checked: false
+participants.js:108 ID: pesel_1, Name: participants[1][pesel], Value: 23456789, Checked: false
+participants.js:108 ID: citizenship_1, Name: participants[1][citizenship], Value: polskie, Checked: undefined
+participants.js:108 ID: gender_female_1, Name: participants[1][gender], Value: , Checked: false
+participants.js:108 ID: gender_male_1, Name: participants[1][gender], Value: , Checked: false
+participants.js:108 ID: passport_number_1, Name: participants[1][passport_number], Value: , Checked: false
+participants.js:108 ID: passport_issue_date_1, Name: participants[1][passport_issue_date], Value: , Checked: false
+participants.js:108 ID: passport_expiry_date_1, Name: participants[1][passport_expiry_date], Value: , Checked: false
+participants.js:108 ID: street_1, Name: participants[1][street], Value: , Checked: false
+participants.js:108 ID: house_number_1, Name: participants[1][house_number], Value: , Checked: false
+participants.js:108 ID: apartment_number_1, Name: participants[1][apartment_number], Value: , Checked: false
+participants.js:108 ID: postal_code_1, Name: participants[1][postal_code], Value: , Checked: false
+participants.js:108 ID: city_name_1, Name: participants[1][city_name], Value: , Checked: false
+participants.js:20 Input event: ID: gender_male_1, Name: participants[1][gender], Value: , Checked: true
+participants.js:23 Change event: ID: gender_male_1, Name: participants[1][gender], Value: , Checked: true
+participants.js:20 Input event: ID: passport_number_1, Name: participants[1][passport_number], Value: zx1234567, Checked: false
+participants.js:23 Change event: ID: passport_number_1, Name: participants[1][passport_number], Value: zx1234567, Checked: false
+participants.js:20 Input event: ID: passport_issue_date_1, Name: participants[1][passport_issue_date], Value: 2024-08-01, Checked: false
+participants.js:23 Change event: ID: passport_issue_date_1, Name: participants[1][passport_issue_date], Value: 2024-08-01, Checked: false
+participants.js:20 Input event: ID: passport_expiry_date_1, Name: participants[1][passport_expiry_date], Value: 2024-09-01, Checked: false
+participants.js:23 Change event: ID: passport_expiry_date_1, Name: participants[1][passport_expiry_date], Value: 2024-09-01, Checked: false
+participants.js:20 Input event: ID: street_1, Name: participants[1][street], Value: q, Checked: false
+participants.js:20 Input event: ID: street_1, Name: participants[1][street], Value: qaz, Checked: false
+participants.js:23 Change event: ID: street_1, Name: participants[1][street], Value: qaz, Checked: false
+participants.js:20 Input event: ID: house_number_1, Name: participants[1][house_number], Value: 2, Checked: false
+participants.js:23 Change event: ID: house_number_1, Name: participants[1][house_number], Value: 2, Checked: false
+participants.js:20 Input event: ID: postal_code_1, Name: participants[1][postal_code], Value: 2, Checked: false
+participants.js:20 Input event: ID: postal_code_1, Name: participants[1][postal_code], Value: 22-222, Checked: false
+participants.js:23 Change event: ID: postal_code_1, Name: participants[1][postal_code], Value: 22-222, Checked: false
+participants.js:20 Input event: ID: city_name_1, Name: participants[1][city_name], Value: a, Checked: false
+participants.js:20 Input event: ID: city_name_1, Name: participants[1][city_name], Value: , Checked: false
+participants.js:20 Input event: ID: city_name_1, Name: participants[1][city_name], Value: z, Checked: false
+participants.js:20 Input event: ID: city_name_1, Name: participants[1][city_name], Value: Zamość, Checked: false
+participants.js:23 Change event: ID: city_name_1, Name: participants[1][city_name], Value: Zamość, Checked: false
+
+
+Po kliknięciu "Wyślij" zniknęły wszystkie logi, zostało:
+participants.js:2 JavaScript file loaded successfully
+
+Logi laravela:
+
+
+
+1. Co nam dały logi?
+2.Jak naprawić?
+3. Nie wypisuj kodu.

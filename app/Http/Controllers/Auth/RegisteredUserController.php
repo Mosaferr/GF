@@ -71,12 +71,12 @@ class RegisteredUserController extends Controller
                 'user_id' => $user->id,
                 'date_id' => $request->start_date,
             ]);
-
+// ZAKOMENTOWANIE MAILINGU (3 WIERSZE)
             event(new Registered($user));
-
             Auth::login($user);
+            // $user->notify(new SpotAvailableNotification());         // Wyślij powiadomienie email
+// KONIEC ZAKOMENTOWANIA MAILINGU (3 WIERSZE)
 
-            $user->notify(new SpotAvailableNotification());         // Wyślij powiadomienie email
   
             // Zapisanie danych w sesji
             session([
