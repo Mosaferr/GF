@@ -1,10 +1,11 @@
+
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('trip').addEventListener('change', function () {
         const trip_id = this.value;
+        const trip_destination = this.options[this.selectedIndex].text;         // Zmiana: Pobierz nazwę wybranej destynacji
         const startDateSelect = document.getElementById('start_date');
 
-        // Wyczyść pole wyboru daty
-        startDateSelect.innerHTML = '<option selected>Wybierz...</option>';
+        startDateSelect.innerHTML = '<option selected>Wybierz...</option>';     // Wyczyść pole wyboru daty
 
         if (trip_id) {
             fetch(`/dates/by-trip/${trip_id}`)
@@ -31,5 +32,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .catch(error => console.error('Error:', error));
         }
+
+        localStorage.setItem('selectedTrip', trip_destination);         // Zmiana:  Zapisywanie wybranej destynacji w localStorage
+    });
+
+    document.getElementById('start_date').addEventListener('change', function() {
+        const start_date = this.value;
+        const selectedText = this.options[this.selectedIndex].text;
+
+        localStorage.setItem('selectedDate', selectedText);             // Zmiana:  Zapisywanie wybranego terminu w localStorage
     });
 });

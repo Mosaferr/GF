@@ -65,9 +65,10 @@
 					<p>Potwierdzenie wolnego miejsca wysłaliśmy mailem.</p>
 					<p>Wypełnij jeszcze jeden formularz i dokonaj wpłaty.</p>
 					<div class="mt-5 d-flex justify-content-end">
-						<a href="f-registration.html">
-							<button type="submit" class="btn btn-lg btn-warning shadow">Dalej</button>
-						</a>
+						{{-- <a href="f-registration.html"><button type="submit" class="btn btn-lg btn-warning shadow"> Dalej </button></a> --}}
+						<a href="{{ route('service.detailed_info') }}"><button type="submit" class="btn btn-lg btn-warning shadow"> Dalej </button></a>
+						{{-- <a href="{{ route('service.detailed_info', ['id' => 1]) }}" class="btn btn-primary">Szczegóły</a> --}}
+						{{-- <a href="{{ route('contact') }}" class="btn btn-success btn-sm shadow"> Napisz </a> --}}
 					</div>
 				</div>
 			</div>

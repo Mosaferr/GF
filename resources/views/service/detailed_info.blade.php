@@ -1,7 +1,7 @@
-<!-- resources/views/XXXXX.blade.php -->
+<!-- resources/views/detailed_info.blade.php -->
 @extends('layouts.app')
 
-@section('title', 'XXXXX')
+@section('title', 'Dane osobowe')
 @section('head-scripts')
     @vite('resources/css/hide.css')
 @endsection
@@ -50,34 +50,42 @@
 		</div>
 
 		<div class="form-container">
-			<form action="registration.php" method="POST" id="registrationForm">
+			<form method="POST" action="{{ route('client.store') }}">
+				@csrf
 				<h3> Twoja przygoda </h3>
+
+				
 				<div class="row mb-3">
+					{{-- <div class="form-group">
+						<label for="trip">Wyprawa</label>
+						<input type="text" class="form-control" id="trip" name="trip" readonly>
+					</div>
+					<div class="form-group">
+						<label for="start_date">Termin</label>
+						<input type="text" class="form-control" id="start_date" name="start_date" readonly>
+					</div> --}}
+
 					<div class="col-md-6">
+						<label for="trip" class="form-label">Wyprawa</label>
+						<input type="text" class="form-control" id="trip" name="trip" readonly>
+						{{-- <input type="text" class="form-control" id="wyprawa" name="wyprawa" value="{{ old('wyprawa', session('destination')) }}" required> --}}
+					</div>
+					<div class="col-md-6">
+						<label for="start_date" class="form-label">Termin</label>
+						<input type="text" class="form-control" id="start_date" name="start_date" readonly>
+						{{-- <input type="text" class="form-control" id="termin" name="termin" value="{{ old('termin', session('start_date')) }}" required> --}}
+					</div>
+
+					{{-- <div class="col-md-6">
 						<label for="wyprawa" class="form-label">Wyprawa</label>
-						<select class="form-select" id="wyprawa" name="wyprawa" required>
-							<option selected>Wybierz...</option>
-							<option value="argentina">Argentyna i Chile</option>
-							<option value="indonesia">Indonezja</option>
-							<option value="cambodia">Kambodża</option>
-							<option value="peru">Peru i Boliwia</option>
-							<option value="sri_lanka">Sri Lanka</option>
-							<option value="tibet">Tybet, w Chinach</option>
-							<option value="inny">Inna</option>
-						</select>
+						<input type="text" class="form-control" id="wyprawa" name="wyprawa" value="{{ old('wyprawa', session('destination')) }}" required>
 					</div>
 					<div class="col-md-6">
 						<label for="termin" class="form-label">Termin</label>
-						<select class="form-select" id="termin" name="termin" required>
-							<option selected>Wybierz...</option>
-							<option value="argentina_1407">14.07-27.07.2024</option>
-							<option value="argentina_1407">28.07-11.08.2024</option>
-							<option value="argentina_1407">04.08-17.08.2024</option>
-							<option value="argentina_inny">Inny</option>
-						</select>
-					</div>
+						<input type="text" class="form-control" id="termin" name="termin" value="{{ old('termin', session('start_date')) }}" required>
+					</div> --}}
 				</div>
-
+				
 				<h3 class="mt-5"> Twoje dane osobowe </h3>
 				<div id="participantSection">
 					<div class="participant" id="participantTemplate">
@@ -85,46 +93,46 @@
 						<div class="row mb-3">
 							<div class="col-md-6">
 								<label for="name" class="form-label">Imię<span class="text-danger">*</span></label>
-								<input type="text" class="form-control" id="name" name="name[]" required>
+								<input type="text" class="form-control" id="name" name="name" value="{{ old('name', session('name')) }}" required>
+								{{-- <input type="text" class="form-control" id="name" name="name[]" required> --}}
 							</div>
 							<div class="col-md-6">
 								<label for="middle_name" class="form-label">Drugie imię</label>
-								<input type="text" class="form-control" id="middle_name" name="middle_name[]">
+								<input type="text" class="form-control" id="middle_name" name="middle_name" value="{{ old('middle_name') }}">
+								{{-- <input type="text" class="form-control" id="middle_name" name="middle_name[]"> --}}
 							</div>
 						</div>
 
 						<div class="row mb-3">
 							<div class="col-md-6">
 								<label for="last_name" class="form-label">Nazwisko<span class="text-danger">*</span></label>
-								<input type="text" class="form-control" id="last_name" name="last_name[]" required>
+								<input type="text" class="form-control" id="last_name" name="last_name" value="{{ old('last_name', session('last_name')) }}" required>
 							</div>
 							<div class="col-md-6">
 								<label for="birth_date" class="form-label">Data urodzenia<span class="text-danger">*</span></label>
-								<input type="date" class="form-control" id="birth_date" name="birth_date" required>
-							</div>
-							<div class="col-md-6">
-								<label for="gender" class="form-label">Data urodzenia<span class="text-danger">*</span></label>
-								<input type="text" class="form-control" id="gender" name="gender" required>
+                                <input type="date" class="form-control" id="birth_date" name="birth_date" value="{{ old('birth_date') }}" required>
 							</div>
 						</div>
+
 						<div class="row mb-3">
 							<div class="col-md-6">
 								<label for="phone" class="form-label">Telefon</label>
-								<input type="text" class="form-control" id="phone" name="phone[]">
+								<input type="text" class="form-control" id="phone" name="phone" value="{{ old('phone', session('phone')) }}">
 							</div>
 							<div class="col-md-6">
 								<label for="email" class="form-label">Adres email<span class="text-danger">*</span></label>
-								<input type="email" class="form-control" id="email" name="email[]" required>
+                                <input type="email" class="form-control" id="email" name="email" value="{{ old('email', session('email')) }}" required>
 							</div>
 						</div>
+
 						<div class="row mb-3">
 							<div class="col-md-6">
 								<label for="pesel" class="form-label">PESEL<span class="text-danger">*</span></label>
-								<input type="text" class="form-control" id="pesel" name="pesel" required>
+								<input type="text" class="form-control" id="pesel" name="pesel" value="{{ old('pesel') }}" required>
 							</div>
 							<div class="col-md-6">
 								<label for="citizenship" class="form-label">Obywatelstwo<span class="text-danger">*</span></label>
-								<select class="form-select" id="citizenship" name="citizenship" required>
+								<select class="form-select" id="citizenship" name="citizenship"  value="{{ old('citizenship') }}" required>
 									<option selected>Wybierz...</option>
 									<option value="polish">Polskie</option>
 									<option value="american">Amerykańskie</option>
@@ -136,47 +144,66 @@
 								</select>
 							</div>
 						</div>
+
 						<div class="row mb-3">
-							<div class="col-md-12">
+							<div class="col-md-6">
+								<label class="form-label">Płeć<span class="text-danger">*</span></label>
+								<div class="row">
+									<div class="col-auto">
+										<div class="form-check">
+											<input class="form-check-input" type="radio" name="gender" id="gender_female" value="Kobieta" {{ old('gender') == 'Kobieta' ? 'checked' : '' }} required>
+											<label class="form-check-label" for="gender_female">Kobieta</label>
+										</div>
+									</div>
+									<div class="col-auto">
+										<div class="form-check">
+											<input class="form-check-input" type="radio" name="gender" id="gender_male" value="Mężczyzna" {{ old('gender') == 'Mężczyzna' ? 'checked' : '' }} required>
+											<label class="form-check-label" for="gender_male">Mężczyzna</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
 								<label for="passport_number" class="form-label">Seria i numer paszportu<span class="text-danger">*</span></label>
-								<input type="text" class="form-control" id="passport_number" name="passport_number" required>
+                                <input type="text" class="form-control" id="passport_number" name="passport_number" value="{{ old('passport_number') }}" required>
 							</div>
 						</div>
+
 						<div class="row mb-3">
 							<div class="col-md-6">
 								<label for="passport_issue_date" class="form-label">Data wydania paszportu<span class="text-danger">*</span></label>
-								<input type="date" class="form-control" id="passport_issue_date" name="passport_issue_date" required>
+                                <input type="date" class="form-control" id="passport_issue_date" name="passport_issue_date" value="{{ old('passport_issue_date') }}" required>
 							</div>
 							<div class="col-md-6">
 								<label for="passport_expiry_date" class="form-label">Data ważności paszportu<span class="text-danger">*</span></label>
-								<input type="date" class="form-control" id="passport_expiry_date" name="passport_expiry_date" required>
+                                <input type="date" class="form-control" id="passport_expiry_date" name="passport_expiry_date" value="{{ old('passport_expiry_date') }}" required>
 							</div>
 						</div>
-	
+
 						<h5 class="login-address mt-5">Adres</h5>
 						<div class="row mb-3">
 							<div class="col-md-8">
-								<label for="street" class="form-label">&nbsp;<br>Ulica<span class="text-danger">*</span></label>
-								<input type="text" class="form-control" id="street" name="street[]" required>
+								<label for="street" class="form-label">Ulica<span class="text-danger">*</span></label>
+								<input type="text" class="form-control" id="street" name="street" value="{{ old('street') }}" required>
 							</div>
 							<div class="col-md-2">
 								<label for="house_number" class="form-label">Numer domu<span class="text-danger">*</span></label>
-								<input type="text" class="form-control" id="house_number" name="house_number[]" required>
+								<input type="text" class="form-control" id="house_number" name="house_number" value="{{ old('house_number') }}" required>
 							</div>
 							<div class="col-md-2">
-								<label for="apartment_number" class="form-label">Numer mieszkania<span class="text-danger">*</span></label>
-								<input type="text" class="form-control" id="apartment_number" name="apartment_number[]" required>
+								<label for="apartment_number" class="form-label">Nr mieszkania</label>
+								<input type="text" class="form-control" id="apartment_number" name="apartment_number" value="{{ old('apartment_number') }}">
 							</div>
 						</div>
 
 						<div class="row mb-3">
 							<div class="col-md-4">
 								<label for="postal_code" class="form-label">Kod<span class="text-danger">*</span></label>
-								<input type="text" class="form-control" id="postal_code" name="postal_code[]" required>
+								<input type="text" class="form-control" id="postal_code" name="postal_code" value="{{ old('postal_code') }}" required>
 							</div>
 							<div class="col-md-8">
 								<label for="city_name" class="form-label">Miejscowość<span class="text-danger">*</span></label>
-								<input type="text" class="form-control" id="city_name" name="city_name" required>
+								<input type="text" class="form-control" id="city_name" name="city_name" value="{{ old('city_name') }}" required>
 							</div>
 						</div>
 
@@ -251,14 +278,33 @@
 						<button type="submit" class="btn btn-warning shadow w-100">Wyślij</button>
 					</div>
 				</div>
+							
+				<script>
+					document.addEventListener('DOMContentLoaded', function() {
+						// Pobierz wartości z localStorage i ustaw je w odpowiednich polach
+						const selectedTrip = localStorage.getItem('selectedTrip');
+						const selectedDate = localStorage.getItem('selectedDate');
+
+						const tripElement = document.getElementById('trip');
+						const dateElement = document.getElementById('start_date');
+
+						if (tripElement && selectedTrip) {
+							tripElement.value = selectedTrip;
+						} else {
+							console.error('Element trip not found or selectedTrip is null');
+						}
+
+						if (dateElement && selectedDate) {
+							dateElement.value = selectedDate;
+						} else {
+							console.error('Element start_date not found or selectedDate is null');
+						}
+					});
+				</script>
+							
 			</form>
 		</div>
 
-		<div class ="tymcz text-center mt-5">(<small>Tymczasowo: </small>
-			<a href="f-payment.html">
-				<button type="submit" class="btn btn-sm btn-light shadow">Dalej</button>
-			</a>)
-		</div>
 	</main>
 @endsection
 

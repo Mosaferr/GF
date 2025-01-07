@@ -12,6 +12,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\RegisteredUserController; // Importowanie kontrolera
+use App\Http\Controllers\DetailedInfoController; // Importowanie kontrolera
 
 // Główna strona
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -53,7 +54,7 @@ Route::post('/contact', [EmailController::class, 'sendEmail'])->name('contact.se
 // Logowanie
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -67,14 +68,16 @@ require __DIR__.'/auth.php';
 Route::get('/trips', [TripsController::class, 'getAllTrips']);
 Route::get('/dates/by-trip/{trip_id}', [DatesController::class, 'getDatesByTripId']);
 Route::post('/register', [RegisteredUserController::class, 'store'])->name('register'); // Dodanie trasy
-// Route::post('/register', [RegisteredUserController::class, 'store'])->name('register'); // Dodanie trasy
 
 // Trasy dla dostępności usług
 Route::get('/service/available', function () {
     return view('service.available');
     })->middleware(['auth', 'verified'])->name('service.available');
-    // })->name('service.available');
 
 Route::get('/service/unavailable', function () {
     return view('service.unavailable');
 })->name('service.unavailable');
+
+Route::get('/service/detailed_info', [DetailedInfoController::class, 'show'])->name('service.detailed_info');
+Route::post('/service/detailed_info', [DetailedInfoController::class, 'submitDetails'])->name('client.store');
+// Route::post('/submit-details', [DetailedInfoController::class, 'submitDetails'])->name('details.submit');
