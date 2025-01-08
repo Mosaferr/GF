@@ -66,7 +66,7 @@
 
 				<div class="col-lg-4 col-md-6 col-sm-12 col-12 px-4 d-flex flex-column justify-content-center">
 					<div class="image shadow">
-						<a class="spotlight" href="{{ asset('img/main/sm-term.jpg') }}">
+						<a class="spotlight" href="{{ asset('img/main/term.jpg') }}">
 							<img src="{{ asset('img/main/term.jpg') }}" alt="Apsara in Angkor Wat" class="img-thumbnail shadow">
 						</a>
 					</div>

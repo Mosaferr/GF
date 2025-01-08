@@ -16,6 +16,9 @@ use App\Http\Controllers\DetailedInfoController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\Payment2Controller;
 use App\Http\Controllers\FinalController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ClientListController;
+use App\Http\Controllers\TripListController;
 
 // Główna strona
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -98,3 +101,10 @@ Route::get('/service/payment2/cancel', [Payment2Controller::class, 'paymentCance
 Route::get('/service/payment2/failed', [Payment2Controller::class, 'paymentFailed'])->name('payment2.failed');
 
 Route::get('/service/final', [FinalController::class, 'show'])->name('service.final');
+
+// Admin
+Route::get('/admin/admin', [AdminController::class, 'index'])->name('admin.admin');
+// Route::post('/contact', [EmailController::class, 'sendEmail'])->name('contact.send');
+Route::get('/admin/clientlist', [ClientListController::class, 'index'])->name('admin.clientlist');
+Route::get('/admin/triplist', [TripListController::class, 'index'])->name('admin.triplist');
+

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Cashier\Exceptions\PaymentFailure;
@@ -50,10 +51,8 @@ class PaymentController extends Controller
                 'formatted_price' => $formatted_price,
                 'participant_count' => $participant_count,
                 'participants_label' => $participants_label,
-
                 'total_prepayment' => $total_prepayment,
                 'total_cost' => $total_cost,
-
                 'formatted_prepayment' => $formatted__prepayment,
                 'formatted_total_prepayment' => $formatted_total_prepayment,
                 'formatted_total_cost' => $formatted_total_cost
@@ -71,7 +70,7 @@ class PaymentController extends Controller
             'formatted_total_prepayment' => session('formatted_total_prepayment'),
             'formatted_total_cost' => session('formatted_total_cost')
         ];
-                                                
+
         // Logika wyboru zdjęć na podstawie destynacji
         $images = [
             'Argentyna i Chile' => 'arg3.jpg',
@@ -99,7 +98,7 @@ class PaymentController extends Controller
             'image' => $image,  // Dodanie zmiennej z nazwą obrazu
             'smallImage' => $smallImage // Dodanie zmiennej z nazwą małego obrazu
         ];
-                                                
+
         return view('service.payment', $data);          // Przekazanie danych do widoku
     }
 
@@ -113,20 +112,23 @@ class PaymentController extends Controller
             return 'osób';
         }
     }
-
+                                                
     public function checkout(Request $request)
     {
         $user = $request->user();
 
         $paymentOption = $request->input('payment');                // Pobranie wyboru użytkownika z formularza
+        $leaderId = $user->clients->first()->leader_id;				// Pobranie `leader_id` głównego użytkownika
 
         // Odczytanie kwoty z sesji na podstawie wyboru użytkownika
         if ($paymentOption === 'zaliczka') {
             $amount = intval(session('total_prepayment') * 100);            // Konwersja na grosze
-            $user->clients->first()->update(['stage' => 'przedpłacone']);   // Aktualizacja pola stage na przedpłacone
+            // $user->clients->first()->update(['stage' => 'przedpłacone']);   // Aktualizacja stage na przedpłacone
+            Client::where('leader_id', $leaderId)->update(['stage' => 'przedpłacone']);     // Aktualizacja stage na przedpłacone
         } elseif ($paymentOption === 'calosc') {
             $amount = intval(session('total_cost') * 100);                  // Konwersja na grosze
-            $user->clients->first()->update(['stage' => 'opłacone']);       // Aktualizacja pola stage na opłacone
+            // $user->clients->first()->update(['stage' => 'opłacone']);       // Aktualizacja stage na opłacone
+            Client::where('leader_id', $leaderId)->update(['stage' => 'opłacone']);     // Aktualizacja stage na opłacone
         } else {
             return redirect()->route('service.payment')->with('error', 'Nie wybrano prawidłowej opcji płatności.');
         }
@@ -141,7 +143,7 @@ class PaymentController extends Controller
             return redirect()->route('service.payment')->with('error', 'Coś poszło nie tak podczas przetwarzania płatności. Spróbuj ponownie.');
         }
     }
-
+                                                
     public function paymentSuccess()
     {
         $user = Auth::user();               // Pobranie zalogowanego użytkownika

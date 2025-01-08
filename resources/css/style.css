@@ -383,3 +383,13 @@ footer .list-group-item a {
 footer .list-group-item a:hover {
     color: lightgreen;
 }
+
+/*--------------------------------------------- TABELE ADMINA Z DOMYSLNYM BEZ-STYLEM ---*/
+th a {
+    color: inherit; /* Zachowaj domyślny kolor tekstu */
+    text-decoration: none; /* Usuń podkreślenie */
+}
+
+th a i {
+    margin-left: 5px; /* Dodaj odstęp między tekstem a ikoną */
+}

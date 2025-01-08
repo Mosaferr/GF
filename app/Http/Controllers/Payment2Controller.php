@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Exception;
@@ -75,7 +76,7 @@ class Payment2Controller extends Controller
             'formatted_total_cost' => session('formatted_total_cost'),
             'formatted_balance' => session('formatted_balance')
         ];
-                                                
+
         // Logika wyboru zdjęć na podstawie destynacji
         $images = [
             'Argentyna i Chile' => 'chile8.jpg',
@@ -103,7 +104,7 @@ class Payment2Controller extends Controller
             'image' => $image,                          // Dodanie zmiennej z nazwą obrazu
             'smallImage' => $smallImage                 // Dodanie zmiennej z nazwą małego obrazu
         ];
-                                                
+
         return view('service.payment2', $data);     // Przekazanie danych do widoku
     }
 
@@ -117,13 +118,14 @@ class Payment2Controller extends Controller
             return 'osób';
         }
     }
-
-        public function checkout(Request $request)
+                                        
+    public function checkout(Request $request)
     {
         $user = $request->user();
+        $leaderId = $user->clients->first()->leader_id;		// Pobierz `leader_id` głównego użytkownika
+        $amount = intval(session('balance') * 100);         // Konwersja na grosze
 
-        $amount = intval(session('balance') * 100);                     // Konwersja na grosze
-        $user->clients->first()->update(['stage' => 'opłacone']);       // Aktualizacja pola stage na opłacone
+        Client::where('leader_id', $leaderId)->update(['stage' => 'opłacone']);		// Aktualizacja pola stage
 
         try {
             // Utworzenie sesji Stripe Checkout z dynamiczną kwotą
@@ -135,6 +137,7 @@ class Payment2Controller extends Controller
             return redirect()->route('service.payment2')->with('error', 'Coś poszło nie tak podczas przetwarzania płatności. Spróbuj ponownie.');
         }
     }
+                                        
 
     public function paymentSuccess()
     {

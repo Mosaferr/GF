@@ -79,8 +79,9 @@ class DetailedInfoController extends Controller
     {
         // Log::info('Rozpoczęcie zapisu danych w store method.');
 
-        $user = Auth::user();                                       // Pobierz zalogowanego użytkownika
-        $participants = $request->input('participants');            // Pobierz dane uczestników
+        $user = Auth::user();                                                   // Pobierz zalogowanego użytkownika
+        $leaderId = Client::where('user_id', $user->id)->value('leader_id');    // Pobierz `leader_id` głównego uczestnika
+        $participants = $request->input('participants');                        // Pobierz dane uczestników
 
         // Walidacja danych uczestników
         $rules = [
@@ -197,11 +198,11 @@ class DetailedInfoController extends Controller
                         'passport_expiry_date' => $participantData['passport_expiry_date'],
                         'address_id' => $address->id,
 
-                        // 'stage' => $participantData['zapisany'],        // NOWE, Dodanie stage do każdego kolejnego uczestnika - źle
+                        'leader_id' => $leaderId, // Przypisanie leader_id dla wszystkich uczestników
+                        'stage' => 'zapisany', // Przypisanie stage dla wszystkich uczestników
                     ]);
 
                     Log::info('Nowy klient został utworzony.', ['client_id' => $client->id]);
-
                 }
             }
 

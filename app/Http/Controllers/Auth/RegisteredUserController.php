@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
-
 use Illuminate\Support\Facades\Log;
 
 use App\Notifications\SpotAvailableNotification;
@@ -49,17 +48,17 @@ class RegisteredUserController extends Controller
             'password' => [
                 'required',
                 'confirmed',
-                Rules\Password::defaults() // Użycie domyślnych zasad
-                    // ->mixedCase()	// Dodanie wymogu wielkich i małych liter
-                    // ->symbols()		// Wymaga znaków specjalnych
-                    ->numbers()			// Wymaga cyfr
-                    // ->uncompromised(),	// Sprawdza, czy hasło nie zostało skompromitowane
+                Rules\Password::defaults()      // Użycie domyślnych zasad
+                    // ->mixedCase()            // Dodanie wymogu wielkich i małych liter
+                    // ->symbols()              // Wymaga znaków specjalnych
+                    ->numbers()                 // Wymaga cyfr
+                    // ->uncompromised(),       // Sprawdza, czy hasło nie zostało skompromitowane
             ],
             'trip' => 'required|exists:trips,id',
             'start_date' => 'required|exists:dates,id',
         ]);
 
-        $date = Date::find($request->start_date);                   // Pobranie daty na podstawie start_date przekazanego z formularza
+        $date = Date::find($request->start_date);           // Pobranie daty na podstawie start_date przekazanego z formularza
 
         $remainingSeats = $date->available_seats - $request->participant_count;
 
@@ -76,12 +75,13 @@ class RegisteredUserController extends Controller
                 'participant_count' => $request->participant_count,
                 'password' => Hash::make($request->password),
             ]);
-
+                            
+            $leaderId = $user->id;          // Przypisanie leader_id do identyfikatora utworzonego użytkownika
+                            
             UserDate::create([              // Nowe reguły
                 'user_id' => $user->id,
                 'date_id' => $request->start_date,
             ]);
-                                            
         // Sprawdzenie, czy istnieją wartości w tabelach `addresses`
         $existingAddress = \App\Models\Address::first();
         if (!$existingAddress) {
@@ -105,8 +105,8 @@ class RegisteredUserController extends Controller
         $existingAddressId = $existingAddress->id;
 
             // Sprawdzenie, czy istnieją wartości w tabelach `citizenships`, i `clients`
-            $existingCitizenshipId = \App\Models\Citizenship::first()->id ?? null; // Zmień na rzeczywisty ID istniejącego obywatelstwa
-            $existingLeaderId = Client::first()->id ?? null; // Zmień na rzeczywisty ID istniejącego lidera
+            $existingCitizenshipId = \App\Models\Citizenship::first()->id ?? null;      // Zmień na rzeczywisty ID istniejącego obywatelstwa
+            // $existingLeaderId = Client::first()->id ?? null;                            // Zmień na rzeczywisty ID istniejącego lidera
 
             // Tworzenie klienta...
             $client = Client::create([
@@ -115,15 +115,16 @@ class RegisteredUserController extends Controller
                 'last_name' => $request->last_name,
                 'phone' => $request->phone,
                 'email' => $request->email,
-                'birth_date' => now(), // Tymczasowa wartość
-                'gender' => 'M', // Tymczasowa wartość
-                'pesel' => '00000000000', // Tymczasowa wartość
-                'citizenship_id' => $existingCitizenshipId, // Użyj istniejącej wartości lub null
-                'passport_number' => 'TEMP', // Tymczasowa wartość
-                'passport_issue_date' => now(), // Tymczasowa wartość
-                'passport_expiry_date' => now()->addYear(), // Tymczasowa wartość
-                'address_id' => $existingAddressId, // Użyj istniejącej wartości lub null
-                'leader_id' => $existingLeaderId, // Użyj istniejącej wartości lub null
+                'birth_date' => now(),                          // Tymczasowa wartość
+                'gender' => 'M',                                // Tymczasowa wartość
+                'pesel' => '00000000000',                       // Tymczasowa wartość
+                'citizenship_id' => $existingCitizenshipId,     // Użyj istniejącej wartości lub null
+                'passport_number' => 'TEMP',                    // Tymczasowa wartość
+                'passport_issue_date' => now(),                 // Tymczasowa wartość
+                'passport_expiry_date' => now()->addYear(),     // Tymczasowa wartość
+                'address_id' => $existingAddressId,             // Użyj istniejącej wartości lub null
+                'leader_id' => $leaderId,                       // Ustawienie leader_id na identyfikator nowo utworzonego użytkownika
+                // 'leader_id' => $existingLeaderId,            // Użyj istniejącej wartości lub null
                 'stage' => 'zarezerwowany',
             ]);
 
