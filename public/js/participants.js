@@ -61,31 +61,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const inputs = newParticipant.querySelectorAll('input, select');
         inputs.forEach(input => {
-            const newId = input.id + '_' + participantCount;
-            input.id = newId;
-            if (input.name.includes('[0]')) {
-                input.name = input.name.replace('[0]', `[${participantCount}]`);
+            if (input.type === 'radio' && input.name.includes('[0]')) {
+                input.name = `participants[${participantCount}][gender]`;
+                input.id = `gender_${input.value.toLowerCase()}_${participantCount}`; // Upewnienie się, że identyfikator jest unikalny i nie zawiera dodatkowego `_0`
             } else {
-                const nameParts = input.name.split('[');
-                nameParts[1] = `[${participantCount}]` + nameParts[1].substring(nameParts[1].indexOf(']'));
-                input.name = nameParts.join('');
+                const newId = input.id + '_' + participantCount;
+                input.id = newId;
+            
+                                             
+                input.name = input.name.replace('[0]', `[${participantCount}]`);
             }
+            
             input.value = ''; // Czyszczenie pól
+            
             if (input.type === 'radio') {
                 input.checked = false; // Odznaczenie domyślnie zaznaczonego pola
             }
         });
-        console.log('Inputs updated for new participant');
-        addInputListeners(inputs);
+                console.log('Inputs updated for new participant');
 
-        // Logowanie nowo dodanych pól uczestnika, w tym gender
-        console.log(`Participant ${participantCount} fields:`);
-        inputs.forEach(input => {
-            console.log(`ID: ${input.id}, Name: ${input.name}, Value: ${input.value}, Checked: ${input.checked}`);
-            // if (input.name.includes('gender')) {
-            //     console.log(`Gender input: ID: ${input.id}, Name: ${input.name}, Checked: ${input.checked}`);
-            // }
-        });
+        inputs.forEach(input => console.log(`Gender field check: ${input.name} => ${input.value}`));
+        addInputListeners(inputs);
 
         participantSection.appendChild(newParticipant);
         console.log('New participant added to the section');
@@ -106,9 +102,6 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log(`Participant ${index + 1} data before submit:`);
             inputs.forEach(input => {
                 console.log(`ID: ${input.id}, Name: ${input.name}, Value: ${input.value}, Checked: ${input.checked}`);
-                // if (input.name.includes('gender')) {
-                //     console.log(`Gender input: ID: ${input.id}, Name: ${input.name}, Checked: ${input.checked}`);
-                // }
             });
         });
     });
