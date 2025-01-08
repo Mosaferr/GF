@@ -41,12 +41,21 @@ class RegisteredUserController extends Controller
     {
 
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'phone' => ['nullable', 'string', 'max:20'],
+			'name' => ['required', 'string', 'alpha', 'min:3', 'max:20'],
+			'last_name' => ['required', 'string', 'alpha', 'min:2', 'max:50'],
+			'phone' => ['nullable', 'regex:/^\+?[0-9\s]+$/', 'min:8', 'max:20'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'participant_count' => ['required', 'integer', 'min:1'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => [
+                'required',
+                'confirmed',
+                Rules\Password::defaults() // Użycie domyślnych zasad
+                    // ->mixedCase()	// Dodanie wymogu wielkich i małych liter
+                    // ->symbols()		// Wymaga znaków specjalnych
+                    ->numbers()			// Wymaga cyfr
+                    // ->uncompromised(),	// Sprawdza, czy hasło nie zostało skompromitowane
+            ],
             'trip' => 'required|exists:trips,id',
             'start_date' => 'required|exists:dates,id',
         ]);

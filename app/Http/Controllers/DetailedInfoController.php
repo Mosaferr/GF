@@ -9,7 +9,6 @@ use App\Models\Client;
 use App\Models\Address;
 use App\Models\Citizenship;
 use App\Models\City;
-use App\Models\ClientDate;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -77,21 +76,21 @@ class DetailedInfoController extends Controller
 
         // Walidacja danych uczestników
         $rules = [
-            'participants.*.name' => 'required|string|max:255',
-            'participants.*.last_name' => 'required|string|max:255',
-            'participants.*.birth_date' => 'required|date',
-            'participants.*.phone' => 'nullable|string|max:15',
+            'participants.*.name' => 'required|string|alpha|min:3|max:20',
+            'participants.*.middle_name' => 'nullable|string|alpha|min:3|max:20',
+            'participants.*.last_name' => 'required|string|alpha|min:2|max:50',
+            'participants.*.phone' => 'nullable|regex:/^\+?[0-9\s]+$/|min:8|max:20',
             'participants.*.email' => 'required|email',
             'participants.*.pesel' => 'required|string',
             'participants.*.citizenship' => 'required|string',
             'participants.*.passport_number' => 'required|string',
-            'participants.*.passport_issue_date' => 'required|date',
-            'participants.*.passport_expiry_date' => 'required|date|after:participants.*.passport_issue_date',
+            'participants.*.passport_issue_date' => 'required|date|before_or_equal:today',
+            'participants.*.passport_expiry_date' => 'required|date|after:today',
             'participants.*.street' => 'required|string',
             'participants.*.house_number' => 'required|string',
             'participants.*.apartment_number' => 'nullable|string',
             'participants.*.postal_code' => 'required|string',
-            'participants.*.city_name' => 'required|string',
+            'participants.*.city_name' => 'required|string|alpha',
         ];
 
         $validator = Validator::make($request->all(), $rules);

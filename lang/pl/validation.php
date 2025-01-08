@@ -80,4 +80,121 @@ return [
     'uploaded' => 'Nie udało się wgrać pliku :attribute.',
     'url' => 'Format pola :attribute jest nieprawidłowy.',
     'uuid' => 'Pole :attribute musi być poprawnym identyfikatorem UUID.',
+                                            
+
+    'password' => [
+        'letters' => 'Pole :attribute musi zawierać przynajmniej jedną literę.',
+        'mixed' => 'Pole :attribute musi zawierać przynajmniej jedną wielką i jedną małą literę.',
+        'numbers' => 'Pole :attribute musi zawierać przynajmniej jedną cyfrę.',
+        'symbols' => 'Pole :attribute musi zawierać przynajmniej jeden znak specjalny.',
+        'uncompromised' => 'Podane :attribute pojawiło się w wycieku danych. Proszę wybrać inne :attribute.',
+    ],
+
+                                            
+
+    'custom' => [
+        'name' => [
+            'required' => 'Imię jest wymagane.',
+            'alpha' => 'Imię może zawierać tylko litery.',
+            'min' => 'Imię musi mieć przynajmniej 3 litery.',
+            'max' => 'Imię nie może mieć więcej niż 20 znaków.',
+        ],
+        'last_name' => [
+            'required' => 'Nazwisko jest wymagane.',
+            'alpha' => 'Nazwisko może zawierać tylko litery.',
+            'min' => 'Nazwisko musi mieć przynajmniej 2 litery.',
+            'max' => 'Nazwisko nie może mieć więcej niż 50 znaków.',
+        ],
+        'phone' => [
+            'regex' => 'Numer telefonu może zawierać tylko cyfry, spacje oraz symbol plusa (+).',
+            'min' => 'Numer telefonu musi mieć przynajmniej 8 znaków.',
+            'max' => 'Numer telefonu nie może mieć więcej niż 20 znaków.',
+        ],
+
+        'participants.*.name' => [
+            'required' => 'Imię jest wymagane.',
+            'string' => 'Imię musi być ciągiem znaków.',
+            'alpha' => 'Imię może zawierać tylko litery.',
+            'min' => 'Imię musi mieć przynajmniej 3 litery.',
+            'max' => 'Imię nie może mieć więcej niż 20 znaków.',
+        ],
+        'participants.*.middle_name' => [
+            'string' => 'Drugie imię musi być ciągiem znaków.',
+            'alpha' => 'Drugie imię może zawierać tylko litery.',
+            'min' => 'Drugie imię musi mieć przynajmniej 3 litery.',
+            'max' => 'Drugie imię nie może mieć więcej niż 20 znaków.',
+        ],
+        'participants.*.last_name' => [
+            'required' => 'Nazwisko jest wymagane.',
+            'string' => 'Nazwisko musi być ciągiem znaków.',
+            'alpha' => 'Nazwisko może zawierać tylko litery.',
+            'min' => 'Nazwisko musi mieć przynajmniej 2 litery.',
+            'max' => 'Nazwisko nie może mieć więcej niż 50 znaków.',
+        ],
+        'participants.*.birth_date' => [
+            'required' => 'Data urodzenia jest wymagana.',
+            'date' => 'Data urodzenia musi być poprawną datą.',
+        ],
+        'participants.*.phone' => [
+			'regex' => 'Numer telefonu może zawierać tylko cyfry, spacje oraz symbol plusa (+).',
+			'min' => 'Numer telefonu musi mieć przynajmniej 8 znaków.',
+			'max' => 'Numer telefonu nie może mieć więcej niż 20 znaków.',
+        ],
+        'participants.*.email' => [
+            'required' => 'Adres email jest wymagany.',
+            'email' => 'Adres email musi być poprawnym adresem email.',
+        ],
+        'participants.*.pesel' => [
+            'required' => 'PESEL jest wymagany.',
+            'string' => 'PESEL musi być ciągiem znaków.',
+        ],
+        'participants.*.citizenship' => [
+            'required' => 'Obywatelstwo jest wymagane.',
+            'string' => 'Obywatelstwo musi być ciągiem znaków.',
+        ],
+        'participants.*.passport_number' => [
+            'required' => 'Numer paszportu jest wymagany.',
+            'string' => 'Numer paszportu musi być ciągiem znaków.',
+        ],
+        'participants.*.passport_issue_date' => [
+            'required' => 'Data wydania paszportu jest wymagana.',
+            'date' => 'Data wydania paszportu musi być poprawną datą.',
+			'before_or_equal' => 'Data wydania paszportu nie może być późniejsza niż dzisiaj.',
+        ],
+        'participants.*.passport_expiry_date' => [
+            'required' => 'Data ważności paszportu jest wymagana.',
+            'date' => 'Data ważności paszportu musi być poprawną datą.',
+			'after' => 'Data ważności paszportu musi być późniejsza niż dzisiaj.',
+        ],
+        'participants.*.street' => [
+            'required' => 'Ulica jest wymagana.',
+            'string' => 'Ulica musi być ciągiem znaków.',
+        ],
+        'participants.*.house_number' => [
+            'required' => 'Numer domu jest wymagany.',
+            'string' => 'Numer domu musi być ciągiem znaków.',
+        ],
+        'participants.*.apartment_number' => [
+            'string' => 'Numer mieszkania musi być ciągiem znaków.',
+        ],
+        'participants.*.postal_code' => [
+            'required' => 'Kod pocztowy jest wymagany.',
+            'string' => 'Kod pocztowy musi być ciągiem znaków.',
+        ],
+        'participants.*.city_name' => [
+            'required' => 'Miejscowość jest wymagana.',
+            'string' => 'Miejscowość musi być ciągiem znaków.',
+        ],
+    ],
+
+                                            
+
+        'attributes' => [
+            'email' => 'adres e-mail',
+            'password' => 'hasło',
+            'name' => 'imię',
+            // Dodaj tutaj kolejne tłumaczenia atrybutów
+        ],
+
+                                            
 ];
