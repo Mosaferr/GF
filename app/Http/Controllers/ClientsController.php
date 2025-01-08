@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class ClientsController extends Controller
 {
@@ -15,15 +14,13 @@ class ClientsController extends Controller
 
     public function store(Request $request)
     {
-        Log::info('Walidacja przed update:', $request->all());
-
         $validated = $request->validate([
             'user_id' => 'required|exists:users,id',
             'name' => 'required|max:255',
             'middle_name' => 'nullable|max:255',
             'last_name' => 'required|max:255',
             'birth_date' => 'required|date',
-            'gender' => 'required|in:M,F',
+            // 'gender' => 'required|in:M,F',
             'stage' => 'required|in:zarezerwowany, zapisany, przedpłacone, opłacone',
             'phone' => 'nullable|max:20',
             'email' => 'required|email',
@@ -35,8 +32,6 @@ class ClientsController extends Controller
             'address_id' => 'required|exists:addresses,id',
             'leader_id' => 'nullable|exists:clients,id',
         ]);
-        Log::info('Dane po walidacji w update:', $validated);
-        
         return Client::create($validated);
     }
 
@@ -48,16 +43,13 @@ class ClientsController extends Controller
     public function update(Request $request, $id)
     {
         $client = Client::findOrFail($id);
-
-        Log::info('Walidacja przed update:', $request->all());
-
         $validated = $request->validate([
             'user_id' => 'required|exists:users,id',
             'name' => 'required|max:255',
             'middle_name' => 'nullable|max:255',
             'last_name' => 'required|max:255',
             'birth_date' => 'required|date',
-            'gender' => 'required|in:M,F',
+            // 'gender' => 'required|in:M,F',
             'stage' => 'required|in:zarezerwowany, zapisany, przedpłacone, opłacone',
             'phone' => 'nullable|max:20',
             'email' => 'required|email',
@@ -69,8 +61,6 @@ class ClientsController extends Controller
             'address_id' => 'required|exists:addresses,id',
             'leader_id' => 'nullable|exists:clients,id',
         ]);
-
-        Log::info('Dane po walidacji w update:', $validated);
 
         $client->update($validated);
         return $client;

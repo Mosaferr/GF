@@ -20,16 +20,18 @@ class DetailedInfoController extends Controller
 {
     public function show()
     {
+        session()->forget(['destination', 'start_date']);
+
         $user = Auth::user();
 
-        // Sprawdź, czy dane są już w sesji
-        if (!session()->has('destination') || !session()->has('start_date')) {
-            $userDate = UserDate::where('user_id', $user->id)->first();     // Pobierz rekord z tabeli users_dates
+        // if (!session()->has('destination') || !session()->has('start_date')) {              // Sprawdź, czy dane są już w sesji
+
+            $userDate = UserDate::where('user_id', $user->id)->first();             // Pobierz rekord z tabeli users_dates
             $dateId = $userDate ? $userDate->date_id : null;
             $date = Date::find($dateId);
 
-            $tripId = $date ? $date->trip_id : null;                    // Pobierz trip_id z obiektu Date
-            $trip = Trip::find($tripId);                                // Pobierz Trip na podstawie trip_id
+            $tripId = $date ? $date->trip_id : null;                                // Pobierz trip_id z obiektu Date
+            $trip = Trip::find($tripId);                                            // Pobierz Trip na podstawie trip_id
 
             Log::info('Wartość participant_count z bazy danych: ' . $user->participant_count);
 
@@ -42,9 +44,9 @@ class DetailedInfoController extends Controller
                 'phone' => $user->phone,
                 'email' => $user->email,
 
-                'participant_count' => $user->participant_count,        // Dodanie participant_count do sesji
+                'participant_count' => $user->participant_count,                    // Dodanie participant_count do sesji
             ]);
-        }
+        // }
 
         // Pobierz dane z sesji
         $tripId = session('destination');
@@ -62,20 +64,24 @@ class DetailedInfoController extends Controller
             'email' => session('email'),
         ];
 
-        Log::info('Data sent to view:', ['data' => $data]);
+        // Log::info('Data sent to view:', ['data' => $data]);
 
-        return view('service.detailed_info', $data);
+        // Zwróć widok z nagłówkami HTTP wyłączającymi cache po 10 sekundach
+        return response()
+            ->view('service.detailed_info', $data)
+            ->header('Cache-Control', 'private, max-age=10')
+            ->header('Expires', gmdate('D, d M Y H:i:s \G\M\T', time() + 10));
+    
+        // return view('service.detailed_info', $data);
     }
 
     public function store(Request $request)
     {
-        Log::info('Rozpoczęcie zapisu danych w store method.');
+        // Log::info('Rozpoczęcie zapisu danych w store method.');
 
         $user = Auth::user();                                       // Pobierz zalogowanego użytkownika
         $participants = $request->input('participants');            // Pobierz dane uczestników
 
-        Log::info('Walidacja przed:', $request->all());
-            
         // Walidacja danych uczestników
         $rules = [
             'participants.*.name' => 'required|string|alpha|min:3|max:20',
@@ -88,7 +94,6 @@ class DetailedInfoController extends Controller
             // 'participants.*.pesel' => 'required|string|digits:11|unique:participants,pesel',
             'participants.*.pesel' => 'required|string',
             'participants.*.citizenship' => 'required|string',
-            'participants.*.gender' => 'required|string',
             // 'participants.*.gender' => 'nullable|string',
             // 'participants.*.passport_number' => 'required|string|regex:/^[a-zA-Z0-9]{7,10}$/|unique:participants,passport_number',
             'participants.*.passport_number' => 'required|string',
@@ -105,35 +110,31 @@ class DetailedInfoController extends Controller
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-
-            Log::info('Walidacja po:', $validator->errors()->toArray());
-            Log::error('Walidacja nie powiodła się.', ['errors' => $validator->errors()]);
-
+            // Log::error('Walidacja nie powiodła się.', ['errors' => $validator->errors()]);
             return back()->withErrors($validator)->withInput();
         } else {
-
-            Log::info('Walidacja danych zakończona sukcesem.');
+            // Log::info('Walidacja danych zakończona sukcesem.');
 
                                     
-            // Session::forget('error');                                        // Czyszczenie wcześniejszych błędów
+            // Session::forget('error');                                    // Czyszczenie wcześniejszych błędów
 
             // Sprawdzanie liczby dodanych uczestników
-            $participantCount = session('participant_count');                   // Odczytanie zadeklarowanych uczestników z sesji
-            $addedParticipants = count($request->input('participants', []));    // Liczba uczestników przesłanych w formularzu
+            $participantCount = session('participant_count');               // Odczytanie zadeklarowanych uczestników z sesji
+            $addedParticipants = count($request->input('participants', [])); // Liczba uczestników przesłanych w formularzu
 
             // Dodanie logów dla śledzenia wartości zmiennych
-            // Log::info('Liczba zadeklarowanych uczestników (session):', ['participant_count' => $participantCount]);
-            // Log::info('Liczba dodanych uczestników (formularz):', ['addedParticipants' => $addedParticipants]);
+            Log::info('Liczba zadeklarowanych uczestników (session):', ['participant_count' => $participantCount]);
+            Log::info('Liczba dodanych uczestników (formularz):', ['addedParticipants' => $addedParticipants]);
 
             // Sprawdzenie, czy liczba uczestników przekracza zadeklarowaną liczbę
             if ($addedParticipants > $participantCount) {
-                // Log::error('Przekroczono liczbę zadeklarowanych uczestników.');
+                Log::error('Przekroczono liczbę zadeklarowanych uczestników.');
                 return back()->with('error', 'Liczba dodanych uczestników jest większa niż zadeklarowana. Proszę jeszcza raz podać dane.');
             }
 
             // Sprawdzenie, czy liczba uczestników jest mniejsza niż zadeklarowana liczba
             if ($addedParticipants < $participantCount) {
-                // Log::warning('Liczba dodanych uczestników jest mniejsza niż zadeklarowana.');
+                Log::warning('Liczba dodanych uczestników jest mniejsza niż zadeklarowana.');
                 return back()->with('error', 'Liczba dodanych uczestników jest mniejsza niż zadeklarowana. Proszę podać dane wszystkich.');
             }
                         
@@ -170,22 +171,19 @@ class DetailedInfoController extends Controller
                             'phone' => $participantData['phone'],
                             'pesel' => $participantData['pesel'],
                             'citizenship_id' => $citizenship->id,
-                            'gender' => $participantData['gender'],
                             'passport_number' => $participantData['passport_number'],
                             'passport_issue_date' => $participantData['passport_issue_date'],
                             'passport_expiry_date' => $participantData['passport_expiry_date'],
                             'address_id' => $address->id,
 
-                            'stage' => 'zapisany',                 // NOWE
+                            'stage' => 'zapisany',                      // NOWE
                         ]
                     );
-
-                    Log::info('Pierwszy uczestnik został zaktualizowany lub utworzony.', ['client_id' => $client->id]);
-
+                    // Log::info('Pierwszy uczestnik został zaktualizowany lub utworzony.', ['client_id' => $client->id]);
                 } else {
                     // Kolejni uczestnicy - nowi klienci, ale także przypisujemy user_id zalogowanego użytkownika
                     $client = Client::create([
-                        'user_id' => $user->id,                                     // Dodanie user_id do każdego kolejnego uczestnika
+                        'user_id' => $user->id,                         // Dodanie user_id do każdego kolejnego uczestnika
                         'name' => $participantData['name'],
                         'middle_name' => $participantData['middle_name'] ?? null,
                         'last_name' => $participantData['last_name'],
@@ -194,13 +192,12 @@ class DetailedInfoController extends Controller
                         'phone' => $participantData['phone'],
                         'pesel' => $participantData['pesel'],
                         'citizenship_id' => $citizenship->id,
-                        'gender' => $participantData['gender'],
                         'passport_number' => $participantData['passport_number'],
                         'passport_issue_date' => $participantData['passport_issue_date'],
                         'passport_expiry_date' => $participantData['passport_expiry_date'],
                         'address_id' => $address->id,
 
-                        'stage' => $participantData['zapisany'],                // Dodanie stage do każdego kolejnego uczestnika
+                        // 'stage' => $participantData['zapisany'],        // NOWE, Dodanie stage do każdego kolejnego uczestnika - źle
                     ]);
 
                     Log::info('Nowy klient został utworzony.', ['client_id' => $client->id]);
@@ -210,6 +207,7 @@ class DetailedInfoController extends Controller
 
             Log::info('Zakończono zapisywanie wszystkich uczestników.');
             return redirect()->route('service.payment');
+            // return redirect()->route('service.payment')->with('success', 'Dane zostały zapisane.');
         }
     }
 }
