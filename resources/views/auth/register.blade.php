@@ -56,17 +56,16 @@
                 <div class="col-md-6">
                     <label for="trip" class="form-label">Wyprawa</label>
                     <select class="form-select" id="trip" name="trip" required>
-                        <option selected>Wybierz...</option>
+                        <option value="" selected>Wybierz...</option>
                         @foreach($trips as $trip)
                             <option value="{{ $trip->id }}">{{ $trip->destination }}</option>
                         @endforeach
                     </select>
                 </div>
-
                 <div class="col-md-6">
                     <label for="start_date" class="form-label">Termin</label>
                     <select class="form-select" id="start_date" name="start_date" required>
-                        <option selected>Wybierz...</option>
+                        <option value="" selected>Wybierz...</option>
                         <!-- Opcje będą dynamicznie ładowane przez JavaScript -->
                     </select>
                 </div>
@@ -90,7 +89,7 @@
                     <div class="row mb-3">
                         <div class="col-md-2">
                             <label for="participant_count" class="form-label">Uczestnicy</label>
-                            <input type="number" class="form-control" id="participant_count" name="participant_count" value="{{ old('participant_count', 1) }}" required>
+                            <input type="number" class="form-control" id="participant_count" name="participant_count" value="{{ old('participant_count') }}" min="1" step="1" required>
                         </div>
                         <div class="col-md-4">
                             <x-input-label for="phone" :value="__('Telefon')" class="form-label" />
@@ -166,6 +165,8 @@
 @section('scripts')
     <script src="{{ asset('js/scrollreveal.min.js') }}"></script>
     @vite('resources/js/fading.js')
-    <script src="{{ asset('js/register.js') }}"></script> <!-- Dodanie nowego skryptu -->
+    {{-- <script src="{{ asset('js/register.js') }}"></script> <!-- Dodanie nowego skryptu --> --}}
+    <script src="{{ asset('js/register.js?v=1.0') }}"></script> <!-- Dodanie nowego skryptu -->
+    {{-- <script src="register.js?v=1.0"></script> --}}
     @vite('resources/js/eye.js')
 @endsection

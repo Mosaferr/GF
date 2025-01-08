@@ -77,7 +77,6 @@ class RegisteredUserController extends Controller
             // $user->notify(new SpotAvailableNotification());         // Wyślij powiadomienie email
 // KONIEC ZAKOMENTOWANIA MAILINGU (3 WIERSZE)
 
-  
             // Zapisanie danych w sesji
             session([
                 'destination' => $request->destination,
@@ -88,7 +87,7 @@ class RegisteredUserController extends Controller
                 'email' => $request->email,
             ]);
             return redirect()->route('service.available');
- 
+
         } else {
                 return redirect()->route('service.unavailable');
             }

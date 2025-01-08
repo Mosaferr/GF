@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const trip_destination = this.options[this.selectedIndex].text;         // Zmiana: Pobierz nazwę wybranej destynacji
         const startDateSelect = document.getElementById('start_date');
 
-        startDateSelect.innerHTML = '<option selected>Wybierz...</option>';     // Wyczyść pole wyboru daty
+        startDateSelect.innerHTML = '<option value="" selected>Wybierz...</option>';     // Wyczyść pole wyboru daty
+        // startDateSelect.innerHTML = '<option selected>Wybierz...</option>';     // Wyczyść pole wyboru daty
 
         if (trip_id) {
             fetch(`/dates/by-trip/${trip_id}`)

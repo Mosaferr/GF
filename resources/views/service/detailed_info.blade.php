@@ -47,7 +47,20 @@
 			</div>
 			<hr>
 		</div>
-
+		
+{{-- 
+		Wyświetlanie błędów w formularzu
+		@if ($errors->any())
+			<div class="alert alert-danger" role="alert">
+				<ul>
+					@foreach ($errors->all() as $error)
+						<li>{{ $error }}</li>
+					@endforeach
+				</ul>
+			</div>
+		@endif
+ --}}
+		
 		<div class="form-container">
 			<form method="POST" action="{{ route('client.store') }}">
 				@csrf
@@ -62,8 +75,6 @@
 						<input type="text" class="form-control" id="start_date" name="start_date" readonly>
 					</div>
 				</div>
-				
-
 
 				<h3 class="mt-5"> Twoje dane osobowe </h3>
 				<div id="participantSection">
@@ -180,12 +191,7 @@
 						</div>
 					</div>
 				</div>
-				
 
-
-
-
-				
 				<div class="row mt-5">
 					<div class="col-md-6">
 						<button type="button" class="btn btn-secondary w-100 shadow" id="addParticipantBtn">Dodaj kolejnego uczestnika</button>
@@ -266,3 +272,19 @@
     <script src="{{ asset('js/scrollreveal.min.js') }}"></script>
     @vite('resources/js/fading.js')
 @endsection
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        @if ($errors->any())
+            alert("Wystąpiły błędy w formularzu. Proszę spróbować ponownie.");
+        @endif
+    });
+</script>
+
+{{-- <script>
+	document.addEventListener("DOMContentLoaded", function() {
+		if (document.querySelector(".alert-danger")) {
+			alert("Wystąpiły błędy w formularzu. Proszę poprawić i spróbować ponownie.");
+		}
+	});
+</script> --}}
