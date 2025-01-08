@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
+use App\Models\User;
+
+
 class AuthenticatedSessionController extends Controller
 {
     /**
@@ -28,9 +31,24 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        $user = Auth::user(); // pobranie usera
         // Przekierowanie na wcześniej zamierzoną stronę lub na /service/available, jeśli nie ma takiej strony
-        return redirect()->intended(route('service.available'));
+        $client = \App\Models\Client::where('user_id', $user->id)->first();
 
+        if ($client) {
+            switch ($client->stage) {
+                case 'zarezerwowany':
+                    return redirect()->route('service.available');
+                case 'zapisany':
+                    return redirect()->route('service.payment');
+                case 'przedpłacone':
+                    return redirect()->route('service.payment2');
+                case 'opłacone':
+                    return redirect()->route('service.final');
+            }
+        }
+        return redirect()->intended(route('service.available'));
+        // return redirect()->intended(route('verify-email'));
         // return redirect()->intended(route('dashboard', absolute: false));
     }
 

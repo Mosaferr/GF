@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HomeController;     // Importowanie kontrolera
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ExcursionsController;
 use App\Http\Controllers\DatesController;
@@ -11,9 +11,11 @@ use App\Http\Controllers\InformationController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Auth\RegisteredUserController; // Importowanie kontrolera
-use App\Http\Controllers\DetailedInfoController; // Importowanie kontrolera
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\DetailedInfoController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\Payment2Controller;
+use App\Http\Controllers\FinalController;
 
 // Główna strona
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -82,4 +84,17 @@ Route::get('/service/unavailable', function () {
 Route::get('/service/detailed_info', [DetailedInfoController::class, 'show'])->name('service.detailed_info');
 Route::post('/service/detailed_info', [DetailedInfoController::class, 'store'])->name('client.store');
 
+// Trasy dla płatności
 Route::get('/service/payment', [PaymentController::class, 'show'])->name('service.payment');
+Route::post('/service/payment/checkout', [PaymentController::class, 'checkout'])->name('service.payment.checkout');
+Route::get('/service/payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
+Route::get('/service/payment/cancel', [PaymentController::class, 'paymentCancel'])->name('payment.cancel');
+Route::get('/service/payment/failed', [PaymentController::class, 'paymentFailed'])->name('payment.failed');
+
+Route::get('/service/payment2', [Payment2Controller::class, 'show'])->name('service.payment2');
+Route::post('/service/payment2/checkout', [Payment2Controller::class, 'checkout'])->name('service.payment2.checkout');
+Route::get('/service/payment2/success', [Payment2Controller::class, 'paymentSuccess'])->name('payment2.success');
+Route::get('/service/payment2/cancel', [Payment2Controller::class, 'paymentCancel'])->name('payment2.cancel');
+Route::get('/service/payment2/failed', [Payment2Controller::class, 'paymentFailed'])->name('payment2.failed');
+
+Route::get('/service/final', [FinalController::class, 'show'])->name('service.final');

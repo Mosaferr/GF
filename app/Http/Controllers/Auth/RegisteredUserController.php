@@ -116,7 +116,7 @@ class RegisteredUserController extends Controller
                 'passport_expiry_date' => now()->addYear(), // Tymczasowa wartość
                 'address_id' => $existingAddressId, // Użyj istniejącej wartości lub null
                 'leader_id' => $existingLeaderId, // Użyj istniejącej wartości lub null
-                'stage' => 'Zarezerwowany',
+                'stage' => 'zarezerwowany',
             ]);
 
             // Zapisanie klienta

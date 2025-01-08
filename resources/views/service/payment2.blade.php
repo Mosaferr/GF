@@ -1,22 +1,14 @@
-<!-- resources/views/payment.blade.php -->
+<!-- resources/views/service/payment2.blade.php -->
 @extends('layouts.app')
 
-@section('title', 'Twoja wyprawa')
+@section('title', 'Dopłata')
 @section('head-scripts')
     @vite('resources/css/hide.css')
 @endsection
 
 @section('content')
-{{-- <main class="custom-margin-top"> --}}
-		
-		@if(session('success'))
-			<div class="alert alert-success">
-				{{ session('success') }}
-			</div>
-		@endif
-		
-		<main class="custom-margin-top">
-			<div class="container my-5" style="max-width: 1000px;">
+	<main class="custom-margin-top">
+		<div class="container my-5" style="max-width: 1000px;">
 			<div class="col-md-12 text-center pb-5 mt-3">
 				<h2>Twoja wyprawa</h2>
 			</div>
@@ -62,35 +54,32 @@
 			<div class="row g-md-4 g-lg-5 mx-sm-1 mx-md-2 lg-md-0">
 				<div class="col-lg-8 col-md-7 col-sm-12 col-12 d-flex flex-column justify-content-center">
 					<div class="image shadow mb-3">
-						<a href="{{ asset('img/trip/arg1.jpg') }}" data-toggle="lightbox">
-							<img src="{{ asset('img/trip/sm-arg1.jpg') }}" alt="sm-argentina1" class="img-thumbnail">
+						<a href="{{ asset('img/trip/' . $image) }}" data-toggle="lightbox">
+							<img src="{{ asset('img/trip/' . $smallImage) }}" alt="sm-{{ pathinfo($image, PATHINFO_FILENAME) }}" class="img-thumbnail">
 						</a>
 					</div>
 				</div>
 
 				<div class="col-lg-4 col-md-5 col-sm-12 col-12 d-flex flex-column justify-content-center">
+					<b class="green-text mb-3">Zaliczka jest zatwierdzona</b>
 					<h4 class="mb-3">{{ session('destination') }}</h4>
 					<b>Wybrany termin:</b>
 					<small>Od: {{ session('start_date') }}</small>
 					<small class="mt-0">Do: {{ session('end_date') }} (15 dni)</small>
 					<b class="mt-2">Koszt wyprawy uczestnika:</b>
 					<small>{{ session('formatted_price') }} PLN</small>
-					<small class="mt-0">Zapłacono zaliczkę:</small>
-					<small><label for="zaliczka">{{ session('formatted_prepayment') }} * {{ session('participant_count') }} {{ session('participants_label') }} = {{ session('formatted_total_prepayment') }} PLN</label></small>
-					<b class="mt-2">Pozostało do zapłaty:</b>
-					<small>
-						<input type="radio" id="zaliczka" name="payment" value="zaliczka">
-						<label for="zaliczka">{{ session('formatted_prepayment') }} * {{ session('participant_count') }} {{ session('participants_label') }} = <strong>{{ session('formatted_total_prepayment') }}</strong> PLN</label>
-					</small>
-					<small>
-						<input type="radio" id="calosc" name="payment" value="calosc">
-						<label for="calosc">Całość: {{ session('formatted_price') }} * {{ session('participant_count') }} {{ session('participants_label') }} = <strong>{{ session('formatted_total_cost') }}</strong> PLN</label>
-					</small>
-					<div class=" mt-5 d-flex justify-content-end">
-						<a href="#">
+					<small class="mt-1">Zapłacono zaliczkę:</small>
+					<small><label for="zaliczka">{{ session('formatted_prepayment') }} PLN * {{ session('participant_count') }} {{ session('participants_label') }} = {{ session('formatted_total_prepayment') }} PLN</label></small>
+					<b class="mt-2 mb-1">Pozostało do zapłaty:</b>
+					<small>{{ session('formatted_total_cost') }} PLN - {{ session('formatted_total_prepayment') }} PLN = <strong>{{ session('formatted_balance') }}</strong> PLN</small>
+
+					<form action="{{ route('service.payment2.checkout') }}" method="POST">
+						@csrf
+						<div class="text-end mt-3">
 							<button type="submit" class="btn btn-warning shadow">Zapłać</button>
-						</a>
-					</div>
+						</div>
+					</form>
+
 				</div>
 			</div>
 

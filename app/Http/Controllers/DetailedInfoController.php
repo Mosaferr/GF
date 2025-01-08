@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Session;
 
 class DetailedInfoController extends Controller
 {
-                                                
     public function show()
     {
         $user = Auth::user();

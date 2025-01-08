@@ -4,11 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Laravel\Cashier\Exceptions\PaymentFailure;
-use Exception;
 
-
-class PaymentController extends Controller
+class FinalController extends Controller
 {
     public function show()
     {
@@ -17,7 +14,7 @@ class PaymentController extends Controller
         // Sprawdzanie, czy dane nie są w sesji
         if (!session()->has('destination') || !session()->has('start_date') || !session()->has('end_date') ||
             !session()->has('price') || !session()->has('participant_count') || !session()->has('total_cost') ||
-            !session()->has('total_prepayment')) {
+            !session()->has('total_prepayment') || !session()->has('formatted_balance')) {
 
             $date = $user->dates->first();                  //Pobranie pierwszej powiązanej daty użytkownika.  Zakładam, że użytkownik ma tylko jedną datę powiązaną z wycieczką
             $trip = $date->trip;                            // Pobranie powiązanej wycieczki poprzez model `Date`
@@ -28,12 +25,14 @@ class PaymentController extends Controller
             $prepayment = floor(0.30 * $price / 10) * 10;
             $total_prepayment = $prepayment * $participant_count;
             $total_cost = $price * $participant_count;
+            $balance = $total_cost - $total_prepayment;
 
             // Formatowanie liczb z separatorem tysięcy i bez miejsc po przecinku
             $formatted_price = number_format($price, 0, ',', ' ');
             $formatted__prepayment = number_format($prepayment, 0, ',', ' ');
             $formatted_total_prepayment = number_format($total_prepayment, 0, ',', ' ');
             $formatted_total_cost = number_format($total_cost, 0, ',', ' ');
+            $formatted_balance = number_format($balance, 0, ',', ' ');
 
             // Funkcja do wyboru odpowiedniego słowa
             $participants_label = $this->getParticipantsLabel($participant_count);
@@ -53,10 +52,12 @@ class PaymentController extends Controller
 
                 'total_prepayment' => $total_prepayment,
                 'total_cost' => $total_cost,
+                'balance' => $balance,
 
                 'formatted_prepayment' => $formatted__prepayment,
                 'formatted_total_prepayment' => $formatted_total_prepayment,
-                'formatted_total_cost' => $formatted_total_cost
+                'formatted_total_cost' => $formatted_total_cost,
+                'formatted_balance' => $formatted_balance
             ]);
         }
 
@@ -69,20 +70,21 @@ class PaymentController extends Controller
             'participant_count' => session('participant_count'),
             'participants_label' => session('participants_label'),
             'formatted_total_prepayment' => session('formatted_total_prepayment'),
-            'formatted_total_cost' => session('formatted_total_cost')
+            'formatted_total_cost' => session('formatted_total_cost'),
+            'formatted_balance' => session('formatted_balance')
         ];
                                                 
         // Logika wyboru zdjęć na podstawie destynacji
         $images = [
-            'Argentyna i Chile' => 'arg3.jpg',
-            'Indonezja' => 'indo8.jpg',
-            'Kambodża' => 'camb4.jpg',
-            'Peru i Boliwia' => 'peru8.jpg',
-            'Sri Lanka' => 'sri4.jpg',
-            'Tybet, w Chinach' => 'tibet2.jpg'
+            'Argentyna i Chile' => 'arg1.jpg',
+            'Indonezja' => 'indo3.jpg',
+            'Kambodża' => 'camb1.jpg',
+            'Peru i Boliwia' => 'peru1.jpg',
+            'Sri Lanka' => 'sri6.jpg',
+            'Tybet, w Chinach' => 'tibet1.jpg'
         ];
 
-        $destination = session('destination'); // Pobranie destynacji z sesji
+        $destination = session('destination');          // Pobranie destynacji z sesji
         $image = isset($images[$destination]) ? $images[$destination] : 'default.jpg';
         $smallImage = 'sm-' . $image;
 
@@ -96,11 +98,11 @@ class PaymentController extends Controller
             'participants_label' => session('participants_label'),
             'formatted_total_prepayment' => session('formatted_total_prepayment'),
             'formatted_total_cost' => session('formatted_total_cost'),
-            'image' => $image,  // Dodanie zmiennej z nazwą obrazu
-            'smallImage' => $smallImage // Dodanie zmiennej z nazwą małego obrazu
+            'image' => $image,                          // Dodanie zmiennej z nazwą obrazu
+            'smallImage' => $smallImage                 // Dodanie zmiennej z nazwą małego obrazu
         ];
                                                 
-        return view('service.payment', $data);          // Przekazanie danych do widoku
+        return view('service.final', $data);        // Przekazanie danych do widoku
     }
 
     private function getParticipantsLabel($count)
@@ -112,64 +114,5 @@ class PaymentController extends Controller
         } else {
             return 'osób';
         }
-    }
-
-    public function checkout(Request $request)
-    {
-        $user = $request->user();
-
-        $paymentOption = $request->input('payment');                // Pobranie wyboru użytkownika z formularza
-
-        // Odczytanie kwoty z sesji na podstawie wyboru użytkownika
-        if ($paymentOption === 'zaliczka') {
-            $amount = intval(session('total_prepayment') * 100);            // Konwersja na grosze
-            $user->clients->first()->update(['stage' => 'przedpłacone']);   // Aktualizacja pola stage na przedpłacone
-        } elseif ($paymentOption === 'calosc') {
-            $amount = intval(session('total_cost') * 100);                  // Konwersja na grosze
-            $user->clients->first()->update(['stage' => 'opłacone']);       // Aktualizacja pola stage na opłacone
-        } else {
-            return redirect()->route('service.payment')->with('error', 'Nie wybrano prawidłowej opcji płatności.');
-        }
-
-        try {
-            // Utworzenie sesji Stripe Checkout z dynamiczną kwotą
-            return $user->checkoutCharge($amount, 'Opłata za wyprawę', 1, [
-                'success_url' => route('payment.success'),
-                'cancel_url' => route('payment.cancel'),
-            ]);
-        } catch (Exception $e) {
-            return redirect()->route('service.payment')->with('error', 'Coś poszło nie tak podczas przetwarzania płatności. Spróbuj ponownie.');
-        }
-    }
-
-    public function paymentSuccess()
-    {
-        $user = Auth::user();               // Pobranie zalogowanego użytkownika
-
-        $clients = $user->clients;          // Pobranie kolekcji klientów powiązanych z użytkownikiem
-        $firstClient = $clients->first();   // Pobranie pierwszego klienta z kolekcji
-        if ($firstClient) {
-            $stage = $firstClient->stage;  // Uzyskanie wartości pola 'stage' pierwszego klienta
-        } else {
-            return redirect()->route('service.payment')->with('error', 'Nie znaleziono klienta dla tego użytkownika.');           // Obsługa sytuacji, gdy nie ma klientów
-        }
-
-        if ($stage === 'przedpłacone') {
-            return redirect()->route('service.payment2')->with('alert', 'Zaliczka zatwierdzona. Pozostaje dopłacić do pełnej ceny i ruszamy w świat!');
-        } elseif ($stage === 'opłacone') {
-            return redirect()->route('service.final');
-        } else {
-            return redirect()->route('service.payment')->with('error', 'Nieprawidłowy etap płatności.');
-        }
-    }
-
-    public function paymentCancel()
-    {
-        return redirect()->route('home')->with('alert', 'Płatność odrzucona. Spróbuj ponownie.');
-    }
-
-    public function paymentFailed()
-    {
-        return redirect()->route('home')->with('alert', 'Płatność odrzucona. Spróbuj ponownie.');
     }
 }

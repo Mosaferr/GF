@@ -1,4 +1,4 @@
-<!-- resources/views/available.blade.php -->
+<!-- resources/views/service/available.blade.php -->
 @extends('layouts.app')
 
 @section('title', 'Dostępność')

@@ -146,7 +146,7 @@
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title shadow bg-success-subtle rounded p-2">Tybet, w Chinach</h5>
-                                <p class="card-text mt-3">Święta Lhasa, odległe klasztory, spotkania z michami, wycieczka pod Mout Everest...</p>
+                                <p class="card-text mt-3">W Chinach pandy i Wielki Mur. A Tybet:  święta Lhasa, odległe klasztory, spotkania z michami, wycieczka pod Mout Everest...</p>
                                 <div class="text-center">
                                     <a href="{{ route('excursions.tibet') }}" class="btn btn-success shadow"><small>Zobacz program</small></a>
                                 </div>
