@@ -57,7 +57,7 @@
 			<hr>
 		</div>
 
-		<div class="container" style="max-width: 1000px;">
+		<div class="container" style="max-width: 1050px;">
 
 			<div class="row g-md-4 g-lg-5 mx-sm-1 mx-md-2 lg-md-0">
 				<div class="col-lg-8 col-md-7 col-sm-12 col-12 d-flex flex-column justify-content-center">
@@ -71,18 +71,18 @@
 				<div class="col-lg-4 col-md-5 col-sm-12 col-12 d-flex flex-column justify-content-center">
 					<h4 class="mb-3">Argentyna i Chile</h4>
 					<b>Wybrany termin:</b>
-					<small>piątek, 25 października 2024</small>
-					<small class="mt-0">sobota, 9 listopada 2024 (14 dni)</small>
-					<b class="mt-2">Koszt wyprawy:</b>
-					<small>6500 PLN + 1200 USD</small>
+					<small>niedziela, 1 września 2024</small>
+					<small class="mt-0">poniedziałek, 16 września 2024 (15 dni)</small>
+					<b class="mt-2">Koszt wyprawy uczestnika:</b>
+					<small>11800 PLN</small>
 					<b class="mt-2">Do zapłaty w PLN:</b>
 					<small>
 						<input type="radio" id="zaliczka" name="payment" value="zaliczka">
-						<label for="zaliczka">Zaliczka: 2500 PLN</label>
+						<label for="zaliczka">Zaliczka: 3500 * 2 osoby = <strong>7000</strong> PLN</label>
 					</small>
 					<small>
 						<input type="radio" id="calosc" name="payment" value="calosc">
-						<label for="calosc">Całość: 6500 PLN</label>
+						<label for="calosc">Całość: 11800 * 2 osoby = <strong>23600</strong> PLN</label>
 					</small>
 					<div class=" mt-5 d-flex justify-content-end">
 						<a href="#">
@@ -90,7 +90,7 @@
 						</a>
 					</div>
 				</div>
-							</div>
+			</div>
 
 		</div>
 	</main>

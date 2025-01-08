@@ -68,11 +68,13 @@
 				<div class="row mb-3">
 					<div class="col-md-6">
 						<label for="trip" class="form-label">Wyprawa</label>
-						<input type="text" class="form-control" id="trip" name="trip" readonly>
+						<input type="text" class="form-control" id="trip" name="trip" value="{{ session('destination') }}" readonly>
+						{{-- <input type="text" class="form-control" id="trip" name="trip" readonly> --}}
 					</div>
 					<div class="col-md-6">
 						<label for="start_date" class="form-label">Termin</label>
-						<input type="text" class="form-control" id="start_date" name="start_date" readonly>
+						<input type="text" class="form-control" id="start_date" name="start_date" value="{{ session('start_date') }}" readonly>
+						{{-- <input type="text" class="form-control" id="start_date" name="start_date" readonly> --}}
 					</div>
 				</div>
 

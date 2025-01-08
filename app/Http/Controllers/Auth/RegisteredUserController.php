@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Trip;
 use App\Models\UserDate;
 use App\Models\Date;
+use App\Models\Client;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -58,6 +59,7 @@ class RegisteredUserController extends Controller
             $date->available_seats = $remainingSeats;
             $date->save();
 
+            // Tworzenie użytkownika...
             $user = User::create([
                 'name' => $request->name,
                 'last_name' => $request->last_name,
@@ -71,6 +73,55 @@ class RegisteredUserController extends Controller
                 'user_id' => $user->id,
                 'date_id' => $request->start_date,
             ]);
+                                            
+        // Sprawdzenie, czy istnieją wartości w tabelach `addresses`
+        $existingAddress = \App\Models\Address::first();
+        if (!$existingAddress) {
+            // Sprawdzenie, czy istnieją wartości w tabeli `cities`
+            $existingCity = \App\Models\City::first();
+            if (!$existingCity) {
+                // Tworzenie tymczasowego rekordu w tabeli `cities`
+                $existingCity = \App\Models\City::create([
+                    'city_name' => 'Temporary City',
+                ]);
+            }
+            // Tworzenie rekordu w tabeli `addresses` z odniesieniem do rekordu w tabeli `cities`
+            $existingAddress = \App\Models\Address::create([
+                'street' => 'Temporary Street',
+                'house_number'=> '000',
+                'apartment_number' => 'null',
+                'postal_code'=> '00-000',
+                'city_id' => $existingCity->id,
+            ]);
+        }
+        $existingAddressId = $existingAddress->id;
+
+            // Sprawdzenie, czy istnieją wartości w tabelach `citizenships`, i `clients`
+            $existingCitizenshipId = \App\Models\Citizenship::first()->id ?? null; // Zmień na rzeczywisty ID istniejącego obywatelstwa
+            $existingLeaderId = Client::first()->id ?? null; // Zmień na rzeczywisty ID istniejącego lidera
+
+            // Tworzenie klienta...
+            $client = Client::create([
+                'user_id' => $user->id,
+                'name' => $request->name,
+                'last_name' => $request->last_name,
+                'phone' => $request->phone,
+                'email' => $request->email,
+                'birth_date' => now(), // Tymczasowa wartość
+                'gender' => 'M', // Tymczasowa wartość
+                'pesel' => '00000000000', // Tymczasowa wartość
+                'citizenship_id' => $existingCitizenshipId, // Użyj istniejącej wartości lub null
+                'passport_number' => 'TEMP', // Tymczasowa wartość
+                'passport_issue_date' => now(), // Tymczasowa wartość
+                'passport_expiry_date' => now()->addYear(), // Tymczasowa wartość
+                'address_id' => $existingAddressId, // Użyj istniejącej wartości lub null
+                'leader_id' => $existingLeaderId, // Użyj istniejącej wartości lub null
+                'stage' => 'Zarezerwowany',
+            ]);
+
+            // Zapisanie klienta
+            $client->save();
+                                            
 // ZAKOMENTOWANIE MAILINGU (3 WIERSZE)
             event(new Registered($user));
             Auth::login($user);
