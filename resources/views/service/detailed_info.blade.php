@@ -50,6 +50,24 @@
 		</div>
 
 		<div class="form-container">
+											
+			<!-- Komunikaty -->
+			<div id="alertContainer">
+				@if(session('error'))
+					<div class="alert alert-danger alert-dismissible fade show" role="alert">
+						{{ session('error') }}
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+				@endif
+
+				@if(session('success'))
+					<div class="alert alert-success alert-dismissible fade show" role="alert">
+						{{ session('success') }}
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+				@endif
+			</div>
+											
 			<form method="POST" action="{{ route('client.store') }}">
 				@csrf
 				<h3> Twoja przygoda </h3>
@@ -65,7 +83,6 @@
 				</div>
 
 				<h3 class="mt-5"> Twoje dane osobowe </h3>
-											
 				<div id="participantSection">
 					<div class="participant" id="participantTemplate">
 						<p><small class="green-text">Ważne: Podaj informacje identyczne z danymi w paszporcie.</small></p>
@@ -123,7 +140,7 @@
 									<option value="ukraińskie" {{ old('participants[0][citizenship]') == 'ukraińskie' ? 'selected' : '' }}>Ukraińskie</option>
 									<option value="inne" {{ old('participants[0][citizenship]') == 'inne' ? 'selected' : '' }}>Inne</option>
 								</select>
-								{{-- <x-input-error :messages="$errors->get('participants.0.citizenship')" class="mt-2 red-text" /> --}}
+								<x-input-error :messages="$errors->get('participants.0.citizenship')" class="mt-2 red-text" />
 							</div>
 						</div>
 						<div class="row mb-3">
@@ -197,7 +214,7 @@
 						</div>
 					</div>
 				</div>
-											
+
 				<div class="row mt-5">
 					<div class="col-md-6">
 						<button type="button" class="btn btn-secondary w-100 shadow" id="addParticipantBtn">Dodaj kolejnego uczestnika</button>
@@ -263,12 +280,13 @@
 
 				<div class="row">
 					<div class="col-md-12 text-center">
-						<button type="submit" class="btn btn-warning shadow w-100">Wyślij</button>
+						<!-- Dodanie atrybutu do kontrolowania liczby uczestników -->
+						<button type="submit" class="btn btn-warning shadow w-100" data-max-participants="{{ session('participant_count') }}">Wyślij</button>
+						{{-- <button type="submit" class="btn btn-warning shadow w-100">Wyślij</button> --}}
 					</div>
 				</div>
 			</form>
 		</div>
-
 	</main>
 @endsection
 

@@ -134,6 +134,7 @@ return [
         'participants.*.birth_date' => [
             'required' => 'Data urodzenia jest wymagana.',
             'date' => 'Data urodzenia musi być poprawną datą.',
+			'before_or_equal' => 'Uczestnik nie może mieć mniej niż 2 lata.',
         ],
         'participants.*.phone' => [
 			'regex' => 'Numer telefonu może zawierać tylko cyfry, spacje oraz symbol plusa (+).',
@@ -147,6 +148,8 @@ return [
         'participants.*.pesel' => [
             'required' => 'PESEL jest wymagany.',
             'string' => 'PESEL musi być ciągiem znaków.',
+            'digits:11' => 'PESEL musi sie składać z 11 cyfr.',
+            'unique' => 'Taki PESEL jest już zarejestrowany.',
         ],
         'participants.*.citizenship' => [
             'required' => 'Obywatelstwo jest wymagane.',
@@ -155,6 +158,8 @@ return [
         'participants.*.passport_number' => [
             'required' => 'Numer paszportu jest wymagany.',
             'string' => 'Numer paszportu musi być ciągiem znaków.',
+            'regex' => 'Numer paszportu musi być ciągiem liter i cyfr.',
+            'unique' => 'Taki numer paszportu jest już zarejestrowany.',
         ],
         'participants.*.passport_issue_date' => [
             'required' => 'Data wydania paszportu jest wymagana.',
@@ -165,6 +170,7 @@ return [
             'required' => 'Data ważności paszportu jest wymagana.',
             'date' => 'Data ważności paszportu musi być poprawną datą.',
 			'after' => 'Data ważności paszportu musi być późniejsza niż dzisiaj.',
+            'after_or_equal' => 'Paszport musi być ważny co najmniej trzy miesiące.',
         ],
         'participants.*.street' => [
             'required' => 'Ulica jest wymagana.',

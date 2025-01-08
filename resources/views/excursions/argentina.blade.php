@@ -76,7 +76,10 @@
 												{{ $date->price }} PLN
 											</td>
 											<td>
-												{{ $date->available_seats == 0 ? 'Brak wolnych miejsc' : ($date->available_seats == 1 ? '1 wolne miejsce' : $date->available_seats . ' wolne miejsca') }}
+												{{ $date->available_seats == 0 ? 'Brak wolnych miejsc' : 
+												($date->available_seats == 1 ? '1 wolne miejsce' : 
+												($date->available_seats > 1 && $date->available_seats < 5 ? $date->available_seats . ' wolne miejsca' : $date->available_seats . ' wolnych miejsc')) 
+											}}
 											</td>
 											<td>
 												<a href="{{ route('register') }}" class="btn btn-success btn-sm shadow {{ $date->available_seats > 0 ? '' : 'disabled' }}">

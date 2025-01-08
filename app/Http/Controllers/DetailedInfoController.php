@@ -36,6 +36,8 @@ class DetailedInfoController extends Controller
             // Pobierz Trip na podstawie trip_id
             $trip = Trip::find($tripId);
 
+            Log::info('Wartość participant_count z bazy danych: ' . $user->participant_count);
+
             // Ustaw dane w sesji
             session([
                 'destination' => $trip ? $trip->destination : null,
@@ -44,6 +46,8 @@ class DetailedInfoController extends Controller
                 'last_name' => $user->last_name,
                 'phone' => $user->phone,
                 'email' => $user->email,
+
+                'participant_count' => $user->participant_count,  // Dodanie participant_count do sesji
             ]);
         }
 
@@ -63,13 +67,13 @@ class DetailedInfoController extends Controller
             'email' => session('email'),
         ];
 
-        Log::info('Data sent to view:', ['data' => $data]);
+        // Log::info('Data sent to view:', ['data' => $data]);
         return view('service.detailed_info', $data);
     }
-                                                
+
     public function store(Request $request)
     {
-        Log::info('Rozpoczęcie zapisu danych w store method.');
+        // Log::info('Rozpoczęcie zapisu danych w store method.');
 
         $user = Auth::user();                                       // Pobierz zalogowanego użytkownika
         $participants = $request->input('participants');            // Pobierz dane uczestników
@@ -81,10 +85,15 @@ class DetailedInfoController extends Controller
             'participants.*.last_name' => 'required|string|alpha|min:2|max:50',
             'participants.*.phone' => 'nullable|regex:/^\+?[0-9\s]+$/|min:8|max:20',
             'participants.*.email' => 'required|email',
+            // 'participants.*.birth_date' => 'required|date|before_or_equal:'.now()->subYears(2),
+            'participants.*.birth_date' => 'required|date',
+            // 'participants.*.pesel' => 'required|string|digits:11|unique:participants,pesel',
             'participants.*.pesel' => 'required|string',
             'participants.*.citizenship' => 'required|string',
+            // 'participants.*.passport_number' => 'required|string|regex:/^[a-zA-Z0-9]{7,10}$/|unique:participants,passport_number',
             'participants.*.passport_number' => 'required|string',
             'participants.*.passport_issue_date' => 'required|date|before_or_equal:today',
+            // 'participants.*.passport_expiry_date' => 'required|date|after:today|after_or_equal:'.now()->addMonths(3),
             'participants.*.passport_expiry_date' => 'required|date|after:today',
             'participants.*.street' => 'required|string',
             'participants.*.house_number' => 'required|string',
@@ -96,15 +105,39 @@ class DetailedInfoController extends Controller
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            Log::error('Walidacja nie powiodła się.', ['errors' => $validator->errors()]);
+            // Log::error('Walidacja nie powiodła się.', ['errors' => $validator->errors()]);
             return back()->withErrors($validator)->withInput();
         } else {
-            Log::info('Walidacja danych zakończona sukcesem.');
+            // Log::info('Walidacja danych zakończona sukcesem.');
 
-            // Zapisywanie danych uczestników do bazy danych
+                                    
+            // Session::forget('error');                                    // Czyszczenie wcześniejszych błędów
+
+            // Sprawdzanie liczby dodanych uczestników
+            $participantCount = session('participant_count');               // Odczytanie zadeklarowanych uczestników z sesji
+            $addedParticipants = count($request->input('participants', [])); // Liczba uczestników przesłanych w formularzu
+
+            // Dodanie logów dla śledzenia wartości zmiennych
+            Log::info('Liczba zadeklarowanych uczestników (session):', ['participant_count' => $participantCount]);
+            Log::info('Liczba dodanych uczestników (formularz):', ['addedParticipants' => $addedParticipants]);
+
+            // Sprawdzenie, czy liczba uczestników przekracza zadeklarowaną liczbę
+            if ($addedParticipants > $participantCount) {
+                Log::error('Przekroczono liczbę zadeklarowanych uczestników.');
+                return back()->with('error', 'Liczba dodanych uczestników jest większa niż zadeklarowana. Proszę jeszcza raz podać dane.');
+            }
+
+            // Sprawdzenie, czy liczba uczestników jest mniejsza niż zadeklarowana liczba
+            if ($addedParticipants < $participantCount) {
+                Log::warning('Liczba dodanych uczestników jest mniejsza niż zadeklarowana.');
+                return back()->with('error', 'Liczba dodanych uczestników jest mniejsza niż zadeklarowana. Proszę podać dane wszystkich.');
+            }
+                        
+
+        // Zapisywanie danych uczestników do bazy danych
             foreach ($participants as $index => $participantData) {
                 $city = City::firstOrCreate(['city_name' => $participantData['city_name']]);
-                Log::info('Miasto zostało utworzone lub znalezione.', ['city_id' => $city->id]);
+                // Log::info('Miasto zostało utworzone lub znalezione.', ['city_id' => $city->id]);
 
                 $address = Address::updateOrCreate([
                     'street' => $participantData['street'],
@@ -113,12 +146,12 @@ class DetailedInfoController extends Controller
                     'postal_code' => $participantData['postal_code'],
                     'city_id' => $city->id,
                 ]);
-                Log::info('Adres został utworzony lub zaktualizowany.', ['address_id' => $address->id]);
+                // Log::info('Adres został utworzony lub zaktualizowany.', ['address_id' => $address->id]);
 
                 $citizenship = Citizenship::updateOrCreate(
                     ['citizenship' => $participantData['citizenship']]
                 );
-                Log::info('Obywatelstwo zostało utworzone lub zaktualizowane.', ['citizenship_id' => $citizenship->id]);
+                // Log::info('Obywatelstwo zostało utworzone lub zaktualizowane.', ['citizenship_id' => $citizenship->id]);
 
                 // Dla pierwszego uczestnika aktualizujemy lub tworzymy rekord na podstawie user_id
                 if ($index == 0) {
@@ -141,7 +174,7 @@ class DetailedInfoController extends Controller
                             'stage' => 'zapisany',                 // NOWE
                         ]
                     );
-                    Log::info('Pierwszy uczestnik został zaktualizowany lub utworzony.', ['client_id' => $client->id]);
+                    // Log::info('Pierwszy uczestnik został zaktualizowany lub utworzony.', ['client_id' => $client->id]);
                 } else {
                     // Kolejni uczestnicy - nowi klienci, ale także przypisujemy user_id zalogowanego użytkownika
                     $client = Client::create([
@@ -164,7 +197,8 @@ class DetailedInfoController extends Controller
             }
 
             Log::info('Zakończono zapisywanie wszystkich uczestników.');
-            return redirect()->route('service.payment')->with('success', 'Dane zostały zapisane.');
+            return redirect()->route('service.payment');
+            // return redirect()->route('service.payment')->with('success', 'Dane zostały zapisane.');
         }
     }
 }

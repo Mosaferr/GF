@@ -46,7 +46,6 @@ class RegisteredUserController extends Controller
 			'phone' => ['nullable', 'regex:/^\+?[0-9\s]+$/', 'min:8', 'max:20'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'participant_count' => ['required', 'integer', 'min:1'],
-            // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'password' => [
                 'required',
                 'confirmed',
@@ -136,7 +135,7 @@ class RegisteredUserController extends Controller
             Auth::login($user);
             // $user->notify(new SpotAvailableNotification());         // Wyślij powiadomienie email
 // KONIEC ZAKOMENTOWANIA MAILINGU (3 WIERSZE)
-
+                                            
             // Zapisanie danych w sesji
             session([
                 'destination' => $request->destination,
@@ -145,6 +144,7 @@ class RegisteredUserController extends Controller
                 'last_name' => $request->last_name,
                 'phone' => $request->phone,
                 'email' => $request->email,
+                'participant_count' => $request->participant_count,
             ]);
             return redirect()->route('service.available');
 

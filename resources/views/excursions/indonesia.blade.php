@@ -65,8 +65,6 @@
 							<p><h3>Terminy i cena</h3></p>
 							<table class="table table-striped table-hover">
 								<tbody>
-														
-
 									@foreach ($dates as $date)
 										<tr class="align-middle">
 											<th scope="row">
@@ -76,7 +74,10 @@
 												{{ $date->price }} PLN
 											</td>
 											<td>
-												{{ $date->available_seats == 0 ? 'Brak wolnych miejsc' : ($date->available_seats == 1 ? '1 wolne miejsce' : $date->available_seats . ' wolne miejsca') }}
+												{{ $date->available_seats == 0 ? 'Brak wolnych miejsc' : 
+												($date->available_seats == 1 ? '1 wolne miejsce' : 
+												($date->available_seats > 1 && $date->available_seats < 5 ? $date->available_seats . ' wolne miejsca' : $date->available_seats . ' wolnych miejsc')) 
+											}}
 											</td>
 											<td>
 												<a href="{{ route('register') }}" class="btn btn-success btn-sm shadow {{ $date->available_seats > 0 ? '' : 'disabled' }}">
@@ -85,8 +86,6 @@
 											</td>
 										</tr>
 									@endforeach
-														
-
 									<tr class="align-middle">
 										<td scope="row">Twój termin</td>
 										<th>Podróż na zamówienie</th>
