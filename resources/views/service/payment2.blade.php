@@ -75,10 +75,12 @@
 					<small class="mt-0">Do: {{ session('end_date') }} (15 dni)</small>
 					<b class="mt-2">Koszt wyprawy uczestnika:</b>
 					<small>{{ session('formatted_price') }} PLN</small>
-					<b class="mt-2">Do zapłaty w PLN:</b>
+					<small class="mt-0">Zapłacono zaliczkę:</small>
+					<small><label for="zaliczka">{{ session('formatted_prepayment') }} * {{ session('participant_count') }} {{ session('participants_label') }} = {{ session('formatted_total_prepayment') }} PLN</label></small>
+					<b class="mt-2">Pozostało do zapłaty:</b>
 					<small>
 						<input type="radio" id="zaliczka" name="payment" value="zaliczka">
-						<label for="zaliczka">Zaliczka: {{ session('formatted_prepayment') }} * {{ session('participant_count') }} {{ session('participants_label') }} = <strong>{{ session('formatted_total_prepayment') }}</strong> PLN</label>
+						<label for="zaliczka">{{ session('formatted_prepayment') }} * {{ session('participant_count') }} {{ session('participants_label') }} = <strong>{{ session('formatted_total_prepayment') }}</strong> PLN</label>
 					</small>
 					<small>
 						<input type="radio" id="calosc" name="payment" value="calosc">

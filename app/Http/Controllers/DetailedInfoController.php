@@ -139,6 +139,8 @@ class DetailedInfoController extends Controller
                             'passport_issue_date' => $participantData['passport_issue_date'],
                             'passport_expiry_date' => $participantData['passport_expiry_date'],
                             'address_id' => $address->id,
+
+                            'stage' => 'zapisany',                 // NOWE
                         ]
                     );
                     Log::info('Pierwszy uczestnik został zaktualizowany lub utworzony.', ['client_id' => $client->id]);
