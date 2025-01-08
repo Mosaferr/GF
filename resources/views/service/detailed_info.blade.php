@@ -124,16 +124,14 @@
 								<div class="row">
 									<div class="col-auto">
 										<div class="form-check">
-											{{-- <input class="form-check-input" type="radio" name="participants[0][gender]" id="gender_female" value="Kobieta" {{ old('participants[0][gender]') == 'Kobieta' ? 'checked' : '' }}> --}}
-											<input class="form-check-input" type="radio" name="participants[0][gender]" id="gender_female" value="F" {{ old('participants[0][gender]') == 'F' ? 'checked' : '' }} required>
+											<input class="form-check-input" type="radio" name="participants[0][gender]" id="gender_female" value="F" {{ old('participants[0][gender]') == 'F' ? 'checked' : '' }}>
 											{{-- <input class="form-check-input" type="radio" name="participants[0][gender]" id="gender_female" value="Kobieta" {{ old('participants[0][gender]') == 'Kobieta' ? 'checked' : '' }} required> --}}
 											<label class="form-check-label" for="gender_female">Kobieta</label>
 										</div>
 									</div>
 									<div class="col-auto">
 										<div class="form-check">
-											{{-- <input class="form-check-input" type="radio" name="participants[0][gender]" id="gender_male" value="Mężczyzna" {{ old('participants[0][gender]') == 'Mężczyzna' ? 'checked' : '' }}> --}}
-											<input class="form-check-input" type="radio" name="participants[0][gender]" id="gender_male" value="M" {{ old('participants[0][gender]') == 'M' ? 'checked' : '' }} required>
+											<input class="form-check-input" type="radio" name="participants[0][gender]" id="gender_male" value="M" {{ old('participants[0][gender]') == 'M' ? 'checked' : '' }}>
 											{{-- <input class="form-check-input" type="radio" name="participants[0][gender]" id="gender_male" value="Mężczyzna" {{ old('participants[0][gender]') == 'Mężczyzna' ? 'checked' : '' }} required> --}}
 											<label class="form-check-label" for="gender_male">Mężczyzna</label>
 										</div>

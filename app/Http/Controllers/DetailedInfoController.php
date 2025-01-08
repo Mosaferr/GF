@@ -73,7 +73,7 @@ class DetailedInfoController extends Controller
             'participants.*.email' => 'required|email',
             'participants.*.pesel' => 'required|string',
             'participants.*.citizenship' => 'required|string',
-            'participants.*.gender' => 'required|string',
+            // 'participants.*.gender' => 'required|string',
             // 'participants.*.gender' => 'nullable|string',
             'participants.*.passport_number' => 'required|string',
             'participants.*.passport_issue_date' => 'required|date',
@@ -92,13 +92,66 @@ class DetailedInfoController extends Controller
             return response()->json(['errors' => $validator->errors()], 400);
         } else {
             Log::info('Walidacja zakończona sukcesem.');
-            
+
+
             // Logowanie każdego uczestnika po walidacji
             foreach ($participants as $key => $participant) {
                 Log::info("Walidacja zakończona sukcesem dla uczestnika {$key}: ", $participant);
             }
-            
-            return response()->json(['message' => 'Walidacja zakończona sukcesem.']);
+                                                        
+
+        // Zapisywanie danych uczestników do bazy danych
+        foreach ($participants as $participantData) {
+
+		// Wyszukaj lub utwórz miasto na podstawie city_name
+		$city = City::firstOrCreate(['city_name' => $participantData['city_name']]);
+
+            $address = Address::create([
+                'street' => $participantData['street'],
+                'house_number' => $participantData['house_number'],
+                'apartment_number' => $participantData['apartment_number'],
+                'postal_code' => $participantData['postal_code'],
+                'city_id' => $city->id, // Używamy city_id z utworzonego lub znalezionego miasta
+                // 'city_name' => $participantData['city_name'],
+            ]);
+
+            $citizenship = Citizenship::firstOrCreate(['citizenship' => $participantData['citizenship']]);
+            // $citizenship = Citizenship::firstOrCreate(['name' => $participantData['citizenship']]);
+
+            $client = Client::create([
+                'user_id' => $user->id,
+                'name' => $participantData['name'],
+                'middle_name' => $participantData['middle_name'] ?? null,
+                'last_name' => $participantData['last_name'],
+                'email' => $participantData['email'],
+                'birth_date' => $participantData['birth_date'],
+                'phone' => $participantData['phone'],
+                'pesel' => $participantData['pesel'],
+                'citizenship_id' => $citizenship->id,
+                'passport_number' => $participantData['passport_number'],
+                'passport_issue_date' => $participantData['passport_issue_date'],
+                'passport_expiry_date' => $participantData['passport_expiry_date'],
+                'address_id' => $address->id,
+            ]);
+
+            Log::info('Dane klienta zostały zapisane.', ['client_id' => $client->id]);
+
+            $tripId = session('destination');
+            $dateId = session('start_date');
+
+            ClientDate::create([
+                'client_id' => $client->id,
+                'trip_id' => $tripId,
+                'date_id' => $dateId,
+            ]);
+
+            Log::info('Dane klienta połączone z wycieczką i datą.', ['client_id' => $client->id, 'trip_id' => $tripId, 'date_id' => $dateId]);
+        }
+
+        // return response()->json(['message' => 'Dane zostały zapisane.'], 200);
+        return redirect()->route('service.payment')->with('success', 'Dane zostały zapisane.');
+
+                                                        
         }
     }
 }
