@@ -77,7 +77,6 @@ class FindClientController extends Controller
             'trips' => Trip::all(),
             'dates' => Date::all(),
             'clients' => $clients,
-        ]);
-    }
-
+            'redirect_url' => $request->input('redirect_url', route('admin.clientlist')), // Domyślnie powrót do listy klientów
+        ]);    }
 }

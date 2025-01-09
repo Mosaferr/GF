@@ -9,6 +9,7 @@
     <div class="form-container">
         <form id="searchForm" method="GET" action="{{ route('admin.findclient') }}">
             @csrf
+            <input type="hidden" name="redirect_url" value="{{ request('redirect_url', route('admin.clientlist')) }}">
             <h3 class="my-1" id="header-title">Wyszukaj klienta</h3>
             <hr>
 
@@ -111,6 +112,7 @@
                 </div>
             </div>
 
+            {{-- przyciski --}}
             <div class="row mt-5">
                 <div class="col-md-12 text-end">
                     <button type="reset" class="btn btn-secondary shadow mr-4 px-3"
@@ -118,7 +120,8 @@
                         Wyczyść
                     </button>
                     <button type="submit" class="btn btn-primary shadow mx-4 px-3">Szukaj</button>
-                    <a href="{{ route('admin.clientlist') }}" class="btn btn-success shadow ml-5 px-3">Powrót</a>
+                    <a href="{{ request()->input('redirect_url', route('admin.clientlist')) }}" class="btn btn-success shadow ml-5 px-3">Powrót</a>
+                    {{-- <a href="{{ route('admin.clientlist') }}" class="btn btn-success shadow ml-5 px-3">Powrót</a> --}}
                 </div>
             </div>
         </form>
@@ -159,10 +162,14 @@
                                     </td>
                                     {{-- przyciski --}}
                                     <td><a href="{{ route('group.show', ['trip_id' => $client->dates->first()->trip->id]) }}" class="btn btn-success btn-sm">Grupa</a></td>
-                                    <td><a href="{{ route('admin.clientdata.edit', $client->id) }}" class="btn btn-primary btn-sm">Edycja</a>
-                                    <td><form action="{{ route('admin.clientdata.destroy', $client->id) }}" method="POST" style="display: inline;">
+                                    <td>
+                                        <a href="{{ route('admin.clientdata.edit', ['id' => $client->id, 'redirect_url' => url()->current()]) }}" class="btn btn-primary btn-sm">Edycja</a>
+                                    </td>
+                                    {{-- <td><form action="{{ route('admin.clientdata.destroy', $client->id) }}" method="POST" style="display: inline;"> --}}
+                                    <td><form method="POST" action="{{ route('admin.clientdata.destroy', ['id' => $client->id]) }}">
                                         @csrf
                                         @method('DELETE')
+                                        <input type="hidden" name="redirect_url" value="{{ request('redirect_url', route('admin.findclient')) }}">
                                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Czy na pewno usunąć?')">Usuń</button>
                                     </form></td>
                                 </tr>

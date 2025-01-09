@@ -6,9 +6,22 @@
 	<main class="custom-margin-top">
 		<div class="container" style="max-width:1300px;">
 
-			<div class="row">
-				<div class="col-md-12 text-start ms-5 pb-3 position-relative">
-                    <h4 class="mt-2 mb-0">{{ $trip->trip->country }}: &nbsp;  &nbsp;  {{ \Carbon\Carbon::parse($trip->start_date)->format('d.m') }} - {{ \Carbon\Carbon::parse($trip->end_date)->format('d.m.Y') }}</h3>
+            <div class="d-flex flex-wrap justify-content-center gap-3 p-3 bg-light border rounded border-secondary border-md-primary bg-md-warning">
+                <div class="d-flex flex-wrap justify-content-center gap-3 mx-auto my-2">
+                <a href="{{ route('admin.clientlist') }}" class="btn btn-warning shadow mx-4">Lista <br>klientów</a>
+                <a href="{{ route('admin.triplist') }}" class="btn btn-warning shadow mx-4">Lista <br>wypraw</a>
+                {{-- <a href="{{ route('admin.findclient') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>klienta</a> --}}
+                <a href="{{ route('admin.findclient', ['redirect_url' => url()->current()]) }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>klienta</a>
+                <a href="{{ route('admin.findtrip', ['redirect_url' => url()->current()]) }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>wyprawę</a>
+                {{-- <a href="{{ route('admin.findtrip') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>wyprawę</a> --}}
+                </div>
+            </div>
+
+            <div class="row">
+				<div class="col-md-12 text-start pb-3 position-relative">
+                    <h4 class="ms-3 mt-5 mb-0">{{ $trip->trip->country }}: &nbsp;  &nbsp;
+                        {{ \Carbon\Carbon::parse($trip->start_date)->format('d.m') }}
+                        - {{ \Carbon\Carbon::parse($trip->end_date)->format('d.m.Y') }}</h4>
 					<h6 class="position-absolute end-0 bottom-0 mb-3">
 						Dodaj klienta&nbsp;&nbsp;
                         <a href="{{ route('admin.adddata.create', ['redirect_url' => url()->current()]) }}">
@@ -84,7 +97,7 @@
 								<td class="text-center">
                                     {{-- !ZAKOMENTOWANE <a href="{{ route('admin.clientdata.show', ['id' => $client->id]) }}" class="btn btn-success btn-sm shadow">Podgląd</a> --}}
                                     <a href="{{ route('admin.clientdata.edit', ['id' => $client->id, 'redirect_url' => url()->current()]) }}" class="btn btn-success btn-sm shadow">Edycja</a>
-									<form action="{{ route('admin.clientdata.destroy', ['id' => $client->id]) }}" method="POST" style="display: inline-block;">
+									<form method="POST" action="{{ route('admin.clientdata.destroy', ['id' => $client->id]) }}" style="display: inline-block;">
                                         @csrf
 										@method('DELETE')
                                         <input type="hidden" name="redirect_url" value="{{ url()->current() }}">

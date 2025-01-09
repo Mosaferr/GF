@@ -9,6 +9,7 @@
     <div class="form-container">
         <form id="searchForm" method="GET" action="{{ route('admin.findtrip') }}">
             @csrf
+            <input type="hidden" name="redirect_url" value="{{ request('redirect_url', route('admin.triplist')) }}">
             <h3 class="mb-0 ms-2">Wyszukaj wyprawę</h3>
             <hr>
 
@@ -93,12 +94,14 @@
                 </div>
             </div>
 
+            {{-- przyciski --}}
             <div class="row mt-5">
                 <div class="col-md-12 text-end">
                     <button type="reset" class="btn btn-secondary shadow"
                             onclick="window.location.href='{{ route('admin.findtrip') }}'">Wyczyść</button>
                     <button type="submit" class="btn btn-primary shadow mx-4">Szukaj</button>
-                    <a href="{{ route('admin.triplist') }}" class="btn btn-success shadow">Powrót</a>
+                    <a href="{{ request()->input('redirect_url', route('admin.triplist')) }}" class="btn btn-success shadow">Powrót</a>
+                    {{-- <a href="{{ route('admin.triplist') }}" class="btn btn-success shadow">Powrót</a> --}}
                 </div>
             </div>
         </form>
@@ -134,12 +137,17 @@
                             <td>{{ $date->price }} PLN</td>
                             <td>{{ $date->available_seats }} wolnych miejsc</td>
                             {{-- przyciski --}}
-                            <td><a href="{{ route('group.show', ['trip_id' => $date->trip->id]) }}" class="btn btn-success btn-sm">Grupa</a></td>
-                            <td><a href="{{ route('admin.tripdata.edit', ['tripId' => $date->trip->id, 'dateId' => $date->id]) }}" class="btn btn-primary btn-sm">Edycja</a></td>
+                            <td>
+                                <a href="{{ route('group.show', ['trip_id' => $date->trip->id]) }}" class="btn btn-success btn-sm">Grupa</a>
+                            </td>
+                            <td>
+                                <a href="{{ route('admin.tripdata.edit', ['tripId' => $date->trip_id, 'dateId' => $date->id, 'redirect_url' => url()->current()]) }}" class="btn btn-primary btn-sm shadow">Edycja</a>
+                            </td>
                             <td><form method="POST" action="{{ route('admin.tripdata.destroy', ['tripId' => $date->trip->id, 'dateId' => $date->id]) }}">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Czy na pewno?')">Usuń</button>
+                                <input type="hidden" name="redirect_url" value="{{ request('redirect_url', route('admin.triplist')) }}">
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Czy na pewno usunąć?')">Usuń</button>
                             </form></td>
                         </tr>
                         @empty

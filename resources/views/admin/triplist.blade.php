@@ -18,13 +18,15 @@
 		<div class="container" style="max-width: 1300px;">
 
             <div class="d-flex flex-wrap justify-content-center gap-3 p-3 bg-light border rounded border-secondary border-md-primary bg-md-warning">
-                {{-- <div class="lista-container menu-text col-md-12 text-center"> --}}
-                    <div class="d-flex flex-wrap justify-content-center gap-3 mx-auto my-2">
-                    {{-- <div class="d-grid d-md-block mx-auto my-2"> --}}
-                    <a href="{{ route('admin.clientlist') }}" class="btn btn-warning shadow mx-4">Lista <br>klientów</a>
-                    <a href="{{ route('admin.triplist') }}" class="btn btn-warning shadow mx-4">Lista <br>wypraw</a>
-                    <a href="{{ route('admin.findclient') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>klienta</a>
-                    <a href="{{ route('admin.findtrip') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>wyprawę</a>
+            {{-- <div class="lista-container menu-text col-md-12 text-center"> --}}
+                <div class="d-flex flex-wrap justify-content-center gap-3 mx-auto my-2">
+                {{-- <div class="d-grid d-md-block mx-auto my-2"> --}}
+                <a href="{{ route('admin.clientlist') }}" class="btn btn-warning shadow mx-4">Lista <br>klientów</a>
+                <a href="{{ route('admin.triplist') }}" class="btn btn-warning shadow mx-4">Lista <br>wypraw</a>
+                {{-- <a href="{{ route('admin.findclient') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>klienta</a> --}}
+                <a href="{{ route('admin.findclient', ['redirect_url' => url()->current()]) }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>klienta</a>
+                <a href="{{ route('admin.findtrip', ['redirect_url' => url()->current()]) }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>wyprawę</a>
+                {{-- <a href="{{ route('admin.findtrip') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>wyprawę</a> --}}
                 </div>
             </div>
 
@@ -136,10 +138,9 @@
 									</td>
 									<td class="text-center">
                                         <a href="{{ route('admin.tripdata.edit', ['tripId' => $date->trip_id, 'dateId' => $date->id, 'redirect_url' => url()->current()]) }}" class="btn btn-primary btn-sm shadow">Edycja</a>
-                                        {{-- <a href="{{ route('admin.tripdata.edit', ['tripId' => $date->trip_id, 'dateId' => $date->id]) }}" class="btn btn-primary btn-sm shadow">Edycja</a> --}}
                                     </td>
 									<td class="text-center">
-                                        <form action="{{ route('admin.tripdata.destroy', ['tripId' => $date->trip->id, 'dateId' => $date->id]) }}" method="POST">
+                                        <form method="POST" action="{{ route('admin.tripdata.destroy', ['tripId' => $date->trip->id, 'dateId' => $date->id]) }}">
                                             @csrf
                                             @method('DELETE')
                                             <input type="hidden" name="redirect_url" value="{{ url()->current() }}">

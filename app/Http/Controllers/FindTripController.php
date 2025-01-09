@@ -43,11 +43,11 @@ class FindTripController extends Controller
         // Pobieranie wyników
         $dates = $dates->orderBy('start_date', 'asc')->get();
 
-        return view('admin.findtrip', [
-            'dates' => $dates,
-            'trips' => Trip::all(),
-        ]);
+    // Przekazanie redirect_url
+    return view('admin.findtrip', [
+        'dates' => $dates,
+        'trips' => Trip::all(),
+        'redirect_url' => $request->input('redirect_url', route('admin.triplist')), // Domyślnie powrót do listy wypraw
+    ]);
     }
-
-
-    }
+}

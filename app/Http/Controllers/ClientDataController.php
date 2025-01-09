@@ -37,7 +37,8 @@ class ClientDataController extends Controller
         $dates = Date::where('trip_id', $selectedTripId)->get();
 
         // Przekazanie danych do widoku
-        $redirectUrl = $request->query('redirect_url', route('admin.clientlist'));           //Domyślnie do 'clientlist'
+        $redirectUrl = $request->input('redirect_url', route('admin.clientlist'));
+        // $redirectUrl = $request->query('redirect_url', route('admin.clientlist'));           //Domyślnie do 'clientlist'
         return view('admin.clientdata', compact('client', 'trips', 'selectedTripId', 'selectedDateId', 'dates', 'redirectUrl'));
     }
 
@@ -331,7 +332,6 @@ class ClientDataController extends Controller
             // Obsługa błędu. Przekierowanie na odpowiednią stronę
             $redirectUrl = $request->input('redirect_url', route('admin.clientlist'));
             return redirect($redirectUrl)->with('error', 'Wystąpił problem podczas usuwania klienta.');
-            // return redirect()->route('admin.clientlist')->with('error', 'Wystąpił problem podczas usuwania klienta. Skontaktuj się z administratorem.');
         }
     }
 }

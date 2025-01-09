@@ -30,7 +30,8 @@ class TripDataController extends Controller
         $trip = Trip::findOrFail($tripId);
         $date = Date::where('trip_id', $tripId)->where('id', $dateId)->firstOrFail();
 
-        $redirectUrl = $request->query('redirect_url', route('admin.triplist'));   // Domyślny redirect do listy
+        $redirectUrl = $request->input('redirect_url', route('admin.triplist'));
+        // $redirectUrl = $request->query('redirect_url', route('admin.triplist'));   // Domyślny redirect do listy
         return view('admin.tripdata', compact('trip', 'date', 'redirectUrl'));
     }
 
@@ -111,7 +112,6 @@ class TripDataController extends Controller
 			Log::error("Błąd podczas usuwania terminu wyprawy ID={$dateId} dla wyprawy ID={$tripId}: " . $e->getMessage());
 
 			// Obsługa błędu
-            // return redirect()->back()->with('error', 'Wystąpił problem podczas usuwania wyprawy.');    //równie dobra instrukcja, no moze troszkę gorsza
             $redirectUrl = $request->input('redirect_url', route('admin.triplist'));
             return redirect($redirectUrl)->with('error', 'Wystąpił problem podczas usuwania wyprawy.');
             }

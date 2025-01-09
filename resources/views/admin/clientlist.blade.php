@@ -19,13 +19,14 @@
             {{-- <div class="lista-container menu-text col-md-12 text-center"> --}}
                 <div class="d-flex flex-wrap justify-content-center gap-3 mx-auto my-2">
                 {{-- <div class="d-grid d-md-block mx-auto my-2"> --}}
-                    <a href="{{ route('admin.clientlist') }}" class="btn btn-warning shadow mx-4">Lista <br>klientów</a>
-                    <a href="{{ route('admin.triplist') }}" class="btn btn-warning shadow mx-4">Lista <br>wypraw</a>
-                    <a href="{{ route('admin.findclient') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>klienta</a>
-                    <a href="{{ route('admin.findtrip') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>wyprawę</a>
+                <a href="{{ route('admin.clientlist') }}" class="btn btn-warning shadow mx-4">Lista <br>klientów</a>
+                <a href="{{ route('admin.triplist') }}" class="btn btn-warning shadow mx-4">Lista <br>wypraw</a>
+                {{-- <a href="{{ route('admin.findclient') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>klienta</a> --}}
+                <a href="{{ route('admin.findclient', ['redirect_url' => url()->current()]) }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>klienta</a>
+                <a href="{{ route('admin.findtrip', ['redirect_url' => url()->current()]) }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>wyprawę</a>
+                {{-- <a href="{{ route('admin.findtrip') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>wyprawę</a> --}}
                 </div>
             </div>
-
 			<div class="row">
 				<div class="col-md-12 text-center pb-3 position-relative">
 					<h3 class="mt-5 mb-4">Lista klientów</h3>
@@ -111,7 +112,7 @@
                                 </td>
 								<td class="text-center">
                                     <a href="{{ route('admin.clientdata.edit', ['id' => $client->id, 'redirect_url' => url()->current()]) }}" class="btn btn-success btn-sm shadow">Edycja</a>
-									<form action="{{ route('admin.clientdata.destroy', ['id' => $client->id]) }}" method="POST" style="display: inline-block;">
+									<form method="POST" action="{{ route('admin.clientdata.destroy', ['id' => $client->id]) }}" style="display: inline-block;">
 										@csrf
 										@method('DELETE')
                                         <input type="hidden" name="redirect_url" value="{{ url()->current() }}">

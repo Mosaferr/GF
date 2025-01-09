@@ -31,12 +31,13 @@
                 <a href="{{ route('admin.triplist') }}" class="btn btn-warning shadow btn-lg p-3 text-center">
                     Lista <br>wypraw
                 </a>
-                <a href="{{ route('admin.findclient') }}" class="btn btn-warning shadow btn-lg p-3 text-center">
+                {{-- <a href="{{ route('admin.findclient') }}" class="btn btn-warning shadow btn-lg p-3 text-center">Wyszukaj <br>klienta</a> --}}
+                <a href="{{ route('admin.findclient', ['redirect_url' => url()->current()]) }}" class="btn btn-warning shadow  btn-lg p-3 text-center">
                     Wyszukaj <br>klienta
                 </a>
-                <a href="{{ route('admin.findtrip') }}" class="btn btn-warning shadow btn-lg p-3 text-center">
-                    Wyszukaj <br>wyprawę
-                </a>
+                <a href="{{ route('admin.findtrip', ['redirect_url' => url()->current()]) }}" class="btn btn-warning shadow  btn-lg p-3 text-center">
+                    Wyszukaj <br>wyprawę</a>
+                {{-- <a href="{{ route('admin.findtrip') }}" class="btn btn-warning shadow btn-lg p-3 text-center">Wyszukaj <br>wyprawę</a> --}}
                 <div class="d-grid text-center gap-2">
                     <div class="d-flex align-items-center">
                         <a href="{{ route('admin.adddata.create', ['redirect_url' => url()->current()]) }}" class="btn btn-outline-dark shadow
@@ -108,13 +109,10 @@
                                     <a href="{{ route('group.show', ['trip_id' => $date->id]) }}" class="btn btn-success btn-sm shadow">&nbsp;Grupa&nbsp;</a>
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ route('admin.tripdata.edit', ['tripId' => $date->trip_id, 'dateId' => $date->id,
-                                    'redirect_url' => url()->current()]) }}" class="btn btn-primary btn-sm shadow">Edycja</a>
-                                    {{-- <a href="{{ route('admin.tripdata.edit', ['tripId' => $date->trip_id, 'dateId' => $date->id]) }}"
-                                    class="btn btn-primary btn-sm shadow">Edycja</a> --}}
+                                    <a href="{{ route('admin.tripdata.edit', ['tripId' => $date->trip_id, 'dateId' => $date->id, 'redirect_url' => url()->current()]) }}" class="btn btn-primary btn-sm shadow">Edycja</a>
                                 </td>
                                 <td class="text-center">
-                                    <form action="{{ route('admin.tripdata.destroy', ['tripId' => $date->trip->id, 'dateId' => $date->id]) }}" method="POST">
+                                    <form method="POST" action="{{ route('admin.tripdata.destroy', ['tripId' => $date->trip->id, 'dateId' => $date->id]) }}">
                                         @csrf
                                         @method('DELETE')
                                         <input type="hidden" name="redirect_url" value="{{ url()->current() }}">
