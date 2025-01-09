@@ -13,18 +13,18 @@ class FinalController extends Controller
 
         // Sprawdzanie, czy dane nie są w sesji
         if (!session()->has('destination') || !session()->has('start_date') || !session()->has('end_date') ||
-            !session()->has('price') || !session()->has('participant_count') || !session()->has('total_cost') ||
+            !session()->has('price') || !session()->has('participants') || !session()->has('total_cost') ||
             !session()->has('total_prepayment') || !session()->has('formatted_balance')) {
 
             $date = $user->dates->first();                  //Pobranie pierwszej powiązanej daty użytkownika.  Zakładam, że użytkownik ma tylko jedną datę powiązaną z wycieczką
             $trip = $date->trip;                            // Pobranie powiązanej wycieczki poprzez model `Date`
-            $participant_count = $user->participant_count;  // Pobranie liczby uczestników
+            $participants = $user->participants;  // Pobranie liczby uczestników
             $price = $date->price;                          // Pobranie ceny
 
             // Obliczenia
             $prepayment = floor(0.30 * $price / 10) * 10;
-            $total_prepayment = $prepayment * $participant_count;
-            $total_cost = $price * $participant_count;
+            $total_prepayment = $prepayment * $participants;
+            $total_cost = $price * $participants;
             $balance = $total_cost - $total_prepayment;
 
             // Formatowanie liczb z separatorem tysięcy i bez miejsc po przecinku
@@ -35,7 +35,7 @@ class FinalController extends Controller
             $formatted_balance = number_format($balance, 0, ',', ' ');
 
             // Funkcja do wyboru odpowiedniego słowa
-            $participants_label = $this->getParticipantsLabel($participant_count);
+            $participants_label = $this->getParticipantsLabel($participants);
 
             // Formatowanie dat
             $start_date = \Carbon\Carbon::parse($date->start_date)->translatedFormat('l, j F Y');
@@ -47,7 +47,7 @@ class FinalController extends Controller
                 'start_date' => $start_date,
                 'end_date' => $end_date,
                 'formatted_price' => $formatted_price,
-                'participant_count' => $participant_count,
+                'participants' => $participants,
                 'participants_label' => $participants_label,
 
                 'total_prepayment' => $total_prepayment,
@@ -67,7 +67,7 @@ class FinalController extends Controller
             'start_date' => session('start_date'),
             'end_date' => session('end_date'),
             'price' => session('price'),
-            'participant_count' => session('participant_count'),
+            'participants' => session('participants'),
             'participants_label' => session('participants_label'),
             'formatted_total_prepayment' => session('formatted_total_prepayment'),
             'formatted_total_cost' => session('formatted_total_cost'),
@@ -94,7 +94,7 @@ class FinalController extends Controller
             'start_date' => session('start_date'),
             'end_date' => session('end_date'),
             'price' => session('price'),
-            'participant_count' => session('participant_count'),
+            'participants' => session('participants'),
             'participants_label' => session('participants_label'),
             'formatted_total_prepayment' => session('formatted_total_prepayment'),
             'formatted_total_cost' => session('formatted_total_cost'),

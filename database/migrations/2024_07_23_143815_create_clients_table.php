@@ -25,10 +25,11 @@ return new class extends Migration
             $table->string('pesel');
             $table->foreignId('citizenship_id')->constrained()->onDelete('cascade');
             $table->string('passport_number');
-            $table->date('passport_issue_date');
-            $table->date('passport_expiry_date');
+            $table->date('issue_date');
+            $table->date('expiry_date');
             $table->foreignId('address_id')->constrained()->onDelete('cascade');
-            $table->foreignId('leader_id')->nullable()->constrained('clients')->onDelete('set null');
+            $table->unsignedBigInteger('leader_id')->nullable();                        // Zwykła kolumna, nie klucz obcy
+            // $table->foreignId('leader_id')->nullable()->constrained('clients')->onDelete('restrict');
             $table->timestamps();
         });
     }

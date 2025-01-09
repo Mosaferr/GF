@@ -161,12 +161,12 @@ return [
             'regex' => 'Numer paszportu musi być ciągiem liter i cyfr.',
             'unique' => 'Taki numer paszportu jest już zarejestrowany.',
         ],
-        'participants.*.passport_issue_date' => [
+        'participants.*.issue_date' => [
             'required' => 'Data wydania paszportu jest wymagana.',
             'date' => 'Data wydania paszportu musi być poprawną datą.',
 			'before_or_equal' => 'Data wydania paszportu nie może być późniejsza niż dzisiaj.',
         ],
-        'participants.*.passport_expiry_date' => [
+        'participants.*.expiry_date' => [
             'required' => 'Data ważności paszportu jest wymagana.',
             'date' => 'Data ważności paszportu musi być poprawną datą.',
 			'after' => 'Data ważności paszportu musi być późniejsza niż dzisiaj.',
@@ -192,15 +192,14 @@ return [
             'string' => 'Miejscowość musi być ciągiem znaków.',
         ],
     ],
-
                                             
-
         'attributes' => [
             'email' => 'adres e-mail',
             'password' => 'hasło',
             'name' => 'imię',
+            'citizenship' => 'obywatelstwo',
+            'stage' => 'status',
             // Dodaj tutaj kolejne tłumaczenia atrybutów
         ],
-
                                             
 ];

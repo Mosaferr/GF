@@ -118,14 +118,14 @@
 						</div>
 						<div class="row mb-3">
 							<div class="col-md-6">
-								<label for="passport_issue_date" class="form-label">Data wydania paszportu<span class="text-danger">*</span></label>
-								<input type="date" class="form-control" id="passport_issue_date" name="participants[0][passport_issue_date]" value="{{ old('participants[0][passport_issue_date]') }}" required>
-								<x-input-error :messages="$errors->get('participants.0.passport_issue_date')" class="mt-2 red-text" />
+								<label for="issue_date" class="form-label">Data wydania paszportu<span class="text-danger">*</span></label>
+								<input type="date" class="form-control" id="issue_date" name="participants[0][issue_date]" value="{{ old('participants[0][issue_date]') }}" required>
+								<x-input-error :messages="$errors->get('participants.0.issue_date')" class="mt-2 red-text" />
 							</div>
 							<div class="col-md-6">
-								<label for="passport_expiry_date" class="form-label">Data ważności paszportu<span class="text-danger">*</span></label>
-								<input type="date" class="form-control" id="passport_expiry_date" name="participants[0][passport_expiry_date]" value="{{ old('participants[0][passport_expiry_date]') }}" required>
-								<x-input-error :messages="$errors->get('participants.0.passport_expiry_date')" class="mt-2 red-text" />
+								<label for="expiry_date" class="form-label">Data ważności paszportu<span class="text-danger">*</span></label>
+								<input type="date" class="form-control" id="expiry_date" name="participants[0][expiry_date]" value="{{ old('participants[0][expiry_date]') }}" required>
+								<x-input-error :messages="$errors->get('participants.0.expiry_date')" class="mt-2 red-text" />
 							</div>
 						</div>
 						<h5 class="login-address mt-5">Adres</h5>
@@ -164,7 +164,7 @@
 				<div class="row">
 					<div class="col-md-12 text-center">
 						<!-- Dodanie atrybutu do kontrolowania liczby uczestników -->
-						<button type="submit" class="btn btn-warning shadow w-100" data-max-participants="{{ session('participant_count') }}">Wyślij</button>
+						<button type="submit" class="btn btn-warning shadow w-100" data-max-participants="{{ session('participants') }}">Wyślij</button>
 						{{-- <button type="submit" class="btn btn-warning shadow w-100">Wyślij</button> --}}
 					</div>
 				</div>

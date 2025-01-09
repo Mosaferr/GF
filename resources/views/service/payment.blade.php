@@ -87,13 +87,13 @@
 						<small>
 							<div class="d-flex align-items-center mb-1">
 								<input type="radio" id="zaliczka" name="payment" value="zaliczka" class="me-2" required>
-								<label for="zaliczka" class="m-0">Zaliczka: {{ session('formatted_prepayment') }} * {{ session('participant_count') }} {{ session('participants_label') }} = <strong>{{ session('formatted_total_prepayment') }}</strong> PLN</label>
+								<label for="zaliczka" class="m-0">Zaliczka: {{ session('formatted_prepayment') }} * {{ session('participants') }} {{ session('participants_label') }} = <strong>{{ session('formatted_total_prepayment') }}</strong> PLN</label>
 							</div>
 						<small>
 						</small>
 						<div class="d-flex align-items-center mb-4">
 							<input type="radio" id="calosc" name="payment" value="calosc" class="me-2">
-							<label for="calosc" class="m-0">Całość: {{ session('formatted_price') }} * {{ session('participant_count') }} {{ session('participants_label') }} = <strong>{{ session('formatted_total_cost') }}</strong> PLN</label>
+							<label for="calosc" class="m-0">Całość: {{ session('formatted_price') }} * {{ session('participants') }} {{ session('participants_label') }} = <strong>{{ session('formatted_total_cost') }}</strong> PLN</label>
 						</div>
 						</small>
 						<div class="text-end mt-3">

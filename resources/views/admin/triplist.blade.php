@@ -16,7 +16,8 @@
 
 @section('content')
 	<main class="custom-margin-top">
-		<div class="container" style="max-width: 1200px;">
+		<div class="container" style="max-width: 1300px;">
+		{{-- <div class="container" style="max-width: 1200px;"> --}}
 
 			<div class="row">
 				<div class="col-md-12 text-center pb-3">

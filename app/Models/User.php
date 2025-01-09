@@ -6,17 +6,14 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
 use Laravel\Cashier\Billable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
-
     use Billable;
 
-    /**
-     * The attributes that are mass assignable.
+    /** The attributes that are mass assignable.
      * @var array<int, string>
      */
     protected $fillable = [
@@ -24,12 +21,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'last_name',
         'phone',
         'email',
-        'participant_count', // Dodano nowe pole
+        'participants', // Dodano nowe pole
         'password',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
+    /** The attributes that should be hidden for serialization.
      * @var array<int, string>
      */
     protected $hidden = [
@@ -37,8 +33,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
+    /** Get the attributes that should be cast.
      * @return array<string, string>
      */
     protected function casts(): array
@@ -49,16 +44,14 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    /**
-     * Relacja z tabelą Clients.
+    /** Relacja z tabelą Clients.
      */
     public function clients()
     {
         return $this->hasMany(Client::class);
     }
 
-    /**
-     * Relacja z tabelą Users_Dates.
+    /** Relacja z tabelą Users_Dates.
      */
     public function dates()
     {

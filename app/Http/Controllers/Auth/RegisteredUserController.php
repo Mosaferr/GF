@@ -9,6 +9,7 @@ use App\Models\Trip;
 use App\Models\UserDate;
 use App\Models\Date;
 use App\Models\Client;
+use App\Models\ClientDate;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -22,29 +23,24 @@ use App\Notifications\SpotAvailableNotification;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Display the registration view.
-     */
+    /** Display the registration view. */
     public function create(): View
     {
-        $trips = Trip::all(); // Pobieramy wszystkie wyprawy
-        return view('auth.register', ['trips' => $trips]);          // Przekazujemy zmienną $trips do widoku
+        $trips = Trip::all();                               // Pobieramy wszystkie wyprawy
+        return view('auth.register', ['trips' => $trips]);  // Przekazujemy zmienną $trips do widoku
     }
 
-    /**
-     * Handle an incoming registration request.
-     *
+    /** Handle an incoming registration request.
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request): RedirectResponse
     {
-
         $request->validate([
 			'name' => ['required', 'string', 'alpha', 'min:3', 'max:20'],
 			'last_name' => ['required', 'string', 'alpha', 'min:2', 'max:50'],
 			'phone' => ['nullable', 'regex:/^\+?[0-9\s]+$/', 'min:8', 'max:20'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'participant_count' => ['required', 'integer', 'min:1'],
+            'participants' => ['required', 'integer', 'min:1'],
             'password' => [
                 'required',
                 'confirmed',
@@ -60,8 +56,7 @@ class RegisteredUserController extends Controller
 
         $date = Date::find($request->start_date);           // Pobranie daty na podstawie start_date przekazanego z formularza
 
-        $remainingSeats = $date->available_seats - $request->participant_count;
-
+        $remainingSeats = $date->available_seats - $request->participants;
         if ($remainingSeats >= 0) {
             $date->available_seats = $remainingSeats;
             $date->save();
@@ -72,27 +67,28 @@ class RegisteredUserController extends Controller
                 'last_name' => $request->last_name,
                 'phone' => $request->phone,
                 'email' => $request->email,
-                'participant_count' => $request->participant_count,
+                'participants' => $request->participants,
                 'password' => Hash::make($request->password),
             ]);
-                            
+
             $leaderId = $user->id;          // Przypisanie leader_id do identyfikatora utworzonego użytkownika
-                            
-            UserDate::create([              // Nowe reguły
+
+            // Przypisanie start_date jako date_id w tabeli user_dates, tworząc połączenie między użytkownikiem a datą.
+            UserDate::create([
                 'user_id' => $user->id,
                 'date_id' => $request->start_date,
             ]);
-        // Sprawdzenie, czy istnieją wartości w tabelach `addresses`
-        $existingAddress = \App\Models\Address::first();
+
+        // OBSŁUGA KLIENTA
+        $existingAddress = \App\Models\Address::first();        // Sprawdzenie, czy istnieją wartości w tabelach `addresses`
         if (!$existingAddress) {
-            // Sprawdzenie, czy istnieją wartości w tabeli `cities`
-            $existingCity = \App\Models\City::first();
+            $existingCity = \App\Models\City::first();          // Sprawdzenie, czy istnieją wartości w tabeli `cities`
             if (!$existingCity) {
-                // Tworzenie tymczasowego rekordu w tabeli `cities`
-                $existingCity = \App\Models\City::create([
+                $existingCity = \App\Models\City::create([       // Tworzenie tymczasowego rekordu w tabeli `cities`
                     'city_name' => 'Temporary City',
                 ]);
             }
+
             // Tworzenie rekordu w tabeli `addresses` z odniesieniem do rekordu w tabeli `cities`
             $existingAddress = \App\Models\Address::create([
                 'street' => 'Temporary Street',
@@ -104,32 +100,34 @@ class RegisteredUserController extends Controller
         }
         $existingAddressId = $existingAddress->id;
 
-            // Sprawdzenie, czy istnieją wartości w tabelach `citizenships`, i `clients`
-            $existingCitizenshipId = \App\Models\Citizenship::first()->id ?? null;      // Zmień na rzeczywisty ID istniejącego obywatelstwa
-            // $existingLeaderId = Client::first()->id ?? null;                            // Zmień na rzeczywisty ID istniejącego lidera
+        // Sprawdzenie, czy istnieją wartości w tabelach `citizenships`, i `clients`
+        $existingCitizenshipId = \App\Models\Citizenship::first()->id ?? null;      // Zmień na rzeczywisty ID istniejącego obywatelstwa
 
-            // Tworzenie klienta...
-            $client = Client::create([
-                'user_id' => $user->id,
-                'name' => $request->name,
-                'last_name' => $request->last_name,
-                'phone' => $request->phone,
-                'email' => $request->email,
-                'birth_date' => now(),                          // Tymczasowa wartość
-                'gender' => 'M',                                // Tymczasowa wartość
-                'pesel' => '00000000000',                       // Tymczasowa wartość
-                'citizenship_id' => $existingCitizenshipId,     // Użyj istniejącej wartości lub null
-                'passport_number' => 'TEMP',                    // Tymczasowa wartość
-                'passport_issue_date' => now(),                 // Tymczasowa wartość
-                'passport_expiry_date' => now()->addYear(),     // Tymczasowa wartość
-                'address_id' => $existingAddressId,             // Użyj istniejącej wartości lub null
-                'leader_id' => $leaderId,                       // Ustawienie leader_id na identyfikator nowo utworzonego użytkownika
-                // 'leader_id' => $existingLeaderId,            // Użyj istniejącej wartości lub null
-                'stage' => 'zarezerwowany',
-            ]);
+        // Tworzenie klienta...
+        $client = Client::create([
+            'user_id' => $user->id,
+            'name' => $request->name,
+            'last_name' => $request->last_name,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'birth_date' => now(),                          // Tymczasowa wartość
+            'gender' => 'M',                                // Tymczasowa wartość
+            'pesel' => '00000000000',                       // Tymczasowa wartość
+            'citizenship_id' => $existingCitizenshipId,     // Użyj istniejącej wartości lub null
+            'passport_number' => 'TEMP',                    // Tymczasowa wartość
+            'issue_date' => now(),                 // Tymczasowa wartość
+            'expiry_date' => now()->addYear(),     // Tymczasowa wartość
+            'address_id' => $existingAddressId,             // Użyj istniejącej wartości lub null
+            'leader_id' => $leaderId,                       // Ustawienie leader_id na identyfikator nowo utworzonego użytkownika
+            'stage' => 'zarezerwowany',
+        ]);
+        $client->save();                // Zapisanie klienta
 
-            // Zapisanie klienta
-            $client->save();
+        // Przypisanie start_date jako date_id w tabeli clients_dates, tworząc połączenie między użytkownikiem a datą.
+        ClientDate::create([
+            'client_id' => $client->id,
+            'date_id' => $request->start_date,
+        ]);
                                             
 // ZAKOMENTOWANIE MAILINGU (3 WIERSZE)
             event(new Registered($user));
@@ -145,7 +143,7 @@ class RegisteredUserController extends Controller
                 'last_name' => $request->last_name,
                 'phone' => $request->phone,
                 'email' => $request->email,
-                'participant_count' => $request->participant_count,
+                'participants' => $request->participants,
             ]);
             return redirect()->route('service.available');
 

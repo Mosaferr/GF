@@ -7,6 +7,12 @@ body{
     padding: 0; */
 }
 
+/*---------------------------------------------   FONTY W ETUKIETACH FORMULARZY - ZOSTAWIĆ???   ---*/
+.form-label {
+    font-size: 0.9rem;	/* Zmniejsz rozmiar czcionki dla etykiet */
+    color: grey;
+}
+
 /*---------------------------------------------   NAVBAR   ---*/
 .navbar{
     font-family: 'Tenor Sans', sans-serif;

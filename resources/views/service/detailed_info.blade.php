@@ -68,28 +68,28 @@
 				@endif
 			</div>
 											
+			<h3> Twoja przygoda </h3>
+			<div class="row mb-3">
+				<div class="col-md-6">
+					<label for="trip" class="form-label">Wyprawa</label>
+					<input type="text" class="form-control" id="trip" name="trip" value="{{ $destination }}" readonly>
+				</div>
+				<div class="col-md-6">
+					<label for="start_date" class="form-label">Termin</label>
+					<input type="text" class="form-control" id="start_date" name="start_date" value="{{ $start_date }}" readonly>
+				</div>
+			</div>
+
 			<form method="POST" action="{{ route('client.store') }}">
 				@csrf
-				<h3> Twoja przygoda </h3>
-				<div class="row mb-3">
-					<div class="col-md-6">
-						<label for="trip" class="form-label">Wyprawa</label>
-						<input type="text" class="form-control" id="trip" name="trip" value="{{ session('destination') }}" readonly>
-					</div>
-					<div class="col-md-6">
-						<label for="start_date" class="form-label">Termin</label>
-						<input type="text" class="form-control" id="start_date" name="start_date" value="{{ session('start_date') }}" readonly>
-					</div>
-				</div>
-
-				<h3 class="mt-5"> Twoje dane osobowe </h3>
 				<div id="participantSection">
 					<div class="participant" id="participantTemplate">
+						<h3 class="mt-5"> Twoje dane osobowe </h3>
 						<p><small class="green-text">Ważne: Podaj informacje identyczne z danymi w paszporcie.</small></p>
 						<div class="row mb-3">
 							<div class="col-md-6">
 								<label for="name" class="form-label">Imię<span class="text-danger">*</span></label>
-								<input type="text" class="form-control" id="name" name="participants[0][name]" value="{{ old('participants[0][name]', session('name')) }}" required>
+								<input type="text" class="form-control" id="name" name="participants[0][name]" value="{{ old('participants[0][name]', $name) }}" required>
 								<x-input-error :messages="$errors->get('participants.0.name')" class="mt-2 red-text" />
 							</div>
 							<div class="col-md-6">
@@ -101,7 +101,7 @@
 						<div class="row mb-3">
 							<div class="col-md-6">
 								<label for="last_name" class="form-label">Nazwisko<span class="text-danger">*</span></label>
-								<input type="text" class="form-control" id="last_name" name="participants[0][last_name]" value="{{ old('participants[0][last_name]', session('last_name')) }}" required>
+								<input type="text" class="form-control" id="last_name" name="participants[0][last_name]" value="{{ old('participants[0][last_name]', $last_name) }}" required>
 								<x-input-error :messages="$errors->get('participants.0.last_name')" class="mt-2 red-text" />
 							</div>
 							<div class="col-md-6">
@@ -113,12 +113,12 @@
 						<div class="row mb-3">
 							<div class="col-md-6">
 								<label for="phone" class="form-label">Telefon</label>
-								<input type="text" class="form-control" id="phone" name="participants[0][phone]" value="{{ old('participants[0][phone]', session('phone')) }}">
+								<input type="text" class="form-control" id="phone" name="participants[0][phone]" value="{{ old('participants[0][phone]', $phone) }}">
 								<x-input-error :messages="$errors->get('participants.0.phone')" class="mt-2 red-text" />
 							</div>
 							<div class="col-md-6">
 								<label for="email" class="form-label">Adres email<span class="text-danger">*</span></label>
-								<input type="email" class="form-control" id="email" name="participants[0][email]" value="{{ old('participants[0][email]', session('email')) }}" required>
+								<input type="email" class="form-control" id="email" name="participants[0][email]" value="{{ old('participants[0][email]', $email) }}" required>
 								<x-input-error :messages="$errors->get('participants.0.email')" class="mt-2 red-text" />
 							</div>
 						</div>
@@ -172,14 +172,14 @@
 						</div>
 						<div class="row mb-3">
 							<div class="col-md-6">
-								<label for="passport_issue_date" class="form-label">Data wydania paszportu<span class="text-danger">*</span></label>
-								<input type="date" class="form-control" id="passport_issue_date" name="participants[0][passport_issue_date]" value="{{ old('participants[0][passport_issue_date]') }}" required>
-								<x-input-error :messages="$errors->get('participants.0.passport_issue_date')" class="mt-2 red-text" />
+								<label for="issue_date" class="form-label">Data wydania paszportu<span class="text-danger">*</span></label>
+								<input type="date" class="form-control" id="issue_date" name="participants[0][issue_date]" value="{{ old('participants[0][issue_date]') }}" required>
+								<x-input-error :messages="$errors->get('participants.0.issue_date')" class="mt-2 red-text" />
 							</div>
 							<div class="col-md-6">
-								<label for="passport_expiry_date" class="form-label">Data ważności paszportu<span class="text-danger">*</span></label>
-								<input type="date" class="form-control" id="passport_expiry_date" name="participants[0][passport_expiry_date]" value="{{ old('participants[0][passport_expiry_date]') }}" required>
-								<x-input-error :messages="$errors->get('participants.0.passport_expiry_date')" class="mt-2 red-text" />
+								<label for="expiry_date" class="form-label">Data ważności paszportu<span class="text-danger">*</span></label>
+								<input type="date" class="form-control" id="expiry_date" name="participants[0][expiry_date]" value="{{ old('participants[0][expiry_date]') }}" required>
+								<x-input-error :messages="$errors->get('participants.0.expiry_date')" class="mt-2 red-text" />
 							</div>
 						</div>
 						<h5 class="login-address mt-5">Adres</h5>
@@ -214,7 +214,7 @@
 						</div>
 					</div>
 				</div>
-
+				
 				<div class="row mt-5">
 					<div class="col-md-6">
 						<button type="button" class="btn btn-secondary w-100 shadow" id="addParticipantBtn">Dodaj kolejnego uczestnika</button>
@@ -226,7 +226,7 @@
 
 				<div class="row mt-3 mb-3">
 					<div class="col-md-12">
-						<small class="text-danger"></span>
+						<small class="green-text"></span>
 							Pamiętaj, że dodając kolejnego uczestnika, tworzycie jedną wspólną umowę, a link do płatności będzie obejmował wszystkie zgłoszone osoby. Jeśli każdy uczestnik chce mieć własną umowę, musi założyć osobne zgłoszenie.</small>
 					</div>
 				</div>
@@ -281,7 +281,7 @@
 				<div class="row">
 					<div class="col-md-12 text-center">
 						<!-- Dodanie atrybutu do kontrolowania liczby uczestników -->
-						<button type="submit" class="btn btn-warning shadow w-100" data-max-participants="{{ session('participant_count') }}">Wyślij</button>
+						<button type="submit" class="btn btn-warning shadow w-100" data-max-participants="{{ session('participants') }}">Wyślij</button>
 						{{-- <button type="submit" class="btn btn-warning shadow w-100">Wyślij</button> --}}
 					</div>
 				</div>

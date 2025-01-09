@@ -68,7 +68,7 @@
 					<small><b class="mt-5">Koszt wyprawy uczestnika:</b></small>
 					<small>{{ session('formatted_price') }} PLN</small>
 					<small><b class="mt-5 mb-1">Koszt wszystkich uczestników:</b></small>
-					<small>{{ session('formatted_price') }} PLN * {{ session('participant_count') }} {{ session('participants_label') }} PLN = <strong>{{ session('formatted_total_cost') }}</strong> PLN</small>
+					<small>{{ session('formatted_price') }} PLN * {{ session('participants') }} {{ session('participants_label') }} PLN = <strong>{{ session('formatted_total_cost') }}</strong> PLN</small>
 					<b class="mt-4 fs-4 text-center green-text">Zacznij się pakować!</b>
 				</div>
 			</div>

@@ -69,7 +69,7 @@
 					<b class="mt-2">Koszt wyprawy uczestnika:</b>
 					<small>{{ session('formatted_price') }} PLN</small>
 					<small class="mt-1">Zapłacono zaliczkę:</small>
-					<small><label for="zaliczka">{{ session('formatted_prepayment') }} PLN * {{ session('participant_count') }} {{ session('participants_label') }} = {{ session('formatted_total_prepayment') }} PLN</label></small>
+					<small><label for="zaliczka">{{ session('formatted_prepayment') }} PLN * {{ session('participants') }} {{ session('participants_label') }} = {{ session('formatted_total_prepayment') }} PLN</label></small>
 					<b class="mt-2 mb-1">Pozostało do zapłaty:</b>
 					<small>{{ session('formatted_total_cost') }} PLN - {{ session('formatted_total_prepayment') }} PLN = <strong>{{ session('formatted_balance') }}</strong> PLN</small>
 

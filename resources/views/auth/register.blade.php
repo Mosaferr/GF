@@ -89,8 +89,8 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-2">
-                            <label for="participant_count" class="form-label">Uczestnicy</label>
-                            <input type="number" class="form-control" id="participant_count" name="participant_count" value="{{ old('participant_count') }}" min="1" step="1" required>
+                            <label for="participants" class="form-label">Uczestnicy</label>
+                            <input type="number" class="form-control" id="participants" name="participants" value="{{ old('participants') }}" min="1" step="1" required>
                         </div>
                         <div class="col-md-4">
                             <x-input-label for="phone" :value="__('Telefon')" class="form-label" />

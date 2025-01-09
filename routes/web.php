@@ -18,6 +18,8 @@ use App\Http\Controllers\Payment2Controller;
 use App\Http\Controllers\FinalController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClientListController;
+use App\Http\Controllers\ClientDataController;
+use App\Http\Controllers\AddDataController;
 use App\Http\Controllers\TripListController;
 
 // Główna strona
@@ -104,7 +106,21 @@ Route::get('/service/final', [FinalController::class, 'show'])->name('service.fi
 
 // Admin
 Route::get('/admin/admin', [AdminController::class, 'index'])->name('admin.admin');
-// Route::post('/contact', [EmailController::class, 'sendEmail'])->name('contact.send');
-Route::get('/admin/clientlist', [ClientListController::class, 'index'])->name('admin.clientlist');
+Route::get('/admin/clientlist', [ClientListController::class, 'index'])->name('admin.clientlist');                  // Wyświetlenie listy i redirect po usunięciu klienta
+Route::get('/admin/clientdata/edit/{id}', [ClientDataController::class, 'edit'])->name('admin.clientdata.edit');
+
+// Trasy z clientdata
+Route::get('/admin/clientdata', [ClientDataController::class, 'index'])->name('admin.clientdata.index');                // Powrót do listy --?-- SPR CO TO
+Route::put('/admin/clientdata/{id}', [ClientDataController::class, 'update'])->name('admin.clientdata.update');         // Aktualizacja
+Route::delete('/admin/clientdata/{id}', [ClientDataController::class, 'destroy'])->name('admin.clientdata.destroy');
+// Route::get('/admin/clientlist', [ClientListController::class, 'index'])->name('admin.clientlist');                    // Usunięcie klienta
+
+// Nowy klient
+Route::get('/admin/adddata', [AddDataController::class, 'create'])->name('admin.adddata.create');                       // Wyświetlenie formularza rejestracji klienta
+Route::post('/admin/adddata', [AddDataController::class, 'store'])->name('admin.adddata.store');                        // Zapisanie nowego klienta
+
+
+
+
 Route::get('/admin/triplist', [TripListController::class, 'index'])->name('admin.triplist');
 

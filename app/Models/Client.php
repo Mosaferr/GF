@@ -22,8 +22,8 @@ class Client extends Model
         'pesel',
         'citizenship_id',
         'passport_number',
-        'passport_issue_date',
-        'passport_expiry_date',
+        'issue_date',
+        'expiry_date',
         'address_id',
         'leader_id',
     ];
@@ -43,15 +43,15 @@ class Client extends Model
         return $this->belongsTo(Address::class);
     }
 
-    public function leader()
-    {
-        return $this->belongsTo(Client::class, 'leader_id');
-    }
+    // public function leader()
+    // {
+    //     return $this->belongsTo(Client::class, 'leader_id');
+    // }
 
-    public function subordinates()
-    {
-        return $this->hasMany(Client::class, 'leader_id');
-    }
+    // public function subordinates()
+    // {
+    //     return $this->hasMany(Client::class, 'leader_id');
+    // }
 
     public function dates()
     {
