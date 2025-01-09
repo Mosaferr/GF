@@ -88,9 +88,19 @@
 								<td class="text-center">{{ \Carbon\Carbon::parse($client->birth_date)->format('d.m.Y') }}</td>
 								<td>{{ $client->phone }}</td>
 								<td>{{ $client->email }}</td>
-								<td>{{ $client->city_name }}</td>
-								<td>{{ $client->country }}</td>
-								<td>{{ \Carbon\Carbon::parse($client->start_date)->format('d.m') }}-{{ \Carbon\Carbon::parse($client->end_date)->format('d.m.Y') }}</td>
+                                <td>{{ $client->address->city->city_name ?? 'Brak danych' }}</td>
+								{{-- <td>{{ $client->city_name }}</td> --}}
+								{{-- <td>{{ $client->country }}</td> --}}
+                                <td>{{ $client->dates->first()->trip->country ?? 'Brak danych' }}</td>
+                                {{-- <td>{{ \Carbon\Carbon::parse($client->start_date)->format('d.m') }}-{{ \Carbon\Carbon::parse($client->end_date)->format('d.m.Y') }}</td> --}}
+                                <td>
+                                    @if($client->dates->isNotEmpty())
+                                        {{ \Carbon\Carbon::parse($client->dates->first()->start_date)->format('d.m') }}
+                                        - {{ \Carbon\Carbon::parse($client->dates->first()->end_date)->format('d.m.Y') }}
+                                    @else
+                                        Brak danych
+                                    @endif
+                                </td>
 								<td class="text-center">
 									<a href="{{ route('admin.clientdata.edit', ['id' => $client->id]) }}" class="btn btn-success  btn-sm shadow">Edycja</a>
 								</td>

@@ -128,7 +128,8 @@ Route::middleware(['auth', Admin::class])->group(function () {
 
     // Nowy klient
     Route::get('/admin/adddata', [AddDataController::class, 'create'])->name('admin.adddata.create');       // Wyświetlenie formularza rejestracji klienta
-    Route::post('/admin/adddata', [AddDataController::class, 'store'])->name('admin.adddata.store');         // Zapisanie nowego klienta
+    Route::post('/admin/adddata/store', [AddDataController::class, 'store'])->name('admin.adddata.store');         // Zapisanie nowego klienta
+    // Route::post('/admin/adddata', [AddDataController::class, 'store'])->name('admin.adddata.store');
 
     // Lista tras
     Route::get('/admin/triplist', [TripListController::class, 'index'])->name('admin.triplist');

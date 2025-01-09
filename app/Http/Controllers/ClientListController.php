@@ -9,21 +9,32 @@ class ClientListController extends Controller
 {
     public function index(Request $request)
     {
-        // Pobierz parametry sortowania z zapytania lub ustaw domyślne wartości
-        $sortBy = $request->input('sort_by', 'clients.id');     // Domyślna kolumna do sortowania
-        $order = $request->input('order', 'asc');               // Domyślny kierunek sortowania
+        // Pobierz parametry sortowania
+        $sortBy = $request->input('sort_by', 'id');       // Domyślna kolumna do sortowania
+        $order = $request->input('order', 'asc');         // Domyślny kierunek sortowania
 
-        // Użycie złączeń (join), aby zawsze pobierać powiązane dane
-        $clients = Client::join('clients_dates', 'clients.id', '=', 'clients_dates.client_id')
-            ->join('dates', 'clients_dates.date_id', '=', 'dates.id')
-            ->join('trips', 'dates.trip_id', '=', 'trips.id')
-            ->join('addresses', 'clients.address_id', '=', 'addresses.id')
-            ->join('cities', 'addresses.city_id', '=', 'cities.id')
-            ->join('citizenships', 'clients.citizenship_id', '=', 'citizenships.id')
-            ->select('clients.*', 'trips.country', 'dates.start_date', 'dates.end_date', 'cities.city_name', 'citizenships.citizenship')
+    // Pobierz dane z bazy SQL lub sortuj w pamięci
+    if (in_array($sortBy, ['city_name', 'country', 'start_date'])) {
+        // Pobranie wszystkich danych z relacjami
+        $clients = Client::with(['dates.trip', 'address.city', 'citizenship'])->get();
+
+        // Sortowanie w pamięci
+        $clients = $clients->sortBy(function ($client) use ($sortBy) {
+            if ($sortBy === 'city_name') {
+                return $client->address->city->city_name ?? '';
+            } elseif ($sortBy === 'country') {
+                return $client->dates->first()->trip->country ?? '';
+            } elseif ($sortBy === 'start_date') {
+                return $client->dates->first()->start_date ?? '';
+            }
+        }, SORT_REGULAR, $order === 'desc');
+    } else {
+        // Sortowanie SQL dla prostych kolumn
+        $clients = Client::with(['dates.trip', 'address.city', 'citizenship'])
             ->orderBy($sortBy, $order)
             ->get();
-
-        return view('admin.clientlist', ['clients' => $clients]);        // Przekazanie danych do widoku
+    }
+        // Przekazanie danych do widoku
+        return view('admin.clientlist', ['clients' => $clients]);
     }
 }

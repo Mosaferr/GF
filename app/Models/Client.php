@@ -43,16 +43,6 @@ class Client extends Model
         return $this->belongsTo(Address::class);
     }
 
-    // public function leader()
-    // {
-    //     return $this->belongsTo(Client::class, 'leader_id');
-    // }
-
-    // public function subordinates()
-    // {
-    //     return $this->hasMany(Client::class, 'leader_id');
-    // }
-
     public function dates()
     {
         return $this->belongsToMany(Date::class, 'clients_dates');

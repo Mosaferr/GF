@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ClientRequest; // Zdefiniuj odpowiednie reguły walidacji w tym requestcie
+use App\Models\City;
 use App\Models\Client;
 use App\Models\Address;
 use App\Models\Trip;
@@ -26,24 +27,30 @@ class AddDataController extends Controller
         }
 
     // Przechwytywanie i przechowywanie danych formularza rejestracji
+    // public function store(Request $request)
     public function store(ClientRequest $request)
     {
+        // dd($request->all());
+
         // Walidacja
         $validated = $request->validated();
 
-        // Tworzenie adresu
+        // Sprawdź, czy miasto już istnieje
+        $city = City::firstOrCreate(['city_name' => $validated['city_name']]);
+
+     // Tworzenie adresu
         $address = Address::create([
             'street' => $validated['street'],
             'house_number' => $validated['house_number'],
             'apartment_number' => $validated['apartment_number'],
             'postal_code' => $validated['postal_code'],
-            'city_name' => $validated['city_name']
+            'city_id' => $city->id, // Przypisz id miasta
         ]);
 
         // Tworzenie klienta
         $client = Client::create([
             'name' => $validated['name'],
-            'middle_name' => $validated['middle_name'],
+            'middle_name' => $validated['middle_name'] ?? null,
             'last_name' => $validated['last_name'],
             'phone' => $validated['phone'],
             'email' => $validated['email'],
@@ -56,8 +63,12 @@ class AddDataController extends Controller
             'address_id' => $address->id,
             'trip_id' => $validated['trip'],
             'start_date_id' => $validated['start_date'],
-            'stage' => $validated['stage']
+            'stage' => $validated['stage'],
+            'user_id' => auth()->id() ?? 1,     // Dodanie user_id. Tutaj przyjmuje ID aktualnie zalogowanego użytkownika lub wartość 1.
+            'leader_id' => auth()->id()         // Dodanie leader_id. Tutaj przyjmuje ID aktualnie zalogowanego użytkownika.
         ]);
+
+        $client->dates()->attach($validated['start_date']);
 
         return redirect()->route('admin.clientlist')->with('success', 'Klient został dopisany.');
     }
