@@ -17,7 +17,7 @@ class FinalController extends Controller
             !session()->has('total_prepayment') || !session()->has('formatted_balance')) {
 
             $date = $user->dates->first();                  //Pobranie pierwszej powiązanej daty użytkownika.  Zakładam, że użytkownik ma tylko jedną datę powiązaną z wycieczką
-            $trip = $date->trip;                            // Pobranie powiązanej wycieczki poprzez model `Date`
+            $trip = $date->trip;                            // Pobranie powiązanej wyprawy poprzez model `Date`
             $participants = $user->participants;  // Pobranie liczby uczestników
             $price = $date->price;                          // Pobranie ceny
 
@@ -73,7 +73,7 @@ class FinalController extends Controller
             'formatted_total_cost' => session('formatted_total_cost'),
             'formatted_balance' => session('formatted_balance')
         ];
-                                                
+
         // Logika wyboru zdjęć na podstawie destynacji
         $images = [
             'Argentyna i Chile' => 'arg1.jpg',
@@ -101,7 +101,7 @@ class FinalController extends Controller
             'image' => $image,                          // Dodanie zmiennej z nazwą obrazu
             'smallImage' => $smallImage                 // Dodanie zmiennej z nazwą małego obrazu
         ];
-                                                
+
         return view('service.final', $data);        // Przekazanie danych do widoku
     }
 

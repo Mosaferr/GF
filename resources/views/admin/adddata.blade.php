@@ -8,8 +8,9 @@
 		<div class="form-container">
             <form id="saveForm" method="POST" action="{{ route('admin.adddata.store') }}">
                 @csrf
-                <input type="hidden" name="redirect_url" value="{{ url()->previous() }}">      {{-- zapamiętanie poprzedniej strony --}}
-				<h3 class="my-1">{{ isset($client) ? $client->name . ' ' . $client->last_name : 'Nowy klient' }}</h3>
+                <input type="hidden" name="redirect_url" value="{{ request('redirect_url', route('admin.clientlist')) }}">
+                {{-- <input type="hidden" name="redirect_url" value="{{ url()->previous() }}">      zapamiętanie poprzedniej strony --}}
+                <h3 class="my-1" id="header-title">Nowy klient</h3>
 				<hr>
 
 				@if (session('success'))
@@ -161,11 +162,12 @@
 				<div class="row mt-5">
 					<div class="col-md-12 text-end">
 						<!-- Wyczyść dane -->
-						<button type="reset" class="btn btn-secondary shadow mr-5 px-3">Wyczyść</button>
+						<button type="reset" class="btn btn-secondary shadow mr-4 px-3">Wyczyść</button>
 						<!-- Zapisz zmiany -->
-						<button type="submit" class="btn btn-primary shadow mx-5 px-3">Zapisz</button>
+						<button type="submit" class="btn btn-primary shadow mx-4 px-3">Zapisz</button>
 						<!-- Powrót do listy -->
-						<a href="{{ route('admin.clientlist') }}" class="btn btn-success shadow ml-5 px-3">Powrót</a>
+                        <a href="{{ request('redirect_url', route('admin.clientlist')) }}" class="btn btn-success shadow ml-5 px-3">Powrót</a>
+						{{-- <a href="{{ route('admin.clientlist') }}" class="btn btn-success shadow ml-5 px-3">Powrót</a> --}}
 					</div>
 				</div>
 			</form>
@@ -175,4 +177,21 @@
 
 @section('scripts')
     <script src="{{ asset('js/register.js?v=1.0') }}"></script> <!-- Skrypt do obsługi terminów i destynacji -->
+
+    <script>
+        document.getElementById('name').addEventListener('input', updateHeader);
+        document.getElementById('last_name').addEventListener('input', updateHeader);
+
+        function updateHeader() {
+            const name = document.getElementById('name').value.trim();
+            const lastName = document.getElementById('last_name').value.trim();
+            const header = document.getElementById('header-title');
+
+            if (name || lastName) {
+                header.textContent = `${name} ${lastName}`.trim();
+            } else {
+                header.textContent = 'Nowy klient';
+            }
+        }
+    </script>
 @endsection

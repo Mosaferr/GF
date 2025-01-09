@@ -15,7 +15,7 @@
 							<p><strong>Dzień 1.</strong><br>Spotkanie na lotnisku w Warszawie, przelot do Chengdu z międzylądowaniem w jednym z azjatyckich portów lotniczych.</p>
 							<p><strong>Dzień 2.</strong><br>Przylot do położonego w regionie Syczuan chińskiego miasta Chengdu, zakwaterowanie w hotelu, pierwszy kontakt z chińską kulturą i mentalnością podczas wieczornego spaceru po mieście.</p>
 							<p><strong>Dzień 3.</strong><br>Największa atrakcja miasta, czyli Baza Badawcza Hodowli Pand Wielkich w Chengdu. Wieczorem wizyta w buddyjskim klasztorze Wenshu. Kolacja w lokalu serwującym specjały kuchni syczuańskiej.</p>
-							<p><strong>Dzień 4.</strong><br>Przelot do stolicy Tybetu Lhasy. Powitanie na lotnisku przez lokalnego przewodnika, który będzie nam towarzyszył w trakcie wycieczki. Pierwszy zetknięcie się z tą niezwykłą kulturą podczas wieczornego spaceru.</p>
+							<p><strong>Dzień 4.</strong><br>Przelot do stolicy Tybetu Lhasy. Powitanie na lotnisku przez lokalnego przewodnika, który będzie nam towarzyszył w trakcie wyprawy. Pierwszy zetknięcie się z tą niezwykłą kulturą podczas wieczornego spaceru.</p>
 							<p><strong>Dzień 5.</strong><br>Zwiedzanie Lhasy, dawniej zajmowany przez Dalajlame pałac Potala, świątynia Jokhang, ulica Barkhor, gdzie zobaczyć można modląc się w zaskakujący sposób tłumy pielgrzymów. Wieczór w lokalnej restauracji serwującej specjały z bawolego mięsa.</p>
 							<p><strong>Dzień 6.</strong><br>Po porannej tybetańskiej herbacie z bawolim masłem i solą dalsze zwiedzanie okolic Lhasy. Wycieczka do dwóch okolicznych tybetańskich monastyrów: Sera, gdzie będziemy świadkami słynnej debaty tybetańskich mnichów oraz klasztoru Drepung.</p>
 							<p><strong>Dzień 7.</strong><br>Rano wyruszymy wzdłuż przełęczy Gampala w kierunku miasta Shigatse. Po drodze jezioro Yamdrok, lodowiec Karola, ozdobiona modlitewnymi flagami przełęcz Simila.</p>
@@ -103,7 +103,7 @@
 					</div>
 					<div class="col-12">
 						<p><h5>Czas podróży: 14 dni</h5></p>
-						<p><b>Cena zawiera:</b> przelot  ubezpieczenie KL 50.000 EUR i NNW 15.000 PLN, transport: pociągi, autobusy, taksówki na trasie wycieczki, noclegi, koszty wyżywienia w Tybecie, koszty organizacyjne w Polsce i na miejscu wyprawy, opiekę pilota.</p>
+						<p><b>Cena zawiera:</b> przelot  ubezpieczenie KL 50.000 EUR i NNW 15.000 PLN, transport: pociągi, autobusy, taksówki na trasie wyprawy, noclegi, koszty wyżywienia w Tybecie, koszty organizacyjne w Polsce i na miejscu wyprawy, opiekę pilota.</p>
 						<p><b>Cena nie zawiera:</b> przelotu Warszawa - Chengdu - Warszawa (ok. 5500 PLN), wizy chińskiej (pomagamy w uzyskaniu), kosztów wyżywienia w Chinach (ok. 20 - 30 USD dziennie), biletów wstępu, zajęć fakultatywnych, napiwków.</p>
 					</div>
 				</div>

@@ -1,7 +1,7 @@
 <!-- resources/views/components/warunki.blade.php -->
 <div class="col-lg-6 col-md-6 col-sm-12 col-12 ps-lg-5 mt-lg-5 px-lg-4">
 	<p><h3> Warunki uczestnictwa</h3></p>
-	<p>Przed zarezerwowaniem wycieczki zapoznaj się z regulaminem serwisu, warunkami uczestnictwa oraz wymaganiami wizowymi i paszportowymi, które musisz spełnić, aby udać się w podróż.</p>
+	<p>Przed zarezerwowaniem wyprawy zapoznaj się z regulaminem serwisu, warunkami uczestnictwa oraz wymaganiami wizowymi i paszportowymi, które musisz spełnić, aby udać się w podróż.</p>
 	<p>W razie pytań przejdź do zakładki <a href="{{ route('contact') }}">kontakt</a> i napisz do nas.</p>
 	<ul>
 		<li class="list-group-item"><i class="bi bi-file-earmark-pdf"></i>&nbsp;

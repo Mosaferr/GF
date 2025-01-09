@@ -21,27 +21,27 @@
         <section id=carousel>
             <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
                 <div class="carousel-inner">
-                    <div class="carousel-item active" data-bs-interval="3000">
+                    <div class="carousel-item active" data-bs-interval="5000">
                         <a href="{{ route('excursions.argentina') }}">
                             <img src="{{ asset('img/carousel/car_arg.jpg') }}" class="d-block w-100" alt="Iguazu">
                         </a>
                     </div>
-                    <div class="carousel-item" data-bs-interval="3000">
+                    <div class="carousel-item" data-bs-interval="5000">
                         <a href="{{ route('excursions.tibet') }}">
                             <img src="{{ asset('img/carousel/car_tibet.jpg') }}" class="d-block w-100" alt="Mount Everest">
                         </a>
                     </div>
-                    <div class="carousel-item" data-bs-interval="3000">
+                    <div class="carousel-item" data-bs-interval="5000">
                         <a href="{{ route('excursions.sri_lanka') }}">
                             <img src="{{ asset('img/carousel/car_sri.jpg') }}" class="d-block w-100" alt="Słoń">
                         </a>
                     </div>
-                    <div class="carousel-item" data-bs-interval="3000">
+                    <div class="carousel-item" data-bs-interval="5000">
                         <a href="{{ route('excursions.peru') }}">
                             <img src="{{ asset('img/carousel/car_bol.jpg') }}" class="d-block w-100" alt="La Paz">
                         </a>
                     </div>
-                    <div class="carousel-item" data-bs-interval="3000">
+                    <div class="carousel-item" data-bs-interval="5000">
                         <a href="{{ route('excursions.indonesia') }}">
                             <img src="{{ asset('img/carousel/car_indo.jpg') }}" class="d-block w-100" alt="Bromo">
                         </a>
@@ -191,7 +191,7 @@
                         <h5>Leć z nami, póki nie jest za późno:</h5>
                     </div>
                 </div>
-    
+
             @php
                 $countryMap = [
                     'Argentyna, Chile' => 'argentina',
@@ -203,7 +203,7 @@
                 ];
                 // $trips = \App\Models\Trip::limit(5)->get();
             @endphp
-    
+
                 <div class="row g-md-1 g-lg-5 mx-sm-1 mx-md-2 lg-md-0">
                     <div class="col-lg-9 col-md-8 col-sm-12 col-12 px-4 d-flex flex-column justify-content-center">
                         <table class="table table-striped table-hover">
@@ -216,7 +216,7 @@
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
-                            
+
                             <tbody>
                                 @foreach ($dates as $date)
                                     <tr class="align-middle">
@@ -233,7 +233,7 @@
                                     </tr>
                                 @endforeach
                             </tbody>
-                            
+
                         </table>
                         <div class="d-flex justify-content-center">
                             <a href="{{ route('terms') }}" class="btn btn-warning w-100 mt-2 shadow">Zobacz inne terminy</a>
@@ -300,7 +300,7 @@
                         <h2 class="text-center pb-2">Napisz do nas</h2>
                     </div>
                 </div>
-                
+
                 <div class="row m-0">
 
                     <form action="{{ route('contact.send') }}" method="POST" class="bg-light p-4 m-auto">
@@ -329,7 +329,7 @@
                         </div>
                     </form>
                 </div>
-                
+
                 {{-- <div class="row m-0">
                     <form action="#" class="bg-light p-4 m-auto">
                         <div class="col-md-12 p-0 pt-4 pb-4 m-auto">

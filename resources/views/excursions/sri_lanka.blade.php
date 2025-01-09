@@ -104,7 +104,7 @@
 					</div>
 					<div class="col-12">
 						<p><h5>Czas podróży: 15 dni</h5></p>
-						<p><b>Cena zawiera:</b> ubezpieczenie KL 40.000 EUR i NNW 15.000 PLN, transport: pociągi, autobusy, ryksze, taksówki na trasie wycieczki, noclegi, koszty organizacyjne w Polsce i na miejscu wyprawy, opiekę pilota.</p>
+						<p><b>Cena zawiera:</b> ubezpieczenie KL 40.000 EUR i NNW 15.000 PLN, transport: pociągi, autobusy, ryksze, taksówki na trasie wyprawy, noclegi, koszty organizacyjne w Polsce i na miejscu wyprawy, opiekę pilota.</p>
 						<p><b>Cena nie zawiera:</b> przelotu Warszawa - Kolombo - Warszawa (ok. 3500 PLN), wizy lankijskiej (pomagamy w uzyskaniu e-visy), kosztów wyżywienia (ok. 15 USD dziennie), biletów wstępu, zajęć fakultatywnych, napiwków.</p>
 					</div>
 				</div>

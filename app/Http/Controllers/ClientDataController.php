@@ -147,7 +147,7 @@ class ClientDataController extends Controller
         ]);
 
         // Znalezienie odpowiedniego trip i date na podstawie zwalidowanych danych
-        // Znalezienie wycieczki (Trip)
+        // Znalezienie wyprawy (Trip)
         $trip = Trip::find($validatedTripData['trip']);
         // Znalezienie daty (Date):
         $date = Date::where('id', $validatedTripData['start_date'])

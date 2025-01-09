@@ -1,6 +1,6 @@
 <!-- resources/views/admin/tripdata.blade.php -->
 @extends('layouts.app')
-@section('title', 'Dane wycieczki')
+@section('title', 'Dane wyprawy')
 
 @section('content')
 	<main class="custom-margin-top">
@@ -32,33 +32,33 @@
 				@endif --}}
 
                 <div class="row align-items-center mb-2">
-                    <div class="col-auto">
+                    {{-- <div class="col-auto">
                         <label class="form-label">ID:</label>
                         <span class="form-control-plaintext text-end"><strong>{{ $date->id }}.</strong></span>
 
-                        {{-- <label for="date_id" class="form-label">ID </label>
-                        <input type="text" class="form-control" id="date_id" name="date_id" value="{{ old('date_id', $date->id) }}" readonly> --}}
-                    </div>
-                    <div class="col-md-5">
+                        <label for="date_id" class="form-label">ID </label>
+                        <input type="text" class="form-control" id="date_id" name="date_id" value="{{ old('date_id', $date->id) }}" readonly>
+                    </div> --}}
+                    <div class="col-md-6">
                         <label for="destination" class="form-label">Destynacja</label>
                         <input type="text" class="form-control" id="destination" name="destination" value="{{ old('destination', $trip->destination) }}" readonly>
                         <x-input-error :messages="$errors->get('destination')" class="mt-2 red-text" />
                     </div>
                     <div class="col-md-3">
-                        <label for="start_date" class="form-label">Termin rozpoczęcia</label>
-                        <input type="date" class="form-control text-center" id="start_date" name="start_date" value="{{ old('start_date', $date->start_date ?? '') }}" required>
+                        <label for="start_date" class="form-label">Data rozpoczęcia</label>
+                        <input type="date" class="form-control" id="start_date" name="start_date" value="{{ old('start_date', $date->start_date ?? '') }}" required>
                         <x-input-error :messages="$errors->get('start_date')" class="mt-2 red-text" />
                     </div>
                     <div class="col-md-3">
-                        <label for="end_date" class="form-label">Termin zakończenia</label>
-                        <input type="date" class="form-control text-center" id="end_date" name="end_date" value="{{ old('end_date', $date->end_date ?? '') }}" required>
+                        <label for="end_date" class="form-label">Data zakończenia</label>
+                        <input type="date" class="form-control" id="end_date" name="end_date" value="{{ old('end_date', $date->end_date ?? '') }}" required>
                         <x-input-error :messages="$errors->get('end_date')" class="mt-2 red-text" />
                     </div>
                 </div>
 
 				<div class="row mb-2">
                     <div class="col-md-9">
-                        <label for="trip_name" class="form-label">Nazwa wycieczki</label>
+                        <label for="trip_name" class="form-label">Nazwa wyprawy</label>
                         <input type="text" class="form-control" id="trip_name" name="trip_name" value="{{ old('trip_name', $trip->trip_name) }}" readonly>
                         <x-input-error :messages="$errors->get('trip_name')" class="mt-2 red-text" />
                     </div>
@@ -76,15 +76,14 @@
                         <x-input-error :messages="$errors->get('country')" class="mt-2 red-text" />
                     </div>
 					<div class="col-md-3">
-                        <label for="available_seats" class="form-label">Liczba wolnych miejsc</label>
-                        <input type="number" class="form-control text-center" id="available_seats" name="available_seats" value="{{ old('available_seats', $date->available_seats ?? '') }}" readonly>
-                        <x-input-error :messages="$errors->get('available_seats')" class="mt-2 red-text" />
-                    </div>
-					<div class="col-md-3">
                         <label for="end_date" class="form-label">Lista członków grupy</label>
                         <input type="number" class="form-control text-center" id="total_seats" name="total_seats" value="{{ old('total_seats', $date->total_seats ?? '') }}" required>
                         <x-input-error :messages="$errors->get('total_seats')" class="mt-2 red-text" />
-                        {{-- <a href="{{ route('group.show', ['trip_id' => $date->id]) }}" class="btn btn-success btn-sm shadow">&nbsp;Grupa&nbsp;</a> --}}
+                    </div>
+					<div class="col-md-3">
+                        <label for="available_seats" class="form-label">Liczba wolnych miejsc</label>
+                        <input type="number" class="form-control text-center" id="available_seats" name="available_seats" value="{{ old('available_seats', $date->available_seats ?? '') }}" readonly>
+                        <x-input-error :messages="$errors->get('available_seats')" class="mt-2 red-text" />
                     </div>
                 </div>
 			</form>

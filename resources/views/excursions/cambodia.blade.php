@@ -109,7 +109,7 @@
 					</div>
 					<div class="col-12">
 						<p><h5>Czas podróży: 14 dni</h5></p>
-						<p><b>Cena zawiera:</b> ubezpieczenie KL 40.000 EUR i NNW 15.000 PLN, łódź z Batanbangu do Siem Reap, transport: pociągi, autobusy, ryksze, taksówki na trasie wycieczki, noclegi, koszty organizacyjne w Polsce i na miejscu wyprawy, opiekę pilota.</p>
+						<p><b>Cena zawiera:</b> ubezpieczenie KL 40.000 EUR i NNW 15.000 PLN, łódź z Batanbangu do Siem Reap, transport: pociągi, autobusy, ryksze, taksówki na trasie wyprawy, noclegi, koszty organizacyjne w Polsce i na miejscu wyprawy, opiekę pilota.</p>
 						<p><b>Cena nie zawiera:</b> przelotu Warszawa - Bangkok - Warszawa (ok. 3500 - 4000 PLN), wizy kambodżańskiej (ok. 30 USD) kosztów wyżywienia (ok. 15 USD dziennie), biletów wstępu, zajęć fakultatywnych, napiwków.</p>
 					</div>
 				</div>

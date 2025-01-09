@@ -8,14 +8,15 @@
 
 			<div class="row">
 				<div class="col-md-12 text-start ms-5 pb-3 position-relative">
-                    <h3 class="mb-0 fs-4">{{ $trip->trip->country }}: &nbsp;  &nbsp;  {{ \Carbon\Carbon::parse($trip->start_date)->format('d.m') }} - {{ \Carbon\Carbon::parse($trip->end_date)->format('d.m.Y') }}</h3>
-					<h6 class="position-absolute end-0 bottom-0 mb-0">
+                    <h4 class="mt-2 mb-0">{{ $trip->trip->country }}: &nbsp;  &nbsp;  {{ \Carbon\Carbon::parse($trip->start_date)->format('d.m') }} - {{ \Carbon\Carbon::parse($trip->end_date)->format('d.m.Y') }}</h3>
+					<h6 class="position-absolute end-0 bottom-0 mb-3">
 						Dodaj klienta&nbsp;&nbsp;
-						<a href="{{ route('admin.adddata.create') }}">
-							<i class="bi bi-plus-square-fill fs-3 text-danger position-relative" style="top: 0.15em;"></i>
+                        <a href="{{ route('admin.adddata.create', ['redirect_url' => url()->current()]) }}">
+							<i class="bi bi-plus-square-fill fs-3 text-info position-relative me-5" style="top: 0.15em;"></i>
 						</a>
 					</h6>
 				</div>
+                <hr>
 			</div>
 
 			@if(session('success'))
@@ -33,8 +34,6 @@
 
 			<div class="row">
 				<div class="table-term col-12 px-4">
-
-					<hr>
 					<table class="table table-striped table-hover">
 						<thead>
 							<tr>

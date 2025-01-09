@@ -15,27 +15,26 @@
 				{{-- </div> --}}
 			{{-- </div> --}}
 
-            <div class="admin-container">
-                <div class="menu-text col-md-12 text-center">
-                    <div class="d-grid d-md-block mx-auto my-2">
-                        <a href="{{ route('admin.clientlist') }}" class="btn btn-warning shadow mx-4">Lista <br>klientów</a>
-                        <a href="{{ route('admin.triplist') }}" class="btn btn-warning shadow mx-4">Lista <br>wycieczek</a>
-                        <a href="{{ route('gallery.chile') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>klientów</a>
-                        <a href="{{ route('gallery.china') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>wycieczkę</a>
-                    </div>
+            <div class="lista-container menu-text col-md-12 text-center">
+                <div class="d-grid d-md-block mx-auto my-2">
+                    <a href="{{ route('admin.clientlist') }}" class="btn btn-warning shadow mx-4">Lista <br>klientów</a>
+                    <a href="{{ route('admin.triplist') }}" class="btn btn-warning shadow mx-4">Lista <br>wypraw</a>
+                    <a href="{{ route('gallery.chile') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>klientów</a>
+                    <a href="{{ route('gallery.china') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>wyprawę</a>
                 </div>
             </div>
 
 			<div class="row">
 				<div class="col-md-12 text-center pb-3 position-relative">
-					<h3 class="mt-5 mb-0">Lista turystów</h3>
-						<h6 class="position-absolute end-0 bottom-0 mb-0">
-							Dodaj klienta&nbsp;&nbsp;
-							<a href="{{ route('admin.adddata.create') }}">
-								<i class="bi bi-plus-square-fill fs-3 text-danger position-relative" style="top: 0.15em;"></i>
-							</a>
-						</h6>
+					<h3 class="mt-5 mb-4">Lista klientów</h3>
+					<h6 class="position-absolute end-0 bottom-0 mb-3">
+                        Dodaj klienta&nbsp;&nbsp;
+                        <a href="{{ route('admin.adddata.create', ['redirect_url' => url()->current()]) }}">
+                            <i class="bi bi-plus-square-fill fs-3 text-info position-relative" style="top: 0.15em;"></i>
+                        </a>
+                    </h6>
 				</div>
+                <hr>
 			</div>
 
 			@if(session('success'))
@@ -53,8 +52,6 @@
 
 			<div class="row">
 				<div class="table-term col-12 px-4">
-
-					<hr>
 					<table class="table table-striped table-hover">
 						<thead>
 							<tr>
@@ -117,7 +114,7 @@
 										@method('DELETE')
                                         <input type="hidden" name="redirect_url" value="{{ url()->current() }}">
 										<button type="submit" class="btn btn-danger btn-sm shadow" onclick="return confirm('Czy na pewno chcesz usunąć tego klienta?')">Usuń</button>
-									</form>
+                                    </form>
 								</td>
 							</tr>
 							@endforeach

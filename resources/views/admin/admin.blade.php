@@ -21,16 +21,49 @@
 				<h2>Panel administratora</h2>
 			</div>
 
-            <div class="menu-text col-md-12 text-center">
-                <hr>
-                <div class="d-grid d-md-block mx-auto my-5">
-                    <a href="{{ route('admin.clientlist') }}" class="btn btn-warning shadow btn-lg mx-4">Lista <br>klientów</a>
-                    <a href="{{ route('admin.triplist') }}" class="btn btn-warning shadow btn-lg mx-4">Lista <br>wycieczek</a>
-                    <a href="{{ route('gallery.chile') }}" class="btn btn-warning shadow btn-lg mx-4">Wyszukaj <br>klientów</a>
-                    <a href="{{ route('gallery.china') }}" class="btn btn-warning shadow btn-lg mx-4">Wyszukaj <br>wycieczkę</a>
+            {{-- <hr> --}}
+            <div class="admin-container menu-text col-md-12 d-flex justify-content-center align-items-center gap-5 my-5 mt-4">
+                <a href="{{ route('admin.clientlist') }}" class="btn btn-warning shadow btn-lg p-3 text-center">
+                    Lista <br>klientów
+                </a>
+                <a href="{{ route('admin.triplist') }}" class="btn btn-warning shadow btn-lg p-3 text-center">
+                    Lista <br>wypraw
+                </a>
+                <a href="{{ route('gallery.chile') }}" class="btn btn-warning shadow btn-lg p-3 text-center">
+                    Wyszukaj <br>klienta
+                </a>
+                <a href="{{ route('gallery.china') }}" class="btn btn-warning shadow btn-lg p-3 text-center">
+                    Wyszukaj <br>wyprawę
+                </a>
+                <div class="d-grid text-center gap-2">
+                    <div class="d-flex align-items-center">
+                        <a href="{{ route('admin.adddata.create', ['redirect_url' => url()->current()]) }}" class="btn btn-outline-dark shadow d-flex align-items-center justify-content-between px-2 py-0 rounded">
+                            <span class="ms-3 me-2">Dodaj klienta</span>
+                            <i class="bi bi-plus-square-fill text-info fs-3"></i>
+                        </a>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <a href="{{ route('admin.addtrip.create', ['redirect_url' => url()->current()]) }}" class="btn btn-outline-dark shadow d-flex align-items-center justify-content-between px-2 py-0 rounded">
+                            <span class="me-2">Dodaj wyprawę</span>
+                            <i class="bi bi-plus-square-fill text-info fs-3"></i>
+                        </a>
+                    </div>
                 </div>
-                <hr>
             </div>
+            {{-- <hr> --}}
+
+            @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
+            @if(session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
 
             <div class="table-term col-12 px-4 mt-4">
                 <div class="col-md-12 text-left pb-1 mt-4">

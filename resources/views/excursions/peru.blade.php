@@ -108,7 +108,7 @@
 					</div>
 					<div class="col-12">
 						<p><h5>Czas podróży: 14 dni</h5></p>
-						<p><b>Cena zawiera:</b> przelot wewnętrzny La Paz - Cuzco, ubezpieczenie KL 40.000 EUR i NNW 15.000 PLN, transport: autobusy, taksówki na trasie wycieczki, noclegi, koszty organizacyjne w Polsce i na miejscu wyprawy, opiekę pilota.</p>
+						<p><b>Cena zawiera:</b> przelot wewnętrzny La Paz - Cuzco, ubezpieczenie KL 40.000 EUR i NNW 15.000 PLN, transport: autobusy, taksówki na trasie wyprawy, noclegi, koszty organizacyjne w Polsce i na miejscu wyprawy, opiekę pilota.</p>
 						<p><b>Cena nie zawiera:</b> przelotu Warszawa - Lima - Warszawa (ok. 5500 PLN), kosztów wyżywienia (ok. 20 USD dziennie), pociągu do Machu Picchu (ok. 200 USD), biletów wstępu, napiwków.</p>
 					</div>
 				</div>

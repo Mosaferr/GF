@@ -16,9 +16,9 @@
             <div class="menu-text col-md-12 text-center">
                 <div class="d-grid d-md-block mx-auto my-5">
                     <a href="{{ route('admin.clientlist') }}" class="btn btn-outline-primary btn-lg mx-4">Lista <br>klientów</a>
-                    <a href="{{ route('admin.triplist') }}" class="btn btn-outline-secondary shadow btn-lg mx-4">Lista <br>wycieczek</a>
+                    <a href="{{ route('admin.triplist') }}" class="btn btn-outline-secondary shadow btn-lg mx-4">Lista <br>wypraw</a>
                     <a href="{{ route('gallery.chile') }}" class="btn btn-outline-success btn-lg mx-4">Wyszukaj <br>klientów</a>
-                    <a href="{{ route('gallery.china') }}" class="btn btn-outline-danger btn-lg mx-4">Wyszukaj <br>wycieczkę</a>
+                    <a href="{{ route('gallery.china') }}" class="btn btn-outline-danger btn-lg mx-4">Wyszukaj <br>wyprawę</a>
                 </div>
             </div>
         </div>

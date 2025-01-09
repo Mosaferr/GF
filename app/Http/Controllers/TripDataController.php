@@ -1,32 +1,32 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\Client;
 use App\Models\Trip;
 use App\Models\Date;
-use App\Models\User;
-use App\Models\Address;
-use App\Models\City;
-use App\Models\Citizenship;
-use App\Models\ClientDate;
-use App\Models\UserDate;
+// use App\Models\Client;
+// use App\Models\User;
+// use App\Models\Address;
+// use App\Models\City;
+// use App\Models\Citizenship;
+// use App\Models\ClientDate;
+// use App\Models\UserDate;
 use App\Http\Controllers\Controller;
 // use App\Http\Requests\ClientRequest;    // Zdefiniuj odpowiednie reguły walidacji w tym requestcie
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
-use Illuminate\View\View;
+// use Illuminate\View\View;
 
 class TripDataController extends Controller
 {
-    /** Wyświetla formularz edycji dla wybranej wycieczki.
+    /** Wyświetla formularz edycji dla wybranej wyprawy.
      * @param  int  $id
      * @return \Illuminate\Contracts\View\View
      *******************************************/
 
     public function edit($tripId, $dateId, Request $request)
     {
-        // Pobranie wycieczki i odpowiadającego jej terminu
+        // Pobranie wyprawy i odpowiadającego jej terminu
         $trip = Trip::findOrFail($tripId);
         $date = Date::where('trip_id', $tripId)->where('id', $dateId)->firstOrFail();
 
@@ -77,11 +77,11 @@ class TripDataController extends Controller
 
         // Przekierowanie po sukcesie
         $redirectUrl = $request->input('redirect_url', route('admin.triplist'));
-        return redirect($redirectUrl)->with('success', 'Dane wycieczki zostały zaktualizowane.');
+        return redirect($redirectUrl)->with('success', 'Dane wyprawy zostały zaktualizowane.');
     }
 
 
-    /** Usuwanie wycieczki.
+    /** Usuwanie wyprawy.
      *******************************************/
 	public function destroy($tripId, $dateId, Request $request)
 	{
@@ -90,7 +90,7 @@ class TripDataController extends Controller
             // Logowanie początku operacji
             Log::info("\n\n------------ START LOGÓW ------------\n");
 
-			// Znalezienie terminu wycieczki
+			// Znalezienie terminu wyprawy
 			$date = Date::where('trip_id', $tripId)->where('id', $dateId)->firstOrFail();
 
 			// Usunięcie terminu
@@ -98,22 +98,22 @@ class TripDataController extends Controller
 
 			DB::commit(); // Zatwierdzenie transakcji
 
-			Log::info("Usunięto termin wycieczki ID={$dateId} dla wycieczki ID={$tripId}");
+			Log::info("Usunięto termin wyprawy ID={$dateId} dla wyprawy ID={$tripId}");
             Log::info("\n----------------- KONIEC LOGÓW -----------------\n\n");
 
 			// Przekierowanie po sukcesie
 			$redirectUrl = $request->input('redirect_url', route('admin.triplist'));
-			return redirect($redirectUrl)->with('success', 'Wycieczka została pomyślnie usunięta.');
+			return redirect($redirectUrl)->with('success', 'Wyprawa została pomyślnie usunięta.');
 
 		} catch (\Exception $e) {
 			DB::rollBack(); // Cofnięcie transakcji w przypadku błędu
 
-			Log::error("Błąd podczas usuwania terminu wycieczki ID={$dateId} dla wycieczki ID={$tripId}: " . $e->getMessage());
+			Log::error("Błąd podczas usuwania terminu wyprawy ID={$dateId} dla wyprawy ID={$tripId}: " . $e->getMessage());
 
 			// Obsługa błędu
-            // return redirect()->back()->with('error', 'Wystąpił problem podczas usuwania wycieczki.');    //równie dobra instrukcja, no moze troszkę gorsza
+            // return redirect()->back()->with('error', 'Wystąpił problem podczas usuwania wyprawy.');    //równie dobra instrukcja, no moze troszkę gorsza
             $redirectUrl = $request->input('redirect_url', route('admin.triplist'));
-            return redirect($redirectUrl)->with('error', 'Wystąpił problem podczas usuwania wycieczki.');
+            return redirect($redirectUrl)->with('error', 'Wystąpił problem podczas usuwania wyprawy.');
             }
 	}
 }

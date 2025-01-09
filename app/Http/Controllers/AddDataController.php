@@ -86,6 +86,5 @@ class AddDataController extends Controller
         // Przekierowanie na odpowiednią stronę
         $redirectUrl = $request->input('redirect_url', route('admin.clientlist'));
         return redirect($redirectUrl)->with('success', 'Klient został dopisany.');
-        //  return redirect()->route('admin.clientlist')->with('success', 'Klient został dopisany.');
     }
 }

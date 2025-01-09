@@ -102,7 +102,7 @@
 					</div>
 					<div class="col-12">
 						<p><h5>Czas podróży: 14 dni</h5></p>
-						<p><b>Cena zawiera:</b> przelot Dżakarta - Yogyakarta ubezpieczenie KL 40.000 EUR i NNW 15.000 PLN, transport: autobusy, taksówki na trasie wycieczki, noclegi, koszty organizacyjne w Polsce i na miejscu wyprawy, opiekę pilota.</p>
+						<p><b>Cena zawiera:</b> przelot Dżakarta - Yogyakarta ubezpieczenie KL 40.000 EUR i NNW 15.000 PLN, transport: autobusy, taksówki na trasie wyprawy, noclegi, koszty organizacyjne w Polsce i na miejscu wyprawy, opiekę pilota.</p>
 						<p><b>Cena nie zawiera:</b> przelotu Warszawa - Dżakarta - Warszawa (ok. 4500 - 5500 PLN), kosztów wyżywienia (ok. 15 USD dziennie), zajęć fakultatywnych, biletów wstępu, napiwków.</p>
 					</div>
 				</div>

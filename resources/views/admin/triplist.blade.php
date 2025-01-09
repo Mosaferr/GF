@@ -11,31 +11,46 @@
 @endphp
 
 @extends('layouts.app')
-@section('title', 'Lista wycieczek')
+@section('title', 'Lista wypraw')
 
 @section('content')
 	<main class="custom-margin-top">
 		<div class="container" style="max-width: 1300px;">
-		{{-- <div class="container" style="max-width: 1200px;"> --}}
 
-            <div class="admin-container">
-                <div class="menu-text col-md-12 text-center">
-                    <div class="d-grid d-md-block mx-auto my-2">
-                        <a href="{{ route('admin.clientlist') }}" class="btn btn-warning shadow mx-4">Lista <br>klientów</a>
-                        <a href="{{ route('admin.triplist') }}" class="btn btn-warning shadow mx-4">Lista <br>wycieczek</a>
-                        <a href="{{ route('gallery.chile') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>klientów</a>
-                        <a href="{{ route('gallery.china') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>wycieczkę</a>
-                    </div>
+            <div class="lista-container menu-text col-md-12 text-center">
+                <div class="d-grid d-md-block mx-auto my-2">
+                    <a href="{{ route('admin.clientlist') }}" class="btn btn-warning shadow mx-4">Lista <br>klientów</a>
+                    <a href="{{ route('admin.triplist') }}" class="btn btn-warning shadow mx-4">Lista <br>wypraw</a>
+                    <a href="{{ route('gallery.chile') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>klientów</a>
+                    <a href="{{ route('gallery.china') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>wyprawę</a>
                 </div>
             </div>
 
-
-            <div class="row">
-				<div class="col-md-12 text-center pb-3 mt-5">
-					{{-- <h2 class="">Terminy wyjazdów</h2> --}}
-					<h3>Lista wypraw</h3>
+			<div class="row">
+				<div class="col-md-12 text-center pb-3 position-relative">
+					<h3 class="mt-5 mb-4">Lista wypraw</h3>
+					<h6 class="position-absolute end-0 bottom-0 mb-3">
+						Dodaj wyprawę&nbsp;&nbsp;
+                        <a href="{{ route('admin.addtrip.create', ['redirect_url' => url()->current()]) }}">
+							<i class="bi bi-plus-square-fill fs-3 text-info position-relative" style="top: 0.15em;"></i>
+						</a>
+					</h6>
 				</div>
+                <hr>
 			</div>
+
+			@if(session('success'))
+				<div class="alert alert-success alert-dismissible fade show" role="alert">
+					{{ session('success') }}
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			@endif
+			@if(session('error'))
+				<div class="alert alert-danger alert-dismissible fade show" role="alert">
+					{{ session('error') }}
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			@endif
 
 			<div class="row">
 				<div class="table-term col-12 px-4">
@@ -109,10 +124,10 @@
 									<td>{{ $date->trip->trip_name }}</td>
 									<td>{{ $date->price }} PLN</td>
 									<td>
-										{{ $date->available_seats == 0 ? 'Brak wolnych miejsc' :
-										($date->available_seats == 1 ? '1 wolne miejsce' :
-										($date->available_seats > 1 && $date->available_seats < 5 ? $date->available_seats . ' wolne miejsca' : $date->available_seats . ' wolnych miejsc'))
-									}}
+                                        {{ $date->available_seats == 0 ? 'Brak wolnych miejsc' :
+                                        ($date->available_seats == 1 ? '1 wolne miejsce' :
+                                        ($date->available_seats > 1 && $date->available_seats < 5 ? $date->available_seats . ' wolne miejsca' : $date->available_seats . ' wolnych miejsc'))
+                                        }}
 									</td>
 									<td class="text-center">
                                         <a href="{{ route('group.show', ['trip_id' => $date->id]) }}" class="btn btn-success btn-sm shadow">&nbsp;Grupa&nbsp;</a>

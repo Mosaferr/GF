@@ -76,7 +76,7 @@
 								<div class="accordion-body">
 									<p><i class="bi bi-file-earmark-text-fill float-start me-3 fs-2"></i>Rezerwacje są prowadzone do wyczerpania wolnych miejsc lub sporadycznie do 30 dni przed terminem wyjazdu. Termin ten jest uzależniony od kupna biletów lotniczych w optymalnej taryfie, dokonania niezbędnych rezerwacji i formalności wizowych.</p>
 									<p>Rezerwacji można dokonać poprzez formularz dostępny na stronie internetowej. Osoba rezerwująca, po potwierdzeniu przez Biuro wolnego miejsca na dany wyjazd, wypełnia formularz Umowy-Zgłoszenia, która również dostepna jest na naszej stronie internetowej. Jeżeli w ciągu trzech dni formularz Umowy-Zgłoszenia nie zostanie wypełniony, rezerwacja zostaje anulowana</p>
-									<p class="mb-0">W terminie trzech dni od zawarcia Umowy-Zgłoszenia uczestnik dokonuje wpłaty zaliczki w wysokości 30% ceny wyprawy w PLN na konto Biura. Po zaksięgowaniu wpłaconej kwoty zaliczki na koncie Biura osoba rezerwująca zostaje wpisana na listę uczestników. Kwoty w USD nie należy wpłacać, tylko przekazać pilotowi wycieczki pierwszego dnia wyprawy.</p>
+									<p class="mb-0">W terminie trzech dni od zawarcia Umowy-Zgłoszenia uczestnik dokonuje wpłaty zaliczki w wysokości 30% ceny wyprawy w PLN na konto Biura. Po zaksięgowaniu wpłaconej kwoty zaliczki na koncie Biura osoba rezerwująca zostaje wpisana na listę uczestników. Kwoty w USD nie należy wpłacać, tylko przekazać pilotowi wyprawy pierwszego dnia wyprawy.</p>
 								</div>
 							</div>
 						</div>

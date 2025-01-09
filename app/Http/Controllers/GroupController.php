@@ -9,10 +9,10 @@ class GroupController extends Controller
 {
 	public function showGroup($trip_id, Request $request)
 	{
-		// Pobranie daty wycieczki i powiązanej wycieczki
+		// Pobranie daty wyprawy i powiązanej wyprawy
 		$trip = Date::with('trip')->findOrFail($trip_id);
 
-		// Pobranie klientów powiązanych z datą wycieczki
+		// Pobranie klientów powiązanych z datą wyprawy
 		$sortBy = $request->input('sort_by', 'id');
 		$order = $request->input('order', 'asc');
 

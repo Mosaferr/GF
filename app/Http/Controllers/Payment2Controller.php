@@ -20,7 +20,7 @@ class Payment2Controller extends Controller
             !session()->has('total_prepayment') || !session()->has('formatted_balance')) {
 
             $date = $user->dates->first();                  //Pobranie pierwszej powiązanej daty użytkownika.  Zakładam, że użytkownik ma tylko jedną datę powiązaną z wycieczką
-            $trip = $date->trip;                            // Pobranie powiązanej wycieczki poprzez model `Date`
+            $trip = $date->trip;                            // Pobranie powiązanej wyprawy poprzez model `Date`
             $participants = $user->participants;  // Pobranie liczby uczestników
             $price = $date->price;                          // Pobranie ceny
 
@@ -118,7 +118,7 @@ class Payment2Controller extends Controller
             return 'osób';
         }
     }
-                                        
+
     public function checkout(Request $request)
     {
         $user = $request->user();
@@ -137,7 +137,7 @@ class Payment2Controller extends Controller
             return redirect()->route('service.payment2')->with('error', 'Coś poszło nie tak podczas przetwarzania płatności. Spróbuj ponownie.');
         }
     }
-                                        
+
 
     public function paymentSuccess()
     {
