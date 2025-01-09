@@ -180,8 +180,8 @@ class ClientDataController extends Controller
     }
 
     /** Usuwanie klienta.
-     * 
-     * 
+     *
+     *
      */
 
     public function destroy($id)
@@ -195,6 +195,32 @@ class ClientDataController extends Controller
             // 1. Znalezienie klienta  po ID
             $client = Client::findOrFail($id);
             Log::info("1.1. Znaleziono klienta (dane z clients): ", $client->toArray());
+
+
+            // *****  Jeśli klient został dodany przez administratora
+            if ($client->user_id == 1) {
+                Log::info("Usuwanie klienta dodanego przez administratora: ", $client->toArray());
+
+                // Usunięcie powiązań klienta z datami
+                $client->dates()->detach();
+                Log::info("Powiązania klienta z tabeli clients_dates zostały usunięte dla ID: {$client->id}");
+
+                // Usunięcie adresu, jeśli dotyczy
+                $address = $client->address;
+                if ($address && $address->clients()->count() <= 1) {
+                    $address->delete();
+                    Log::info("Adres klienta ID: {$client->id} został usunięty.");
+                }
+
+                // Usunięcie klienta
+                $client->delete();
+                Log::info("Klient ID: {$client->id} został usunięty.");
+
+                DB::commit();
+                return redirect()->route('admin.clientlist')->with('success', 'Klient dodany przez administratora został pomyślnie usunięty.');
+            }
+            // *****  Koniec "Jeśli klient został dodany przez administratora"
+
 
             // Przechowanie wartości w tymczasowych zmiennych
             $leaderId = $client->leader_id;		        // przechowanie leader_id klienta w zmiennej

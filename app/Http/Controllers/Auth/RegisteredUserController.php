@@ -79,62 +79,66 @@ class RegisteredUserController extends Controller
                 'date_id' => $request->start_date,
             ]);
 
-        // OBSŁUGA KLIENTA
-        $existingAddress = \App\Models\Address::first();        // Sprawdzenie, czy istnieją wartości w tabelach `addresses`
-        if (!$existingAddress) {
-            $existingCity = \App\Models\City::first();          // Sprawdzenie, czy istnieją wartości w tabeli `cities`
-            if (!$existingCity) {
-                $existingCity = \App\Models\City::create([       // Tworzenie tymczasowego rekordu w tabeli `cities`
-                    'city_name' => 'Temporary City',
+            // OBSŁUGA KLIENTA
+            $existingAddress = \App\Models\Address::first();        // Sprawdzenie, czy istnieją wartości w tabelach `addresses`
+            if (!$existingAddress) {
+                $existingCity = \App\Models\City::first();          // Sprawdzenie, czy istnieją wartości w tabeli `cities`
+                if (!$existingCity) {
+                    $existingCity = \App\Models\City::create([       // Tworzenie tymczasowego rekordu w tabeli `cities`
+                        'city_name' => 'Temporary City',
+                    ]);
+                }
+
+                // Tworzenie rekordu w tabeli `addresses` z odniesieniem do rekordu w tabeli `cities`
+                $existingAddress = \App\Models\Address::create([
+                    'street' => 'Temporary Street',
+                    'house_number'=> '000',
+                    'apartment_number' => 'null',
+                    'postal_code'=> '00-000',
+                    'city_id' => $existingCity->id,
+                ]);
+            }
+            $existingAddressId = $existingAddress->id;
+
+            // Sprawdzenie, czy istnieją wartości w tabelach `citizenships`, i `clients`
+            $existingCitizenshipId = \App\Models\Citizenship::first()->id ?? null;      // Zmień na rzeczywisty ID istniejącego obywatelstwa
+
+            // Tworzenie klienta...
+            if ($user->id != 1) {                                   //  OMIŃ dla usera o ID=1. Ma być adminem i nie wyświetlać się jako client.
+                $client = Client::create([
+                    'user_id' => $user->id,
+                    'name' => $request->name,
+                    'last_name' => $request->last_name,
+                    'phone' => $request->phone,
+                    'email' => $request->email,
+                    'birth_date' => now(),                          // Tymczasowa wartość
+                    'gender' => 'M',                                // Tymczasowa wartość
+                    'pesel' => '00000000000',                       // Tymczasowa wartość
+                    'citizenship_id' => $existingCitizenshipId,     // Użyj istniejącej wartości lub null
+                    'passport_number' => 'TEMP',                    // Tymczasowa wartość
+                    'issue_date' => now(),                          // Tymczasowa wartość
+                    'expiry_date' => now()->addYear(),              // Tymczasowa wartość
+                    'address_id' => $existingAddressId,             // Użyj istniejącej wartości lub null
+                    'leader_id' => $leaderId,                       // Ustawienie leader_id na identyfikator nowo utworzonego użytkownika
+                    'stage' => 'zarezerwowany',
+                ]);
+                $client->save();                // Zapisanie klienta
+
+                // Przypisanie start_date jako date_id w tabeli clients_dates, tworząc połączenie między użytkownikiem a datą.
+                ClientDate::create([
+                    'client_id' => $client->id,
+                    'date_id' => $request->start_date,
                 ]);
             }
 
-            // Tworzenie rekordu w tabeli `addresses` z odniesieniem do rekordu w tabeli `cities`
-            $existingAddress = \App\Models\Address::create([
-                'street' => 'Temporary Street',
-                'house_number'=> '000',
-                'apartment_number' => 'null',
-                'postal_code'=> '00-000',
-                'city_id' => $existingCity->id,
-            ]);
-        }
-        $existingAddressId = $existingAddress->id;
-
-        // Sprawdzenie, czy istnieją wartości w tabelach `citizenships`, i `clients`
-        $existingCitizenshipId = \App\Models\Citizenship::first()->id ?? null;      // Zmień na rzeczywisty ID istniejącego obywatelstwa
-
-        // Tworzenie klienta...
-        $client = Client::create([
-            'user_id' => $user->id,
-            'name' => $request->name,
-            'last_name' => $request->last_name,
-            'phone' => $request->phone,
-            'email' => $request->email,
-            'birth_date' => now(),                          // Tymczasowa wartość
-            'gender' => 'M',                                // Tymczasowa wartość
-            'pesel' => '00000000000',                       // Tymczasowa wartość
-            'citizenship_id' => $existingCitizenshipId,     // Użyj istniejącej wartości lub null
-            'passport_number' => 'TEMP',                    // Tymczasowa wartość
-            'issue_date' => now(),                 // Tymczasowa wartość
-            'expiry_date' => now()->addYear(),     // Tymczasowa wartość
-            'address_id' => $existingAddressId,             // Użyj istniejącej wartości lub null
-            'leader_id' => $leaderId,                       // Ustawienie leader_id na identyfikator nowo utworzonego użytkownika
-            'stage' => 'zarezerwowany',
-        ]);
-        $client->save();                // Zapisanie klienta
-
-        // Przypisanie start_date jako date_id w tabeli clients_dates, tworząc połączenie między użytkownikiem a datą.
-        ClientDate::create([
-            'client_id' => $client->id,
-            'date_id' => $request->start_date,
-        ]);
-                                            
-// ZAKOMENTOWANIE MAILINGU (3 WIERSZE)
+            // ZAKOMENTOWANIE MAILINGU (3 WIERSZE) *************************************************************************
             event(new Registered($user));
             Auth::login($user);
-            // $user->notify(new SpotAvailableNotification());         // Wyślij powiadomienie email
-// KONIEC ZAKOMENTOWANIA MAILINGU (3 WIERSZE)
-                                            
+            // if ($user->id != 1) {            //  OMIŃ dla usera o ID=1.
+            // 		$user->notify(new SpotAvailableNotification());         // Wyślij powiadomienie email
+            // }
+            // KONIEC ZAKOMENTOWANIA MAILINGU (3 WIERSZE) ******************************************************************
+
             // Zapisanie danych w sesji
             session([
                 'destination' => $request->destination,
@@ -148,7 +152,7 @@ class RegisteredUserController extends Controller
             return redirect()->route('service.available');
 
         } else {
-                return redirect()->route('service.unavailable');
-            }
+            return redirect()->route('service.unavailable');
         }
+    }
 }

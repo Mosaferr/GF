@@ -2,6 +2,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -19,6 +20,17 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        // Dodajemy administratora
+        DB::table('users')->insert([
+            'id' => 1,
+            'role' => 3,
+            'name' => 'Admin',
+            'email' => 'admin@mail.pl',
+            'password' => bcrypt('1qaz'),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
