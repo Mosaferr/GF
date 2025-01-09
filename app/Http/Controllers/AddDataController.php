@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
@@ -46,6 +45,20 @@ class AddDataController extends Controller
             'postal_code' => $validated['postal_code'],
             'city_id' => $city->id, // Przypisz id miasta
         ]);
+
+        // Pobranie daty na podstawie start_date przekazanego z formularza
+        $date = Date::find($request->start_date);
+        if (!$date) {
+            return redirect()->back()->withErrors(['start_date' => 'Nie znaleziono wybranego terminu.']);
+        }
+        // Zmniejszenie liczby dostępnych miejsc o jedno
+        $remainingSeats = $date->available_seats - 1;
+        if ($remainingSeats >= 0) {
+            $date->available_seats = $remainingSeats;
+            $date->save();
+        } else {
+            return redirect()->back()->withErrors(['available_seats' => 'Brak dostępnych miejsc.']);
+        }
 
         // Tworzenie klienta
         $client = Client::create([

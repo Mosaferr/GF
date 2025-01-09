@@ -1,5 +1,5 @@
 <?php
-
+// app/Http/Controllers/DetailedInfoController
 namespace App\Http\Controllers;
 
 use App\Models\Trip;

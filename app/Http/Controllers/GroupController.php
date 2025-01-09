@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Client;
@@ -23,9 +22,15 @@ class GroupController extends Controller
 			->get();
 
 		// Przekazanie danych do widoku
-		return view('admin.group', [
-			'clients' => $clients,
-			'trip' => $trip,
-		]);
+        $redirectUrl = url()->current();
+        return view('admin.group', [
+            'clients' => $clients,
+            'trip' => $trip,
+            'redirectUrl' => $redirectUrl,
+        ]);
+        // return view('admin.group', [
+		// 	'clients' => $clients,
+		// 	'trip' => $trip,
+		// ]);
 	}
 }

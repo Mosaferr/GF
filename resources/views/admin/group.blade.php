@@ -84,9 +84,9 @@
 								</td>
 								<td class="text-center">
                                     {{-- !ZAKOMENTOWANE <a href="{{ route('admin.clientdata.show', ['id' => $client->id]) }}" class="btn btn-success btn-sm shadow">Podgląd</a> --}}
-									<a href="{{ route('admin.clientdata.edit', ['id' => $client->id]) }}" class="btn btn-success btn-sm shadow">Edycja</a>
+                                    <a href="{{ route('admin.clientdata.edit', ['id' => $client->id, 'redirect_url' => url()->current()]) }}" class="btn btn-success btn-sm shadow">Edycja</a>
 									<form action="{{ route('admin.clientdata.destroy', ['id' => $client->id]) }}" method="POST" style="display: inline-block;">
-                                            @csrf
+                                        @csrf
 										@method('DELETE')
                                         <input type="hidden" name="redirect_url" value="{{ url()->current() }}">
 										<button type="submit" class="btn btn-danger btn-sm shadow" onclick="return confirm('Czy na pewno chcesz usunąć tego klienta?')">Usuń</button>

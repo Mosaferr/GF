@@ -1,6 +1,4 @@
 <?php
-// app/Http/Controllers/Auth/RegisteredUserController
-
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -54,8 +52,9 @@ class RegisteredUserController extends Controller
             'start_date' => 'required|exists:dates,id',
         ]);
 
-        $date = Date::find($request->start_date);           // Pobranie daty na podstawie start_date przekazanego z formularza
-
+        // Pobranie daty na podstawie start_date przekazanego z formularza
+        $date = Date::find($request->start_date);
+        // Zmniejszenie liczby dostępnych miejsc o liczbę zadeklarowanych uczestników
         $remainingSeats = $date->available_seats - $request->participants;
         if ($remainingSeats >= 0) {
             $date->available_seats = $remainingSeats;

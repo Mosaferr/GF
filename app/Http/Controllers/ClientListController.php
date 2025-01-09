@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Client;
@@ -35,6 +34,8 @@ class ClientListController extends Controller
             ->get();
     }
         // Przekazanie danych do widoku
-        return view('admin.clientlist', ['clients' => $clients]);
+        $redirectUrl = url()->current();
+        return view('admin.clientlist', ['clients' => $clients, 'redirectUrl' => $redirectUrl]);
+        // return view('admin.clientlist', ['clients' => $clients]);
     }
 }

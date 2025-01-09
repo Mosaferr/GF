@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Client;
@@ -10,12 +9,10 @@ use App\Models\City;
 use App\Models\Citizenship;
 use App\Models\ClientDate;
 use App\Models\User;
-use App\Models\UserDate;
+// use App\Models\UserDate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
-
-
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ClientRequest; // Zdefiniuj odpowiednie reguły walidacji w tym requestcie
 use Illuminate\View\View;
@@ -26,7 +23,7 @@ class ClientDataController extends Controller
      * @param  int  $id
      * @return \Illuminate\Contracts\View\View
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
         // Pobranie klienta wraz z powiązanymi datami i wycieczkami przez clientsDates
         $client = Client::with(['dates.trip'])->findOrFail($id);
@@ -39,7 +36,10 @@ class ClientDataController extends Controller
         $dates = Date::where('trip_id', $selectedTripId)->get();
 
         // Przekazanie danych do widoku
-        return view('admin.clientdata', compact('client', 'trips', 'selectedTripId', 'selectedDateId', 'dates'));
+        $redirectUrl = $request->query('redirect_url', route('admin.clientlist'));           //Domyślnie do 'clientlist'
+        return view('admin.clientdata', compact('client', 'trips', 'selectedTripId', 'selectedDateId', 'dates', 'redirectUrl'));
+        // $redirectUrl = request()->query('redirect_url', route('admin.clientlist'));         // Domyślnie do 'clientlist'
+        // return view('admin.clientdata', compact('client', 'trips', 'selectedTripId', 'selectedDateId', 'dates'));
     }
 
     /** Aktualizuje dane klienta.
@@ -180,14 +180,12 @@ class ClientDataController extends Controller
         ]);
 
         // Przekierowanie na odpowiednią stronę z komunikatem o sukcesie
-        $redirectUrl = $request->input('redirect_url', route('admin.clientlist'));
+        $redirectUrl = $request->input('redirect_url', route('admin.clientlist'));          // Domyślnie 'clientlist'
         return redirect($redirectUrl)->with('success', 'Dane klienta zostały zaktualizowane.');
-        // return redirect()->route('admin.clientdata.edit', ['id' => $client->id])->with('success', 'Dane klienta zostały zaktualizowane.');
     }
 
     /** Usuwanie klienta.
-     *
-     *
+     *******
      */
 
     public function destroy($id, Request $request)
@@ -202,6 +200,9 @@ class ClientDataController extends Controller
             $client = Client::findOrFail($id);
             Log::info("1.1. Znaleziono klienta (dane z clients): ", $client->toArray());
 
+            // Zwiększenie liczby miejsc o 1
+            $dateId = $client->dates()->first()->id;        // Pobranie ID daty powiązanej z klientem
+            Date::where('id', $dateId)->increment('available_seats', 1);
 
             // *****  Jeśli klient został dodany przez administratora
             if ($client->user_id == 1) {
@@ -211,12 +212,24 @@ class ClientDataController extends Controller
                 $client->dates()->detach();
                 Log::info("Powiązania klienta z tabeli clients_dates zostały usunięte dla ID: {$client->id}");
 
-                // Usunięcie adresu, jeśli dotyczy
+                // Usunięcie adresu, jeśli klient jest ostatnim, który go używa
                 $address = $client->address;
                 if ($address && $address->clients()->count() <= 1) {
                     $address->delete();
                     Log::info("Adres klienta ID: {$client->id} został usunięty.");
                 }
+
+                //
+                // Usunięcie miasta, jeśli klient jest ostatnim, który go używa
+                $city = $address ? $address->city : null;
+                // Sprawdź, czy miasto istnieje i czy jest ostatnim używanym
+                if ($city && $city->addresses()->count() <= 1) {
+                    $city->delete();
+                    Log::info("Miasto {$city->city_name} zostało usunięte, ponieważ było ostatnio używane.");
+                } else {
+                    Log::info("Miasto jest współdzielone lub nie istnieje. Nie usuwam miasta.");
+                }
+                //
 
                 // Usunięcie klienta
                 $client->delete();
@@ -227,7 +240,6 @@ class ClientDataController extends Controller
                 // Wczesne rzekierowanie na odpowiednią stronę
                 $redirectUrl = $request->input('redirect_url', route('admin.clientlist'));
                 return redirect($redirectUrl)->with('success', 'Klient został usunięty.');
-                // return redirect()->route('admin.clientlist')->with('success', 'Klient dodany przez administratora został pomyślnie usunięty.');
             }
             // *****  Koniec "Jeśli klient został dodany przez administratora"
 
@@ -257,6 +269,18 @@ class ClientDataController extends Controller
             } else {
                 Log::info("3.4. Adres jest współdzielony lub nie istnieje. Nie usuwam.");
             }
+
+            //
+            // Usunięcie miasta, jeśli klient jest ostatnim, który go używa
+            $city = $address ? $address->city : null;
+            // Sprawdź, czy miasto istnieje i czy jest ostatnim używanym
+            if ($city && $city->addresses()->count() <= 1) {
+                $city->delete();
+                Log::info("Miasto {$city->city_name} zostało usunięte, ponieważ było ostatnio używane.");
+            } else {
+                Log::info("Miasto jest współdzielone lub nie istnieje. Nie usuwam miasta.");
+            }
+            //
 
             // 4. Ustawienie leader_id i user_id na null dla klientów w grupie lidera
             if ($leaderId) {
@@ -299,8 +323,7 @@ class ClientDataController extends Controller
 
             // Przekierowanie na odpowiednią stronę dla pozostałych przypadkó
             $redirectUrl = $request->input('redirect_url', route('admin.clientlist'));
-            return redirect($redirectUrl)->with('success', 'Klient został usunięty.');
-            // return redirect()->route('admin.clientlist')->with('success', 'Klient oraz wszystkie powiązane dane zostały pomyślnie usunięte.');
+            return redirect($redirectUrl)->with('success', 'Klient oraz wszystkie powiązane dane zostały pomyślnie usunięte.');
 
         } catch (\Exception $e) {
             DB::rollBack(); // Cofnięcie transakcji
