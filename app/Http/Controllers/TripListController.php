@@ -25,9 +25,7 @@ class TripListController extends Controller
                 ->get();
         }
 
+        // $dates = Date::with('trip')->take(20)->get();                    // Pobierz 20 pierwszych wierszy z tabeli Dates wraz z powiązanymi danymi z tabeli Trips
         return view('admin.triplist', ['dates' => $dates]);    // Przekaż dane do widoku
-
-        // $dates = Date::with('trip')->take(20)->get();           // Pobierz 20 pierwszych wierszy z tabeli Dates wraz z powiązanymi danymi z tabeli Trips
-        // return view('admin.triplist', ['dates' => $dates]);     // Przekaż dane do widoku
     }
 }

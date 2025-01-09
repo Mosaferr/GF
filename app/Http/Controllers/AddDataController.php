@@ -9,7 +9,7 @@ use App\Models\Address;
 use App\Models\Trip;
 use App\Models\Date;
 use Illuminate\View\View;
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 
 class AddDataController extends Controller
 {

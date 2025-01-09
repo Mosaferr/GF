@@ -9,7 +9,7 @@ class Date extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['trip_id', 'start_date', 'end_date', 'price', 'available_seats'];
+    protected $fillable = ['trip_id', 'start_date', 'end_date', 'price', 'available_seats', 'total_seats'];
 
     public function trip()
     {

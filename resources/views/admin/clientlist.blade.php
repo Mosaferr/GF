@@ -15,9 +15,20 @@
 				{{-- </div> --}}
 			{{-- </div> --}}
 
+            <div class="admin-container">
+                <div class="menu-text col-md-12 text-center">
+                    <div class="d-grid d-md-block mx-auto my-2">
+                        <a href="{{ route('admin.clientlist') }}" class="btn btn-warning shadow mx-4">Lista <br>klientów</a>
+                        <a href="{{ route('admin.triplist') }}" class="btn btn-warning shadow mx-4">Lista <br>wycieczek</a>
+                        <a href="{{ route('gallery.chile') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>klientów</a>
+                        <a href="{{ route('gallery.china') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>wycieczkę</a>
+                    </div>
+                </div>
+            </div>
+
 			<div class="row">
 				<div class="col-md-12 text-center pb-3 position-relative">
-					<h3 class="mb-0">Lista turystów</h3>
+					<h3 class="mt-5 mb-0">Lista turystów</h3>
 						<h6 class="position-absolute end-0 bottom-0 mb-0">
 							Dodaj klienta&nbsp;&nbsp;
 							<a href="{{ route('admin.adddata.create') }}">

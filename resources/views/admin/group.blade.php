@@ -7,8 +7,8 @@
 		<div class="container" style="max-width:1300px;">
 
 			<div class="row">
-				<div class="col-md-12 text-center pb-3 position-relative">
-                    <h3 class="mb-0">Grupa:  {{ $trip->trip->country }}  {{ \Carbon\Carbon::parse($trip->start_date)->format('d.m') }} - {{ \Carbon\Carbon::parse($trip->end_date)->format('d.m.Y') }}</h3>
+				<div class="col-md-12 text-start ms-5 pb-3 position-relative">
+                    <h3 class="mb-0 fs-4">{{ $trip->trip->country }}: &nbsp;  &nbsp;  {{ \Carbon\Carbon::parse($trip->start_date)->format('d.m') }} - {{ \Carbon\Carbon::parse($trip->end_date)->format('d.m.Y') }}</h3>
 					<h6 class="position-absolute end-0 bottom-0 mb-0">
 						Dodaj klienta&nbsp;&nbsp;
 						<a href="{{ route('admin.adddata.create') }}">

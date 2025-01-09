@@ -8,8 +8,9 @@
         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             @if (Auth::user()->role == 3)
                 <a class="dropdown-item" href="{{ route('admin') }}">
-                    {{ __('Panel administratora') }}
+                    {{ __('Administracja') }}
                 </a>
+                <hr>
             @endif
             <a class="dropdown-item" href="{{ route('profile.edit') }}">
                 {{ __('Profil') }}

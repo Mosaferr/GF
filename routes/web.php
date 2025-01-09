@@ -25,6 +25,7 @@ use App\Http\Middleware\Manager;
 use App\Http\Middleware\Admin;
 use App\Http\Middleware\Normal;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\TripDataController;
 
 // Główna strona
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -118,23 +119,28 @@ Route::middleware(['auth'])->group(function () {
 // Admin
 Route::middleware(['auth', Admin::class])->group(function () {
     // Route::get('/admin/admin', [AdminController::class, 'index'])->name('admin.admin');
-    Route::get('/admin/clientlist', [ClientListController::class, 'index'])->name('admin.clientlist');                  // Wyświetlenie listy i redirect po usunięciu klienta
+    Route::get('/admin/clientlist', [ClientListController::class, 'index'])->name('admin.clientlist');          // Wyświetlenie listy i redirect po usunięciu klienta
     Route::get('/admin/clientdata/edit/{id}', [ClientDataController::class, 'edit'])->name('admin.clientdata.edit');
     Route::get('/admin/clientdata/show/{id}', [ClientDataController::class, 'show'])->name('admin.clientdata.show');
 
     // Trasy z clientdata
-    Route::get('/ ', [ClientDataController::class, 'index'])->name('admin.clientdata.index');                // Powrót do listy --?-- SPR CO TO
-    Route::put('/admin/clientdata/{id}', [ClientDataController::class, 'update'])->name('admin.clientdata.update');         // Aktualizacja
+    Route::get('/ ', [ClientDataController::class, 'index'])->name('admin.clientdata.index');                   // Powrót do listy --?-- SPR CO TO
+    Route::put('/admin/clientdata/{id}', [ClientDataController::class, 'update'])->name('admin.clientdata.update');     // Aktualizacja
     Route::delete('/admin/clientdata/{id}', [ClientDataController::class, 'destroy'])->name('admin.clientdata.destroy');
-    // Route::get('/admin/clientlist', [ClientListController::class, 'index'])->name('admin.clientlist');                    // Usunięcie klienta
+    // Route::get('/admin/clientlist', [ClientListController::class, 'index'])->name('admin.clientlist');                           // Usunięcie klienta
 
     // Nowy klient
-    Route::get('/admin/adddata', [AddDataController::class, 'create'])->name('admin.adddata.create');       // Wyświetlenie formularza rejestracji klienta
-    Route::post('/admin/adddata/store', [AddDataController::class, 'store'])->name('admin.adddata.store');         // Zapisanie nowego klienta
+    Route::get('/admin/adddata', [AddDataController::class, 'create'])->name('admin.adddata.create');           // Wyświetlenie formularza rejestracji klienta
+    Route::post('/admin/adddata/store', [AddDataController::class, 'store'])->name('admin.adddata.store');      // Zapisanie nowego klienta
 
     // Lista tras
-    Route::get('/admin/triplist', [TripListController::class, 'index'])->name('admin.triplist');
+    Route::get('/admin/triplist', [TripListController::class, 'index'])->name('admin.triplist');                // Wyświetlenie listy wycieczek
+    Route::get('/group/{trip_id}', [GroupController::class, 'showGroup'])->name('group.show');                  // Wyświetlenie grupy
 
-    Route::get('/group/{trip_id}', [GroupController::class, 'showGroup'])->name('group.show');
+    Route::get('/ ', [TripDataController::class, 'index'])->name('admin.tripdata.index');                   // Powrót do listy --?-- SPR CO TO
+
+    Route::get('admin/tripdata/{tripId}/{dateId}', [TripDataController::class, 'edit'])->name('admin.tripdata.edit');
+    Route::put('/admin/tripdata/{tripId}/{dateId}', [TripDataController::class, 'update'])->name('admin.tripdata.update');
+    Route::delete('/admin/tripdata/{id}', [TripDataController::class, 'destroy'])->name('admin.tripdata.destroy');
 });
 

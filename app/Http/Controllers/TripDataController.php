@@ -4,43 +4,34 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\Trip;
 use App\Models\Date;
-use App\Models\Address;
-use App\Models\City;
-use App\Models\Citizenship;
-use App\Models\ClientDate;
 use App\Models\User;
+// use App\Models\Address;
+// use App\Models\City;
+// use App\Models\Citizenship;
+// use App\Models\ClientDate;
 // use App\Models\UserDate;
+use App\Http\Controllers\Controller;
+// use App\Http\Requests\ClientRequest;    // Zdefiniuj odpowiednie reguły walidacji w tym requestcie
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
-// use App\Http\Requests\ClientRequest;    // Zdefiniuj odpowiednie reguły walidacji w tym requestcie
 // use Illuminate\View\View;
 
-class ClientDataController extends Controller
+class TripDataController extends Controller
 {
     /** Wyświetla formularz edycji dla wybranego klienta.
      * @param  int  $id
      * @return \Illuminate\Contracts\View\View
      *******************************************/
 
-    public function edit($id, Request $request)
+    public function edit($tripId, $dateId, Request $request)
     {
-        // Pobranie klienta wraz z powiązanymi datami i wycieczkami przez clientsDates
-        $client = Client::with(['dates.trip'])->findOrFail($id);
-        // Pobranie listy wszystkich dostępnych destynacji
-        $trips = Trip::all();
-        // Pobranie domyślnej destynacji i terminu z bazy danych
-        $selectedTripId = $client->dates->first()->trip->id;
-        $selectedDateId = $client->dates->first()->id;
-        // Pobranie wszystkich terminów dla wybranej destynacji
-        $dates = Date::where('trip_id', $selectedTripId)->get();
+        // Pobranie wycieczki i odpowiadającego jej terminu
+        $trip = Trip::findOrFail($tripId);
+        $date = Date::where('trip_id', $tripId)->where('id', $dateId)->firstOrFail();
 
-        // Przekazanie danych do widoku
-        $redirectUrl = $request->query('redirect_url', route('admin.clientlist'));           //Domyślnie do 'clientlist'
-        return view('admin.clientdata', compact('client', 'trips', 'selectedTripId', 'selectedDateId', 'dates', 'redirectUrl'));
-        // $redirectUrl = request()->query('redirect_url', route('admin.clientlist'));         // Domyślnie do 'clientlist'
-        // return view('admin.clientdata', compact('client', 'trips', 'selectedTripId', 'selectedDateId', 'dates'));
+        $redirectUrl = $request->query('redirect_url', route('admin.triplist'));   // Domyślny redirect do listy
+        return view('admin.tripdata', compact('trip', 'date', 'redirectUrl'));
     }
 
     /** Aktualizuje dane klienta.
@@ -49,142 +40,25 @@ class ClientDataController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      *******************************************/
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $tripId, $dateId)
     {
-        // Znalezienie klienta po ID
-        $client = Client::findOrFail($id);
+        $trip = Trip::findOrFail($tripId);
+        $date = Date::where('trip_id', $tripId)->where('id', $dateId)->firstOrFail();
 
-        // Log::info('START LOGÓW. Dane w rubrykach:', $request->all());
-
-        // Walidacja danych klienta  (bez adresu i city_name)
-            $validatedData = $request->validate([
-            'name' => 'required|string|alpha|min:3|max:20',
-            'middle_name' => 'nullable|string|alpha|min:3|max:20',
-            'last_name' => 'required|string|alpha|min:2|max:50',
-            'phone' => 'nullable|regex:/^\+?[0-9\s]+$/|min:8|max:20',
-            'email' => 'required|email',
-            // 'birth_date' => 'required|date|before_or_equal:'.now()->subYears(2),
-            'birth_date' => 'required|date',
-            // 'pesel' => 'required|string|digits:11|unique:participants,pesel',
-            'pesel' => 'required|string',
-            // 'gender' => 'nullable|string',
-            // 'passport_number' => 'required|string|regex:/^[a-zA-Z0-9]{7,10}$/|unique:participants,passport_number',
-            'passport_number' => 'required|string',
-            'issue_date' => 'required|date|before_or_equal:today',
-            // 'expiry_date' => 'required|date|after:today|after_or_equal:'.now()->addMonths(3),
-            'expiry_date' => 'required|date|after:today',
-            'citizenship_id' => 'required|exists:citizenships,id',
-            // 'stage' => 'required|in:zarezerwowany, zapisany, przedpłacone, opłacone',
+        $validatedData = $request->validate([
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after:start_date',
+            'price' => 'required|numeric|min:0',
+            'available_seats' => 'required|integer|min:0',
+            'total_seats' => 'required|integer|min:0',
         ]);
 
-        // Aktualizacja danych klienta
-        $client->update($validatedData);
+        $date->update($validatedData);
 
-        // Walidacja danych adresu
-        $validatedAddress = $request->validate([
-            'street' => 'required|string|max:255',
-            'house_number' => 'required|string|max:10',
-            'apartment_number' => 'nullable|string|max:10',
-            'postal_code' => 'required|string|max:10',
-        ]);
-        // Walidacja danych miasta
-        $validatedCity = $request->validate([
-            'city_name' => 'required|string|alpha|min:2|max:100',
-        ]);
-
-        // Log::info(' Dane po walidacji:', $validatedData);
-
-        // Znajdowanie lub tworzenie nowego miasta
-        $city_name = City::firstOrCreate(['city_name' => $validatedCity['city_name']]);
-
-        // Znajdowanie lub tworzenie nowego adresu
-        $address = Address::firstOrCreate([
-            'street' => $validatedAddress['street'],
-            'house_number' => $validatedAddress['house_number'],
-            'apartment_number' => $validatedAddress['apartment_number'],
-            'postal_code' => $validatedAddress['postal_code'],
-            'city_id' => $city_name->id,
-        ]);
-
-        // Przypisanie adresu do klienta
-        $client->address()->associate($address);
-        $client->save();
-
-        // Aktualizacja citizenship
-        $citizenship = Citizenship::findOrFail($validatedData['citizenship_id']);
-        $client->citizenship()->associate($citizenship);
-
-        // Zaktualizowanie pola stage
-        // $client->stage = $validatedData['stage'];
-        // Aktualizacja pola stage oddzielnie (inaczej)
-        $client->stage = $request->input('stage');
-
-        // Zapisanie wszystkich zmian
-        $client->save();
-
-        // Log wartości stage po aktualizacji
-        // Log::info('Wartość stage po aktualizacji:', ['stage' => $client->fresh()->stage]);
-
-        // Log danych z żądania z dodaniem separatora i pustej linii
-        Log::info("\n\n----------------- START LOGÓW -----------------\n", $request->all());
-
-        // Walidacja danych wejściowych z logowaniem
-        $validatedTripData  = $request->validate([
-            'trip' => 'required|exists:trips,id',
-            'start_date' => 'required|exists:dates,id',
-        ]);
-        Log::info("\Walidacja zakończona pomyślnie:", $validatedTripData);
-
-        // Znalezienie klienta po ID
-        // $client = Client::findOrFail($id);      //powtórzona instrukcja, usunąć?
-
-        // Znalezienie istniejącego powiązania klienta z terminem
-        $clientDate = ClientDate::where('client_id', $client->id)->firstOrFail();
-
-        // Logowanie informacji przed aktualizacją z pustą linią
-        Log::info("\Przed aktualizacją:", [
-            'client_id' => $client->id,
-            'current_date_id' => $clientDate->date_id,
-            'current_trip_id' => Date::find($clientDate->date_id)->trip_id,
-        ]);
-
-        // Znalezienie odpowiedniego trip i date na podstawie zwalidowanych danych
-        // Znalezienie wycieczki (Trip)
-        $trip = Trip::find($validatedTripData['trip']);
-        // Znalezienie daty (Date):
-        $date = Date::where('id', $validatedTripData['start_date'])
-                    ->where('trip_id', $trip->id)
-                    ->firstOrFail();
-
-        // Logowanie informacji o znalezionych danych
-        Log::info("Znalezione dane:", [
-            'trip_id' => $trip->id,
-            'trip_name' => $trip->trip_name, // zakładając, że istnieje kolumna 'name'
-            'date_id' => $date->id,
-            'date_start' => $date->start_date, // zakładając, że istnieje kolumna 'start_date'
-        ]);
-
-        // Aktualizacja powiązania z nową datą i nowym trip_id
-        ClientDate::where('client_id', $client->id)
-        ->where('date_id', $clientDate->date_id)
-            ->update([
-                'date_id' => $date->id, // Aktualizacja date_id wystarczy
-                // 'date_id' => $validatedTripData['start_date'],
-                // 'trip_id' => $validatedTripData['trip'],
-            ]);
-
-
-        // Logowanie informacji po aktualizacji z pustą linią
-        Log::info("\Po aktualizacji:", [
-            'client_id' => $client->id,
-            'updated_date_id' => $clientDate->date_id,
-            'updated_trip_id' => $date->trip_id,
-        ]);
-
-        // Przekierowanie na odpowiednią stronę z komunikatem o sukcesie
-        $redirectUrl = $request->input('redirect_url', route('admin.clientlist'));          // Domyślnie 'clientlist'
-        return redirect($redirectUrl)->with('success', 'Dane klienta zostały zaktualizowane.');
+        $redirectUrl = $request->input('redirect_url', route('admin.triplist'));
+        return redirect($redirectUrl)->with('success', 'Dane terminu zostały zaktualizowane.');
     }
+
 
     /** Usuwanie klienta.
      *******************************************/

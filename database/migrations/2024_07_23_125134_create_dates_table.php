@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('end_date');
             $table->decimal('price', 10, 2);
             $table->integer('available_seats');
+            $table->integer('total_seats');
             $table->timestamps();
         });
     }

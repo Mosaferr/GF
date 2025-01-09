@@ -23,7 +23,7 @@ body{
     display: block;
     position: absolute;
 }
-/* 
+/*
 .nav-item .active {
     color: #fff;
     background-color: #007bff;
@@ -338,13 +338,23 @@ font-size: clamp(16px, 2.5vw, 24px);
     text-decoration: underline;
 }
 
-/*--------------------------------------------- FORMULARZE ---*/
+/*--------------------------------------------- RAMKI ---*/
 .form-container {
     max-width: 800px;
     margin: auto;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.admin-container {
+    max-width: 800px;
+    height: 120px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 15px;
     background-color: #f9f9f9;
 }
 
@@ -363,7 +373,7 @@ font-size: clamp(16px, 2.5vw, 24px);
 }
 /* Dostosuj według potrzeby */
 /* .specific-error-message {
-    margin-top: 0.5rem; 
+    margin-top: 0.5rem;
 } */
 
 /*--------------------------------------------- FOOTER ---*/

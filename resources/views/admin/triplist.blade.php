@@ -18,10 +18,22 @@
 		<div class="container" style="max-width: 1300px;">
 		{{-- <div class="container" style="max-width: 1200px;"> --}}
 
-			<div class="row">
-				<div class="col-md-12 text-center pb-3">
+            <div class="admin-container">
+                <div class="menu-text col-md-12 text-center">
+                    <div class="d-grid d-md-block mx-auto my-2">
+                        <a href="{{ route('admin.clientlist') }}" class="btn btn-warning shadow mx-4">Lista <br>klientów</a>
+                        <a href="{{ route('admin.triplist') }}" class="btn btn-warning shadow mx-4">Lista <br>wycieczek</a>
+                        <a href="{{ route('gallery.chile') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>klientów</a>
+                        <a href="{{ route('gallery.china') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>wycieczkę</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+				<div class="col-md-12 text-center pb-3 mt-5">
 					{{-- <h2 class="">Terminy wyjazdów</h2> --}}
-					<h4>Lista wypraw</h4>
+					<h3>Lista wypraw</h3>
 				</div>
 			</div>
 
@@ -81,7 +93,7 @@
 										@endif
 									</a>
 								</th>
-								<th scope="col"></th>
+                                <th scope="col" class="text-center" colspan="3">Akcje</th>
 							</tr>
 						</thead>
 
@@ -106,8 +118,8 @@
                                         <a href="{{ route('group.show', ['trip_id' => $date->id]) }}" class="btn btn-success btn-sm shadow">&nbsp;Grupa&nbsp;</a>
 									</td>
 									<td class="text-center">
-										<a href="{{ route('excursions.' . $countryMap[$date->trip->country]) }}" class="btn btn-primary btn-sm shadow">Edycja</a>
-									</td>
+                                        <a href="{{ route('admin.tripdata.edit', ['tripId' => $date->trip_id, 'dateId' => $date->id]) }}" class="btn btn-primary btn-sm shadow">Edycja</a>
+                                    </td>
 									<td class="text-center">
 										<a href="{{ route('excursions.' . $countryMap[$date->trip->country]) }}" class="btn btn-danger btn-sm shadow">Usuń</a>
 									</td>
