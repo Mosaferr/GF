@@ -38,7 +38,7 @@ class AddDataController extends Controller
         // Sprawdź, czy miasto już istnieje
         $city = City::firstOrCreate(['city_name' => $validated['city_name']]);
 
-     // Tworzenie adresu
+        // Tworzenie adresu
         $address = Address::create([
             'street' => $validated['street'],
             'house_number' => $validated['house_number'],
@@ -70,6 +70,9 @@ class AddDataController extends Controller
 
         $client->dates()->attach($validated['start_date']);
 
-        return redirect()->route('admin.clientlist')->with('success', 'Klient został dopisany.');
+        // Przekierowanie na odpowiednią stronę
+        $redirectUrl = $request->input('redirect_url', route('admin.clientlist'));
+        return redirect($redirectUrl)->with('success', 'Klient został dopisany.');
+        //  return redirect()->route('admin.clientlist')->with('success', 'Klient został dopisany.');
     }
 }

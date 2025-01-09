@@ -1,7 +1,5 @@
 <!-- resources/views/admin/clientdata.blade.php -->
-
 @extends('layouts.app')
-
 @section('title', 'Dane klienta')
 
 @section('content')
@@ -9,12 +7,12 @@
 
 		<div class="form-container">
 			<form id="saveForm" method="POST" action="{{ route('admin.clientdata.update', ['id' => $client->id]) }}">
-			{{-- <form method="POST" action="{{ route('admin.clientdata.update', ['id' => $client->id]) }}"> --}}
 				@csrf
 				@method('PUT')
+                <input type="hidden" name="redirect_url" value="{{ url()->previous() }}">
                 <h3 class="my-1">{{ $client->name }} {{ $client->last_name }}</h3>
 				<hr>
-							
+
 				@if (session('success'))
 					<div class="alert alert-success alert-dismissible fade show" role="alert">
 						{{ session('success') }}
@@ -27,7 +25,7 @@
 						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 					</div>
 				@endif --}}
-							
+
 				<h5 class="mt-3"> Dane osobowe </h5>
 				<div class="row mb-2">
 					<div class="col-md-3">
@@ -171,19 +169,17 @@
 			<form id="deleteForm" action="{{ route('admin.clientdata.destroy', $client->id) }}" method="POST">
 				@csrf
 				@method('DELETE')
+                <input type="hidden" name="redirect_url" value="{{ url()->previous() }}">
 			</form>
 
 			<div class="row mt-5">
 				<div class="col-md-12 text-end">
-										
 					<!-- Usuń klienta -->
-					<button type="submit" class="btn btn-danger shadow mr-5 px-3" form="deleteForm">&nbsp; Usuń &nbsp;</button>
-					{{-- <button type="submit" class="btn btn-danger shadow mr-5 px-3" form="deleteForm" onclick="return confirm('Czy na pewno chcesz usunąć tego klienta?');">&nbsp; Usuń &nbsp;</button> --}}
+					<button type="submit" class="btn btn-danger shadow mr-5 px-3" form="deleteForm" onclick="return confirm('Czy na pewno chcesz usunąć tego klienta?');">&nbsp; Usuń &nbsp;</button>
 					<!-- Zapisz zmiany -->
 					<button type="submit" class="btn btn-primary shadow mx-5 px-3" form="saveForm"> Zapisz </button>
 					<!-- Powrót do listy -->
 					<a href="{{ route('admin.clientlist') }}" class="btn btn-success shadow ml-5 px-3"> Powrót</a>
-										
 				</div>
 			</div>
 		</div>

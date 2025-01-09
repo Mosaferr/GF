@@ -1,7 +1,5 @@
 <!-- resources/views/admin/adddata.blade.php -->
-
 @extends('layouts.app')
-
 @section('title', 'Dodaj klienta')
 
 @section('content')
@@ -10,6 +8,7 @@
 		<div class="form-container">
             <form id="saveForm" method="POST" action="{{ route('admin.adddata.store') }}">
                 @csrf
+                <input type="hidden" name="redirect_url" value="{{ url()->previous() }}">      {{-- zapamiętanie poprzedniej strony --}}
 				<h3 class="my-1">{{ isset($client) ? $client->name . ' ' . $client->last_name : 'Nowy klient' }}</h3>
 				<hr>
 

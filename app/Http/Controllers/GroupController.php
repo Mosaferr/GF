@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Client;
+use App\Models\Date;
+use Illuminate\Http\Request;
+
+class GroupController extends Controller
+{
+	public function showGroup($trip_id, Request $request)
+	{
+		// Pobranie daty wycieczki i powiązanej wycieczki
+		$trip = Date::with('trip')->findOrFail($trip_id);
+
+		// Pobranie klientów powiązanych z datą wycieczki
+		$sortBy = $request->input('sort_by', 'id');
+		$order = $request->input('order', 'asc');
+
+		$clients = $trip->clients()
+			->with(['address.city'])
+			->orderBy($sortBy, $order)
+			->get();
+
+		// Przekazanie danych do widoku
+		return view('admin.group', [
+			'clients' => $clients,
+			'trip' => $trip,
+		]);
+	}
+}

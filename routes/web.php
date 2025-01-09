@@ -24,6 +24,7 @@ use App\Http\Controllers\TripListController;
 use App\Http\Middleware\Manager;
 use App\Http\Middleware\Admin;
 use App\Http\Middleware\Normal;
+use App\Http\Controllers\GroupController;
 
 // Główna strona
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -119,6 +120,7 @@ Route::middleware(['auth', Admin::class])->group(function () {
     // Route::get('/admin/admin', [AdminController::class, 'index'])->name('admin.admin');
     Route::get('/admin/clientlist', [ClientListController::class, 'index'])->name('admin.clientlist');                  // Wyświetlenie listy i redirect po usunięciu klienta
     Route::get('/admin/clientdata/edit/{id}', [ClientDataController::class, 'edit'])->name('admin.clientdata.edit');
+    Route::get('/admin/clientdata/show/{id}', [ClientDataController::class, 'show'])->name('admin.clientdata.show');
 
     // Trasy z clientdata
     Route::get('/ ', [ClientDataController::class, 'index'])->name('admin.clientdata.index');                // Powrót do listy --?-- SPR CO TO
@@ -132,4 +134,7 @@ Route::middleware(['auth', Admin::class])->group(function () {
 
     // Lista tras
     Route::get('/admin/triplist', [TripListController::class, 'index'])->name('admin.triplist');
+
+    Route::get('/group/{trip_id}', [GroupController::class, 'showGroup'])->name('group.show');
 });
+

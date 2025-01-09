@@ -1,6 +1,5 @@
 <!-- resources/views/excursions/tibet.blade.php -->
 @extends('layouts.app')
-
 @section('title', 'Tybet. W Chinach')
 
 @section('content')
@@ -77,7 +76,7 @@
 											<td>
 												{{ $date->available_seats == 0 ? 'Brak wolnych miejsc' :
 												($date->available_seats == 1 ? '1 wolne miejsce' :
-												($date->available_seats > 1 && $date->available_seats < 5 ? $date->available_seats . ' wolne miejsca' : $date->available_seats . ' wolnych miejsc')) 
+												($date->available_seats > 1 && $date->available_seats < 5 ? $date->available_seats . ' wolne miejsca' : $date->available_seats . ' wolnych miejsc'))
 											}}
 											</td>
 											<td>

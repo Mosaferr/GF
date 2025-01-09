@@ -1,6 +1,5 @@
 <!-- resources/views/excursions/index.blade.php -->
 @extends('layouts.app')
-
 @section('title', 'Wyprawy')
 @section('head-scripts')
     @vite('resources/css/hide.css')

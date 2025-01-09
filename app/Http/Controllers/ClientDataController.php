@@ -10,10 +10,15 @@ use App\Models\City;
 use App\Models\Citizenship;
 use App\Models\ClientDate;
 use App\Models\User;
-// use App\Models\UserDate;
+use App\Models\UserDate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
+
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\ClientRequest; // Zdefiniuj odpowiednie reguły walidacji w tym requestcie
+use Illuminate\View\View;
 
 class ClientDataController extends Controller
 {
@@ -174,9 +179,10 @@ class ClientDataController extends Controller
             'updated_trip_id' => $date->trip_id,
         ]);
 
-        // Przekierowanie na stronę edycji z komunikatem o sukcesie
-        return redirect()->route('admin.clientdata.edit', ['id' => $client->id])->with('success', 'Dane klienta zostały zaktualizowane.');
-        // return redirect()->route('admin.clientdata.index')->with('success', 'Dane klienta zostały zaktualizowane.');
+        // Przekierowanie na odpowiednią stronę z komunikatem o sukcesie
+        $redirectUrl = $request->input('redirect_url', route('admin.clientlist'));
+        return redirect($redirectUrl)->with('success', 'Dane klienta zostały zaktualizowane.');
+        // return redirect()->route('admin.clientdata.edit', ['id' => $client->id])->with('success', 'Dane klienta zostały zaktualizowane.');
     }
 
     /** Usuwanie klienta.
@@ -184,7 +190,7 @@ class ClientDataController extends Controller
      *
      */
 
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
         DB::beginTransaction(); // Rozpoczęcie transakcji
         try {
@@ -217,7 +223,11 @@ class ClientDataController extends Controller
                 Log::info("Klient ID: {$client->id} został usunięty.");
 
                 DB::commit();
-                return redirect()->route('admin.clientlist')->with('success', 'Klient dodany przez administratora został pomyślnie usunięty.');
+
+                // Wczesne rzekierowanie na odpowiednią stronę
+                $redirectUrl = $request->input('redirect_url', route('admin.clientlist'));
+                return redirect($redirectUrl)->with('success', 'Klient został usunięty.');
+                // return redirect()->route('admin.clientlist')->with('success', 'Klient dodany przez administratora został pomyślnie usunięty.');
             }
             // *****  Koniec "Jeśli klient został dodany przez administratora"
 
@@ -286,12 +296,20 @@ class ClientDataController extends Controller
             Log::info("Operacja usuwania klienta zakończona sukcesem.");
             Log::info("\n----------------- KONIEC LOGÓW -----------------\n\n");
 
-            return redirect()->route('admin.clientlist')->with('success', 'Klient oraz wszystkie powiązane dane zostały pomyślnie usunięte.');
+
+            // Przekierowanie na odpowiednią stronę dla pozostałych przypadkó
+            $redirectUrl = $request->input('redirect_url', route('admin.clientlist'));
+            return redirect($redirectUrl)->with('success', 'Klient został usunięty.');
+            // return redirect()->route('admin.clientlist')->with('success', 'Klient oraz wszystkie powiązane dane zostały pomyślnie usunięte.');
 
         } catch (\Exception $e) {
             DB::rollBack(); // Cofnięcie transakcji
             Log::error("Błąd podczas usuwania klienta ID={$id}: " . $e->getMessage());
-            return redirect()->route('admin.clientlist')->with('error', 'Wystąpił problem podczas usuwania klienta. Skontaktuj się z administratorem.');
+
+            // Obsługa błędu. Przekierowanie na odpowiednią stronę
+            $redirectUrl = $request->input('redirect_url', route('admin.clientlist'));
+            return redirect($redirectUrl)->with('error', 'Wystąpił problem podczas usuwania klienta.');
+            // return redirect()->route('admin.clientlist')->with('error', 'Wystąpił problem podczas usuwania klienta. Skontaktuj się z administratorem.');
         }
     }
 }

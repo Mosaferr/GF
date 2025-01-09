@@ -1,6 +1,5 @@
 <!-- resources/views/excursions/sri_lanka.blade.php -->
 @extends('layouts.app')
-
 @section('title', 'Sri Lanka')
 
 @section('content')
@@ -19,13 +18,13 @@
 							<p><strong>Dzień 4.</strong><br>Zwiedzanie pobliskiego Mihinthale, kolebki buddyzmu na Cejlonie. Potem przejazd do Polonaruwy i nocleg.</p>
 							<p><strong>Dzień 5.</strong><br>Wizyta w starożytnym mieście Polonnaruwa, drugiej stolicy Sri Lanki (wpisana na listę dziedzictwa UNESCO).</p>
 							<p><strong>Dzień 6.</strong><br>Przejazd do Dambulli.  Zwiedzanie kompleksu świątynnnego w jaskiniach Dambulli datowanego na II wiek p.n.e. i wpisanego na listę dziedzictwa UNESCO.</p>
-							<p><strong>Dzień 7.</strong><br>Rano wejście na niezwykłą twierdzę Sigiriya, zwaną też fortecą w chmurach, z V w n.e. Następnie przejazd do Kandy, górskiej stolicy Sri Lanki, ostatniego miejsca oporu przed okupacją brytyjską.</p> 
+							<p><strong>Dzień 7.</strong><br>Rano wejście na niezwykłą twierdzę Sigiriya, zwaną też fortecą w chmurach, z V w n.e. Następnie przejazd do Kandy, górskiej stolicy Sri Lanki, ostatniego miejsca oporu przed okupacją brytyjską.</p>
 							<p><strong>Dzień 8.</strong><br>Zwiedzanie Świątyni Świętego Zęba Buddy – najważniejszego miejsca pielgrzymkowego tutejszych buddystów. Po południu spacer po okolicy Kandy.</p>
 							<p><strong>Dzień 9.</strong><br>Malownicza podróż pociągiem do Elli przez wzgórza i plantacje herbaty. Po południu wycieczka na szczyt Little Adams Peak i monumentalny most kolejowy.</p>
-							<p><strong>Dzień 10.</strong><br>Wycieczka do wodospadu Ravany Falls i Ella Cave. Następnie przejazd do Udawalawa.</p> 
+							<p><strong>Dzień 10.</strong><br>Wycieczka do wodospadu Ravany Falls i Ella Cave. Następnie przejazd do Udawalawa.</p>
 							<p><strong>Dzień 11.</strong><br>Niezwykłe safari jeepami do Parku Narodowego Udawalawa, gdzie oprócz innych zwierząt, zobaczymy żyjące na wolności dzikie słonie. Później przejazd do Galle.</p>
 							<p><strong>Dzień 12.</strong><br>Dla chętnych spacer po dawnym holenderskim forcie Galle z 1663 r.(wpisanym na listę UNESCO), zakończony zachodem słońca. Alternatywnie, plażowanie na pobliskiej Unawatuna Beach lub zakupy w mieście.</p>
-							<p><strong>Dzień 13.</strong><br>Przejazd i zwiedzanie najciekawszych miejsc w Kolombo. Następnie przejazd do na lotnisko lub do Negombo.</p> 
+							<p><strong>Dzień 13.</strong><br>Przejazd i zwiedzanie najciekawszych miejsc w Kolombo. Następnie przejazd do na lotnisko lub do Negombo.</p>
 							<p><strong>Dzień 14.</strong><br>Nocny lot do Polski. Jeśli lot będzie w ciągu dnia, wcześniej odwiedzimy Negombo a potem udamy się na lotnisko.</p>
 							<p><strong>Dzień 15.</strong><br>Przylot do Warszawy, pożegnanie na lotnisku Chopina.</p>
 
@@ -76,9 +75,9 @@
 												{{ $date->price }} PLN
 											</td>
 											<td>
-												{{ $date->available_seats == 0 ? 'Brak wolnych miejsc' : 
-												($date->available_seats == 1 ? '1 wolne miejsce' : 
-												($date->available_seats > 1 && $date->available_seats < 5 ? $date->available_seats . ' wolne miejsca' : $date->available_seats . ' wolnych miejsc')) 
+												{{ $date->available_seats == 0 ? 'Brak wolnych miejsc' :
+												($date->available_seats == 1 ? '1 wolne miejsce' :
+												($date->available_seats > 1 && $date->available_seats < 5 ? $date->available_seats . ' wolne miejsca' : $date->available_seats . ' wolnych miejsc'))
 											}}
 											</td>
 											<td>

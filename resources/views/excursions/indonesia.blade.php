@@ -1,6 +1,5 @@
 <!-- resources/views/excursions/indonesia.blade.php -->
 @extends('layouts.app')
-
 @section('title', 'Indonezja')
 
 @section('content')
@@ -17,12 +16,12 @@
 							<p><strong>Dzień 2.</strong><br>Przylot do Dżakarty w godzinach popołudniowych, nocleg w hotelu koło lotniska.</p>
 							<p><strong>Dzień 3.</strong><br>Przelot do Yogyakarty. Zwiedzanie miasta: Jalan Malioboro, pałac sułtana (Keraton), Taman Sari), wieczorem dla chętnych Wayan Kulit - indonezyjski teatr cieni.</p>
 							<p><strong>Dzień 4.</strong><br>Rano wyjazd i wizyta w największej i jednej z najwspanialszych świątyń buddyjskich w całej Azji – Borobudur. Zwiedzanie kolejnych rzeźbionych tarasów świątyni, wzniesionej na przełomie VIII i IX w. Następnie przejazd do kompleksu świątynnego Prambanan. Zbudowane w IX w. świątynie są najpiękniejszymi przykładami sakralnej architektury hinduistycznej poza Indiami. Po południu powrót do Jogji. </p>
-							<p><strong>Dzień 5.</strong><br>Całodzienny przejazd do Cemoro Lawang w Parku Narodowym Bromo. Nocleg tamże, ale krótki.</p> 
+							<p><strong>Dzień 5.</strong><br>Całodzienny przejazd do Cemoro Lawang w Parku Narodowym Bromo. Nocleg tamże, ale krótki.</p>
 							<p><strong>Dzień 6.</strong><br>W środku nocy wyjazd jeepami do punktu widokowego, skąd będziemy podziwiać wschód słońca i zapierający dech w piersiach widok na stożki wulkanów Bromo i Semeru. Potem wejście na sam wulkan Bromo. Powrót do hotelu i przejazd nad wodospad Coban Sewu, ukryty klejnot Jawy. Nocleg w pobliskim Pronojiwo</p>
 							<p><strong>Dzień 7.</strong><br>Całodzienny przejazd do Banyuwangi.</p>
 							<p><strong>Dzień 8.</strong><br>Przed świtem przejazd i dla chętnych wejście na wulkan Kawah Ijen, gdzie mieści się kopalnia siarki. Prosto stamtąd przejazd do portu Ketapang, prom na Bali i przejazd do Loviny.</p>
 							<p><strong>Dzień 9.</strong><br>Rano dla chętnych wycieczka łodzią w poszukiwaniu delfinów. Potem śniadanie i przejazd do Ubud. Po drodze odwiedzimy świątynię buddyjską - Bhrama Vihara Arama i świątynię hinduską nad jeziorem - Pura Ulun Danau Bratan.</p>
-							<p><strong>Dzień 10-11.</strong><br>Zanurzamy się w jedynej w swoim rodzaju kulturze balijskiej, zwiedzamy Bali. Do wyboru: świątynie Pura Besakih, Tirta Empul, Gunung Kawi, pola ryżowe w Tegalang, punkt widokowy w Penelokan itp. W Ubud spacer po Małpim Gaju a wieczorem dla chętnych Kecak, spektakl balijskiego tańca. Noclegi w Ubud.</p> 
+							<p><strong>Dzień 10-11.</strong><br>Zanurzamy się w jedynej w swoim rodzaju kulturze balijskiej, zwiedzamy Bali. Do wyboru: świątynie Pura Besakih, Tirta Empul, Gunung Kawi, pola ryżowe w Tegalang, punkt widokowy w Penelokan itp. W Ubud spacer po Małpim Gaju a wieczorem dla chętnych Kecak, spektakl balijskiego tańca. Noclegi w Ubud.</p>
 							<p><strong>Dzień 12.</strong><br>Przejazd do Kuty, po drodze odwiedzimy dwie świątynie balijskie Tanah Ayun i Tanah Lot, położoną na małej, skalistej wysepce tuż przy wybrzeżu.</p>
 							<p><strong>Dzień 13.</strong><br>Wolny dzień w Kucie, plażing, ostatnie zakupy, masaże itd. Wieczorem przejazd na lotnisko i wylot do Polski.</p>
 							<p><strong>Dzień 14.</strong><br>Przylot na lotnisko Okęcie, pożegnanie z towarzyszami podróży.</p>
@@ -74,9 +73,9 @@
 												{{ $date->price }} PLN
 											</td>
 											<td>
-												{{ $date->available_seats == 0 ? 'Brak wolnych miejsc' : 
-												($date->available_seats == 1 ? '1 wolne miejsce' : 
-												($date->available_seats > 1 && $date->available_seats < 5 ? $date->available_seats . ' wolne miejsca' : $date->available_seats . ' wolnych miejsc')) 
+												{{ $date->available_seats == 0 ? 'Brak wolnych miejsc' :
+												($date->available_seats == 1 ? '1 wolne miejsce' :
+												($date->available_seats > 1 && $date->available_seats < 5 ? $date->available_seats . ' wolne miejsca' : $date->available_seats . ' wolnych miejsc'))
 											}}
 											</td>
 											<td>

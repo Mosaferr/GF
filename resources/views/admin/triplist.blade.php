@@ -11,7 +11,6 @@
 @endphp
 
 @extends('layouts.app')
-
 @section('title', 'Lista wycieczek')
 
 @section('content')
@@ -98,13 +97,13 @@
 									<td>{{ $date->trip->trip_name }}</td>
 									<td>{{ $date->price }} PLN</td>
 									<td>
-										{{ $date->available_seats == 0 ? 'Brak wolnych miejsc' : 
-										($date->available_seats == 1 ? '1 wolne miejsce' : 
-										($date->available_seats > 1 && $date->available_seats < 5 ? $date->available_seats . ' wolne miejsca' : $date->available_seats . ' wolnych miejsc')) 
+										{{ $date->available_seats == 0 ? 'Brak wolnych miejsc' :
+										($date->available_seats == 1 ? '1 wolne miejsce' :
+										($date->available_seats > 1 && $date->available_seats < 5 ? $date->available_seats . ' wolne miejsca' : $date->available_seats . ' wolnych miejsc'))
 									}}
 									</td>
 									<td class="text-center">
-										<a href="{{ route('excursions.' . $countryMap[$date->trip->country]) }}" class="btn btn-success btn-sm shadow">&nbsp;Grupa&nbsp;</a>
+                                        <a href="{{ route('group.show', ['trip_id' => $date->id]) }}" class="btn btn-success btn-sm shadow">&nbsp;Grupa&nbsp;</a>
 									</td>
 									<td class="text-center">
 										<a href="{{ route('excursions.' . $countryMap[$date->trip->country]) }}" class="btn btn-primary btn-sm shadow">Edycja</a>
