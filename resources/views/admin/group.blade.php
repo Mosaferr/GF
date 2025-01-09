@@ -91,7 +91,6 @@
                                         <input type="hidden" name="redirect_url" value="{{ url()->current() }}">
 										<button type="submit" class="btn btn-danger btn-sm shadow" onclick="return confirm('Czy na pewno chcesz usunąć tego klienta?')">Usuń</button>
 									</form>
-
 								</td>
 							</tr>
 							@endforeach

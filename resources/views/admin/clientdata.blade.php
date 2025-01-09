@@ -179,7 +179,6 @@
 					<!-- Zapisz zmiany -->
 					<button type="submit" class="btn btn-primary shadow mx-5 px-3" form="saveForm"> Zapisz </button>
 					<!-- Powrót do listy -->
-                    <input type="hidden" name="redirect_url" value="{{ url()->previous() }}">
                     <a href="{{ $redirectUrl }}" class="btn btn-success shadow ml-5 px-3">Powrót</a>
                     {{-- <a href="{{ request()->get('redirect_url', route('admin.clientlist')) }}" class="btn btn-success shadow ml-5 px-3">Powrót</a> --}}
 				</div>

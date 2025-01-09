@@ -141,6 +141,7 @@ Route::middleware(['auth', Admin::class])->group(function () {
 
     Route::get('admin/tripdata/{tripId}/{dateId}', [TripDataController::class, 'edit'])->name('admin.tripdata.edit');
     Route::put('/admin/tripdata/{tripId}/{dateId}', [TripDataController::class, 'update'])->name('admin.tripdata.update');
-    Route::delete('/admin/tripdata/{id}', [TripDataController::class, 'destroy'])->name('admin.tripdata.destroy');
+    // Route::delete('/admin/tripdata/{id}', [TripDataController::class, 'destroy'])->name('admin.tripdata.destroy');
+    Route::delete('/admin/tripdata/{tripId}/{dateId}', [TripDataController::class, 'destroy'])->name('admin.tripdata.destroy');
 });
 

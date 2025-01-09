@@ -14,15 +14,15 @@
                     </h2>
 
                     <div class="menu-text d-grid d-md-block mx-auto my-5">
-                        <a href="{{ route('gallery.argentina') }}" class="btn btn-outline-dark btn-sm mx-1">Argentyna</a>
-                        <a href="{{ route('gallery.bolivia') }}" class="btn btn-outline-dark btn-sm mx-1">Boliwia</a>
-                        <a href="{{ route('gallery.chile') }}" class="btn btn-outline-dark btn-sm mx-1">Chile</a>
-                        <a href="{{ route('gallery.china') }}" class="btn btn-outline-dark btn-sm mx-1">Chiny</a>
-                        <a href="{{ route('gallery.indonesia') }}" class="btn btn-outline-dark btn-sm mx-1">Indonezja</a>
-                        <a href="{{ route('gallery.cambodia') }}" class="btn btn-outline-dark btn-sm mx-1">Kambodża</a>
-                        <a href="{{ route('gallery.peru') }}" class="btn btn-outline-dark btn-sm mx-1">Peru</a>
-                        <a href="{{ route('gallery.sri_lanka') }}" class="btn btn-outline-dark btn-sm mx-1">Sri Lanka</a>
-                        <a href="{{ route('gallery.tibet') }}" class="btn btn-outline-dark btn-sm mx-1">Tybet</a>
+                        <a href="{{ route('gallery.argentina') }}" class="btn btn-outline-dark shadow btn-sm mx-1">Argentyna</a>
+                        <a href="{{ route('gallery.bolivia') }}" class="btn btn-outline-dark shadow btn-sm mx-1">Boliwia</a>
+                        <a href="{{ route('gallery.chile') }}" class="btn btn-outline-dark shadow btn-sm mx-1">Chile</a>
+                        <a href="{{ route('gallery.china') }}" class="btn btn-outline-dark shadow btn-sm mx-1">Chiny</a>
+                        <a href="{{ route('gallery.indonesia') }}" class="btn btn-outline-dark shadow btn-sm mx-1">Indonezja</a>
+                        <a href="{{ route('gallery.cambodia') }}" class="btn btn-outline-dark shadow btn-sm mx-1">Kambodża</a>
+                        <a href="{{ route('gallery.peru') }}" class="btn btn-outline-dark shadow btn-sm mx-1">Peru</a>
+                        <a href="{{ route('gallery.sri_lanka') }}" class="btn btn-outline-dark shadow btn-sm mx-1">Sri Lanka</a>
+                        <a href="{{ route('gallery.tibet') }}" class="btn btn-outline-dark shadow btn-sm mx-1">Tybet</a>
                     </div>
                     @yield('gallery-header')
                 </div>

@@ -118,11 +118,17 @@
                                         <a href="{{ route('group.show', ['trip_id' => $date->id]) }}" class="btn btn-success btn-sm shadow">&nbsp;Grupa&nbsp;</a>
 									</td>
 									<td class="text-center">
-                                        <a href="{{ route('admin.tripdata.edit', ['tripId' => $date->trip_id, 'dateId' => $date->id]) }}" class="btn btn-primary btn-sm shadow">Edycja</a>
+                                        <a href="{{ route('admin.tripdata.edit', ['tripId' => $date->trip_id, 'dateId' => $date->id, 'redirect_url' => url()->current()]) }}" class="btn btn-primary btn-sm shadow">Edycja</a>
+                                        {{-- <a href="{{ route('admin.tripdata.edit', ['tripId' => $date->trip_id, 'dateId' => $date->id]) }}" class="btn btn-primary btn-sm shadow">Edycja</a> --}}
                                     </td>
 									<td class="text-center">
-										<a href="{{ route('excursions.' . $countryMap[$date->trip->country]) }}" class="btn btn-danger btn-sm shadow">Usuń</a>
-									</td>
+                                        <form action="{{ route('admin.tripdata.destroy', ['tripId' => $date->trip->id, 'dateId' => $date->id]) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <input type="hidden" name="redirect_url" value="{{ url()->current() }}">
+                                            <button type="submit" class="btn btn-danger btn-sm shadow" onclick="return confirm('Czy na pewno chcesz usunąć tę wycieczkę?')">Usuń</button>
+                                        </form>
+                                    </td>
 									{{-- <td class="text-center"><a href="{{ route('excursions.argentina') }}" class="btn btn-primary btn-sm shadow">Program</a></td> --}}
 								</tr>
 							@endforeach

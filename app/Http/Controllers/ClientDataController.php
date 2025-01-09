@@ -39,8 +39,6 @@ class ClientDataController extends Controller
         // Przekazanie danych do widoku
         $redirectUrl = $request->query('redirect_url', route('admin.clientlist'));           //Domyślnie do 'clientlist'
         return view('admin.clientdata', compact('client', 'trips', 'selectedTripId', 'selectedDateId', 'dates', 'redirectUrl'));
-        // $redirectUrl = request()->query('redirect_url', route('admin.clientlist'));         // Domyślnie do 'clientlist'
-        // return view('admin.clientdata', compact('client', 'trips', 'selectedTripId', 'selectedDateId', 'dates'));
     }
 
     /** Aktualizuje dane klienta.
