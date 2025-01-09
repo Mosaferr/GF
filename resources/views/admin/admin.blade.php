@@ -22,28 +22,32 @@
 			</div>
 
             {{-- <hr> --}}
-            <div class="admin-container menu-text col-md-12 d-flex justify-content-center align-items-center gap-5 my-5 mt-4">
+            <div class="admin-container menu-text col-md-12 d-flex flex-wrap justify-content-center align-items-center gap-5
+            my-5 mt-4 p-3 bg-light border rounded border-secondary border-md-primary bg-md-warning">
+            {{-- <div class="admin-container menu-text col-md-12 d-flex justify-content-center align-items-center gap-5 my-5 mt-4"> --}}
                 <a href="{{ route('admin.clientlist') }}" class="btn btn-warning shadow btn-lg p-3 text-center">
                     Lista <br>klientów
                 </a>
                 <a href="{{ route('admin.triplist') }}" class="btn btn-warning shadow btn-lg p-3 text-center">
                     Lista <br>wypraw
                 </a>
-                <a href="{{ route('gallery.chile') }}" class="btn btn-warning shadow btn-lg p-3 text-center">
+                <a href="{{ route('admin.findclient') }}" class="btn btn-warning shadow btn-lg p-3 text-center">
                     Wyszukaj <br>klienta
                 </a>
-                <a href="{{ route('gallery.china') }}" class="btn btn-warning shadow btn-lg p-3 text-center">
+                <a href="{{ route('admin.findtrip') }}" class="btn btn-warning shadow btn-lg p-3 text-center">
                     Wyszukaj <br>wyprawę
                 </a>
                 <div class="d-grid text-center gap-2">
                     <div class="d-flex align-items-center">
-                        <a href="{{ route('admin.adddata.create', ['redirect_url' => url()->current()]) }}" class="btn btn-outline-dark shadow d-flex align-items-center justify-content-between px-2 py-0 rounded">
+                        <a href="{{ route('admin.adddata.create', ['redirect_url' => url()->current()]) }}" class="btn btn-outline-dark shadow
+                        d-flex align-items-center justify-content-between px-2 py-0 rounded">
                             <span class="ms-3 me-2">Dodaj klienta</span>
                             <i class="bi bi-plus-square-fill text-info fs-3"></i>
                         </a>
                     </div>
                     <div class="d-flex align-items-center">
-                        <a href="{{ route('admin.addtrip.create', ['redirect_url' => url()->current()]) }}" class="btn btn-outline-dark shadow d-flex align-items-center justify-content-between px-2 py-0 rounded">
+                        <a href="{{ route('admin.addtrip.create', ['redirect_url' => url()->current()]) }}" class="btn btn-outline-dark shadow
+                        d-flex align-items-center justify-content-between px-2 py-0 rounded">
                             <span class="me-2">Dodaj wyprawę</span>
                             <i class="bi bi-plus-square-fill text-info fs-3"></i>
                         </a>
@@ -96,25 +100,31 @@
                                 <td>
                                     {{ $date->available_seats == 0 ? 'Brak wolnych miejsc' :
                                     ($date->available_seats == 1 ? '1 wolne miejsce' :
-                                    ($date->available_seats > 1 && $date->available_seats < 5 ? $date->available_seats . ' wolne miejsca' : $date->available_seats . ' wolnych miejsc'))
+                                    ($date->available_seats > 1 && $date->available_seats < 5 ? $date->available_seats .
+                                    ' wolne miejsca' : $date->available_seats . ' wolnych miejsc'))
                                 }}
                                 </td>
                                 <td class="text-center">
                                     <a href="{{ route('group.show', ['trip_id' => $date->id]) }}" class="btn btn-success btn-sm shadow">&nbsp;Grupa&nbsp;</a>
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ route('admin.tripdata.edit', ['tripId' => $date->trip_id, 'dateId' => $date->id, 'redirect_url' => url()->current()]) }}" class="btn btn-primary btn-sm shadow">Edycja</a>
-                                    {{-- <a href="{{ route('admin.tripdata.edit', ['tripId' => $date->trip_id, 'dateId' => $date->id]) }}" class="btn btn-primary btn-sm shadow">Edycja</a> --}}
+                                    <a href="{{ route('admin.tripdata.edit', ['tripId' => $date->trip_id, 'dateId' => $date->id,
+                                    'redirect_url' => url()->current()]) }}" class="btn btn-primary btn-sm shadow">Edycja</a>
+                                    {{-- <a href="{{ route('admin.tripdata.edit', ['tripId' => $date->trip_id, 'dateId' => $date->id]) }}"
+                                    class="btn btn-primary btn-sm shadow">Edycja</a> --}}
                                 </td>
                                 <td class="text-center">
                                     <form action="{{ route('admin.tripdata.destroy', ['tripId' => $date->trip->id, 'dateId' => $date->id]) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <input type="hidden" name="redirect_url" value="{{ url()->current() }}">
-                                        <button type="submit" class="btn btn-danger btn-sm shadow" onclick="return confirm('Czy na pewno chcesz usunąć tę wycieczkę?')">Usuń</button>
+                                        <button type="submit" class="btn btn-danger btn-sm shadow" onclick="return confirm
+                                        ('Czy na pewno chcesz usunąć tę wycieczkę?')">Usuń</button>
                                     </form>
                                 </td>
-                                {{-- <td class="text-center"><a href="{{ route('excursions.argentina') }}" class="btn btn-primary btn-sm shadow">Program</a></td> --}}
+                                {{-- <td class="text-center"><a href="{{ route('excursions.argentina') }}" class="btn btn-primary btn-sm shadow">
+                                    Program
+                                </a></td> --}}
                             </tr>
                         @endforeach
                     </tbody>

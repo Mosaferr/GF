@@ -130,7 +130,7 @@
 				<div class="row mb-2">
 
 					<div class="col-md-4">
-						<label for="trip" class="form-label">Wyprawa</label>
+						<label for="trip" class="form-label">Destynacja</label>
 						<select class="form-select" id="trip" name="trip" required>
 							<option value="" disabled>Wybierz...</option>
 							@foreach($trips as $trip)

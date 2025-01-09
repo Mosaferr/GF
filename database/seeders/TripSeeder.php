@@ -31,6 +31,7 @@ class TripSeeder extends Seeder
                 'destination' => 'Kambodża',
                 'flag' => '<img src="/img/flags/f_cam.png" width="auto" height="25" class="me-1 my-1 shadow" alt="Flag of Cambodia">',
                 'trip_name' => 'Królestwo w dżungli',
+                // 'country' => 'Kambodża, Tajlandia'
                 'country' => 'Kambodża'
             ],
             [

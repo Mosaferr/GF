@@ -121,11 +121,11 @@
 						<x-input-error :messages="$errors->get('citizenship_id')" class="mt-2 red-text" />
 					</div>
 				</div>
-				<h5 class="mt-3">Wyprawa</h5>
-				<div class="row mb-2">
 
+                <h5 class="mt-3">Wyprawa</h5>
+				<div class="row mb-2">
 					<div class="col-md-4">
-						<label for="trip" class="form-label">Wyprawa</label>
+						<label for="trip" class="form-label">Destynacja</label>
 						<select class="form-select" id="trip" name="trip" required>
 							<option value="" disabled selected>Wybierz...</option>
 							@foreach($trips as $trip)

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;     // Importowanie kontrolera
+use App\Http\Controllers\HomeController;                // Importowanie kontrolera
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ExcursionsController;
 use App\Http\Controllers\DatesController;
@@ -20,13 +20,15 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClientListController;
 use App\Http\Controllers\ClientDataController;
 use App\Http\Controllers\AddDataController;
-use App\Http\Controllers\AddtripController;
+use App\Http\Controllers\FindClientController;
+use App\Http\Controllers\AddTripController;
 use App\Http\Controllers\TripListController;
+use App\Http\Controllers\TripDataController;
+use App\Http\Controllers\FindTripController;
 use App\Http\Middleware\Manager;
 use App\Http\Middleware\Admin;
 use App\Http\Middleware\Normal;
 use App\Http\Controllers\GroupController;
-use App\Http\Controllers\TripDataController;
 
 // Główna strona
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -87,7 +89,7 @@ require __DIR__.'/auth.php';
 //Nowe routingi
 Route::get('/trips', [TripsController::class, 'getAllTrips']);
 Route::get('/dates/by-trip/{trip_id}', [DatesController::class, 'getDatesByTripId']);
-Route::post('/register', [RegisteredUserController::class, 'store'])->name('register'); // Dodanie trasy
+Route::post('/register', [RegisteredUserController::class, 'store'])->name('register');         // Dodanie trasy
 
 // Service          -Trasy dla dostępności usług (Serwis usera)
 Route::get('/service/available', function () {
@@ -120,25 +122,25 @@ Route::middleware(['auth'])->group(function () {
 // Admin
 Route::middleware(['auth', Admin::class])->group(function () {
     // Route::get('/admin/admin', [AdminController::class, 'index'])->name('admin.admin');
-    Route::get('/admin/clientlist', [ClientListController::class, 'index'])->name('admin.clientlist');          // Wyświetlenie listy i redirect po usunięciu klienta
+    Route::get('/admin/clientlist', [ClientListController::class, 'index'])->name('admin.clientlist');      // Wyświetlenie listy i redirect po usunięciu klienta
     Route::get('/admin/clientdata/edit/{id}', [ClientDataController::class, 'edit'])->name('admin.clientdata.edit');
     Route::get('/admin/clientdata/show/{id}', [ClientDataController::class, 'show'])->name('admin.clientdata.show');
 
     // Trasy z clientdata
     // Route::get('/ ', [ClientDataController::class, 'index'])->name('admin.clientdata.index');                                    // Powrót do listy --?-- SPR CO TO
-    Route::put('/admin/clientdata/{id}', [ClientDataController::class, 'update'])->name('admin.clientdata.update');     // Aktualizacja
+    Route::put('/admin/clientdata/{id}', [ClientDataController::class, 'update'])->name('admin.clientdata.update'); // Aktualizacja
     Route::delete('/admin/clientdata/{id}', [ClientDataController::class, 'destroy'])->name('admin.clientdata.destroy');
     // Route::get('/admin/clientlist', [ClientListController::class, 'index'])->name('admin.clientlist');                           // Usunięcie klienta
 
     // Nowy klient
-    Route::get('/admin/adddata', [AddDataController::class, 'create'])->name('admin.adddata.create');           // Wyświetlenie formularza rejestracji klienta
-    Route::post('/admin/adddata/store', [AddDataController::class, 'store'])->name('admin.adddata.store');      // Zapisanie nowego klienta
+    Route::get('/admin/adddata', [AddDataController::class, 'create'])->name('admin.adddata.create');       // Wyświetlenie formularza rejestracji klienta
+    Route::post('/admin/adddata/store', [AddDataController::class, 'store'])->name('admin.adddata.store');  // Zapisanie nowego klienta
 
     // Lista tras
-    Route::get('/admin/triplist', [TripListController::class, 'index'])->name('admin.triplist');                // Wyświetlenie listy wycieczek
-    Route::get('/group/{trip_id}', [GroupController::class, 'showGroup'])->name('group.show');                  // Wyświetlenie grupy
+    Route::get('/admin/triplist', [TripListController::class, 'index'])->name('admin.triplist');            // Wyświetlenie listy wycieczek
+    Route::get('/group/{trip_id}', [GroupController::class, 'showGroup'])->name('group.show');              // Wyświetlenie grupy
 
-    Route::get('/ ', [TripDataController::class, 'index'])->name('admin.tripdata.index');                       // SPR CO TO
+    Route::get('/ ', [TripDataController::class, 'index'])->name('admin.tripdata.index');                   // SPR CO TO
 
     // Trasy z tripdata
     Route::get('admin/tripdata/{tripId}/{dateId}', [TripDataController::class, 'edit'])->name('admin.tripdata.edit');
@@ -147,9 +149,13 @@ Route::middleware(['auth', Admin::class])->group(function () {
     Route::delete('/admin/tripdata/{tripId}/{dateId}', [TripDataController::class, 'destroy'])->name('admin.tripdata.destroy');
 
     // Nowa wyprawa
-    Route::get('/admin/addtrip', [AddTripController::class, 'create'])->name('admin.addtrip.create');           // Wyświetlenie formularza
-    Route::post('/admin/addtrip/store', [AddTripController::class, 'store'])->name('admin.addtrip.store');      // Zapis danych
+    Route::get('/admin/addtrip', [AddTripController::class, 'create'])->name('admin.addtrip.create');       // Wyświetlenie formularza
+    Route::post('/admin/addtrip/store', [AddTripController::class, 'store'])->name('admin.addtrip.store');  // Zapis danych
 
+    // Znajdź wyprawę
+    Route::get('/admin/findtrip', [FindTripController::class, 'index'])->name('admin.findtrip');           // Wyświetlenie formularza i szukanych danych
 
+    // Znajdź wyprawę
+    Route::get('/admin/findclient', [FindClientController::class, 'index'])->name('admin.findclient');     // Wyświetlenie formularza i szukanych danych
 });
 

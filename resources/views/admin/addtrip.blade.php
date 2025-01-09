@@ -55,7 +55,7 @@
                     </div>
                     <div class="col-md-3">
                         <label for="price" class="form-label">Cena w PLN</label>
-                        <input type="number" class="form-control text-center" id="price" name="price" required min="0">
+                        <input type="number" class="form-control text-center" id="price" name="price" required min="0" step="100">
                     </div>
                 </div>
 

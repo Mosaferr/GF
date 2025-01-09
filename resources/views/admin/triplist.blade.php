@@ -17,12 +17,14 @@
 	<main class="custom-margin-top">
 		<div class="container" style="max-width: 1300px;">
 
-            <div class="lista-container menu-text col-md-12 text-center">
-                <div class="d-grid d-md-block mx-auto my-2">
+            <div class="d-flex flex-wrap justify-content-center gap-3 p-3 bg-light border rounded border-secondary border-md-primary bg-md-warning">
+                {{-- <div class="lista-container menu-text col-md-12 text-center"> --}}
+                    <div class="d-flex flex-wrap justify-content-center gap-3 mx-auto my-2">
+                    {{-- <div class="d-grid d-md-block mx-auto my-2"> --}}
                     <a href="{{ route('admin.clientlist') }}" class="btn btn-warning shadow mx-4">Lista <br>klientów</a>
                     <a href="{{ route('admin.triplist') }}" class="btn btn-warning shadow mx-4">Lista <br>wypraw</a>
-                    <a href="{{ route('gallery.chile') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>klientów</a>
-                    <a href="{{ route('gallery.china') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>wyprawę</a>
+                    <a href="{{ route('admin.findclient') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>klienta</a>
+                    <a href="{{ route('admin.findtrip') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>wyprawę</a>
                 </div>
             </div>
 
