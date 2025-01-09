@@ -1,13 +1,13 @@
-<!-- resources/views/admin/admin.blade.php -->
+<!-- resources/views/admin/manager.blade.php -->
 @extends('layouts.app')
 
-@section('title', 'Panel administratora')
+@section('title', 'Panel managera')
 
 @section('content')
 	<main class="custom-margin-top">
 		<div class="container my-5" style="max-width: 1000px;">
 			<div class="col-md-12 text-center pb-1 mt-3">
-				<h2>Panel administratora</h2>
+				<h2>Panel managera</h2>
 			</div>
 			<hr>
 		</div>

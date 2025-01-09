@@ -10,7 +10,8 @@ class ClientRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
+        // return false;    // metoda authorize() decyduje, czy użytkownik ma prawo wykonywać zapytanie. Jeśli zwraca false, blokuje każde zapytanie i powoduje błąd 403.
     }
 
     /** Get the validation rules that apply to the request.

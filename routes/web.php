@@ -21,6 +21,9 @@ use App\Http\Controllers\ClientListController;
 use App\Http\Controllers\ClientDataController;
 use App\Http\Controllers\AddDataController;
 use App\Http\Controllers\TripListController;
+use App\Http\Middleware\Manager;
+use App\Http\Middleware\Admin;
+use App\Http\Middleware\Normal;
 
 // Główna strona
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -62,7 +65,13 @@ Route::post('/contact', [EmailController::class, 'sendEmail'])->name('contact.se
 // Logowanie
 Route::get('/dashboard', function () {
     return view('dashboard');
-    })->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', Normal::class])->name('dashboard');
+Route::get('/admin/manager', function () {
+    return view('admin.manager');
+})->middleware(['auth', 'verified', Manager::class])->name('manager');
+Route::get('/admin/admin', [AdminController::class, 'index'])
+    ->middleware(['auth', 'verified', Admin::class])
+    ->name('admin');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -77,50 +86,50 @@ Route::get('/trips', [TripsController::class, 'getAllTrips']);
 Route::get('/dates/by-trip/{trip_id}', [DatesController::class, 'getDatesByTripId']);
 Route::post('/register', [RegisteredUserController::class, 'store'])->name('register'); // Dodanie trasy
 
-// Trasy dla dostępności usług
+// Service          -Trasy dla dostępności usług (Serwis usera)
 Route::get('/service/available', function () {
     return view('service.available');
     })->middleware(['auth', 'verified'])->name('service.available');
 
 Route::get('/service/unavailable', function () {
     return view('service.unavailable');
-})->name('service.unavailable');
+    })->name('service.unavailable');
 
-Route::get('/service/detailed_info', [DetailedInfoController::class, 'show'])->name('service.detailed_info');
-Route::post('/service/detailed_info', [DetailedInfoController::class, 'store'])->name('client.store');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/service/detailed_info', [DetailedInfoController::class, 'show'])->name('service.detailed_info');
+    Route::post('/service/detailed_info', [DetailedInfoController::class, 'store'])->name('client.store');
 
-// Trasy dla płatności
-Route::get('/service/payment', [PaymentController::class, 'show'])->name('service.payment');
-Route::post('/service/payment/checkout', [PaymentController::class, 'checkout'])->name('service.payment.checkout');
-Route::get('/service/payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
-Route::get('/service/payment/cancel', [PaymentController::class, 'paymentCancel'])->name('payment.cancel');
-Route::get('/service/payment/failed', [PaymentController::class, 'paymentFailed'])->name('payment.failed');
+    Route::get('/service/payment', [PaymentController::class, 'show'])->name('service.payment');
+    Route::post('/service/payment/checkout', [PaymentController::class, 'checkout'])->name('service.payment.checkout');
+    Route::get('/service/payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
+    Route::get('/service/payment/cancel', [PaymentController::class, 'paymentCancel'])->name('payment.cancel');
+    Route::get('/service/payment/failed', [PaymentController::class, 'paymentFailed'])->name('payment.failed');
 
-Route::get('/service/payment2', [Payment2Controller::class, 'show'])->name('service.payment2');
-Route::post('/service/payment2/checkout', [Payment2Controller::class, 'checkout'])->name('service.payment2.checkout');
-Route::get('/service/payment2/success', [Payment2Controller::class, 'paymentSuccess'])->name('payment2.success');
-Route::get('/service/payment2/cancel', [Payment2Controller::class, 'paymentCancel'])->name('payment2.cancel');
-Route::get('/service/payment2/failed', [Payment2Controller::class, 'paymentFailed'])->name('payment2.failed');
+    Route::get('/service/payment2', [Payment2Controller::class, 'show'])->name('service.payment2');
+    Route::post('/service/payment2/checkout', [Payment2Controller::class, 'checkout'])->name('service.payment2.checkout');
+    Route::get('/service/payment2/success', [Payment2Controller::class, 'paymentSuccess'])->name('payment2.success');
+    Route::get('/service/payment2/cancel', [Payment2Controller::class, 'paymentCancel'])->name('payment2.cancel');
+    Route::get('/service/payment2/failed', [Payment2Controller::class, 'paymentFailed'])->name('payment2.failed');
 
-Route::get('/service/final', [FinalController::class, 'show'])->name('service.final');
+    Route::get('/service/final', [FinalController::class, 'show'])->name('service.final');
+});
 
 // Admin
-Route::get('/admin/admin', [AdminController::class, 'index'])->name('admin.admin');
-Route::get('/admin/clientlist', [ClientListController::class, 'index'])->name('admin.clientlist');                  // Wyświetlenie listy i redirect po usunięciu klienta
-Route::get('/admin/clientdata/edit/{id}', [ClientDataController::class, 'edit'])->name('admin.clientdata.edit');
+Route::middleware(['auth', Admin::class])->group(function () {
+    // Route::get('/admin/admin', [AdminController::class, 'index'])->name('admin.admin');
+    Route::get('/admin/clientlist', [ClientListController::class, 'index'])->name('admin.clientlist');                  // Wyświetlenie listy i redirect po usunięciu klienta
+    Route::get('/admin/clientdata/edit/{id}', [ClientDataController::class, 'edit'])->name('admin.clientdata.edit');
 
-// Trasy z clientdata
-Route::get('/admin/clientdata', [ClientDataController::class, 'index'])->name('admin.clientdata.index');                // Powrót do listy --?-- SPR CO TO
-Route::put('/admin/clientdata/{id}', [ClientDataController::class, 'update'])->name('admin.clientdata.update');         // Aktualizacja
-Route::delete('/admin/clientdata/{id}', [ClientDataController::class, 'destroy'])->name('admin.clientdata.destroy');
-// Route::get('/admin/clientlist', [ClientListController::class, 'index'])->name('admin.clientlist');                    // Usunięcie klienta
+    // Trasy z clientdata
+    Route::get('/ ', [ClientDataController::class, 'index'])->name('admin.clientdata.index');                // Powrót do listy --?-- SPR CO TO
+    Route::put('/admin/clientdata/{id}', [ClientDataController::class, 'update'])->name('admin.clientdata.update');         // Aktualizacja
+    Route::delete('/admin/clientdata/{id}', [ClientDataController::class, 'destroy'])->name('admin.clientdata.destroy');
+    // Route::get('/admin/clientlist', [ClientListController::class, 'index'])->name('admin.clientlist');                    // Usunięcie klienta
 
-// Nowy klient
-Route::get('/admin/adddata', [AddDataController::class, 'create'])->name('admin.adddata.create');                       // Wyświetlenie formularza rejestracji klienta
-Route::post('/admin/adddata', [AddDataController::class, 'store'])->name('admin.adddata.store');                        // Zapisanie nowego klienta
+    // Nowy klient
+    Route::get('/admin/adddata', [AddDataController::class, 'create'])->name('admin.adddata.create');       // Wyświetlenie formularza rejestracji klienta
+    Route::post('/admin/adddata', [AddDataController::class, 'store'])->name('admin.adddata.store');         // Zapisanie nowego klienta
 
-
-
-
-Route::get('/admin/triplist', [TripListController::class, 'index'])->name('admin.triplist');
-
+    // Lista tras
+    Route::get('/admin/triplist', [TripListController::class, 'index'])->name('admin.triplist');
+});
