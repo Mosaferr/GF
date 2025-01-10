@@ -1,5 +1,4 @@
 <!-- resources/views/contact.blade.php -->
-
 @extends('layouts.app')
 
 @section('title', 'Kontakt')
@@ -46,7 +45,6 @@
 									<textarea class="form-control" name="message" id="message" rows="5" placeholder=" " required></textarea>
 									<label for="message" class="floating-label">Wiadomość:</label>
 								</div>
-								{{-- <button type="submit" class="btn btn-warning">Wyślij</button> --}}
                                 <button type="submit" class="btn btn-warning shadow w-100" id="submitButton">Wyślij</button>
                                 <button class="btn btn-warning shadow w-100" id="loadingButton" style="display: none;" disabled>
                                     Wysyłanie..<span class="spinner-border spinner-border-sm ms-3"></span>

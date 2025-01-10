@@ -8,7 +8,7 @@
             <form id="saveForm" method="POST" action="{{ route('admin.addtrip.store') }}">
                 @csrf
                 <input type="hidden" name="redirect_url" value="{{ request('redirect_url', route('admin.triplist')) }}">
-                {{-- <input type="hidden" name="redirect_url" value="{{ url()->previous() }}"> --}}
+                {{-- <input type="hidden" name="redirect_url" value="{{ url()->previous() }}">    zapamiętanie poprzedniej strony   --}}
                 <h3 class="mb-0 ms-2">
                     <span id="header-destination">Nowa wyprawa</span>
                     <span class="float-end fs-5 mt-2" id="header-dates"></span>
@@ -23,10 +23,6 @@
                 @endif
 
                 <div class="row mb-2">
-                    {{-- <div class="col-auto">
-                        <label for="id" class="form-label">ID</label>
-                        <input type="text" class="form-control" id="id" name="id" value="{{ $nextId }}" readonly>
-                    </div> --}}
                     <div class="col-md-6">
                         <label for="destination" class="form-label">Destynacja</label>
                         <select class="form-select" id="destination" name="destination" required>

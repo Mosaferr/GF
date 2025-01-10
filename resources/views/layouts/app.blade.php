@@ -11,7 +11,6 @@
 
     @yield('head-scripts')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    {{-- @vite(['resources/css/app.css']) --}}
 </head>
 
 <body id="top">
@@ -21,7 +20,6 @@
     </div>
     @include('components.footer')
 
-    {{-- @vite(['resources/js/app.js']) --}}
     @yield('scripts')
 </body>
 </html>

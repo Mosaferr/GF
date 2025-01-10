@@ -11,10 +11,8 @@
                     <a href="{{ route('admin') }}" class="btn btn-warning shadow mx-4">Panel <br>admina</a>
                     <a href="{{ route('admin.clientlist') }}" class="btn btn-warning shadow mx-4">Lista <br>klientów</a>
                     <a href="{{ route('admin.triplist') }}" class="btn btn-warning shadow mx-4">Lista <br>wypraw</a>
-                    {{-- <a href="{{ route('admin.findclient') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>klienta</a> --}}
                     <a href="{{ route('admin.findclient', ['redirect_url' => url()->current()]) }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>klienta</a>
                     <a href="{{ route('admin.findtrip', ['redirect_url' => url()->current()]) }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>wyprawę</a>
-                    {{-- <a href="{{ route('admin.findtrip') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>wyprawę</a> --}}
                 </div>
             </div>
 
@@ -59,7 +57,6 @@
 										'birth_date' => 'Data urodzenia',
 										'phone' => 'Telefon',
 										'email' => 'Email',
-										// 'city_name' => 'Adres',
 										'stage' => 'Status',
 										'expiry_date' => 'Ważność paszportu',
 									];
@@ -90,7 +87,6 @@
 								<td class="text-center">{{ \Carbon\Carbon::parse($client->birth_date)->format('d.m.Y') }}</td>
 								<td>{{ $client->phone }}</td>
 								<td>{{ $client->email }}</td>
-                                {{--!ZAKOMENTOWANE <td>{{ $client->address->city->city_name ?? 'Brak danych' }}</td> --}}
                                 <td>{{ $client->stage ?? 'Brak danych' }}</td>
 								<td class="text-center">
 									{{ $client->expiry_date ? \Carbon\Carbon::parse($client->expiry_date)->format('d.m.Y') : 'Brak danych' }}
@@ -98,7 +94,6 @@
 
                                 <!-- Przyciski -->
                                 <td class="text-center">
-                                    {{-- !ZAKOMENTOWANE <a href="{{ route('admin.clientdata.show', ['id' => $client->id]) }}" class="btn btn-success btn-sm shadow">Podgląd</a> --}}
                                     <a href="{{ route('admin.clientdata.edit', ['id' => $client->id, 'redirect_url' => url()->current()]) }}" class="btn btn-success btn-sm shadow">Edycja</a>
                                     <form id="deleteForm-{{ $client->id }}" method="POST" action="{{ route('admin.clientdata.destroy', ['id' => $client->id]) }}" style="display: inline-block;">
                                         @csrf

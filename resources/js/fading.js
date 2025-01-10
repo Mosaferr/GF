@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     sr.reveal('.image', {
         duration: 2000,
-        delay: 500, // Opóźnienie w milisekundach. XXXXXXXXXXXXXXXXXXXXX Dodac gdzie trzeba jeśli trzeba
+        delay: 500, // Opóźnienie w milisekundach. XXXXXXX Dodac gdzie trzeba jeśli trzeba
         beforeReveal: function (el) {
             el.classList.remove('hidden');
         }

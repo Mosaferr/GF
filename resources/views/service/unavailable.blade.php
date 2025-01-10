@@ -66,9 +66,9 @@
 						</div>
 						<div class="card-body">
 							<h5 class="card-title shadow accordion bg-success-subtle rounded p-2">Peru i Boliwia</h5>
-							<p class="card-text mt-3">Lima, Cusco, La Paz. Królestwo Inków z Machu Picchu na czele. Lamy, wioski na jeziorze Titicaca...</p>
+							<p class="card-text mt-3">Lima, Cusco, La Paz. Królestwo Inków z Machu Picchu na czele. Lamy i pływające wioski na jeziorze Titicaca...</p>
 							<div class="text-center">
-								<a href="exc-peru.html" class="btn btn-success shadow"><small>Zobacz program</small></a>
+                                <a href="{{ route('excursions.peru') }}" class="btn btn-success shadow"><small>Zobacz program</small></a>
 							</div>
 						</div>
 					</div>
@@ -81,9 +81,9 @@
 						</div>
 						<div class="card-body">
 							<h5 class="card-title shadow bg-success-subtle rounded p-2">Tybet, w Chinach</h5>
-							<p class="card-text mt-3">Święta Lhasa, odległe klasztory, spotkania z michami, wycieczka pod Mout Everest...</p>
+							<p class="card-text mt-3">Święta Lhasa, odległe klasztory, spotkania z michami i wycieczka w Himalaje, pod Mout Everest...</p>
 							<div class="text-center">
-								<a href="exc-tibet.html" class="btn btn-success shadow"><small>Zobacz program</small></a>
+                                <a href="{{ route('excursions.tibet') }}" class="btn btn-success shadow"><small>Zobacz program</small></a>
 							</div>
 						</div>
 					</div>
@@ -98,7 +98,7 @@
 							<h5 class="card-title shadow bg-success-subtle rounded p-2">Kambodża</h5>
 							<p class="card-text mt-3">Angkor Wat i starożytne świątynie. Czerwoni Khmerzy i dzisiejsze królestwo. I relaks nad oceanem...</p>
 							<div class="text-center">
-								<a href="exc-cambodia.html" class="btn btn-success shadow"><small>Zobacz program</small></a>
+                                <a href="{{ route('excursions.cambodia') }}" class="btn btn-success shadow"><small>Zobacz program</small></a>
 							</div>
 						</div>
 					</div>
@@ -107,7 +107,7 @@
 			</div>
 
 				<div class="d-flex justify-content-center">
-					<a href="excursions.html" class="btn btn-warning w-100 mx-5 shadow">Poznaj więcej naszych wypraw</a>
+                    <a href="{{ route('excursions') }}" class="btn btn-warning w-100 shadow">Poznaj więcej naszych wypraw</a>
 				</div>
 
 			</div>

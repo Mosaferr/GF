@@ -69,7 +69,6 @@
                             Dalej
                         </button></a>
                         <button class="btn btn-lg btn-warning shadow" id="loadingButton" style="display: none;" disabled>
-                            {{-- <span class="spinner-border spinner-border"></span> --}}
                             Dalej... <span class="spinner-border spinner-border-sm ms-3"></span>
                         </button>
 					</div>

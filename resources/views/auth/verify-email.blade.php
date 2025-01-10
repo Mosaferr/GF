@@ -17,7 +17,7 @@
                 <div class="col-md-12 text-center">
                     <div class="login-image shadow position-relative mx-md-4">
                         <img src="{{ asset('img/main/login.jpg') }}" alt="Chinese youth with cell phones" class="img-fluid">
-                        
+
                         <div class="login-form-box">
                             <!-- Session Status -->
                             @if (session('status') == 'verification-link-sent')
@@ -28,7 +28,8 @@
 
                             <div class="d-flex justify-content-between align-items-center mt-3">
                                 <div class="boldANDwhite d-flex align-items-center">
-                                    <label for="remember_me" class="ms-2">{{ __('Dziękujemy za rejestrację! Zanim zaczniemy, prosimy o potwierdzenie adresu email, klikając w link, który właśnie do Ciebie wysłaliśmy. Jeśli wiadomość nie dotarła, wyślemy ją ponownie.') }}</label>
+                                    <label for="remember_me" class="ms-2">{{ __('Dziękujemy za rejestrację! Zanim zaczniemy, prosimy o potwierdzenie adresu email.
+                                    Otwórz swoją pocztę i kliknij w link, który właśnie do Ciebie wysłaliśmy. Jeśli wiadomość nie dotarła, wyślemy ją ponownie.') }}</label>
                                 </div>
                             </div>
 
@@ -48,7 +49,7 @@
                                 </form>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>

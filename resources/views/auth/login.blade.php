@@ -55,7 +55,6 @@
                                     </div>
                                 </div>
 
-                                {{-- <button type="submit" class="btn btn-warning mt-2">Zaloguj się</button> --}}
                                 <button type="submit" class="btn btn-warning shadow w-100 mt-2" id="submitButton">Zaloguj się</button>
                                 <button class="btn btn-warning shadow w-100 mt-2" id="loadingButton" style="display: none;" disabled>
                                     Przetwarzanie..<span class="spinner-border spinner-border-sm ms-3"></span>

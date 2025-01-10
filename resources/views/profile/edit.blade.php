@@ -3,7 +3,6 @@
 @section('title', 'Profil')
 @section('head-scripts')
     @vite('resources/css/style.css')
-    {{-- @vite('resources/css/hide.css') --}}
 @endsection
 
 @section('content')

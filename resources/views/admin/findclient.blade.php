@@ -121,7 +121,6 @@
                     </button>
                     <button type="submit" class="btn btn-primary shadow mx-4 px-3">Szukaj</button>
                     <a href="{{ request()->input('redirect_url', route('admin.clientlist')) }}" class="btn btn-success shadow ml-5 px-3">Powrót</a>
-                    {{-- <a href="{{ route('admin.clientlist') }}" class="btn btn-success shadow ml-5 px-3">Powrót</a> --}}
                 </div>
             </div>
         </form>

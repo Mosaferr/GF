@@ -56,9 +56,6 @@
 						<a href="{{ asset('img/trip/' . $image) }}" data-toggle="lightbox">
 							<img src="{{ asset('img/trip/' . $smallImage) }}" alt="sm-{{ pathinfo($image, PATHINFO_FILENAME) }}" class="img-thumbnail">
 						</a>
-						{{-- <a href="{{ asset('img/trip/arg1.jpg') }}" data-toggle="lightbox">
-							<img src="{{ asset('img/trip/sm-arg1.jpg') }}" alt="sm-argentina1" class="img-thumbnail">
-						</a> --}}
 					</div>
 				</div>
 

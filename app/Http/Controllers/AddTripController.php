@@ -3,7 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Trip;
 use App\Models\Date;
-use Illuminate\Http\Request;
+use App\Http\Requests\TripRequest;        //reguły walidacji
 
 class AddTripController extends Controller
 {
@@ -19,15 +19,9 @@ class AddTripController extends Controller
     /**
      * Zapisanie nowej wyprawy.
      */
-    public function store(Request $request)
+    public function store(TripRequest $request)
     {
-        $request->validate([
-            'destination' => 'required|exists:trips,id',
-            'start_date' => 'required|date|after_or_equal:today',
-            'end_date' => 'required|date|after:start_date',
-            'price' => 'required|numeric|min:0',
-            'total_seats' => 'required|integer|min:1',
-        ]);
+        $validated = $request->validated();         // Walidacja danych - można usunąć, bo nie jest wykorzystywana
 
         $trip = Trip::findOrFail($request->destination);
 

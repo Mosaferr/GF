@@ -14,14 +14,6 @@
         <!-- Lista klientów z checkboxami -->
         <div class="mt-4">
             <table class="table table-bordered">
-                {{-- <thead>
-                    <tr>
-                        <th></th>
-                        <th>Imię</th>
-                        <th>Nazwisko</th>
-                        <th>Data urodzenia</th>
-                    </tr>
-                </thead> --}}
                 <tbody>
                     @forelse($clients as $client)
                         <tr>
@@ -30,7 +22,6 @@
                             </td>
                             <td>{{ $client->name }}</td>
                             <td>{{ $client->last_name }}</td>
-                            {{-- <td class="text-center">{{ \Carbon\Carbon::parse($client->birth_date)->format('d.m.Y') }}</td> --}}
                         </tr>
                     @empty
                         <tr>
@@ -53,7 +44,6 @@
         {{-- Przyciski --}}
         <div class="mt-4 d-flex justify-content-end">
             <button type="reset" class="btn btn-secondary me-4 shadow">Anuluj</button>
-            {{-- <button type="submit" class="btn btn-danger me-2 px-3 shadow">Usuń</button> --}}
             <button type="submit" class="submit-button btn btn-danger me-2 px-3 shadow">Usuń</button>
             <button class="loading-button btn btn-danger me-2 px-3 shadow" style="display: none;" disabled>
                 Usuwanie...<span class="spinner-border spinner-border-sm ms-3"></span>

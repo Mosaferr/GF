@@ -31,7 +31,6 @@
         {{-- Przyciski --}}
         <div class="mt-4 d-flex justify-content-end">
             <button type="reset" class="btn btn-secondary me-4 shadow">Anuluj</button>
-            {{-- <button type="submit" class="btn btn-success me-2 shadow">Zapisz</button> --}}
             <button type="submit" class="submit-button btn btn-success me-2 shadow">Zapisz</button>
             <button class="loading-button btn btn-success me-2 shadow" style="display: none;" disabled>
                 Zapis...<span class="spinner-border spinner-border-sm ms-3"></span>

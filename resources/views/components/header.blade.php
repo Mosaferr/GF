@@ -63,10 +63,6 @@
             </ul>
 
             @include('components.auth_dropdown')        <!-- Włączenie komponentu logowania (?) i dropdown dla użytkownika -->
-
-            {{-- <a class="nav-link me-5 " href="{{ route('login') }}">
-                <i class="bi bi-box-arrow-in-right fs-3"></i>
-            </a> --}}
         </div>
     </nav>
 </header>

@@ -1,5 +1,4 @@
 <!-- resources/views/terms.blade.php -->
-
 @php
     $countryMap = [
         'Argentyna, Chile' => 'argentina',
@@ -57,7 +56,6 @@
 									<td class="text-center">
 										<a href="{{ route('excursions.' . $countryMap[$date->trip->country]) }}" class="btn btn-primary btn-sm shadow">Program</a>
 									</td>
-									{{-- <td class="text-center"><a href="{{ route('excursions.argentina') }}" class="btn btn-primary btn-sm shadow">Program</a></td> --}}
 								</tr>
 							@endforeach
 						</tbody>

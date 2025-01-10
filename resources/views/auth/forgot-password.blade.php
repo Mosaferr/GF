@@ -11,7 +11,6 @@
         <div class="container mt-5" style="max-width: 1100px;">
             <div class="row ">
                 <div class="col-md-12 text-center pb-5 mt-3">
-                    {{-- <h2>Zapomniałem hasła</h2> --}}
                     <h2>Nie pamiętam hasła</h2>
                 </div>
 

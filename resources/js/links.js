@@ -1,6 +1,7 @@
 // Dodaj większy przesunięcie do miejsca docelowego, aby uniknąć zasłaniania przez navbar
 document.addEventListener('DOMContentLoaded', function() {
     var navbarHeight = document.querySelector('.navbar').offsetHeight;
+
     // Zwiększ offset o 50 pikseli (lub dowolną inną wartość według potrzeb)
     var offset = navbarHeight + 50;
     var links = document.querySelectorAll('.navbar a, .arrows a');

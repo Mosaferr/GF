@@ -55,7 +55,7 @@
             <h3> Twoja przygoda </h3>
             <div class="row mb-3">
                 <div class="col-md-6">
-                    <label for="trip" class="form-label">Wyprawa</label>
+                    <label for="trip" class="form-label">Wyprawa <span class="text-danger">*</span></label>
                     <select class="form-select" id="trip" name="trip" required>
                         <option value="" selected>Wybierz...</option>
                         @foreach($trips as $trip)
@@ -64,7 +64,7 @@
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <label for="start_date" class="form-label">Termin</label>
+                    <label for="start_date" class="form-label">Termin <span class="text-danger">*</span></label>
                     <select class="form-select" id="start_date" name="start_date" required>
                         <option value="" selected>Wybierz...</option>
                         <!-- Opcje będą dynamicznie ładowane przez JavaScript -->
@@ -77,19 +77,19 @@
                 <div class="participant" id="participantTemplate">
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <x-input-label for="name" :value="__('Imię')" class="form-label" />
+                            <x-input-label for="name" :value="__('Imię')" class="form-label" required />
                             <x-text-input id="name" class="form-control" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
                             <x-input-error :messages="$errors->get('name')" class="mt-2 red-text" />
                         </div>
                         <div class="col-md-6">
-                            <x-input-label for="last_name" :value="__('Nazwisko')" class="form-label" />
+                            <x-input-label for="last_name" :value="__('Nazwisko')" class="form-label" required />
                             <x-text-input id="last_name" class="form-control" type="text" name="last_name" :value="old('last_name')" required autocomplete="last_name" />
                             <x-input-error :messages="$errors->get('last_name')" class="mt-2 red-text" />
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-2">
-                            <label for="participants" class="form-label">Uczestnicy</label>
+                            <label for="participants" class="form-label">Uczestnicy <span class="text-danger">*</span></label>
                             <input type="number" class="form-control" id="participants" name="participants" value="{{ old('participants') }}" min="1" step="1" required>
                         </div>
                         <div class="col-md-4">
@@ -98,7 +98,7 @@
                             <x-input-error :messages="$errors->get('phone')" class="mt-2 red-text" />
                         </div>
                         <div class="col-md-6">
-                            <x-input-label for="email" :value="__('Adres email')" class="form-label" />
+                            <x-input-label for="email" :value="__('Adres email')" class="form-label" required />
                             <x-text-input id="email" class="form-control" type="email" name="email" :value="old('email')" required autocomplete="email" />
                             <x-input-error :messages="$errors->get('email')" class="mt-2 red-text" />
                         </div>
@@ -112,14 +112,14 @@
                     </div>
                     <div class="row mb-3 login-fields">
                         <div class="col-md-6">
-                            <x-input-label for="password" :value="__('Hasło')" class="form-label" />
+                            <x-input-label for="password" :value="__('Hasło')" class="form-label" required />
                             <div class="position-relative password-field">
                                 <x-text-input id="password" class="form-control specific-password-input" type="password" name="password" required />
                                 <i class="bi bi-eye position-absolute toggle-password specific-password-icon" id="togglePassword"></i>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <x-input-label for="password_confirmation" :value="__('Powtórz hasło')" class="form-label" />
+                            <x-input-label for="password_confirmation" :value="__('Powtórz hasło')" class="form-label" required />
                             <div class="position-relative password-field">
                                 <x-text-input id="password_confirmation" class="form-control specific-password-input" type="password" name="password_confirmation" required />
                                 <i class="bi bi-eye position-absolute toggle-password specific-password-icon" id="toggleConfirmPassword"></i>
@@ -133,7 +133,7 @@
 
             <div class="row mt-4 mb-3">
                 <div class="col-md-12">
-                    <strong>Klauzule obowiązkowe</strong><span class="text-danger">*</span>
+                    <strong>Klauzule obowiązkowe </strong><span class="text-danger">*</span>
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="mandatory_clause" name="mandatory_clause" required>
                         <label class="form-check-label" for="mandatory_clause">
@@ -155,7 +155,6 @@
 
             <div class="row">
                 <div class="col-md-12 text-center">
-                    {{-- <button type="submit" class="btn btn-warning shadow w-100">Wyślij</button> --}}
                     <button type="submit" class="btn btn-warning shadow w-100" id="submitButton">Wyślij</button>
                     <button class="btn btn-warning shadow w-100" id="loadingButton" style="display: none;" disabled>
                         Wysyłanie..<span class="spinner-border spinner-border-sm ms-3"></span>
@@ -171,6 +170,6 @@
     <script src="{{ asset('js/scrollreveal.min.js') }}"></script>
     @vite('resources/js/fading.js')
     @vite('resources/js/eye.js')
-    <script src="{{ asset('js/register.js?v=1.0') }}"></script> <!-- Dodanie nowego skryptu -->
+    <script src="{{ asset('js/register.js?v=1.0') }}"></script>
     <script src="{{ asset('js/spinner-button.js') }}"></script>
 @endsection

@@ -280,7 +280,6 @@ font-size: clamp(16px, 2.5vw, 24px);
     display: block;
     margin: -15px 0 5px 0;
     color: #fff;
-    /* font-weight: 400; */
     font-size: 1.05rem;
 }
 .boldANDyellow {
@@ -291,11 +290,9 @@ font-size: clamp(16px, 2.5vw, 24px);
     font-size: 1.05rem;
 }
 .yellow-text {
-    /* display: block; */
     margin-bottom: -15px;
     text-align: left;
     color: yellow;
-    /* font-weight: 600; */
 }
 .red-text {
     display: block;
@@ -304,9 +301,6 @@ font-size: clamp(16px, 2.5vw, 24px);
     color: red;
 }
 .white-text {
-    /* display: block; */
-    /* margin-bottom: -15px; */
-    /* text-align: left; */
     color: white;
 }
 .green-text {
@@ -350,7 +344,6 @@ font-size: clamp(16px, 2.5vw, 24px);
 
 .admin-container {
     max-width: 100%;
-    /* max-width: 80%; */
     /* max-width: auto; */
     /* height: 140px; */
     min-height: 150px;  /* Minimalna wysokość */
@@ -377,7 +370,7 @@ font-size: clamp(16px, 2.5vw, 24px);
     position: relative;
 }
 .specific-password-input {
-    padding-right: 2.5rem; /* Dodaj padding z prawej strony, aby zrobić miejsce na ikonę */
+    padding-right: 2.5rem;      /* Dodany padding z prawej strony, aby zrobić miejsce na ikonę */
 }
 .specific-password-icon {
     right: 10px;

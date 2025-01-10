@@ -21,23 +21,19 @@
 				<h2>Panel administratora</h2>
 			</div>
 
-            {{-- <hr> --}}
             <div class="admin-container menu-text col-md-12 d-flex flex-wrap justify-content-center align-items-center gap-5
             my-5 mt-4 p-3 bg-light border rounded border-secondary border-md-primary bg-md-warning">
-            {{-- <div class="admin-container menu-text col-md-12 d-flex justify-content-center align-items-center gap-5 my-5 mt-4"> --}}
                 <a href="{{ route('admin.clientlist') }}" class="btn btn-warning shadow btn-lg p-3 text-center">
                     Lista <br>klientów
                 </a>
                 <a href="{{ route('admin.triplist') }}" class="btn btn-warning shadow btn-lg p-3 text-center">
                     Lista <br>wypraw
                 </a>
-                {{-- <a href="{{ route('admin.findclient') }}" class="btn btn-warning shadow btn-lg p-3 text-center">Wyszukaj <br>klienta</a> --}}
                 <a href="{{ route('admin.findclient', ['redirect_url' => url()->current()]) }}" class="btn btn-warning shadow  btn-lg p-3 text-center">
                     Wyszukaj <br>klienta
                 </a>
                 <a href="{{ route('admin.findtrip', ['redirect_url' => url()->current()]) }}" class="btn btn-warning shadow  btn-lg p-3 text-center">
                     Wyszukaj <br>wyprawę</a>
-                {{-- <a href="{{ route('admin.findtrip') }}" class="btn btn-warning shadow btn-lg p-3 text-center">Wyszukaj <br>wyprawę</a> --}}
                 <div class="d-grid text-center gap-2">
                     <div class="d-flex align-items-center">
                         <a href="{{ route('admin.adddata.create', ['redirect_url' => url()->current()]) }}" class="btn btn-outline-dark shadow
@@ -55,7 +51,6 @@
                     </div>
                 </div>
             </div>
-            {{-- <hr> --}}
 
             @if(session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -121,9 +116,6 @@
                                         <button type="button" class="btn btn-danger btn-sm shadow deleteButton" data-form-id="deleteForm-{{ $date->id }}">Usuń</button>
                                     </form>
                                 </td>
-                                {{-- <td class="text-center"><a href="{{ route('excursions.argentina') }}" class="btn btn-primary btn-sm shadow">
-                                    Program
-                                </a></td> --}}
                             </tr>
                         @endforeach
                     </tbody>

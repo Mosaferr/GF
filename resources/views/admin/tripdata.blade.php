@@ -24,21 +24,14 @@
 						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 					</div>
 				@endif
-				{{-- @if (session('error'))
+				@if (session('error'))
 					<div class="alert alert-danger alert-dismissible fade show" role="alert">
 						{{ session('error') }}
 						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 					</div>
-				@endif --}}
+				@endif
 
                 <div class="row align-items-center mb-2">
-                    {{-- <div class="col-auto">
-                        <label class="form-label">ID:</label>
-                        <span class="form-control-plaintext text-end"><strong>{{ $date->id }}.</strong></span>
-
-                        <label for="date_id" class="form-label">ID </label>
-                        <input type="text" class="form-control" id="date_id" name="date_id" value="{{ old('date_id', $date->id) }}" readonly>
-                    </div> --}}
                     <div class="col-md-6">
                         <label for="destination" class="form-label">Destynacja</label>
                         <input type="text" class="form-control" id="destination" name="destination" value="{{ old('destination', $trip->destination) }}" readonly>
@@ -99,7 +92,6 @@
 				<div class="col-md-12 text-end">
 					<!-- Usuń wyprawę -->
                     <button type="button" class="btn btn-danger shadow mr-5 px-4 deleteButton" data-form-id="deleteForm-{{ $date->id }}"> Usuń </button>
-					{{-- <button type="submit" class="btn btn-danger shadow mr-5 px-3" form="deleteForm" onclick="return confirm('Czy na pewno chcesz usunąć tę wycieczkę?');">&nbsp; Usuń &nbsp;</button> --}}
 					<!-- Zapisz zmiany -->
 					<button type="submit" class="btn btn-primary shadow mx-5 px-3" form="saveForm"> Zapisz </button>
 					<!-- Powrót do listy -->

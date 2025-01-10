@@ -157,13 +157,11 @@
 				<div class="row mt-5">
 					<div class="col-md-12 text-end">
 						<!-- Wyczyść dane -->
-                        {{-- <button type="reset" class="btn btn-secondary shadow mr-4 px-3" onclick="localStorage.clear()">Wyczyść</button> --}}
 						<button type="reset" class="btn btn-secondary shadow mr-4 px-3">Wyczyść</button>
 						<!-- Zapisz zmiany -->
 						<button type="submit" class="btn btn-primary shadow mx-4 px-3">Zapisz</button>
 						<!-- Powrót do listy -->
                         <a href="{{ request('redirect_url', route('admin.clientlist')) }}" class="btn btn-success shadow ml-5 px-3">Powrót</a>
-						{{-- <a href="{{ route('admin.clientlist') }}" class="btn btn-success shadow ml-5 px-3">Powrót</a> --}}
 					</div>
 				</div>
 			</form>
@@ -173,5 +171,4 @@
 
 @section('scripts')
     <script src="{{ asset('js/register.js') }}"></script> <!-- Obsługa dynamicznych terminów -->
-    {{-- <script src="{{ asset('js/storage.js') }}"></script> <!-- Automatyczne uzupełnianie pól --> --}}
 @endsection

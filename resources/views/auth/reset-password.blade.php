@@ -29,8 +29,6 @@
                                 <!-- Email Address -->
                                 <div class="form-group mt-2">
                                     <input type="email" class="form-control" id="email" name="email" placeholder=" " value="{{ request()->email }}" required autofocus autocomplete="email">
-                                    {{-- <input type="email" class="form-control" id="email" name="email" placeholder=" " :value="old('email', $request->email)" required autofocus autocomplete="email"> --}}
-                                    {{-- <input type="email" class="form-control" id="email" name="email" placeholder=" " :value="old('email', $request->email)" required autofocus> --}}
                                     <label for="email" class="floating-label">Email:</label>
                                     <x-input-error :messages="$errors->get('email')" class="mt-2 yellow-text" />
                                 </div>
@@ -51,7 +49,6 @@
                                     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2 yellow-text" />
                                 </div>
 
-                                {{-- <button type="submit" class="btn btn-warning mt-2">Resetuj hasło</button> --}}
                                 <button type="submit" class="btn btn-warning shadow w-100 mt-2" id="submitButton">Resetuj hasło</button>
                                 <button class="btn btn-warning shadow w-100 mt-2" id="loadingButton" style="display: none;" disabled>
                                     Przetwarzanie..<span class="spinner-border spinner-border-sm ms-3"></span>

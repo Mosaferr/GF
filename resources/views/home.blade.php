@@ -305,7 +305,7 @@
 
                     <form action="{{ route('contact.send') }}" method="POST" class="bg-light p-4 m-auto">
                         @csrf
-                        <div class="col-md-12 p-0 pt-4 pb-4 m-auto">
+                        <div class="col-md-12 p-0 pt-2 pb-1 m-auto">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="mb-3">
@@ -323,7 +323,6 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    {{-- <button type="submit" class="btn btn-warning w-100 mt-2 shadow">Wyślij</button> --}}
                                     <button type="submit" class="btn btn-warning shadow w-100 mt-2" id="submitButton">Wyślij</button>
                                     <button class="btn btn-warning shadow w-100 mt-2" id="loadingButton" style="display: none;" disabled>
                                         Wysyłanie..<span class="spinner-border spinner-border-sm ms-3"></span>
@@ -333,30 +332,6 @@
                         </div>
                     </form>
                 </div>
-
-                {{-- <div class="row m-0">
-                    <form action="#" class="bg-light p-4 m-auto">
-                        <div class="col-md-12 p-0 pt-4 pb-4 m-auto">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <input type="text" class="form-control" required placeholder="Imię i nazwisko">
-                                    </div>
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <input type="email" class="form-control" required placeholder="Adres e-mail">
-                                    </div>
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <textarea rows="3" required class="form-control" placeholder="Treść wiadomości"></textarea>
-                                    </div>
-                                </div>
-
-                                <button class="btn btn-warning w-100 mt-2 shadow">Wyślij</button>
-                            </div>
-                        </div>
-                    </form>
-                </div> --}}
 
             </div>
         </section>

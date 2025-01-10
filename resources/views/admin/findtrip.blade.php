@@ -101,7 +101,6 @@
                             onclick="window.location.href='{{ route('admin.findtrip') }}'">Wyczyść</button>
                     <button type="submit" class="btn btn-primary shadow mx-4">Szukaj</button>
                     <a href="{{ request()->input('redirect_url', route('admin.triplist')) }}" class="btn btn-success shadow">Powrót</a>
-                    {{-- <a href="{{ route('admin.triplist') }}" class="btn btn-success shadow">Powrót</a> --}}
                 </div>
             </div>
         </form>

@@ -6,26 +6,13 @@
 	<main class="custom-margin-top">
 
 		<div class="container" style="max-width:1300px;">
-		{{-- <div class="container" style="max-width: 1200px;"> --}}
-
-			{{-- <div class="row"> --}}
-				{{-- <div class="col-md-12 text-center pb-3"> --}}
-					{{-- <h2 class="">Terminy wyjazdów</h2> --}}
-					{{-- <h3>Lista turystów</h3> --}}
-				{{-- </div> --}}
-			{{-- </div> --}}
-
             <div class="d-flex flex-wrap justify-content-center gap-3 p-3 bg-light border rounded border-secondary border-md-primary bg-md-warning">
-            {{-- <div class="lista-container menu-text col-md-12 text-center"> --}}
                 <div class="d-flex flex-wrap justify-content-center gap-2 my-2">
-                {{-- <div class="d-grid d-md-block mx-auto my-2"> --}}
                     <a href="{{ route('admin') }}" class="btn btn-warning shadow mx-4">Panel <br>admina</a>
                     <a href="{{ route('admin.clientlist') }}" class="btn btn-warning shadow mx-4">Lista <br>klientów</a>
                     <a href="{{ route('admin.triplist') }}" class="btn btn-warning shadow mx-4">Lista <br>wypraw</a>
-                    {{-- <a href="{{ route('admin.findclient') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>klienta</a> --}}
                     <a href="{{ route('admin.findclient', ['redirect_url' => url()->current()]) }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>klienta</a>
                     <a href="{{ route('admin.findtrip', ['redirect_url' => url()->current()]) }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>wyprawę</a>
-                    {{-- <a href="{{ route('admin.findtrip') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>wyprawę</a> --}}
                 </div>
             </div>
 			<div class="row">
@@ -67,7 +54,6 @@
 										'birth_date' => 'Data urodzenia',
 										'phone' => 'Telefon',
 										'email' => 'Email',
-										// 'city_name' => 'Adres',
 										'destination' => 'Destynacja',
 										'start_date' => 'Termin',
 									];
@@ -98,11 +84,7 @@
 								<td class="text-center">{{ \Carbon\Carbon::parse($client->birth_date)->format('d.m.Y') }}</td>
 								<td>{{ $client->phone }}</td>
 								<td>{{ $client->email }}</td>
-                                {{-- <td>{{ $client->address->city->city_name ?? 'Brak danych' }}</td> --}}
-								{{-- <td>{{ $client->city_name }}</td> --}}
-								{{-- <td>{{ $client->country }}</td> --}}
                                 <td>{{ $client->dates->first()->trip->destination ?? 'Brak danych' }}</td>
-                                {{-- <td>{{ \Carbon\Carbon::parse($client->start_date)->format('d.m') }}-{{ \Carbon\Carbon::parse($client->end_date)->format('d.m.Y') }}</td> --}}
                                 <td>
                                     @if($client->dates->isNotEmpty())
                                         {{ \Carbon\Carbon::parse($client->dates->first()->start_date)->format('d.m') }}
