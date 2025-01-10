@@ -10,7 +10,8 @@ use App\Models\ClientDate;
 use App\Models\Address;
 use App\Models\Citizenship;
 use App\Models\City;
-use Illuminate\Http\Request;
+use App\Http\Requests\ParticipantRequest;        //reguły walidacji
+// use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -56,11 +57,10 @@ class DetailedInfoController extends Controller
         return view('service.detailed_info', $data);
     }
 
-    public function store(Request $request)
+    public function store(ParticipantRequest $request)
     {
         $user = Auth::user();                                                   // Pobierz zalogowanego użytkownika
         $leaderId = Client::where('user_id', $user->id)->value('leader_id');    // Pobierz `leader_id` głównego uczestnika
-        $participants = $request->input('participants');                        // Pobierz dane uczestników
 
         // Ponownie pobieramy date_id i trip_id
         $userDate = UserDate::where('user_id', $user->id)->first();
@@ -70,35 +70,15 @@ class DetailedInfoController extends Controller
         // $trip = Trip::find($tripId);
 
         // Walidacja danych uczestników
-        $rules = [
-            'participants.*.name' => 'required|string|alpha|min:3|max:20',
-            'participants.*.middle_name' => 'nullable|string|alpha|min:3|max:20',
-            'participants.*.last_name' => 'required|string|alpha|min:2|max:50',
-            'participants.*.phone' => 'nullable|regex:/^\+?[0-9\s]+$/|min:8|max:20',
-            'participants.*.email' => 'required|email',
-            // 'participants.*.birth_date' => 'required|date|before_or_equal:'.now()->subYears(2),
-            'participants.*.birth_date' => 'required|date',
-            // 'participants.*.pesel' => 'required|string|digits:11|unique:participants,pesel',
-            'participants.*.pesel' => 'required|string',
-            'participants.*.citizenship' => 'required|string',
-            // 'participants.*.gender' => 'nullable|string',
-            // 'participants.*.passport_number' => 'required|string|regex:/^[a-zA-Z0-9]{7,10}$/|unique:participants,passport_number',
-            'participants.*.passport_number' => 'required|string',
-            'participants.*.issue_date' => 'required|date|before_or_equal:today',
-            // 'participants.*.expiry_date' => 'required|date|after:today|after_or_equal:'.now()->addMonths(3),
-            'participants.*.expiry_date' => 'required|date|after:today',
-            'participants.*.street' => 'required|string',
-            'participants.*.house_number' => 'required|string',
-            'participants.*.apartment_number' => 'nullable|string',
-            'participants.*.postal_code' => 'required|string|max:20',
-            'participants.*.city_name' => 'required|string|alpha|min:2|max:100',
-        ];
+        $validated = $request->validated();
+        // Pobierz dane uczestników
+        $participants = $validated['participants'];
 
-        $validator = Validator::make($request->all(), $rules);
 
         // Sprawdzanie liczby dodanych uczestników
         $participantCount = $user->participants;                       // Odczytanie zadeklarowanych uczestników z bazy danych
-        $addedParticipants = count($request->input('participants', []));    // Liczba uczestników przesłanych w formularzu
+        $addedParticipants = count($participants);              // Liczba uczestników przesłanych w formularzu
+        // $addedParticipants = count($request->input('participants', []));
 
         Log::info('Wartość participants z bazy danych: ' . $user->participants);
 
@@ -149,7 +129,6 @@ class DetailedInfoController extends Controller
                         'issue_date' => $participantData['issue_date'],
                         'expiry_date' => $participantData['expiry_date'],
                         'address_id' => $address->id,
-
                         'stage' => 'zapisany',                      // NOWE
                     ]
                 );

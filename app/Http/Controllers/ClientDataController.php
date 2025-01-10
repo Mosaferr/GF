@@ -14,7 +14,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-// use App\Http\Requests\ClientRequest;    // Zdefiniuj odpowiednie reguły walidacji w tym requestcie
+use App\Http\Requests\ClientRequest;    // reguły walidacji
+use App\Http\Requests\AddressRequest;   // reguły walidacji
 // use Illuminate\View\View;
 
 class ClientDataController extends Controller
@@ -48,7 +49,7 @@ class ClientDataController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      *******************************************/
 
-    public function update(Request $request, $id)
+    public function update(ClientRequest $clientRequest, AddressRequest $addressRequest, $id)
     {
         // Znalezienie klienta po ID
         $client = Client::findOrFail($id);
@@ -56,52 +57,24 @@ class ClientDataController extends Controller
         // Log::info('START LOGÓW. Dane w rubrykach:', $request->all());
 
         // Walidacja danych klienta  (bez adresu i city_name)
-            $validatedData = $request->validate([
-            'name' => 'required|string|alpha|min:3|max:20',
-            'middle_name' => 'nullable|string|alpha|min:3|max:20',
-            'last_name' => 'required|string|alpha|min:2|max:50',
-            'phone' => 'nullable|regex:/^\+?[0-9\s]+$/|min:8|max:20',
-            'email' => 'required|email',
-            // 'birth_date' => 'required|date|before_or_equal:'.now()->subYears(2),
-            'birth_date' => 'required|date',
-            // 'pesel' => 'required|string|digits:11|unique:participants,pesel',
-            'pesel' => 'required|string',
-            // 'gender' => 'nullable|string',
-            // 'passport_number' => 'required|string|regex:/^[a-zA-Z0-9]{7,10}$/|unique:participants,passport_number',
-            'passport_number' => 'required|string',
-            'issue_date' => 'required|date|before_or_equal:today',
-            // 'expiry_date' => 'required|date|after:today|after_or_equal:'.now()->addMonths(3),
-            'expiry_date' => 'required|date|after:today',
-            'citizenship_id' => 'required|exists:citizenships,id',
-            // 'stage' => 'required|in:zarezerwowany, zapisany, przedpłacone, opłacone',
-        ]);
+        $validatedClientData = $clientRequest->validated();
 
         // Aktualizacja danych klienta
-        $client->update($validatedData);
+        $client->update($validatedClientData);
 
         // Walidacja danych adresu
-        $validatedAddress = $request->validate([
-            'street' => 'required|string|max:255',
-            'house_number' => 'required|string|max:10',
-            'apartment_number' => 'nullable|string|max:10',
-            'postal_code' => 'required|string|max:10',
-        ]);
-        // Walidacja danych miasta
-        $validatedCity = $request->validate([
-            'city_name' => 'required|string|alpha|min:2|max:100',
-        ]);
-
-        // Log::info(' Dane po walidacji:', $validatedData);
+        $validatedAddressData = $addressRequest->validated();
+        // Log::info(' Dane po walidacji:', $validatedClientData);
 
         // Znajdowanie lub tworzenie nowego miasta
-        $city_name = City::firstOrCreate(['city_name' => $validatedCity['city_name']]);
+        $city_name = City::firstOrCreate(['city_name' => $validatedAddressData['city_name']]);
 
         // Znajdowanie lub tworzenie nowego adresu
         $address = Address::firstOrCreate([
-            'street' => $validatedAddress['street'],
-            'house_number' => $validatedAddress['house_number'],
-            'apartment_number' => $validatedAddress['apartment_number'],
-            'postal_code' => $validatedAddress['postal_code'],
+            'street' => $validatedAddressData['street'],
+            'house_number' => $validatedAddressData['house_number'],
+            'apartment_number' => $validatedAddressData['apartment_number'],
+            'postal_code' => $validatedAddressData['postal_code'],
             'city_id' => $city_name->id,
         ]);
 
@@ -110,13 +83,13 @@ class ClientDataController extends Controller
         $client->save();
 
         // Aktualizacja citizenship
-        $citizenship = Citizenship::findOrFail($validatedData['citizenship_id']);
+        $citizenship = Citizenship::findOrFail($validatedClientData['citizenship_id']);
         $client->citizenship()->associate($citizenship);
 
         // Zaktualizowanie pola stage
-        // $client->stage = $validatedData['stage'];
+        // $client->stage = $validatedClientData['stage'];
         // Aktualizacja pola stage oddzielnie (inaczej)
-        $client->stage = $request->input('stage');
+        $client->stage = $validatedClientData['stage'];
 
         // Zapisanie wszystkich zmian
         $client->save();
@@ -125,13 +98,13 @@ class ClientDataController extends Controller
         // Log::info('Wartość stage po aktualizacji:', ['stage' => $client->fresh()->stage]);
 
         // Log danych z żądania z dodaniem separatora i pustej linii
-        Log::info("\n\n----------------- START LOGÓW -----------------\n", $request->all());
+        Log::info("\n\n----------------- START LOGÓW -----------------\n", [
+            'client_data' => $validatedClientData,
+            'address_data' => $validatedAddressData,
+        ]);
 
         // Walidacja danych wejściowych z logowaniem
-        $validatedTripData  = $request->validate([
-            'trip' => 'required|exists:trips,id',
-            'start_date' => 'required|exists:dates,id',
-        ]);
+        $validatedTripData = $clientRequest->validated();
         Log::info("\Walidacja zakończona pomyślnie:", $validatedTripData);
 
         // Znalezienie klienta po ID
@@ -181,7 +154,7 @@ class ClientDataController extends Controller
         ]);
 
         // Przekierowanie na odpowiednią stronę z komunikatem o sukcesie
-        $redirectUrl = $request->input('redirect_url', route('admin.clientlist'));          // Domyślnie 'clientlist'
+        $redirectUrl = $clientRequest->input('redirect_url', route('admin.clientlist'));          // Domyślnie 'clientlist'
         return redirect($redirectUrl)->with('success', 'Dane klienta zostały zaktualizowane.');
     }
 

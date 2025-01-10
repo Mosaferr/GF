@@ -1,34 +1,38 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const submitButton = document.getElementById('submitButton');
-    const deleteForm = document.querySelector('form');
-    const loadingButton = document.getElementById('loadingButton');
+    const deleteButtons = document.querySelectorAll('.deleteButton');
 
-    submitButton.addEventListener('click', function (event) {
-        event.preventDefault(); // Zatrzymaj domyślne zachowanie przycisku
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function (event) {
+            event.preventDefault(); // Zatrzymaj domyślne zachowanie przycisku
 
-        Swal.fire({
-            title: 'Czy na pewno?',
-            text: "Nie będziesz mógł cofnąć tej akcji!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Tak, usuń!',
-            cancelButtonText: 'Anuluj'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Pokaż animację ładowania dopiero po potwierdzeniu
-                submitButton.style.display = 'none';
-                loadingButton.style.display = 'inline-block';
+            const formId = this.getAttribute('data-form-id');
+            const deleteForm = document.getElementById(formId);
 
-                deleteForm.submit(); // Wysyłanie formularza tylko po potwierdzeniu
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                Swal.fire(
-                    'Anulowano',
-                    'Operacja usunięcia została anulowana',
-                    'info'
-                );
+            if (!deleteForm) {
+                console.error(`Nie znaleziono formularza z id "${formId}".`);
+                return;
             }
+
+            Swal.fire({
+                title: 'Czy na pewno?',
+                text: "Nie będziesz mógł cofnąć tej akcji!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Tak, usuń!',
+                cancelButtonText: 'Anuluj'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    deleteForm.submit(); // Wysyłanie formularza tylko po potwierdzeniu
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    Swal.fire(
+                        'Anulowano',
+                        'Operacja usunięcia została anulowana',
+                        'info'
+                    );
+                }
+            });
         });
     });
 });

@@ -10,6 +10,7 @@ use App\Models\Client;
 use App\Models\ClientDate;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\UserRequest;        //reguły walidacji
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -31,43 +32,26 @@ class RegisteredUserController extends Controller
     /** Handle an incoming registration request.
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(UserRequest $request): RedirectResponse
     {
-        $request->validate([
-			'name' => ['required', 'string', 'alpha', 'min:3', 'max:20'],
-			'last_name' => ['required', 'string', 'alpha', 'min:2', 'max:50'],
-			'phone' => ['nullable', 'regex:/^\+?[0-9\s]+$/', 'min:8', 'max:20'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'participants' => ['required', 'integer', 'min:1'],
-            'password' => [
-                'required',
-                'confirmed',
-                Rules\Password::defaults()      // Użycie domyślnych zasad
-                    // ->mixedCase()            // Dodanie wymogu wielkich i małych liter
-                    // ->symbols()              // Wymaga znaków specjalnych
-                    ->numbers()                 // Wymaga cyfr
-                    // ->uncompromised(),       // Sprawdza, czy hasło nie zostało skompromitowane
-            ],
-            'trip' => 'required|exists:trips,id',
-            'start_date' => 'required|exists:dates,id',
-        ]);
+        $validated = $request->validated();
 
         // Pobranie daty na podstawie start_date przekazanego z formularza
         $date = Date::find($request->start_date);
         // Zmniejszenie liczby dostępnych miejsc o liczbę zadeklarowanych uczestników
-        $remainingSeats = $date->available_seats - $request->participants;
+        $remainingSeats = $date->available_seats - $validated['participants'];
         if ($remainingSeats >= 0) {
             $date->available_seats = $remainingSeats;
             $date->save();
 
             // Tworzenie użytkownika...
             $user = User::create([
-                'name' => $request->name,
-                'last_name' => $request->last_name,
-                'phone' => $request->phone,
-                'email' => $request->email,
-                'participants' => $request->participants,
-                'password' => Hash::make($request->password),
+                'name' => $validated['name'],
+                'last_name' => $validated['last_name'],
+                'phone' => $validated['phone'],
+                'email' => $validated['email'],
+                'participants' => $validated['participants'],
+                'password' => Hash::make($validated['password']),
             ]);
 
             $leaderId = $user->id;          // Przypisanie leader_id do identyfikatora utworzonego użytkownika
@@ -75,7 +59,7 @@ class RegisteredUserController extends Controller
             // Przypisanie start_date jako date_id w tabeli user_dates, tworząc połączenie między użytkownikiem a datą.
             UserDate::create([
                 'user_id' => $user->id,
-                'date_id' => $request->start_date,
+                'date_id' => $validated['start_date'],
             ]);
 
             // OBSŁUGA KLIENTA
@@ -106,10 +90,10 @@ class RegisteredUserController extends Controller
             if ($user->id != 1) {                                   //  OMIŃ dla usera o ID=1. Ma być adminem i nie wyświetlać się jako client.
                 $client = Client::create([
                     'user_id' => $user->id,
-                    'name' => $request->name,
-                    'last_name' => $request->last_name,
-                    'phone' => $request->phone,
-                    'email' => $request->email,
+                    'name' => $validated['name'],
+                    'last_name' => $validated['last_name'],
+                    'phone' => $validated['phone'],
+                    'email' => $validated['email'],
                     'birth_date' => now(),                          // Tymczasowa wartość
                     'gender' => 'M',                                // Tymczasowa wartość
                     'pesel' => '00000000000',                       // Tymczasowa wartość
@@ -126,7 +110,7 @@ class RegisteredUserController extends Controller
                 // Przypisanie start_date jako date_id w tabeli clients_dates, tworząc połączenie między użytkownikiem a datą.
                 ClientDate::create([
                     'client_id' => $client->id,
-                    'date_id' => $request->start_date,
+                    'date_id' => $validated['start_date'],
                 ]);
             }
 
@@ -140,13 +124,13 @@ class RegisteredUserController extends Controller
 
             // Zapisanie danych w sesji
             session([
-                'destination' => $request->destination,
-                'start_date' => $request->start_date,
-                'name' => $request->name,
-                'last_name' => $request->last_name,
-                'phone' => $request->phone,
-                'email' => $request->email,
-                'participants' => $request->participants,
+                'destination' => $validated['trip'],
+                'start_date' => $validated['start_date'],
+                'name' => $validated['name'],
+                'last_name' => $validated['last_name'],
+                'phone' => $validated['phone'],
+                'email' => $validated['email'],
+                'participants' => $validated['participants'],
             ]);
             return redirect()->route('service.available');
 

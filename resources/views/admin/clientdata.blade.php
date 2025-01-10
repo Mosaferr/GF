@@ -166,20 +166,21 @@
 				</div>
 			</form>
 
-			<form id="deleteForm" action="{{ route('admin.clientdata.destroy', $client->id) }}" method="POST">
+            <form id="deleteForm" action="{{ route('admin.clientdata.destroy', $client->id) }}" method="POST">
 				@csrf
 				@method('DELETE')
                 <input type="hidden" name="redirect_url" value="{{ url()->previous() }}">
 			</form>
 
+            <!-- Przyciski -->
 			<div class="row mt-5">
 				<div class="col-md-12 text-end">
 					<!-- Usuń klienta -->
-					<button type="button" class="btn btn-danger shadow mr-5 px-3" id="deleteButton">&nbsp; Usuń &nbsp;</button>
+                    <button type="button" class="btn btn-danger shadow mr-5 px-4 deleteButton" data-form-id="deleteForm"> Usuń </button>
 					<!-- Zapisz zmiany -->
 					<button type="submit" class="btn btn-primary shadow mx-5 px-3" form="saveForm"> Zapisz </button>
 					<!-- Powrót do listy -->
-                    <a href="{{ $redirectUrl }}" class="btn btn-success shadow ml-5 px-3">Powrót</a>
+                    <a href="{{ $redirectUrl }}" class="btn btn-success shadow ml-5 px-3"> Powrót </a>
                     {{-- <a href="{{ request()->get('redirect_url', route('admin.clientlist')) }}" class="btn btn-success shadow ml-5 px-3">Powrót</a> --}}
 				</div>
 			</div>
@@ -190,36 +191,5 @@
 @section('scripts')
     <script src="{{ asset('js/register.js?v=1.0') }}"></script>                 <!-- Skrypt do obsługi terminów i destynacji -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const deleteButton = document.getElementById('deleteButton');
-            const deleteForm = document.getElementById('deleteForm');
-
-            deleteButton.addEventListener('click', function (event) {
-                event.preventDefault(); // Zatrzymaj domyślne zachowanie przycisku
-
-                Swal.fire({
-                    title: 'Czy na pewno?',
-                    text: "Nie będziesz mógł cofnąć tej akcji!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Tak, usuń!',
-                    cancelButtonText: 'Anuluj'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        deleteForm.submit(); // Wysyłanie formularza tylko po potwierdzeniu
-                    } else if (result.dismiss === Swal.DismissReason.cancel) {
-                        Swal.fire(
-                            'Anulowano',
-                            'Operacja usunięcia została anulowana',
-                            'info'
-                        );
-                    }
-                });
-            });
-        });
-    </script>
-    {{-- <script src="{{ asset('js/delete-form.js') }}" defer></script>               <!-- Skrypt do okienka Usuń --> --}}
+    <script src="{{ asset('js/delete.js') }}" defer></script>               <!-- Skrypt do okienka Usuń -->
 @endsection
