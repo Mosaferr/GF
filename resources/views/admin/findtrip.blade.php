@@ -143,12 +143,14 @@
                             <td>
                                 <a href="{{ route('admin.tripdata.edit', ['tripId' => $date->trip_id, 'dateId' => $date->id, 'redirect_url' => url()->current()]) }}" class="btn btn-primary btn-sm shadow">Edycja</a>
                             </td>
-                            <td><form method="POST" action="{{ route('admin.tripdata.destroy', ['tripId' => $date->trip->id, 'dateId' => $date->id]) }}">
-                                @csrf
-                                @method('DELETE')
-                                <input type="hidden" name="redirect_url" value="{{ request('redirect_url', route('admin.triplist')) }}">
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Czy na pewno usunąć?')">Usuń</button>
-                            </form></td>
+                            <td>
+                                <form id="deleteForm-{{ $date->id }}" method="POST" action="{{ route('admin.tripdata.destroy', ['tripId' => $date->trip->id, 'dateId' => $date->id]) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="redirect_url" value="{{ url()->current() }}">
+                                    <button type="button" class="btn btn-danger btn-sm shadow deleteButton" data-form-id="deleteForm-{{ $date->id }}">Usuń</button>
+                                </form>
+                            </td>
                         </tr>
                         @empty
                         <tr>
@@ -168,46 +170,41 @@
 @endsection
 
 @section('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const destinationSelect = document.getElementById('destination');
-    const tripNameSelect = document.getElementById('trip_name');
-    const countrySelect = document.getElementById('country');
+    <script src="{{ asset('js/tripnames.js') }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteButtons = document.querySelectorAll('.deleteButton');
 
-    // Funkcja do aktualizacji pól na podstawie wybranej opcji
-    function updateFields(selectedOption, origin) {
-        const tripId = selectedOption.getAttribute('data-trip-id');
-        const tripName = selectedOption.getAttribute('data-trip-name');
-        const country = selectedOption.getAttribute('data-country');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function (event) {
+                    event.preventDefault(); // Zatrzymaj domyślne zachowanie przycisku
 
-        if (origin !== 'destination' && tripId && destinationSelect) {
-            [...destinationSelect.options].forEach(option => {
-                option.selected = option.value == tripId;
+                    const formId = this.getAttribute('data-form-id');
+                    const deleteForm = document.getElementById(formId);
+
+                    Swal.fire({
+                        title: 'Czy na pewno?',
+                        text: "Nie będziesz mógł cofnąć tej akcji!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Tak, usuń!',
+                        cancelButtonText: 'Anuluj'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            deleteForm.submit(); // Wysyłanie formularza tylko po potwierdzeniu
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            Swal.fire(
+                                'Anulowano',
+                                'Operacja usunięcia została anulowana',
+                                'info'
+                            );
+                        }
+                    });
+                });
             });
-        }
-
-        if (origin !== 'trip_name' && tripName && tripNameSelect) {
-            [...tripNameSelect.options].forEach(option => {
-                option.selected = option.value == tripName;
-            });
-        }
-
-        if (origin !== 'country' && country && countrySelect) {
-            [...countrySelect.options].forEach(option => {
-                option.selected = option.value == country;
-            });
-        }
-    }
-
-    // Obsługa zmiany w polach formularza
-    [destinationSelect, tripNameSelect, countrySelect].forEach(select => {
-        if (select) {
-            select.addEventListener('change', function () {
-                const selectedOption = this.options[this.selectedIndex];
-                updateFields(selectedOption, this.id);
-            });
-        }
-    });
-});
-</script>
+        });
+    </script>
 @endsection

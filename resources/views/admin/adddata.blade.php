@@ -139,11 +139,6 @@
 						<label for="start_date" class="form-label">Termin</label>
 						<select class="form-select" id="start_date" name="start_date" required>
 							<option value="" disabled selected>Wybierz...</option>
-							@foreach($dates as $date)
-								<option value="{{ $date->id }}" {{ old('start_date') == $date->id ? 'selected' : '' }}>
-									{{ \Carbon\Carbon::parse($date->start_date)->format('d.m.Y') }} - {{ \Carbon\Carbon::parse($date->end_date)->format('d.m.Y') }}
-								</option>
-							@endforeach
 						</select>
 					</div>
 
@@ -162,6 +157,7 @@
 				<div class="row mt-5">
 					<div class="col-md-12 text-end">
 						<!-- Wyczyść dane -->
+                        {{-- <button type="reset" class="btn btn-secondary shadow mr-4 px-3" onclick="localStorage.clear()">Wyczyść</button> --}}
 						<button type="reset" class="btn btn-secondary shadow mr-4 px-3">Wyczyść</button>
 						<!-- Zapisz zmiany -->
 						<button type="submit" class="btn btn-primary shadow mx-4 px-3">Zapisz</button>
@@ -176,22 +172,6 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/register.js?v=1.0') }}"></script> <!-- Skrypt do obsługi terminów i destynacji -->
-
-    <script>
-        document.getElementById('name').addEventListener('input', updateHeader);
-        document.getElementById('last_name').addEventListener('input', updateHeader);
-
-        function updateHeader() {
-            const name = document.getElementById('name').value.trim();
-            const lastName = document.getElementById('last_name').value.trim();
-            const header = document.getElementById('header-title');
-
-            if (name || lastName) {
-                header.textContent = `${name} ${lastName}`.trim();
-            } else {
-                header.textContent = 'Nowy klient';
-            }
-        }
-    </script>
+    <script src="{{ asset('js/register.js') }}"></script> <!-- Obsługa dynamicznych terminów -->
+    {{-- <script src="{{ asset('js/storage.js') }}"></script> <!-- Automatyczne uzupełnianie pól --> --}}
 @endsection

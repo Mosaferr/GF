@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('trip').addEventListener('change', function () {
         const trip_id = this.value;

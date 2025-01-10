@@ -323,7 +323,11 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <button type="submit" class="btn btn-warning w-100 mt-2 shadow">Wyślij</button>
+                                    {{-- <button type="submit" class="btn btn-warning w-100 mt-2 shadow">Wyślij</button> --}}
+                                    <button type="submit" class="btn btn-warning shadow w-100 mt-2" id="submitButton">Wyślij</button>
+                                    <button class="btn btn-warning shadow w-100 mt-2" id="loadingButton" style="display: none;" disabled>
+                                        Wysyłanie..<span class="spinner-border spinner-border-sm ms-3"></span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -363,4 +367,5 @@
     <script src="{{ asset('js/scrollreveal.min.js') }}"></script>
     @vite('resources/js/fading.js')
     @vite('resources/js/links.js')
+    <script src="{{ asset('js/spinner-button.js') }}"></script>
 @endsection

@@ -76,7 +76,7 @@
                         <x-input-error :messages="$errors->get('country')" class="mt-2 red-text" />
                     </div>
 					<div class="col-md-3">
-                        <label for="end_date" class="form-label">Lista członków grupy</label>
+                        <label for="end_date" class="form-label">Liczba członków grupy</label>
                         <input type="number" class="form-control text-center" id="total_seats" name="total_seats" value="{{ old('total_seats', $date->total_seats ?? '') }}" required>
                         <x-input-error :messages="$errors->get('total_seats')" class="mt-2 red-text" />
                     </div>
@@ -97,7 +97,8 @@
 			<div class="row mt-5">
 				<div class="col-md-12 text-end">
 					<!-- Usuń klienta -->
-					<button type="submit" class="btn btn-danger shadow mr-5 px-3" form="deleteForm" onclick="return confirm('Czy na pewno chcesz usunąć tę wycieczkę?');">&nbsp; Usuń &nbsp;</button>
+                    <button type="button" class="btn btn-danger shadow mr-5 px-3" id="deleteButton">&nbsp; Usuń &nbsp;</button>
+					{{-- <button type="submit" class="btn btn-danger shadow mr-5 px-3" form="deleteForm" onclick="return confirm('Czy na pewno chcesz usunąć tę wycieczkę?');">&nbsp; Usuń &nbsp;</button> --}}
 					<!-- Zapisz zmiany -->
 					<button type="submit" class="btn btn-primary shadow mx-5 px-3" form="saveForm"> Zapisz </button>
 					<!-- Powrót do listy -->
@@ -109,5 +110,39 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/register.js?v=1.0') }}"></script> <!-- Skrypt do obsługi terminów i destynacji -->
+    <script src="{{ asset('js/register.js?v=1.0') }}"></script>             <!-- Skrypt do obsługi terminów i destynacji -->
+    <script src="{{ asset('js/tripdata.js') }}" defer></script>             <!-- Skrypt do obsługi liczby uczestnikóe i wolnych miejsc -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- <script src="{{ asset('js/delete-form.js') }}" defer></script>               <!-- Skrypt do okienka Usuń --> --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteForm = document.getElementById('deleteForm');
+            const deleteButton = document.getElementById('deleteButton');   // Selektor dla przycisku „Usuń”
+
+            deleteButton.addEventListener('click', function (event) {
+                event.preventDefault();                                     // Zatrzymaj domyślne zachowanie przycisku
+
+                Swal.fire({
+                    title: 'Czy na pewno?',
+                    text: "Nie będziesz mógł cofnąć tej akcji!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Tak, usuń!',
+                    cancelButtonText: 'Anuluj'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        deleteForm.submit();                            // Wysyłanie formularza tylko po potwierdzeniu
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        Swal.fire(
+                            'Anulowano',
+                            'Operacja usunięcia została anulowana',
+                            'info'
+                        );
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

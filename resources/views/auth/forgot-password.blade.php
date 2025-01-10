@@ -39,9 +39,12 @@
                                     <x-input-error :messages="$errors->get('email')" class="mt-5 yellow-text" />
                                 </div>
 
-                                <button type="submit" class="btn btn-warning mt-2">
-                                    Zresetuj hasło
+                                {{-- <button type="submit" class="btn btn-warning mt-2">Zresetuj hasło</button> --}}
+                                <button type="submit" class="btn btn-warning shadow w-100 mt-2" id="submitButton">Zresetuj hasło</button>
+                                <button class="btn btn-warning shadow w-100 mt-2" id="loadingButton" style="display: none;" disabled>
+                                    Przetwarzanie..<span class="spinner-border spinner-border-sm ms-3"></span>
                                 </button>
+
                             </form>
                         </div>
                     </div>
@@ -55,4 +58,5 @@
     <script src="{{ asset('js/scrollreveal.min.js') }}"></script>
     @vite('resources/js/fading.js')
     @vite('resources/js/eye.js')
+    <script src="{{ asset('js/spinner-button.js') }}"></script>
 @endsection

@@ -134,18 +134,20 @@
                                         ($date->available_seats > 1 && $date->available_seats < 5 ? $date->available_seats . ' wolne miejsca' : $date->available_seats . ' wolnych miejsc'))
                                         }}
 									</td>
-									<td class="text-center">
+
+                                    <!-- Przyciski -->
+                                    <td class="text-center">
                                         <a href="{{ route('group.show', ['trip_id' => $date->id]) }}" class="btn btn-success btn-sm shadow">&nbsp;Grupa&nbsp;</a>
 									</td>
 									<td class="text-center">
                                         <a href="{{ route('admin.tripdata.edit', ['tripId' => $date->trip_id, 'dateId' => $date->id, 'redirect_url' => url()->current()]) }}" class="btn btn-primary btn-sm shadow">Edycja</a>
                                     </td>
 									<td class="text-center">
-                                        <form method="POST" action="{{ route('admin.tripdata.destroy', ['tripId' => $date->trip->id, 'dateId' => $date->id]) }}">
+                                        <form id="deleteForm-{{ $date->id }}" method="POST" action="{{ route('admin.tripdata.destroy', ['tripId' => $date->trip->id, 'dateId' => $date->id]) }}">
                                             @csrf
                                             @method('DELETE')
                                             <input type="hidden" name="redirect_url" value="{{ url()->current() }}">
-                                            <button type="submit" class="btn btn-danger btn-sm shadow" onclick="return confirm('Czy na pewno chcesz usunąć tę wycieczkę?')">Usuń</button>
+                                            <button type="button" class="btn btn-danger btn-sm shadow deleteButton" data-form-id="deleteForm-{{ $date->id }}">Usuń</button>
                                         </form>
                                     </td>
 									{{-- <td class="text-center"><a href="{{ route('excursions.argentina') }}" class="btn btn-primary btn-sm shadow">Program</a></td> --}}
@@ -159,3 +161,43 @@
 		</div>
 	</main>
 @endsection
+
+@section('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteButtons = document.querySelectorAll('.deleteButton');
+
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function (event) {
+                    event.preventDefault(); // Zatrzymaj domyślne zachowanie przycisku
+
+                    const formId = this.getAttribute('data-form-id');
+                    const deleteForm = document.getElementById(formId);
+
+                    Swal.fire({
+                        title: 'Czy na pewno?',
+                        text: "Nie będziesz mógł cofnąć tej akcji!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Tak, usuń!',
+                        cancelButtonText: 'Anuluj'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            deleteForm.submit(); // Wysyłanie formularza tylko po potwierdzeniu
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            Swal.fire(
+                                'Anulowano',
+                                'Operacja usunięcia została anulowana',
+                                'info'
+                            );
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+@endsection
+

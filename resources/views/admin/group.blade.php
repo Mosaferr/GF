@@ -98,12 +98,12 @@
 								<td class="text-center">
                                     {{-- !ZAKOMENTOWANE <a href="{{ route('admin.clientdata.show', ['id' => $client->id]) }}" class="btn btn-success btn-sm shadow">Podgląd</a> --}}
                                     <a href="{{ route('admin.clientdata.edit', ['id' => $client->id, 'redirect_url' => url()->current()]) }}" class="btn btn-success btn-sm shadow">Edycja</a>
-									<form method="POST" action="{{ route('admin.clientdata.destroy', ['id' => $client->id]) }}" style="display: inline-block;">
-                                        @csrf
-										@method('DELETE')
-                                        <input type="hidden" name="redirect_url" value="{{ url()->current() }}">
-										<button type="submit" class="btn btn-danger btn-sm shadow" onclick="return confirm('Czy na pewno chcesz usunąć tego klienta?')">Usuń</button>
-									</form>
+										<form id="deleteForm-{{ $client->id }}" method="POST" action="{{ route('admin.clientdata.destroy', ['id' => $client->id]) }}" style="display: inline-block;">
+											@csrf
+											@method('DELETE')
+											<input type="hidden" name="redirect_url" value="{{ url()->current() }}">
+											<button type="button" class="btn btn-danger btn-sm shadow deleteButton" data-form-id="deleteForm-{{ $client->id }}">Usuń</button>
+										</form>
 								</td>
 							</tr>
 							@endforeach
@@ -121,4 +121,42 @@
 
 		</div>
 	</main>
+@endsection
+@section('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteButtons = document.querySelectorAll('.deleteButton');
+
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function (event) {
+                    event.preventDefault(); // Zatrzymaj domyślne zachowanie przycisku
+
+                    const formId = this.getAttribute('data-form-id');
+                    const deleteForm = document.getElementById(formId);
+
+                    Swal.fire({
+                        title: 'Czy na pewno?',
+                        text: "Nie będziesz mógł cofnąć tej akcji!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Tak, usuń!',
+                        cancelButtonText: 'Anuluj'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            deleteForm.submit(); // Wysyłanie formularza tylko po potwierdzeniu
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            Swal.fire(
+                                'Anulowano',
+                                'Operacja usunięcia została anulowana',
+                                'info'
+                            );
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 @endsection

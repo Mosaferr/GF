@@ -77,8 +77,8 @@
 						@csrf
 						<div class="text-end mt-3">
                             <button type="submit" class="btn btn-warning shadow" id="submitButton">Zapłać</button>
-                            <button class="btn btn-warning shadow w-100" id="loadingButton" style="display: none;" disabled>
-                                Przetwarzanie..<span class="spinner-border spinner-border-sm-ms-2"></span>
+                            <button class="btn btn-warning shadow" id="loadingButton" style="display: none;" disabled>
+                                Przetwarzanie...<span class="spinner-border spinner-border-sm ms-3"></span>
                             </button>
 						</div>
 					</form>
@@ -94,4 +94,5 @@
     <script src="{{ asset('js/scrollreveal.min.js') }}"></script>
     @vite('resources/js/fading.js')
     <script src="{{ asset('js/lightbox.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/spinner-button.js') }}"></script>
 @endsection

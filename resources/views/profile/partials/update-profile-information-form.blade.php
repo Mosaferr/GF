@@ -28,14 +28,18 @@
             </div>
         </div>
 
-        {{-- <div class="mt-4 d-flex justify-content-end">
-            <button type="button" class="btn btn-success me-3">Anuluj</button>
-            <button type="submit" class="btn btn-danger">Usuń</button>
-        </div> --}}
-        <div class="row">
-            <div class="col-md-12 text-end">
-                <button type="submit" class="btn btn-success px-4 shadow">Zapisz</button>
-            </div>
+        {{-- Przyciski --}}
+        <div class="mt-4 d-flex justify-content-end">
+            <button type="reset" class="btn btn-secondary me-4 shadow">Anuluj</button>
+            {{-- <button type="submit" class="btn btn-success me-2 shadow">Zapisz</button> --}}
+            <button type="submit" class="submit-button btn btn-success me-2 shadow">Zapisz</button>
+            <button class="loading-button btn btn-success me-2 shadow" style="display: none;" disabled>
+                Zapis...<span class="spinner-border spinner-border-sm ms-3"></span>
+            </button>
         </div>
     </form>
 </section>
+
+@section('scripts')
+    <script src="{{ asset('js/spinner-button2.js') }}"></script>
+@endsection

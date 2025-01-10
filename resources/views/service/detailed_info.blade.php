@@ -281,7 +281,7 @@
 					<div class="col-md-12 text-center">
 						<button type="submit" class="btn btn-warning shadow w-100" id="submitButton" data-max-participants="{{ session('participants') }}">Wyślij</button>
                         <button class="btn btn-warning shadow w-100" id="loadingButton" style="display: none;" disabled>
-                            Wysyłanie..<span class="spinner-border spinner-border-sm ms-2"></span>
+                            Wysyłanie...<span class="spinner-border spinner-border-sm ms-3"></span>
                         </button>
 
                         <!-- Dodanie atrybutu do kontrolowania liczby uczestników -->

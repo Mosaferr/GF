@@ -50,7 +50,7 @@ class TripDataController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
             'price' => 'required|numeric|min:0',
-            'available_seats' => 'required|integer|min:0',
+            // 'available_seats' => 'required|integer|min:0',
             'total_seats' => 'required|integer|min:0',
         ]);
 

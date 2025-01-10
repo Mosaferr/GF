@@ -21,7 +21,7 @@
 					<div class="contact-image shadow position-relative mx-md-4">
 						<img src="{{ asset('img/main/contact.jpg') }}" alt="Chinese man" class="img-fluid">
 						<div class="contact-form-box">
-							
+
                             @if(session('success'))
 							{{-- <div class="alert alert-success alert-dismissible fade show" role="alert">
 								{{ session('success') }}
@@ -46,7 +46,11 @@
 									<textarea class="form-control" name="message" id="message" rows="5" placeholder=" " required></textarea>
 									<label for="message" class="floating-label">Wiadomość:</label>
 								</div>
-								<button type="submit" class="btn btn-warning">Wyślij</button>
+								{{-- <button type="submit" class="btn btn-warning">Wyślij</button> --}}
+                                <button type="submit" class="btn btn-warning shadow w-100" id="submitButton">Wyślij</button>
+                                <button class="btn btn-warning shadow w-100" id="loadingButton" style="display: none;" disabled>
+                                    Wysyłanie..<span class="spinner-border spinner-border-sm ms-3"></span>
+                                </button>
 							</form>
 						</div>
 					</div>
@@ -60,4 +64,5 @@
 @section('scripts')
     <script src="{{ asset('js/scrollreveal.min.js') }}"></script>
     @vite('resources/js/fading.js')
+    <script src="{{ asset('js/spinner-button.js') }}"></script>
 @endsection

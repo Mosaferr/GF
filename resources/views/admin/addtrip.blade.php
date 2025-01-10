@@ -49,9 +49,18 @@
                 </div>
 
                 <div class="row mb-2">
-                    <div class="col-md-9">
+                    <div class="col-md-6">
                         <label for="trip_name" class="form-label">Nazwa wyprawy</label>
-                        <input type="text" class="form-control" id="trip_name" name="trip_name" readonly>
+                        <select class="form-select" id="trip_name" name="trip_name" required>
+                            <option value="" disabled selected>Wybierz...</option>
+                            @foreach($trips as $trip)
+                            <option value="{{ $trip->trip_name }}" data-trip-id="{{ $trip->id }}" data-country="{{ $trip->country }}">
+                                {{ $trip->trip_name }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-3">
                     </div>
                     <div class="col-md-3">
                         <label for="price" class="form-label">Cena w PLN</label>
@@ -62,7 +71,14 @@
                 <div class="row mb-2">
                     <div class="col-md-6">
                         <label for="country" class="form-label">Odwiedzane kraje</label>
-                        <input type="text" class="form-control" id="country" name="country" readonly>
+                        <select class="form-select" id="country" name="country" required>
+                            <option value="" disabled selected>Wybierz...</option>
+                            @foreach($trips as $trip)
+                            <option value="{{ $trip->country }}" data-trip-id="{{ $trip->id }}" data-trip-name="{{ $trip->trip_name }}">
+                                {{ $trip->country }}
+                            </option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="col-md-3">
                         <label for="total_seats" class="form-label">Liczba członków grupy</label>
@@ -91,36 +107,6 @@
 @endsection
 
 @section('scripts')
-    <script>
-		document.getElementById('destination').addEventListener('change', function () {
-			const selectedOption = this.options[this.selectedIndex];
-			const destination = selectedOption.text;
-			const tripName = selectedOption.getAttribute('data-trip-name');
-			const country = selectedOption.getAttribute('data-country');
-
-			// Aktualizacja nagłówka
-			document.getElementById('header-destination').textContent = destination;
-
-			// Aktualizacja pól
-			document.getElementById('trip_name').value = tripName;
-			document.getElementById('country').value = country;
-		});
-
-		['start_date', 'end_date'].forEach(id => {
-			document.getElementById(id).addEventListener('input', function () {
-				const startDate = document.getElementById('start_date').value;
-				const endDate = document.getElementById('end_date').value;
-
-				if (startDate && endDate) {
-					const formattedStartDate = new Date(startDate).toLocaleDateString('pl-PL');
-					const formattedEndDate = new Date(endDate).toLocaleDateString('pl-PL');
-					document.getElementById('header-dates').textContent = `${formattedStartDate} - ${formattedEndDate}`;
-				}
-			});
-		});
-
-		document.getElementById('total_seats').addEventListener('input', function () {
-			document.getElementById('available_seats').value = this.value;
-		});
-    </script>
+    <script src="{{ asset('js/tripnames.js') }}" defer></script>
+    <script src="{{ asset('js/addtrip.js') }}" defer></script>
 @endsection

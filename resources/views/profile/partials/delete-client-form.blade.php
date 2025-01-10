@@ -46,12 +46,23 @@
         </p>
 
         <x-input-label for="password" value="Hasło" class="form-label" />
+        {{-- <x-text-input id="password_client" type="password" name="password" class="form-control mt-1 block w-3/4" required /> --}}
         <x-text-input id="password" type="password" name="password" class="form-control mt-1 block w-3/4" required />
         <x-input-error :messages="$errors->clientDeletion->get('password')" class="mt-2 red-text" />
 
-        <div class="mt-3 d-flex justify-content-end">
+        {{-- Przyciski --}}
+        <div class="mt-4 d-flex justify-content-end">
             <button type="reset" class="btn btn-secondary me-4 shadow">Anuluj</button>
-            <button type="submit" class="btn btn-danger me-2 shadow">Usuń</button>
+            {{-- <button type="submit" class="btn btn-danger me-2 px-3 shadow">Usuń</button> --}}
+            <button type="submit" class="submit-button btn btn-danger me-2 px-3 shadow">Usuń</button>
+            <button class="loading-button btn btn-danger me-2 px-3 shadow" style="display: none;" disabled>
+                Usuwanie...<span class="spinner-border spinner-border-sm ms-3"></span>
+            </button>
         </div>
     </form>
 </section>
+
+@section('scripts')
+    <script src="{{ asset('js/spinner-button2.js') }}"></script>
+@endsection
+
