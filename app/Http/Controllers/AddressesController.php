@@ -1,8 +1,9 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Address;
-use App\Http\Requests\AddressRequest;    // reguły walidacji
+use Illuminate\Http\Request;
 
 class AddressesController extends Controller
 {
@@ -11,9 +12,15 @@ class AddressesController extends Controller
         return Address::all();
     }
 
-    public function store(AddressRequest $request)
+    public function store(Request $request)
     {
-        $validated = $request->validated();
+        $validated = $request->validate([
+            'street' => 'required|max:255',
+            'house_number' => 'required|max:50',
+            'apartment_number' => 'nullable|max:50',
+            'postal_code' => 'required|max:20',
+            'city_id' => 'required|exists:cities,id',
+        ]);
         return Address::create($validated);
     }
 
@@ -22,10 +29,16 @@ class AddressesController extends Controller
         return Address::findOrFail($id);
     }
 
-    public function update(AddressRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $address = Address::findOrFail($id);
-        $validated = $request->validated();
+        $validated = $request->validate([
+            'street' => 'required|max:255',
+            'house_number' => 'required|max:50',
+            'apartment_number' => 'nullable|max:50',
+            'postal_code' => 'required|max:20',
+            'city_id' => 'required|exists:cities,id',
+        ]);
         $address->update($validated);
         return $address;
     }

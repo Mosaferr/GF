@@ -3,11 +3,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Trip;
 use App\Models\Date;
+// use App\Models\Client;
+// use App\Models\User;
+// use App\Models\Address;
+// use App\Models\City;
+// use App\Models\Citizenship;
+// use App\Models\ClientDate;
+// use App\Models\UserDate;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\TripRequest;        //reguły walidacji
+// use App\Http\Requests\ClientRequest;    // Zdefiniuj odpowiednie reguły walidacji w tym requestcie
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
+// use Illuminate\View\View;
 
 class TripDataController extends Controller
 {
@@ -33,12 +41,18 @@ class TripDataController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      *******************************************/
 
-    public function update(TripRequest $request, $tripId, $dateId)
+    public function update(Request $request, $tripId, $dateId)
     {
-        $trip = Trip::findOrFail($tripId);             // Pobranie wyprawy, nie korzystam z tego, można usunąć
+        $trip = Trip::findOrFail($tripId);
         $date = Date::where('trip_id', $tripId)->where('id', $dateId)->firstOrFail();
 
-        $validatedData = $request->validated();
+        $validatedData = $request->validate([
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after:start_date',
+            'price' => 'required|numeric|min:0',
+            // 'available_seats' => 'required|integer|min:0',
+            'total_seats' => 'required|integer|min:0',
+        ]);
 
         // Oblicz liczbę zajętych miejsc
         $occupiedSeats = $date->total_seats - $date->available_seats;
