@@ -1,64 +1,41 @@
-<section>
+<section class="form-container shadow">
     <header>
-        <h2 class="text-lg font-medium text-gray-900">
-            {{ __('Dane użytkownika') }}
-        </h2>
-
-        <p class="mt-1 text-sm text-gray-600">
-            {{ __("Zmień swoje dane i adres email.") }}
+        <h4 class="text-lg font-medium text-gray-900">
+            Dane użytkownika
+        </h4>
+        <p class="text-sm text-gray-600 mt-1">
+            Zmień swoje dane i adres email.
         </p>
     </header>
-
-    <form id="send-verification" method="post" action="{{ route('verification.send') }}">
-        @csrf
-    </form>
-
     <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
         @csrf
         @method('patch')
-
-        <div>
-            <x-input-label for="name" :value="__('Imię')" />
-            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
-            <x-input-error class="mt-2 yellow-text" yellow-text :messages="$errors->get('name')" />
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <x-input-label for="name" value="Imię" class="form-label" />
+                <x-text-input id="name" name="name" type="text" class="form-control mt-1 block w-full" :value="old('name', $user->name)" />
+                <x-input-error :messages="$errors->get('name')" class="mt-2 red-text" />
+            </div>
+            <div class="col-md-4">
+                <x-input-label for="last_name" value="Nazwisko" class="form-label" />
+                <x-text-input id="last_name" name="last_name" type="text" class="form-control mt-1 block w-full" :value="old('last_name', $user->last_name)" />
+                <x-input-error :messages="$errors->get('name')" class="mt-2 red-text" />
+            </div>
+            <div class="col-md-4">
+                <x-input-label for="email" value="Email" class="form-label" />
+                <x-text-input id="email" name="email" type="email" class="form-control mt-1 block w-full" :value="old('email', $user->email)" />
+                <x-input-error :messages="$errors->get('email')" class="mt-2 red-text" />
+            </div>
         </div>
 
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
-            <x-input-error class="mt-2 yellow-text" :messages="$errors->get('email')" />
-
-            @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
-                <div>
-                    <p class="text-sm mt-2 text-gray-800">
-                        {{ __('Twój adres email jest niezweryfikowany.') }}
-
-                        <button form="send-verification" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                            {{ __('Kliknij, aby wysłać ponownie email weryfikacyjny.') }}
-                        </button>
-                    </p>
-
-                    @if (session('status') === 'verification-link-sent')
-                        <p class="mt-2 font-medium text-sm text-green-600">
-                            {{ __('Nowy link weryfikacyjny został wysłany na Twój adres email.') }}
-                        </p>
-                    @endif
-                </div>
-            @endif
-        </div>
-
-        <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Zapisz') }}</x-primary-button>
-
-            @if (session('status') === 'profile-updated')
-                <p
-                    x-data="{ show: true }"
-                    x-show="show"
-                    x-transition
-                    x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm text-gray-600"
-                >{{ __('Zapisano.') }}</p>
-            @endif
+        {{-- <div class="mt-4 d-flex justify-content-end">
+            <button type="button" class="btn btn-success me-3">Anuluj</button>
+            <button type="submit" class="btn btn-danger">Usuń</button>
+        </div> --}}
+        <div class="row">
+            <div class="col-md-12 text-end">
+                <button type="submit" class="btn btn-success px-4 shadow">Zapisz</button>
+            </div>
         </div>
     </form>
 </section>

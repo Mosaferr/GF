@@ -12,8 +12,8 @@
 			<div class="row">
 
 				<div class="col-md-12 text-center pb-5">
-					<h2 class="">Dashboard</h2>
-					<h5>Pisz, chętnie odpowiemy</h5>
+					<h2 class="">Witamy w serwisie</h2>
+					{{-- <h5>Pisz, chętnie odpowiemy</h5> --}}
 				</div>
 
 				<div class="col-md-12 text-center">
@@ -22,12 +22,12 @@
 						<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 							<div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
 								<div class="p-6 text-gray-900">
-									{{ __("You're logged in!") }}
+									{{ __("Jesteś zalogowany!") }}
 								</div>
 							</div>
 						</div>
 					</div>
-				
+
 				</div>
 
 			</div>

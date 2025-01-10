@@ -7,13 +7,14 @@
 		<div class="container" style="max-width:1300px;">
 
             <div class="d-flex flex-wrap justify-content-center gap-3 p-3 bg-light border rounded border-secondary border-md-primary bg-md-warning">
-                <div class="d-flex flex-wrap justify-content-center gap-3 mx-auto my-2">
-                <a href="{{ route('admin.clientlist') }}" class="btn btn-warning shadow mx-4">Lista <br>klientów</a>
-                <a href="{{ route('admin.triplist') }}" class="btn btn-warning shadow mx-4">Lista <br>wypraw</a>
-                {{-- <a href="{{ route('admin.findclient') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>klienta</a> --}}
-                <a href="{{ route('admin.findclient', ['redirect_url' => url()->current()]) }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>klienta</a>
-                <a href="{{ route('admin.findtrip', ['redirect_url' => url()->current()]) }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>wyprawę</a>
-                {{-- <a href="{{ route('admin.findtrip') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>wyprawę</a> --}}
+                <div class="d-flex flex-wrap justify-content-center gap-2 my-2">
+                    <a href="{{ route('admin') }}" class="btn btn-warning shadow mx-4">Panel <br>admina</a>
+                    <a href="{{ route('admin.clientlist') }}" class="btn btn-warning shadow mx-4">Lista <br>klientów</a>
+                    <a href="{{ route('admin.triplist') }}" class="btn btn-warning shadow mx-4">Lista <br>wypraw</a>
+                    {{-- <a href="{{ route('admin.findclient') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>klienta</a> --}}
+                    <a href="{{ route('admin.findclient', ['redirect_url' => url()->current()]) }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>klienta</a>
+                    <a href="{{ route('admin.findtrip', ['redirect_url' => url()->current()]) }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>wyprawę</a>
+                    {{-- <a href="{{ route('admin.findtrip') }}" class="btn btn-warning shadow mx-4">Wyszukaj <br>wyprawę</a> --}}
                 </div>
             </div>
 

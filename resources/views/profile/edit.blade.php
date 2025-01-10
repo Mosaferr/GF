@@ -1,53 +1,48 @@
-<!-- resources/views/contact.blade.php -->
 @extends('layouts.app')
 
 @section('title', 'Profil')
 @section('head-scripts')
-    @vite('resources/css/hide.css')
+    @vite('resources/css/style.css')
+    {{-- @vite('resources/css/hide.css') --}}
 @endsection
 
 @section('content')
-	<main class="custom-margin-top">
-		<div class="container" style="max-width: 1100px;">
-			<div class="row">
+<main class="custom-margin-top">
+    <div class="container my-5" style="max-width: 1000px;">
+        <div class="row">
+            <div class="col-md-12 text-start pb-3 mt-2">
+                <h3>Twój profil</h3>
+                <hr>
+            </div>
+        </div>
 
-				<div class="col-md-12 text-center pb-5">
-					<h2 class="">Dashboard</h2>
-					<h5>Pisz, chętnie odpowiemy</h5>
-				</div>
+        @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+        @if(session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
 
-				<div class="col-md-12 text-center">
-
-					<div class="py-12">
-						<div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-							<div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-								<div class="max-w-xl">
-									@include('profile.partials.update-profile-information-form')
-								</div>
-							</div>
-				
-							<div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-								<div class="max-w-xl">
-									@include('profile.partials.update-password-form')
-								</div>
-							</div>
-				
-							<div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-								<div class="max-w-xl">
-									@include('profile.partials.delete-user-form')
-								</div>
-							</div>
-						</div>
-					</div>
-				
-				</div>
-
-			</div>
-		</div>
-	</main>
-@endsection
-
-@section('scripts')
-    <script src="{{ asset('js/scrollreveal.min.js') }}"></script>
-    @vite('resources/js/fading.js')
+        <div class="">
+            <div class="p-4 sm:p-8 sm:rounded-lg">
+                @include('profile.partials.update-profile-information-form')
+            </div>
+            <div class="p-4 sm:p-8 sm:rounded-lg">
+                @include('profile.partials.update-password-form')
+            </div>
+            <div class="p-4 sm:p-8 sm:rounded-lg">
+                @include('profile.partials.delete-user-form')
+            </div>
+            <div class=" sm:p-8 sm:rounded-lg">
+                @include('profile.partials.delete-client-form', ['clients' => $clients])
+            </div>
+        </div>
+    </div>
+</main>
 @endsection
