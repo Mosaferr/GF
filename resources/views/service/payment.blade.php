@@ -7,18 +7,7 @@
 @endsection
 
 @section('content')
-{{-- <main class="custom-margin-top"> --}}
-		
-	{{-- Nie pamietam czego to dotyczy: --}}
-	@if(session('success'))
-			<div class="alert alert-success">
-				{{ session('success') }}
-			</div>
-		@endif
-		
-
 	<main class="custom-margin-top">
-
 		<div class="container my-5" style="max-width: 1000px;">
 			<div class="col-md-12 text-center pb-5 mt-3">
 				<h2>Twoja wyprawa</h2>
@@ -97,7 +86,10 @@
 						</div>
 						</small>
 						<div class="text-end mt-3">
-							<button type="submit" class="btn btn-warning shadow">Zapłać</button>
+                            <button type="submit" class="btn btn-warning shadow" id="submitButton">Zapłać</button>
+                            <button class="btn btn-warning shadow w-100" id="loadingButton" style="display: none;" disabled>
+                                Przetwarzanie..<span class="spinner-border spinner-border-sm-ms-2"></span>
+                            </button>
 						</div>
 					</form>
 				</div>

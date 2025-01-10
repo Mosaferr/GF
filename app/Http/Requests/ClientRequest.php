@@ -45,7 +45,7 @@ class ClientRequest extends FormRequest
 			'city_name' => 'required|string|alpha|min:2|max:100',
             'trip' => 'required|integer|exists:trips,id',
             'start_date' => 'required|integer|exists:dates,id',
-            'stage' => 'required|string|in:zarezerwowany,zapisany,przedpłacone,opłacone',
+            'stage' => 'required|string|in:zarezerwowany,zapisany,przedpłacone,opłacone,rezygnacja',
         ];
     }
 }

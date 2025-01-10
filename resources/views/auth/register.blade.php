@@ -155,7 +155,11 @@
 
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <button type="submit" class="btn btn-warning shadow w-100">Wyślij</button>
+                    {{-- <button type="submit" class="btn btn-warning shadow w-100">Wyślij</button> --}}
+                    <button type="submit" class="btn btn-warning shadow w-100" id="submitButton">Wyślij</button>
+                    <button class="btn btn-warning shadow w-100" id="loadingButton" style="display: none;" disabled>
+                        Wysyłanie..<span class="spinner-border spinner-border-sm ms-2"></span>
+                    </button>
                 </div>
             </div>
         </form>
@@ -166,8 +170,7 @@
 @section('scripts')
     <script src="{{ asset('js/scrollreveal.min.js') }}"></script>
     @vite('resources/js/fading.js')
-    {{-- <script src="{{ asset('js/register.js') }}"></script> <!-- Dodanie nowego skryptu --> --}}
-    <script src="{{ asset('js/register.js?v=1.0') }}"></script> <!-- Dodanie nowego skryptu -->
-    {{-- <script src="register.js?v=1.0"></script> --}}
     @vite('resources/js/eye.js')
+    <script src="{{ asset('js/register.js?v=1.0') }}"></script> <!-- Dodanie nowego skryptu -->
+    <script src="{{ asset('js/spinner-button.js') }}"></script>
 @endsection

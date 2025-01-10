@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->date('birth_date');
             $table->enum('gender', ['M', 'F']);
-            $table->enum('stage', ['zarezerwowany', 'zapisany', 'przedpłacone', 'opłacone']);
+            $table->enum('stage', ['zarezerwowany', 'zapisany', 'przedpłacone', 'opłacone', 'rezygnacja']);
             $table->string('phone')->nullable();
             $table->string('email');
             $table->string('pesel');

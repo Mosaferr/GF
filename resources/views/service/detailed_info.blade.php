@@ -50,8 +50,8 @@
 		</div>
 
 		<div class="form-container">
-											
-			<!-- Komunikaty -->
+
+            <!-- Komunikaty -->
 			<div id="alertContainer">
 				@if(session('error'))
 					<div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -59,7 +59,6 @@
 						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 					</div>
 				@endif
-
 				@if(session('success'))
 					<div class="alert alert-success alert-dismissible fade show" role="alert">
 						{{ session('success') }}
@@ -67,7 +66,7 @@
 					</div>
 				@endif
 			</div>
-											
+
 			<h3> Twoja przygoda </h3>
 			<div class="row mb-3">
 				<div class="col-md-6">
@@ -214,7 +213,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="row mt-5">
 					<div class="col-md-6">
 						<button type="button" class="btn btn-secondary w-100 shadow" id="addParticipantBtn">Dodaj kolejnego uczestnika</button>
@@ -280,9 +279,13 @@
 
 				<div class="row">
 					<div class="col-md-12 text-center">
-						<!-- Dodanie atrybutu do kontrolowania liczby uczestników -->
-						<button type="submit" class="btn btn-warning shadow w-100" data-max-participants="{{ session('participants') }}">Wyślij</button>
-						{{-- <button type="submit" class="btn btn-warning shadow w-100">Wyślij</button> --}}
+						<button type="submit" class="btn btn-warning shadow w-100" id="submitButton" data-max-participants="{{ session('participants') }}">Wyślij</button>
+                        <button class="btn btn-warning shadow w-100" id="loadingButton" style="display: none;" disabled>
+                            Wysyłanie..<span class="spinner-border spinner-border-sm ms-2"></span>
+                        </button>
+
+                        <!-- Dodanie atrybutu do kontrolowania liczby uczestników -->
+						{{-- <button type="submit" class="btn btn-warning shadow w-100" data-max-participants="{{ session('participants') }}">Wyślij</button> --}}
 					</div>
 				</div>
 			</form>
@@ -295,4 +298,5 @@
     <script src="{{ asset('js/participants.js') }}"></script>
     <script src="{{ asset('js/scrollreveal.min.js') }}"></script>
     @vite('resources/js/fading.js')
+    <script src="{{ asset('js/spinner-button.js') }}"></script>
 @endsection

@@ -76,7 +76,10 @@
 					<form action="{{ route('service.payment2.checkout') }}" method="POST">
 						@csrf
 						<div class="text-end mt-3">
-							<button type="submit" class="btn btn-warning shadow">Zapłać</button>
+                            <button type="submit" class="btn btn-warning shadow" id="submitButton">Zapłać</button>
+                            <button class="btn btn-warning shadow w-100" id="loadingButton" style="display: none;" disabled>
+                                Przetwarzanie..<span class="spinner-border spinner-border-sm-ms-2"></span>
+                            </button>
 						</div>
 					</form>
 
