@@ -99,7 +99,16 @@ class PaymentController extends Controller
             'smallImage' => $smallImage // Dodanie zmiennej z nazwą małego obrazu
         ];
 
-        return view('service.payment', $data);          // Przekazanie danych do widoku
+        // Przekazanie danych do widoku
+        $client = $user->clients->first(); // Pobranie pierwszego powiązanego klienta
+        $date = $user->dates->first(); // Pobranie pierwszej powiązanej daty użytkownika
+
+        return view('service.payment', array_merge($data, [
+            'client' => $client,
+            'date' => $date,
+        ]));
+
+        // return view('service.payment', $data);
     }
 
     private function getParticipantsLabel($count)

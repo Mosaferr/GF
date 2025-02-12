@@ -89,6 +89,8 @@
                             </button>
 						</div>
 					</form>
+					<b class="mt-3 mb-1">Potwierdzenie uczestnictwa</b>
+                    <a href="{{ route('pdf.confirmation', ['clientId' => $client->id, 'dateId' => $date->id]) }}" class="btn btn-primary">Pobierz PDF</a>
 				</div>
 			</div>
 		</div>

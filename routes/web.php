@@ -25,6 +25,7 @@ use App\Http\Controllers\AddTripController;
 use App\Http\Controllers\TripListController;
 use App\Http\Controllers\TripDataController;
 use App\Http\Controllers\FindTripController;
+use App\Http\Controllers\ConfirmationController;
 use App\Http\Middleware\Manager;
 use App\Http\Middleware\Admin;
 use App\Http\Middleware\Normal;
@@ -119,6 +120,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/service/payment2/failed', [Payment2Controller::class, 'paymentFailed'])->name('payment2.failed');
 
     Route::get('/service/final', [FinalController::class, 'show'])->name('service.final');
+
+    Route::get('/pdf/confirmation/{clientId}/{dateId}', [ConfirmationController::class, 'generatePDF'])->name('pdf.confirmation');
+
 });
 
 // Admin
