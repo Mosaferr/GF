@@ -1,18 +1,18 @@
 <!-- resources/views/gallery/index.blade.php -->
 @extends('layouts.app')
 
-@section('title', 'Galeria zdjęć')
+@section('title', 'Galerie zdjęć')
 @section('head-scripts')
     @vite('resources/css/hide.css')
 @endsection
 
 @section('content')
 	<main class="custom-margin-top">
-		<section id=gallery class="gallery-block grid-gallery"">
+		<section id=gallery class="gallery-block grid-gallery">
 			<div class="container" style="max-width: 1200px;">
 				<div class="row">
 					<div class="col-md-12 text-center">
-						<h2 class="">Galeria zdjęć</h2>
+						<h2 class="">Galerie zdjęć</h2>
 					</div>
 
 					<div class="menu-text col-md-12 text-center">

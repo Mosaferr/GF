@@ -31,7 +31,7 @@
                         <a href="{{ route('terms') }}">Terminy</a>
                     </li>
                     <li class="list-group-item"><i class="bi bi-file-earmark-text"></i>&nbsp;
-                        <a href="{{ route('gallery') }}">Galeria</a>
+                        <a href="{{ route('gallery') }}">Galerie</a>
                     </li>
                     <li class="list-group-item"><i class="bi bi-file-earmark-text"></i>&nbsp;
                         <a href="{{ route('information') }}">Informacje</a>

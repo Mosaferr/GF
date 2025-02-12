@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ClientRequest;        //reguły walidacji w tym requestcie
+use App\Http\Requests\AddressRequest;        //reguły walidacji w tym requestcie
 use App\Models\City;
 use App\Models\Client;
 use App\Models\Address;
@@ -25,27 +26,28 @@ class AddDataController extends Controller
         }
 
     // Przechwytywanie i przechowywanie danych formularza rejestracji
-    public function store(ClientRequest $clientRequest)
+    public function store(ClientRequest $clientRequest, AddressRequest $addressRequest)
     {
         // dd($request->all());
 
         // Walidacja
-        $validated = $clientRequest->validated();
+        $validatedClient = $clientRequest->validated();
+        $validatedAddress = $addressRequest->validated(); // WALIDACJA ADRESU
 
         // Sprawdź, czy miasto już istnieje
-        $city = City::firstOrCreate(['city_name' => $validated['city_name']]);
+        $city = City::firstOrCreate(['city_name' => $validatedAddress['city_name']]);
 
         // Tworzenie adresu
         $address = Address::create([
-            'street' => $validated['street'],
-            'house_number' => $validated['house_number'],
-            'apartment_number' => $validated['apartment_number'],
-            'postal_code' => $validated['postal_code'],
+            'street' => $validatedAddress['street'],
+            'house_number' => $validatedAddress['house_number'],
+            'apartment_number' => $validatedAddress['apartment_number'],
+            'postal_code' => $validatedAddress['postal_code'],
             'city_id' => $city->id, // Przypisz id miasta
         ]);
 
         // Pobranie daty na podstawie start_date przekazanego z formularza
-        $date = Date::find($validated['start_date']);
+        $date = Date::find($validatedClient['start_date']);
         if (!$date) {
             return redirect()->back()->withErrors(['start_date' => 'Nie znaleziono wybranego terminu.']);
         }
@@ -60,7 +62,7 @@ class AddDataController extends Controller
 
         // Tworzenie klienta
         $client = Client::create(array_merge(
-            $validated, // Wszystkie zwalidowane dane
+            $validatedClient, // Wszystkie zwalidowane dane
             [
                 'address_id' => $address->id,       // Pole niezawarte w walidacji
                 'user_id' => auth()->id() ?? 1,     // Dodanie user_id. Tutaj przyjmuje ID aktualnie zalogowanego użytkownika lub wartość 1.
@@ -68,7 +70,7 @@ class AddDataController extends Controller
             ]
         ));
 
-        $client->dates()->attach($validated['start_date']);
+        $client->dates()->attach($validatedClient['start_date']);
 
         // Przekierowanie na odpowiednią stronę
         $redirectUrl = $clientRequest->input('redirect_url', route('admin.clientlist'));

@@ -15,8 +15,13 @@ class TripRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string> */
     public function rules(): array
     {
+        $destinationValidation = request()->routeIs('admin.addtrip.store')
+        ? 'required|exists:trips,id'            // Dla AddTripController (destination to id)
+        : 'required|exists:trips,destination';  // Dla TripDataController (destination to enum)
+
         return [
-            'destination' => 'required|exists:trips,id',
+            // 'destination' => 'required|exists:trips,id',
+            'destination' => $destinationValidation,
             'start_date' => 'required|date|after_or_equal:today',
             'end_date' => 'required|date|after:start_date',
             'price' => 'required|numeric|min:0',

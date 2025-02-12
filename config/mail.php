@@ -50,7 +50,7 @@ return [
             'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url(env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
         ],
 
-        
+
         'gmail' => [
             'transport' => 'smtp',
             'host' => 'smtp.gmail.com',
@@ -61,7 +61,7 @@ return [
             'timeout' => null,
             'auth_mode' => null,
         ],
-        
+
         'ses' => [
             'transport' => 'ses',
         ],
@@ -122,7 +122,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'hello@globfrotter.pl'),
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 

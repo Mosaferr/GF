@@ -132,7 +132,6 @@
 				<div class="tab-pane fade" id="registration-tab-pane" role="tabpanel" aria-labelledby="registration-tab" tabindex="0">
 					<div class="row g-5">
 						@include('components.warunki')
-						@include('components.warunki')
 
 						<div class="col-lg-6 col-md-6 col-sm-12 col-12 ps-lg-5 mt-lg-5 px-lg-4">
 							<a href="{{ route('gallery.sri_lanka') }}">

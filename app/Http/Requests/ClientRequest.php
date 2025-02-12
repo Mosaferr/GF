@@ -42,8 +42,9 @@ class ClientRequest extends FormRequest
         }
 
         if ($this->isMethod('put') || $this->isMethod('patch')) {
-            $rules['email'] = 'required|email|max:50|unique:clients,email,' . $this->client;
-            $rules['pesel'] = 'required|string|size:11|unique:clients,pesel,' . $this->client;
+            $clientId = $this->route('id') ?? $this->client;
+            $rules['email'] = 'required|email|max:50|unique:clients,email,' . $clientId;
+            $rules['pesel'] = 'required|string|size:11|unique:clients,pesel,' . $clientId;
         }
 
         return $rules;

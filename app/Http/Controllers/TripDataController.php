@@ -35,7 +35,7 @@ class TripDataController extends Controller
 
     public function update(TripRequest $request, $tripId, $dateId)
     {
-        $trip = Trip::findOrFail($tripId);             // Pobranie wyprawy, nie korzystam z tego, można usunąć
+        //$trip = Trip::findOrFail($tripId);             // Pobranie wyprawy, nie korzystam z tego, można usunąć
         $date = Date::where('trip_id', $tripId)->where('id', $dateId)->firstOrFail();
 
         $validatedData = $request->validated();
@@ -50,7 +50,9 @@ class TripDataController extends Controller
         }
 
         $seatDifference = $validatedData['total_seats'] - $date->total_seats; // Oblicz różnicę przed update
-        $date->update($validatedData); // Dopiero teraz zaktualizuj dane
+
+        unset($validatedData['destination']); // Usunięcie destination, bo nie istnieje w Date
+        $date->update($validatedData);
 
         // Odświeżenie obiektu $date, aby uzyskać zaktualizowane wartości
         // $date->refresh();

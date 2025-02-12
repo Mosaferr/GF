@@ -36,7 +36,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link {{ request()->is('gallery*') ? 'active' : '' }}" href="{{ route('gallery') }}" id="galeriaLink" role="button" aria-expanded="false">
-                        Galeria
+                        Galerie
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="galeriaLink">
                         <li><a class="dropdown-item {{ request()->is('gallery/argentina') ? 'active' : '' }}" href="{{ route('gallery.argentina') }}">Argentyna</a></li>
