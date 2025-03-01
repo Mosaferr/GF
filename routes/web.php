@@ -121,7 +121,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/service/final', [FinalController::class, 'show'])->name('service.final');
 
-    Route::get('/pdf/confirmation/{clientId}/{dateId}', [ConfirmationController::class, 'generatePDF'])->name('pdf.confirmation');
+    Route::get('/pdf/confirmation/{clientId}/{dateId}', [ConfirmationController::class, 'downloadPDF'])->name('pdf.confirmation'); // przycisk z potwierdzeniem.pdf
 
 });
 

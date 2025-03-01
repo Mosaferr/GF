@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 // use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\ConfirmationController;
 
 class DetailedInfoController extends Controller
 {
@@ -60,7 +61,7 @@ class DetailedInfoController extends Controller
     {
         $user = Auth::user();                                                   // Pobierz zalogowanego użytkownika
         $leaderId = Client::where('user_id', $user->id)->value('leader_id');    // Pobierz `leader_id` głównego uczestnika
-        $participants = $request->input('participants');                        // Pobierz dane uczestników
+        $participants = $request->input('participants');                    // Pobierz dane uczestników
 
         // Ponownie pobieramy date_id i trip_id
         $userDate = UserDate::where('user_id', $user->id)->first();
@@ -100,7 +101,7 @@ class DetailedInfoController extends Controller
         $participantCount = $user->participants;                       // Odczytanie zadeklarowanych uczestników z bazy danych
         $addedParticipants = count($request->input('participants', []));    // Liczba uczestników przesłanych w formularzu
 
-        Log::info('Wartość participants z bazy danych: ' . $user->participants);
+        // Log::info('Wartość participants z bazy danych: ' . $user->participants);
 
         // Sprawdzenie, czy liczba uczestników przekracza zadeklarowaną liczbę
         if ($addedParticipants > $participantCount) {
@@ -184,6 +185,12 @@ class DetailedInfoController extends Controller
 
                 // Log::info('Nowy klient i powiązane daty zostały utworzone.', ['client_id' => $client->id]);
             }
+        }
+
+        // Wysłanie e-maila do lidera
+        if ($leaderId) {
+            $confirmationController = new ConfirmationController();
+            $confirmationController->sendConfirmationEmail($leaderId, $dateId);
         }
 
         return redirect()->route('service.payment');
