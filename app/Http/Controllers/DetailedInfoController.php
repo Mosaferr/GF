@@ -187,11 +187,11 @@ class DetailedInfoController extends Controller
             }
         }
 
+        Log::info("Przed wysłaniem maila, uczestnicy: " . json_encode(Client::where('leader_id', $leaderId)->pluck('id')));
+
         // Wysłanie e-maila do lidera
-        if ($leaderId) {
-            $confirmationController = new ConfirmationController();
-            $confirmationController->sendConfirmationEmail($leaderId, $dateId);
-        }
+        $confirmationController = new ConfirmationController();
+        $confirmationController->sendConfirmationEmail($dateId);
 
         return redirect()->route('service.payment');
         // return redirect()->route('service.payment')->with('success', 'Dane zostały zapisane.');

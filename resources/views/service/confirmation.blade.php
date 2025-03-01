@@ -35,7 +35,12 @@
         <p>Przedmiotem Umowy jest wyprawa turystyczna o nazwie: <span class="bold">{{ $trip->trip_name }}</span><br>
         Miejsce wyprawy: <span class="bold">{{ $trip->country }}</span>,<br>
         Termin wyprawy: <span class="bold">{{ \Carbon\Carbon::parse($date->start_date)->format('d.m.Y') }} - {{ \Carbon\Carbon::parse($date->end_date)->format('d.m.Y') }}.</span></p>
-        <p>Całkowity koszt wyprawy wynosi <span class="bold">{{ number_format($date->price, 2, ',', ' ') }} PLN</span>.</p>
+        <p>Koszt wyprawy uczestnika: <span class="bold">{{ number_format($date->price, 2, ',', ' ') }} PLN</span><br>
+        Całkowity koszt: <span class="bold">{{ $participantsCount }}</span>
+        * <span class="bold">{{ number_format($date->price, 2, ',', ' ') }} PLN</span>
+        = <span class="bold">{{ number_format($totalPrice, 2, ',', ' ') }} PLN</span>.</p>
+
+        {{-- <p>Całkowity koszt wyprawy wynosi <span class="bold">{{ number_format($date->price, 2, ',', ' ') }} PLN</span>.</p> --}}
     </div>
 
     <div class="section">

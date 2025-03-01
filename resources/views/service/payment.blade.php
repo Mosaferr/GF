@@ -67,6 +67,9 @@
 					<b class="mt-2">Koszt wyprawy uczestnika:</b>
 					<small>{{ session('formatted_price') }} PLN</small>
 
+                    <b class="mt-2 mb-1"></b>
+                    <a href="{{ route('pdf.confirmation', ['clientId' => $client->id, 'dateId' => $date->id]) }}" class="btn btn-success">Pobierz potwierdzenie (PDF)</a>
+
 					<b class="mt-3 mb-1">Do zapłaty w PLN:</b>
 					<form action="{{ route('service.payment.checkout') }}" method="POST">
 						@csrf
@@ -89,8 +92,6 @@
                             </button>
 						</div>
 					</form>
-					<b class="mt-3 mb-1">Potwierdzenie uczestnictwa</b>
-                    <a href="{{ route('pdf.confirmation', ['clientId' => $client->id, 'dateId' => $date->id]) }}" class="btn btn-primary">Pobierz PDF</a>
 				</div>
 			</div>
 		</div>
