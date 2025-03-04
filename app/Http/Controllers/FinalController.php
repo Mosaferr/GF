@@ -1,25 +1,29 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use App\Models\UserDate;
+use App\Models\Date;
+use App\Models\Client;
+use App\Http\Controllers\ReceiptController;
 
 class FinalController extends Controller
 {
     public function show()
     {
-        $user = Auth::user();                   // Pobranie zalogowanego użytkownika
+        $user = Auth::user(); // Pobranie zalogowanego użytkownika
 
         // Sprawdzanie, czy dane nie są w sesji
         if (!session()->has('destination') || !session()->has('start_date') || !session()->has('end_date') ||
             !session()->has('price') || !session()->has('participants') || !session()->has('total_cost') ||
             !session()->has('total_prepayment') || !session()->has('formatted_balance')) {
 
-            $date = $user->dates->first();                  //Pobranie pierwszej powiązanej daty użytkownika.  Zakładam, że użytkownik ma tylko jedną datę powiązaną z wycieczką
-            $trip = $date->trip;                            // Pobranie powiązanej wyprawy poprzez model `Date`
-            $participants = $user->participants;  // Pobranie liczby uczestników
-            $price = $date->price;                          // Pobranie ceny
+            $date = $user->dates->first();          // Pobranie pierwszej powiązanej daty użytkownika
+            $trip = $date->trip;                    // Pobranie powiązanej wyprawy poprzez model `Date`
+            $participants = $user->participants;    // Pobranie liczby uczestników
+            $price = $date->price;                  // Pobranie ceny
 
             // Obliczenia
             $prepayment = floor(0.30 * $price / 10) * 10;
@@ -49,11 +53,9 @@ class FinalController extends Controller
                 'formatted_price' => $formatted_price,
                 'participants' => $participants,
                 'participants_label' => $participants_label,
-
                 'total_prepayment' => $total_prepayment,
                 'total_cost' => $total_cost,
                 'balance' => $balance,
-
                 'formatted_prepayment' => $formatted__prepayment,
                 'formatted_total_prepayment' => $formatted_total_prepayment,
                 'formatted_total_cost' => $formatted_total_cost,
@@ -84,25 +86,24 @@ class FinalController extends Controller
             'Tybet, w Chinach' => 'tibet1.jpg'
         ];
 
-        $destination = session('destination');          // Pobranie destynacji z sesji
+        $destination = session('destination'); // Pobranie destynacji z sesji
         $image = isset($images[$destination]) ? $images[$destination] : 'default.jpg';
         $smallImage = 'sm-' . $image;
 
         // Dodanie ścieżek obrazów do danych przekazywanych do widoku
-        $data = [
-            'destination' => session('destination'),
-            'start_date' => session('start_date'),
-            'end_date' => session('end_date'),
-            'price' => session('price'),
-            'participants' => session('participants'),
-            'participants_label' => session('participants_label'),
-            'formatted_total_prepayment' => session('formatted_total_prepayment'),
-            'formatted_total_cost' => session('formatted_total_cost'),
-            'image' => $image,                          // Dodanie zmiennej z nazwą obrazu
-            'smallImage' => $smallImage                 // Dodanie zmiennej z nazwą małego obrazu
-        ];
+        $data = array_merge($data, [
+            'image' => $image,              // Dodanie zmiennej z nazwą obrazu
+            'smallImage' => $smallImage     // Dodanie zmiennej z nazwą małego obrazu
+        ]);
 
-        return view('service.final', $data);        // Przekazanie danych do widoku
+        // Pobranie danych użytkownika
+        $client = $user->clients->first();
+        $date = $user->dates->first();
+
+        return view('service.final', array_merge($data, [
+            'client' => $client,
+            'date' => $date,
+        ]));
     }
 
     private function getParticipantsLabel($count)

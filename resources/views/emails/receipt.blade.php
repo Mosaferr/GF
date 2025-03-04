@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Potwierdzenie rezerwacji</title>
+    <title>Rachunek</title>
 </head>
 <body>
     <p>Dzień dobry, {{ $client->name }}!</p>
-    <p>Załączamy potwierdzenie Twojej rezerwacji na wycieczkę: <strong>{{ $trip->trip_name }}</strong>.<br>
+    <p>Załączamy rachunek za opłaconą wycieczkę: <strong>{{ $trip->trip_name }}</strong>.<br>
     W terminie: {{ \Carbon\Carbon::parse($date->start_date)->format('d.m.Y') }} -
     {{ \Carbon\Carbon::parse($date->end_date)->format('d.m.Y') }} roku.<br>
     Zobaczymy jak wygląda {{ $trip->destination }}.</p>

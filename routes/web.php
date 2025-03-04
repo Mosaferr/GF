@@ -15,6 +15,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\DetailedInfoController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\Payment2Controller;
+use App\Http\Controllers\PaymentSuccessController;
 use App\Http\Controllers\FinalController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClientListController;
@@ -26,6 +27,7 @@ use App\Http\Controllers\TripListController;
 use App\Http\Controllers\TripDataController;
 use App\Http\Controllers\FindTripController;
 use App\Http\Controllers\ConfirmationController;
+use App\Http\Controllers\ReceiptController;
 use App\Http\Middleware\Manager;
 use App\Http\Middleware\Admin;
 use App\Http\Middleware\Normal;
@@ -121,8 +123,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/service/final', [FinalController::class, 'show'])->name('service.final');
 
-    Route::get('/pdf/confirmation/{clientId}/{dateId}', [ConfirmationController::class, 'downloadPDF'])->name('pdf.confirmation'); // przycisk z potwierdzeniem.pdf
-
+    Route::get('/pdf/confirmation/{clientId}/{dateId}', [ConfirmationController::class, 'downloadPDF'])->name('pdf.confirmation');  // przycisk z potwierdzeniem.pdf
+    Route::get('/payment-success', [PaymentSuccessController::class, 'handleSuccess'])->name('payment.success.handler');            // przekierowanie po pełnej opłacie
+    Route::get('/final', [FinalController::class, 'show'])->name('final');
+    Route::get('/pdf/receipt/{clientId}/{dateId}', [ReceiptController::class, 'downloadReceiptPDF'])->name('pdf.receipt');          // przycisk z rachunkiem.pdf
 });
 
 // Admin

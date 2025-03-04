@@ -60,7 +60,7 @@
 
 				<div class="col-lg-4 col-md-5 col-sm-12 col-12 d-flex flex-column justify-content-center">
 					<b class="green-text">Wszystkie płatności są zatwierdzone</b>
-					<small  class="mt-1 mb-3">Tydzień przed wyjazdem przyślemy mailem niezbędne informacje dotyczące wyprawy.</small>
+					<small  class="mt-1 mb-1">Tydzień przed wyjazdem przyślemy mailem niezbędne informacje dotyczące wyprawy.</small>
 					<h4 class="mb-3">{{ session('destination') }}</h4>
 					<b>Wybrany termin:</b>
 					<small>Od: {{ session('start_date') }}</small>
@@ -69,7 +69,13 @@
 					<small>{{ session('formatted_price') }} PLN</small>
 					<small><b class="mt-5 mb-1">Koszt wszystkich uczestników:</b></small>
 					<small>{{ session('formatted_price') }} PLN * {{ session('participants') }} {{ session('participants_label') }} PLN = <strong>{{ session('formatted_total_cost') }}</strong> PLN</small>
-					<b class="mt-4 fs-4 text-center green-text">Zacznij się pakować!</b>
+                    <b class="mt-2"></b>
+                    {{-- <a href="#" class="btn btn-success">Pobierz rachunek (PDF)</a> --}}
+                    {{-- <a href="{{ route('pdf.confirmation', ['clientId' => $client->id, 'dateId' => $date->id]) }}" class="btn btn-success">Pobierz potwierdzenie (PDF)</a> --}}
+                    <a href="{{ route('pdf.receipt', ['clientId' => $client->id, 'dateId' => $date->id]) }}" class="btn btn-success">
+                        Pobierz rachunek (PDF)
+                    </a>
+					<b class="mt-2 fs-4 text-center">Zacznij się pakować!</b>
 				</div>
 			</div>
 		</div>

@@ -1,28 +1,27 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Exception;
-
+use Illuminate\Support\Facades\Log;
 
 class Payment2Controller extends Controller
 {
     public function show()
     {
-        $user = Auth::user();                   // Pobranie zalogowanego użytkownika
+        $user = Auth::user();                       // Pobranie zalogowanego użytkownika
 
         // Sprawdzanie, czy dane nie są w sesji
         if (!session()->has('destination') || !session()->has('start_date') || !session()->has('end_date') ||
             !session()->has('price') || !session()->has('participants') || !session()->has('total_cost') ||
             !session()->has('total_prepayment') || !session()->has('formatted_balance')) {
 
-            $date = $user->dates->first();                  //Pobranie pierwszej powiązanej daty użytkownika.  Zakładam, że użytkownik ma tylko jedną datę powiązaną z wycieczką
-            $trip = $date->trip;                            // Pobranie powiązanej wyprawy poprzez model `Date`
-            $participants = $user->participants;  // Pobranie liczby uczestników
-            $price = $date->price;                          // Pobranie ceny
+            $date = $user->dates->first();          //Pobranie pierwszej powiązanej daty użytkownika.  Zakładam, że użytkownik ma tylko jedną datę powiązaną z wycieczką
+            $trip = $date->trip;                    // Pobranie powiązanej wyprawy poprzez model `Date`
+            $participants = $user->participants;    // Pobranie liczby uczestników
+            $price = $date->price;                  // Pobranie ceny
 
             // Obliczenia
             $prepayment = floor(0.30 * $price / 10) * 10;
@@ -101,11 +100,11 @@ class Payment2Controller extends Controller
             'participants_label' => session('participants_label'),
             'formatted_total_prepayment' => session('formatted_total_prepayment'),
             'formatted_total_cost' => session('formatted_total_cost'),
-            'image' => $image,                          // Dodanie zmiennej z nazwą obrazu
-            'smallImage' => $smallImage                 // Dodanie zmiennej z nazwą małego obrazu
+            'image' => $image,                              // Dodanie zmiennej z nazwą obrazu
+            'smallImage' => $smallImage                     // Dodanie zmiennej z nazwą małego obrazu
         ];
 
-        return view('service.payment2', $data);     // Przekazanie danych do widoku
+        return view('service.payment2', $data); // Przekazanie danych do widoku
     }
 
     private function getParticipantsLabel($count)
@@ -122,15 +121,16 @@ class Payment2Controller extends Controller
     public function checkout(Request $request)
     {
         $user = $request->user();
-        $leaderId = $user->clients->first()->leader_id;		// Pobierz `leader_id` głównego użytkownika
-        $amount = intval(session('balance') * 100);         // Konwersja na grosze
+        $leaderId = $user->clients->first()->leader_id;             // Pobierz `leader_id` głównego użytkownika
+        $amount = intval(session('balance') * 100);     // Konwersja na grosze
 
         Client::where('leader_id', $leaderId)->update(['stage' => 'opłacone']);		// Aktualizacja pola stage
 
         try {
             // Utworzenie sesji Stripe Checkout z dynamiczną kwotą
             return $user->checkoutCharge($amount, 'Opłata za wyprawę', 1, [
-                'success_url' => route('payment.success'),
+                // 'success_url' => route('payment.success'),
+                'success_url' => route('payment.success.handler'),  // NOWA TRASA
                 'cancel_url' => route('payment.cancel'),
             ]);
         } catch (Exception $e) {
@@ -138,20 +138,21 @@ class Payment2Controller extends Controller
         }
     }
 
-
     public function paymentSuccess()
     {
-        $user = Auth::user();               // Pobranie zalogowanego użytkownika
+        $user = Auth::user();                   // Pobranie zalogowanego użytkownika
 
-        $clients = $user->clients;          // Pobranie kolekcji klientów powiązanych z użytkownikiem
-        $firstClient = $clients->first();   // Pobranie pierwszego klienta z kolekcji
+        $clients = $user->clients;              // Pobranie kolekcji klientów powiązanych z użytkownikiem
+        $firstClient = $clients->first();       // Pobranie pierwszego klienta z kolekcji
         if ($firstClient) {
-            $stage = $firstClient->stage;  // Uzyskanie wartości pola 'stage' pierwszego klienta
+            $stage = $firstClient->stage;       // Uzyskanie wartości pola 'stage' pierwszego klienta
         } else {
-            return redirect()->route('service.payment2')->with('error', 'Nie znaleziono klienta dla tego użytkownika.');           // Obsługa sytuacji, gdy nie ma klientów
+            return redirect()->route('service.payment2')->with('error', 'Nie znaleziono klienta dla tego użytkownika.');    // Obsługa sytuacji, gdy nie ma klientów
         }
 
-        return redirect()->route('service.final');
+        // return redirect()->route('service.final');
+        Log::info("🔍 Przekierowanie po dopłacie do payment.success.handler");
+        return redirect()->route('payment.success.handler');
     }
 
     public function paymentCancel()
