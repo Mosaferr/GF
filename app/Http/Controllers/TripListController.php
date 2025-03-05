@@ -12,7 +12,7 @@ class TripListController extends Controller
         $sortBy = $request->input('sort_by', 'id');         // Domyślna kolumna do sortowania
         $order = $request->input('order', 'asc');           // Domyślny kierunek sortowania
 
-        if ($sortBy === 'trip.country') {                   // Sprawdzenie, czy sortujemy po kolumnie z tabeli trips
+        if ($sortBy === 'trip.country') {                               // Sprawdzenie, czy sortujemy po kolumnie z tabeli trips
             $dates = Date::join('trips', 'dates.trip_id', '=', 'trips.id')
                 ->select('dates.*')
                 ->orderBy('trips.country', $order)
@@ -25,7 +25,7 @@ class TripListController extends Controller
                 ->get();
         }
 
-        // $dates = Date::with('trip')->take(20)->get();                    // Pobierz 20 pierwszych wierszy z tabeli Dates wraz z powiązanymi danymi z tabeli Trips
-        return view('admin.triplist', ['dates' => $dates]);    // Przekaż dane do widoku
+        // $dates = Date::with('trip')->take(20)->get();                // Pobierz 20 pierwszych wierszy z tabeli Dates wraz z powiązanymi danymi z tabeli Trips
+        return view('admin.triplist', ['dates' => $dates]); // Przekaż dane do widoku
     }
 }

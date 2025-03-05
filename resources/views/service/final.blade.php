@@ -71,7 +71,6 @@
 					<small>{{ session('formatted_price') }} PLN * {{ session('participants') }} {{ session('participants_label') }} PLN = <strong>{{ session('formatted_total_cost') }}</strong> PLN</small>
                     <b class="mt-2"></b>
                     {{-- <a href="#" class="btn btn-success">Pobierz rachunek (PDF)</a> --}}
-                    {{-- <a href="{{ route('pdf.confirmation', ['clientId' => $client->id, 'dateId' => $date->id]) }}" class="btn btn-success">Pobierz potwierdzenie (PDF)</a> --}}
                     <a href="{{ route('pdf.receipt', ['clientId' => $client->id, 'dateId' => $date->id]) }}" class="btn btn-success">
                         Pobierz rachunek (PDF)
                     </a>

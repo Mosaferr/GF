@@ -122,12 +122,12 @@
 							</div>
 						</div>
 						<div class="row mb-3">
-							<div class="col-md-6">
+							<div class="col-md-4">
 								<label for="pesel" class="form-label">PESEL <span class="text-danger">*</span></label>
 								<input type="text" class="form-control" id="pesel" name="participants[0][pesel]" value="{{ old('participants[0][pesel]') }}" required>
 								<x-input-error :messages="$errors->get('participants.0.pesel')" class="mt-2 red-text" />
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-4">
 								<label for="citizenship" class="form-label">Obywatelstwo <span class="text-danger">*</span></label>
 								<select class="form-select" id="citizenship" name="participants[0][citizenship]" required>
 									<option value="" disabled selected>Wybierz...</option>
@@ -141,33 +141,11 @@
 								</select>
 								<x-input-error :messages="$errors->get('participants.0.citizenship')" class="mt-2 red-text" />
 							</div>
-						</div>
-						<div class="row mb-3">
-							<div class="col-md-6">
-								<label class="form-label">Płeć <span class="text-danger">*</span></label>
-								<div class="row">
-									<div class="col-auto">
-										<div class="form-check">
-											<input class="form-check-input" type="radio" name="participants[0][gender]" id="gender_female" value="F" {{ old('participants[0][gender]') == 'F' ? 'checked' : '' }}>
-											{{-- <input class="form-check-input" type="radio" name="participants[0][gender]" id="gender_female" value="Kobieta" {{ old('participants[0][gender]') == 'Kobieta' ? 'checked' : '' }} required> --}}
-											<label class="form-check-label" for="gender_female">Kobieta</label>
-										</div>
-									</div>
-									<div class="col-auto">
-										<div class="form-check">
-											<input class="form-check-input" type="radio" name="participants[0][gender]" id="gender_male" value="M" {{ old('participants[0][gender]') == 'M' ? 'checked' : '' }}>
-											{{-- <input class="form-check-input" type="radio" name="participants[0][gender]" id="gender_male" value="Mężczyzna" {{ old('participants[0][gender]') == 'Mężczyzna' ? 'checked' : '' }} required> --}}
-											<label class="form-check-label" for="gender_male">Mężczyzna</label>
-										</div>
-									</div>
-								</div>
-								<x-input-error :messages="$errors->get('participants.0.gender')" class="mt-2 red-text" />
-							</div>
-							<div class="col-md-6">
+							<div class="col-md-4">
 								<label for="passport_number" class="form-label">Seria i numer paszportu <span class="text-danger">*</span></label>
 								<input type="text" class="form-control" id="passport_number" name="participants[0][passport_number]" value="{{ old('participants[0][passport_number]') }}" required>
 								<x-input-error :messages="$errors->get('participants.0.passport_number')" class="mt-2 red-text" />
-							</div>
+                            </div>
 						</div>
 						<div class="row mb-3">
 							<div class="col-md-6">
@@ -279,13 +257,11 @@
 
 				<div class="row">
 					<div class="col-md-12 text-center">
-						<button type="submit" class="btn btn-warning shadow w-100" id="submitButton" data-max-participants="{{ session('participants') }}">Wyślij</button>
+                        <button type="submit" class="btn btn-warning shadow w-100">Wyślij</button>
+						{{-- <button type="submit" class="btn btn-warning shadow w-100" id="submitButton" data-max-participants="{{ session('participants') }}">Wyślij</button>
                         <button class="btn btn-warning shadow w-100" id="loadingButton" style="display: none;" disabled>
                             Wysyłanie...<span class="spinner-border spinner-border-sm ms-3"></span>
-                        </button>
-
-                        <!-- Dodanie atrybutu do kontrolowania liczby uczestników -->
-						{{-- <button type="submit" class="btn btn-warning shadow w-100" data-max-participants="{{ session('participants') }}">Wyślij</button> --}}
+                        </button> --}}
 					</div>
 				</div>
 			</form>

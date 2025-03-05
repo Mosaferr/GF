@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
@@ -11,17 +10,7 @@ class SpotAvailableNotification extends Notification
 {
     use Queueable;
 
-    /**
-     * Create a new notification instance.
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
-     * Get the notification's delivery channels.
-     *
+    /*** Get the notification's delivery channels.
      * @param  mixed  $notifiable
      * @return array
      */
@@ -30,9 +19,7 @@ class SpotAvailableNotification extends Notification
         return ['mail'];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     *
+    /*** Get the mail representation of the notification.
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
@@ -43,18 +30,5 @@ class SpotAvailableNotification extends Notification
                 ->line('Mamy dla Ciebie wolne miejsce.')
                 ->line('Wypełnij jeszcze jeden formularz i dokonaj wpłaty.')
                 ->line('Witamy w grupie!');
-    }
-
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function toArray($notifiable)
-    {
-        return [
-            //
-        ];
     }
 }

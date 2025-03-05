@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -8,11 +7,6 @@ use App\Mail\ContactMail;
 
 class EmailController extends Controller
 {
-    // public function showContactForm()
-    // {
-    //     return view('contact');
-    // }
-
     public function sendEmail(Request $request)
     {
         $request->validate([
@@ -27,7 +21,7 @@ class EmailController extends Controller
             'message' => $request->message,
         ];
 
-                // Używanie konfiguracji Gmaila
+        // Używanie konfiguracji Gmaila
         config(['mail.mailers.smtp.host' => env('GMAIL_HOST')]);
         config(['mail.mailers.smtp.port' => env('GMAIL_PORT')]);
         config(['mail.mailers.smtp.username' => env('GMAIL_USERNAME')]);
@@ -37,9 +31,6 @@ class EmailController extends Controller
         config(['mail.from.name' => env('GMAIL_FROM_NAME')]);
 
         Mail::to(env('GMAIL_USERNAME'))->send(new ContactMail($details));
-
-        // Mail::mailer('gmail')->to('grzech@gmail.com')->send(new ContactMail($details));
-        // Mail::to('grzech.kowalczyk@gmail.com')->send(new ContactMail($details));
 
         return back()->with('success', 'Email został wysłany!');
     }

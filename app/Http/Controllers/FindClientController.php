@@ -5,14 +5,10 @@ use Illuminate\Http\Request;
 use App\Models\Trip;
 use App\Models\Date;
 use App\Models\Client;
-// use App\Models\Citizenship;
-// use App\Models\Address;
-// use App\Models\City;
 
 class FindClientController extends Controller
 {
-    /**
-     * Wyświetlanie listy i formularza wyszukiwania klienta.
+    /*** Wyświetlanie listy i formularza wyszukiwania klienta.
      */
     public function index(Request $request)
     {

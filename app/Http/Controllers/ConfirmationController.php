@@ -1,7 +1,6 @@
 <?php
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Client;
 use App\Models\Date;
@@ -23,18 +22,10 @@ class ConfirmationController extends Controller
 
             // Pobranie lidera na podstawie user_id
             $leader = Client::where('user_id', $user->id)->orderBy('id')->firstOrFail();
-
             // Pobranie terminu wycieczki
             $date = Date::with('trip')->findOrFail($dateId);
-
-            Log::info("Lider ID: {$leader->id}, Sprawdzam uczestników dla leader_id: {$leader->id}");
-
             // Pobranie uczestników powiązanych z liderem
             $participants = Client::where('leader_id', $leader->leader_id)->get();
-
-            // Logowanie dla debugowania
-            Log::info("Email dla lidera: {$leader->email}, ID lidera: {$leader->id}, dateId: {$dateId}");
-            Log::info("Uczestnicy: " . json_encode($participants->pluck('id')));
 
             // Generowanie pliku PDF i kodowanie w Base64
             $pdfData = base64_encode($this->createPdf($leader, $date, $participants)->output());
@@ -44,10 +35,8 @@ class ConfirmationController extends Controller
             }
 
             // Wysłanie maila na adres lidera
-            // Mail::to($leader->email)->send(new ConfirmationMail($leader, $pdfData));
             Mail::to($leader->email)->send(new ConfirmationMail($leader, $date->trip, $date, $pdfData));
 
-            Log::info("Wysłano e-mail z potwierdzeniem do: " . $leader->email);
         } catch (Exception $e) {
             Log::error("Błąd wysyłki e-maila: " . $e->getMessage());
         }

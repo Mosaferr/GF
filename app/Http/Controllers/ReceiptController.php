@@ -1,7 +1,6 @@
 <?php
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Client;
 use App\Models\Date;
@@ -15,52 +14,28 @@ use Exception;
 class ReceiptController extends Controller
 {
     /*** Automatyczna wysyłka e-maila po rejestracji rezerwacji. */
-
     public function sendReceiptEmail($dateId)
     {
         Log::info("🔍 Wejście do sendReceiptEmail dla dateId: " . ($dateId ?? 'Brak dateId'));
         try {
-            Log::info("🔍 Rozpoczęcie `sendReceiptEmail()` dla dateId: " . $dateId);
-
-            // Pobranie zalogowanego użytkownika
-            $user = Auth::user();
-            Log::info("Użytkownik ID: " . ($user ? $user->id : 'Brak użytkownika'));
-
-            // Pobranie lidera na podstawie user_id
-            $leader = Client::where('user_id', $user->id)->orderBy('id')->firstOrFail();
-            Log::info("✅ Znaleziono lidera: " . $leader->email . " (ID: " . $leader->id . ")");
-
-            // Pobranie terminu wycieczki
-            $date = Date::with('trip')->findOrFail($dateId);
-            Log::info("✅ Znaleziono termin: " . $date->trip->trip_name . " (ID: " . $date->id . ")");
-
-            Log::info("Lider ID: {$leader->id}, Sprawdzam uczestników dla leader_id: {$leader->id}");
-
-            // Pobranie uczestników powiązanych z liderem
-            $participants = Client::where('leader_id', $leader->leader_id)->get();
-            Log::info("✅ Liczba uczestników: " . $participants->count());
-
-            // Logowanie dla debugowania
-            Log::info("Email dla lidera: {$leader->email}, ID lidera: {$leader->id}, dateId: {$dateId}");
-            Log::info("Uczestnicy: " . json_encode($participants->pluck('id')));
+            $user = Auth::user();                                                           // Pobranie zalogowanego użytkownika
+            $leader = Client::where('user_id', $user->id)->orderBy('id')->firstOrFail();    // Pobranie lidera na podstawie user_id
+            $date = Date::with('trip')->findOrFail($dateId);                 // Pobranie terminu wycieczki
+            $participants = Client::where('leader_id', $leader->leader_id)->get();          // Pobranie uczestników powiązanych z liderem
 
             // Generowanie pliku PDF i kodowanie w Base64
             $pdfData = base64_encode($this->createPdf($leader, $date, $participants)->output());
 
             if (!$pdfData) {
-                Log::error("❌ Błąd: Nie udało się wygenerować PDF.");
+                Log::error("Błąd: Nie udało się wygenerować PDF.");
                 return;
             }
 
-            Log::info("✅ Plik PDF wygenerowany poprawnie.");
-
             // Wysłanie maila na adres lidera
-            // Mail::to($leader->email)->send(new ReceiptMail($leader, $pdfData));
             Mail::to($leader->email)->send(new ReceiptMail($leader, $date->trip, $date, $pdfData));
 
-            Log::info("✅ Wysłano e-mail z rachunkiem do: " . $leader->email);
         } catch (Exception $e) {
-            Log::error("❌ Błąd wysyłki e-maila: " . $e->getMessage());
+            Log::error("Błąd wysyłki e-maila: " . $e->getMessage());
         }
     }
 

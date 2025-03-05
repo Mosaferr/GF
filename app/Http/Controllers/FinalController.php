@@ -1,19 +1,13 @@
 <?php
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
-use App\Models\UserDate;
-use App\Models\Date;
-use App\Models\Client;
-use App\Http\Controllers\ReceiptController;
 
 class FinalController extends Controller
 {
     public function show()
     {
-        $user = Auth::user(); // Pobranie zalogowanego użytkownika
+        $user = Auth::user();                       // Pobranie zalogowanego użytkownika
 
         // Sprawdzanie, czy dane nie są w sesji
         if (!session()->has('destination') || !session()->has('start_date') || !session()->has('end_date') ||

@@ -6,15 +6,14 @@
     <title>Potwierdzenie uczestnictwa</title>
     <style>
         body { font-family: DejaVu Sans, sans-serif; font-size: 12px; margin-top: 30px;}
-        /* .header { text-align: center; font-weight: bold; font-size: 16px; } */
         .section { margin-top: 20px; margin-left: 50px; margin-right: 50px;}
         .bold { font-weight: bold; }
         .table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         .table td, .table th { border: 1px solid #000; padding: 5px; text-align: left; }
         .block {
-            display: inline-block;  /* Umożliwia ustawienie bloków obok siebie */
-            width: 48%;             /* Ustawia szerokość bloków */
-            vertical-align: top;    /* Ustawia wyrównanie bloków do góry */
+            display: inline-block;      /* ustawienie bloków obok siebie */
+            width: 48%;                 /* szerokość bloków */
+            vertical-align: top;        /* wyrównanie bloków do góry */
         }
     </style>
 </head>
@@ -23,10 +22,6 @@
         <h2>Glob<i>Frotter</i>.pl</h2>
         <h3>POTWIERDZENIE OPŁATY IMPREZY TURYSTYCZNEJ</h3>
     </div>
-
-    {{-- <div class="section">
-        <p>Data wystawienia: {{ now()->format('d.m.Y H:i') }}</p>
-    </div> --}}
 
     <div class="section">
         <p>Data wystawienia: {{ now()->format('d.m.Y H:i') }}</p>
@@ -39,7 +34,7 @@
             <p class="bold">Nabywca:</p>
             <span class="bold">{{ $client->name }} {{ $client->middle_name }} {{ $client->last_name }}</span>,<br>
             ul. {{ $client->address->street }} {{ $client->address->house_number }}
-            @if($client->address->apartment_number) / {{ $client->address->apartment_number }} @endif,<br>
+            @if($client->address->apartment_number) / {{ $client->address->apartment_number }}@endif,<br>
             {{ $client->address->postal_code }} {{ $client->address->city->city_name }}.
         </div>
     </div>
@@ -47,7 +42,7 @@
     <div class="section">
         <p class="bold">Usługa:</p>
         <p>Wyprawa turystyczna: <span class="bold">{{ $trip->trip_name }}</span><br>
-        Miejsce wyprawy: <span class="bold">{{ $trip->country }}</span>,<br>
+        Miejsce wyprawy: <span class="bold">{{ $trip->country }}</span><br>
         Termin wyprawy: <span class="bold">{{ \Carbon\Carbon::parse($date->start_date)->format('d.m.Y') }} -
             {{ \Carbon\Carbon::parse($date->end_date)->format('d.m.Y') }}.</span></p>
         <p>Koszt wyprawy uczestnika: <span class="bold">{{ number_format($date->price, 2, ',', ' ') }} PLN</span><br>

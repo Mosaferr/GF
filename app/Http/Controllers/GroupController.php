@@ -1,7 +1,6 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\Client;
 use App\Models\Date;
 use Illuminate\Http\Request;
 
@@ -28,9 +27,5 @@ class GroupController extends Controller
             'trip' => $trip,
             'redirectUrl' => $redirectUrl,
         ]);
-        // return view('admin.group', [
-		// 	'clients' => $clients,
-		// 	'trip' => $trip,
-		// ]);
 	}
 }

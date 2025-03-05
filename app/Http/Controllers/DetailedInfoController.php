@@ -1,5 +1,4 @@
 <?php
-// app/Http/Controllers/DetailedInfoController
 namespace App\Http\Controllers;
 
 use App\Models\Trip;
@@ -15,7 +14,6 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
-// use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\ConfirmationController;
 
 class DetailedInfoController extends Controller
@@ -43,17 +41,6 @@ class DetailedInfoController extends Controller
             'email' => $user->email,
         ];
 
-    // Log::info('Dane do przekazania do widoku:', ['data' => $data]);
-
-    // Debugowanie danych
-    // dd($data); // Zatrzyma wykonanie kodu i wyświetli zawartość $data
-
-        // Widok z nagłówkami HTTP wyłączającymi cache po 10 sekundach
-        // return response()
-        //     ->view('service.detailed_info', $data)
-        //     ->header('Cache-Control', 'private, max-age=10')
-        //     ->header('Expires', gmdate('D, d M Y H:i:s \G\M\T', time() + 10));
-
         return view('service.detailed_info', $data);
     }
 
@@ -68,7 +55,6 @@ class DetailedInfoController extends Controller
         $dateId = $userDate ? $userDate->date_id : null;
         $date = Date::find($dateId);
         $tripId = $date ? $date->trip_id : null;
-        // $trip = Trip::find($tripId);
 
         // Walidacja danych uczestników
         $rules = [
@@ -98,10 +84,8 @@ class DetailedInfoController extends Controller
         $validator = Validator::make($request->all(), $rules);
 
         // Sprawdzanie liczby dodanych uczestników
-        $participantCount = $user->participants;                       // Odczytanie zadeklarowanych uczestników z bazy danych
+        $participantCount = $user->participants;                                        // Odczytanie zadeklarowanych uczestników z bazy danych
         $addedParticipants = count($request->input('participants', []));    // Liczba uczestników przesłanych w formularzu
-
-        // Log::info('Wartość participants z bazy danych: ' . $user->participants);
 
         // Sprawdzenie, czy liczba uczestników przekracza zadeklarowaną liczbę
         if ($addedParticipants > $participantCount) {
@@ -150,7 +134,6 @@ class DetailedInfoController extends Controller
                         'issue_date' => $participantData['issue_date'],
                         'expiry_date' => $participantData['expiry_date'],
                         'address_id' => $address->id,
-
                         'stage' => 'zapisany',                      // NOWE
                     ]
                 );
@@ -182,12 +165,9 @@ class DetailedInfoController extends Controller
                     'date_id' => $dateId,
                     'trip_id' => $tripId,
                 ]);
-
                 // Log::info('Nowy klient i powiązane daty zostały utworzone.', ['client_id' => $client->id]);
             }
         }
-
-        Log::info("Przed wysłaniem maila, uczestnicy: " . json_encode(Client::where('leader_id', $leaderId)->pluck('id')));
 
         // Wysłanie e-maila do lidera
         $confirmationController = new ConfirmationController();

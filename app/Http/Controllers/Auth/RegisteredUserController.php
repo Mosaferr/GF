@@ -14,9 +14,9 @@ use App\Http\Requests\UserRequest;        //reguły walidacji
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
+// use Illuminate\Validation\Rules;
 use Illuminate\View\View;
-use Illuminate\Support\Facades\Log;
+// use Illuminate\Support\Facades\Log;
 
 use App\Notifications\SpotAvailableNotification;
 
@@ -114,12 +114,12 @@ class RegisteredUserController extends Controller
                 ]);
             }
 
-            // ZAKOMENTOWANIE MAILINGU (3 WIERSZE) *************************************************************************
             event(new Registered($user));
             Auth::login($user);
-            // if ($user->id != 1) {            //  OMIŃ dla usera o ID=1.
-            // 		$user->notify(new SpotAvailableNotification());         // Wyślij powiadomienie email
-            // }
+            // ZAKOMENTOWANIE MAILINGU (3 WIERSZE) *************************************************************************
+            if ($user->id != 1) {            //  OMIŃ dla usera o ID=1.
+            		$user->notify(new SpotAvailableNotification());         // Wyślij powiadomienie email
+            }
             // KONIEC ZAKOMENTOWANIA MAILINGU (3 WIERSZE) ******************************************************************
 
             // Zapisanie danych w sesji

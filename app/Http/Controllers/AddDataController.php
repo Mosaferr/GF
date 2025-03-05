@@ -10,19 +10,20 @@ use App\Models\Address;
 use App\Models\Trip;
 use App\Models\Date;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Auth;
 
 class AddDataController extends Controller
 {
     // Wyświetlanie formularza rejestracji
     public function create(): View
         {
-            $trips = Trip::all(); // Pobieramy wszystkie wyprawy
-            $dates = Date::all(); // Pobieramy wszystkie dostępne terminy
+            $trips = Trip::all();                           // Pobranie wszystkich wypraw
+            $dates = Date::all();                           // Pobranie wszystkich dostępnych terminów
 
-            return view('admin.adddata', [
+            return view('admin.adddata', [      // Przekazanie zmiennych $trips i $dates do widoku
                 'trips' => $trips,
                 'dates' => $dates
-            ]); // Przekazujemy zmienne $trips i $dates do widoku
+            ]);
         }
 
     // Przechwytywanie i przechowywanie danych formularza rejestracji
@@ -32,10 +33,19 @@ class AddDataController extends Controller
 
         // Walidacja
         $validatedClient = $clientRequest->validated();
-        $validatedAddress = $addressRequest->validated(); // WALIDACJA ADRESU
+        $validatedAddress = $addressRequest->validated();       // walidacja adresu
 
-        // Sprawdź, czy miasto już istnieje
-        $city = City::firstOrCreate(['city_name' => $validatedAddress['city_name']]);
+        // Sprawdzenie, czy podano city_id czy city_name
+        if (!empty($validatedAddress['city_id'])) {
+            $city = City::find($validatedAddress['city_id']);
+        } else {
+            $city = City::firstOrCreate(['city_name' => $validatedAddress['city_name']]);   // Sprawdzenie, czy miasto już istnieje
+        }
+
+        // Sprawdzenie, czy znaleziono lub utworzono miasto
+        if (!$city) {
+            return redirect()->back()->withErrors(['city' => 'Nie znaleziono podanego miasta.']);
+        }
 
         // Tworzenie adresu
         $address = Address::create([
@@ -43,8 +53,12 @@ class AddDataController extends Controller
             'house_number' => $validatedAddress['house_number'],
             'apartment_number' => $validatedAddress['apartment_number'],
             'postal_code' => $validatedAddress['postal_code'],
-            'city_id' => $city->id, // Przypisz id miasta
+            'city_id' => $city->id,                                 // Przypisz id miasta
         ]);
+
+        if (!$address) {
+            return redirect()->back()->withErrors(['address' => 'Nie udało się utworzyć adresu.']);
+        }
 
         // Pobranie daty na podstawie start_date przekazanego z formularza
         $date = Date::find($validatedClient['start_date']);
@@ -62,13 +76,17 @@ class AddDataController extends Controller
 
         // Tworzenie klienta
         $client = Client::create(array_merge(
-            $validatedClient, // Wszystkie zwalidowane dane
+            $validatedClient,               // Wszystkie zwalidowane dane
             [
                 'address_id' => $address->id,       // Pole niezawarte w walidacji
-                'user_id' => auth()->id() ?? 1,     // Dodanie user_id. Tutaj przyjmuje ID aktualnie zalogowanego użytkownika lub wartość 1.
-                'leader_id' => auth()->id(),        // Dodanie leader_id. Tutaj przyjmuje ID aktualnie zalogowanego użytkownika.
+                'user_id' => Auth::id() ?? 1,       // Dodanie user_id. Tutaj przyjmuje ID aktualnie zalogowanego użytkownika lub wartość 1.
+                'leader_id' => Auth::id(),          // Dodanie leader_id. Tutaj przyjmuje ID aktualnie zalogowanego użytkownika.
             ]
         ));
+
+        if (!$client) {
+            return redirect()->back()->withErrors(['client' => 'Nie udało się utworzyć klienta.']);
+        }
 
         $client->dates()->attach($validatedClient['start_date']);
 

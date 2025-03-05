@@ -140,7 +140,6 @@ class PaymentController extends Controller
         try {
             // Utworzenie sesji Stripe Checkout z dynamiczną kwotą
             return $user->checkoutCharge($amount, 'Opłata za wyprawę', 1, [
-                // 'success_url' => route('payment.success'),
                 'success_url' => route('payment.success.handler'),
                 'cancel_url' => route('payment.cancel'),
             ]);

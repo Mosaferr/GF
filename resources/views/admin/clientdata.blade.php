@@ -181,7 +181,6 @@
 					<button type="submit" class="btn btn-primary shadow mx-5 px-3" form="saveForm"> Zapisz </button>
 					<!-- Powrót do listy -->
                     <a href="{{ $redirectUrl }}" class="btn btn-success shadow ml-5 px-3"> Powrót </a>
-                    {{-- <a href="{{ request()->get('redirect_url', route('admin.clientlist')) }}" class="btn btn-success shadow ml-5 px-3">Powrót</a> --}}
 				</div>
 			</div>
 		</div>
@@ -189,7 +188,7 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/register.js?v=1.0') }}"></script>                 <!-- Skrypt do obsługi terminów i destynacji -->
+    <script src="{{ asset('js/register.js?v=1.0') }}"></script>             <!-- Skrypt do obsługi terminów i destynacji -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('js/delete.js') }}" defer></script>               <!-- Skrypt do okienka Usuń -->
 @endsection

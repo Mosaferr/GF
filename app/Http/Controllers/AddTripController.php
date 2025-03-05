@@ -36,6 +36,5 @@ class AddTripController extends Controller
 
         $redirectUrl = $request->input('redirect_url', route('admin.triplist'));
         return redirect($redirectUrl)->with('success', 'Nowa wyprawa została dodana.');
-        // return redirect()->route('admin.triplist')->with('success', 'Nowa wyprawa została dodana.');
     }
 }

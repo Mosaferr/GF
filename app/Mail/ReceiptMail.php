@@ -4,8 +4,6 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
 class ReceiptMail extends Mailable
@@ -13,13 +11,13 @@ class ReceiptMail extends Mailable
     use Queueable, SerializesModels;
 
     public $client;
-    public $trip;  // ✅ Dodano brakującą właściwość
-    public $date;  // ✅ Dodano brakującą właściwość
-    public $pdfData; // Binarne dane PDF (nie obiekt DOMPDF)
+    public $trip;
+    public $date;
+    public $pdfData;
 
     /*** Create a new message instance.
-     */
-    public function __construct($client, $trip, $date, $pdfData = null) //  Domyślnie PDF może być null ✅ Dodano `$trip` i `$date`
+     ***********************************/
+    public function __construct($client, $trip, $date, $pdfData = null)
     {
         $this->client = $client;
         $this->trip = $trip;
@@ -34,11 +32,11 @@ class ReceiptMail extends Mailable
                     ->view('emails.receipt')
                     ->with([
                         'client' => $this->client,
-                        'trip' => $this->trip,  // ✅ Teraz `$trip` jest zdefiniowane
-                        'date' => $this->date   // ✅ Teraz `$date` jest zdefiniowane
+                        'trip' => $this->trip,
+                        'date' => $this->date
                     ]);
 
-        if (!empty($this->pdfData)) { // Jeśli `$pdfData` nie jest puste, dodaj załącznik
+        if (!empty($this->pdfData)) {                   // Jeśli `$pdfData` nie jest puste, dodaj załącznik
             $email->attachData(base64_decode($this->pdfData), 'rachunek.pdf', [
                 'mime' => 'application/pdf',
             ]);

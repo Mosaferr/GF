@@ -155,10 +155,11 @@
 
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <button type="submit" class="btn btn-warning shadow w-100" id="submitButton">Wyślij</button>
+                    <button type="submit" class="btn btn-warning shadow w-100">Wyślij</button>
+                    {{-- <button type="submit" class="btn btn-warning shadow w-100" id="submitButton">Wyślij</button>
                     <button class="btn btn-warning shadow w-100" id="loadingButton" style="display: none;" disabled>
                         Wysyłanie..<span class="spinner-border spinner-border-sm ms-3"></span>
-                    </button>
+                    </button> --}}
                 </div>
             </div>
         </form>

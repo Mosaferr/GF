@@ -36,6 +36,5 @@ class ClientListController extends Controller
         // Przekazanie danych do widoku
         $redirectUrl = url()->current();
         return view('admin.clientlist', ['clients' => $clients, 'redirectUrl' => $redirectUrl]);
-        // return view('admin.clientlist', ['clients' => $clients]);
     }
 }

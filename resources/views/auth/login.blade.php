@@ -24,7 +24,6 @@
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
 
-
                                 <!-- Email Address -->
                                 <div class="form-group mt-2">
                                     <input type="email" class="form-control" id="email" name="email" placeholder=" " :value="old('email')" required autofocus autocomplete="email">

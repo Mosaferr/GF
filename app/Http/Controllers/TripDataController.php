@@ -15,7 +15,6 @@ class TripDataController extends Controller
      * @param  int  $id
      * @return \Illuminate\Contracts\View\View
      *******************************************/
-
     public function edit($tripId, $dateId, Request $request)
     {
         // Pobranie wyprawy i odpowiadającego jej terminu
@@ -23,7 +22,6 @@ class TripDataController extends Controller
         $date = Date::where('trip_id', $tripId)->where('id', $dateId)->firstOrFail();
 
         $redirectUrl = $request->input('redirect_url', route('admin.triplist'));
-        // $redirectUrl = $request->query('redirect_url', route('admin.triplist'));   // Domyślny redirect do listy
         return view('admin.tripdata', compact('trip', 'date', 'redirectUrl'));
     }
 
@@ -32,10 +30,8 @@ class TripDataController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      *******************************************/
-
     public function update(TripRequest $request, $tripId, $dateId)
     {
-        //$trip = Trip::findOrFail($tripId);             // Pobranie wyprawy, nie korzystam z tego, można usunąć
         $date = Date::where('trip_id', $tripId)->where('id', $dateId)->firstOrFail();
 
         $validatedData = $request->validated();
@@ -49,54 +45,40 @@ class TripDataController extends Controller
             ]);
         }
 
-        $seatDifference = $validatedData['total_seats'] - $date->total_seats; // Oblicz różnicę przed update
+        $seatDifference = $validatedData['total_seats'] - $date->total_seats;   // Oblicz różnicę przed update
 
-        unset($validatedData['destination']); // Usunięcie destination, bo nie istnieje w Date
+        unset($validatedData['destination']);                                   // Usunięcie destination, bo nie istnieje w Date
         $date->update($validatedData);
 
-        // Odświeżenie obiektu $date, aby uzyskać zaktualizowane wartości
-        // $date->refresh();
-
-        // aktualizacja available_seats
-        $newAvailableSeats = $date->available_seats + $seatDifference;
-        //Ustawienie ograniczeń
-        $newAvailableSeats = max(0, min($validatedData['total_seats'], $newAvailableSeats));
-        // Oddzielna aktualizacja tylko pola available_seats
-        $date->update(['available_seats' => $newAvailableSeats]);
+        $newAvailableSeats = $date->available_seats + $seatDifference;          // aktualizacja available_seats
+        $newAvailableSeats = max(0, min($validatedData['total_seats'], $newAvailableSeats));    //Ustawienie ograniczeń
+        $date->update(['available_seats' => $newAvailableSeats]);   // Oddzielna aktualizacja tylko pola available_seats
 
         // Przekierowanie po sukcesie
         $redirectUrl = $request->input('redirect_url', route('admin.triplist'));
         return redirect($redirectUrl)->with('success', 'Dane wyprawy zostały zaktualizowane.');
     }
 
-
     /** Usuwanie wyprawy.
      *******************************************/
 	public function destroy($tripId, $dateId, Request $request)
 	{
-		DB::beginTransaction(); // Rozpoczęcie transakcji
+		DB::beginTransaction();             // Rozpoczęcie transakcji
 		try {
-            // Logowanie początku operacji
-            Log::info("\n\n------------ START LOGÓW ------------\n");
-
 			// Znalezienie terminu wyprawy
 			$date = Date::where('trip_id', $tripId)->where('id', $dateId)->firstOrFail();
 
 			// Usunięcie terminu
 			$date->delete();
 
-			DB::commit(); // Zatwierdzenie transakcji
+			DB::commit();               // Zatwierdzenie transakcji
 
-			Log::info("Usunięto termin wyprawy ID={$dateId} dla wyprawy ID={$tripId}");
-            Log::info("\n----------------- KONIEC LOGÓW -----------------\n\n");
-
-			// Przekierowanie po sukcesie
+            // Przekierowanie po sukcesie
 			$redirectUrl = $request->input('redirect_url', route('admin.triplist'));
 			return redirect($redirectUrl)->with('success', 'Wyprawa została pomyślnie usunięta.');
 
 		} catch (\Exception $e) {
-			DB::rollBack(); // Cofnięcie transakcji w przypadku błędu
-
+			DB::rollBack();                 // Cofnięcie transakcji w przypadku błędu
 			Log::error("Błąd podczas usuwania terminu wyprawy ID={$dateId} dla wyprawy ID={$tripId}: " . $e->getMessage());
 
 			// Obsługa błędu

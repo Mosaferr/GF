@@ -201,7 +201,6 @@
                     'Sri Lanka' => 'sri_lanka',
                     'Tybet, Chiny' => 'tibet',
                 ];
-                // $trips = \App\Models\Trip::limit(5)->get();
             @endphp
 
                 <div class="row g-md-1 g-lg-5 mx-sm-1 mx-md-2 lg-md-0">

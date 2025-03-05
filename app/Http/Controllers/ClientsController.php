@@ -3,7 +3,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use App\Http\Requests\ClientRequest;    // reguły walidacji
-// use Illuminate\Http\Request;
 
 class ClientsController extends Controller
 {
@@ -15,13 +14,11 @@ class ClientsController extends Controller
     public function store(ClientRequest $clientRequest)
     {
         $validated = $clientRequest->validated();
-
         $additionalValidation = request()->validate([
             'user_id' => 'required|exists:users,id',
             'address_id' => 'required|exists:addresses,id',
             'leader_id' => 'nullable|exists:clients,id',
         ]);
-
         $data = array_merge($validated, $additionalValidation);
 
     return Client::create($validated);
@@ -37,7 +34,6 @@ class ClientsController extends Controller
         $client = Client::findOrFail($id);
 
         $validated = $clientRequest->validated();
-
         $additionalValidation = request()->validate([
             'user_id' => 'required|exists:users,id',
             'address_id' => 'required|exists:addresses,id',

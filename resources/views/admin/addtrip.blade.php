@@ -94,7 +94,6 @@
 						<button type="submit" class="btn btn-primary shadow mx-4 px-3">Zapisz</button>
 						<!-- Powrót do listy -->
                         <a href="{{ request('redirect_url', route('admin.triplist')) }}" class="btn btn-success shadow ml-5 px-3">Powrót</a>
-						{{-- <a href="{{ route('admin.triplist') }}" class="btn btn-success shadow ml-5 px-3">Powrót</a> --}}
 					</div>
 				</div>
             </form>
