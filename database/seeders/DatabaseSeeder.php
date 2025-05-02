@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CitizenshipSeeder::class,
             TripSeeder::class,
+            DateSeeder::class,
         ]);
     }
 }

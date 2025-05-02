@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Potwierdzenie uczestnictwa</title>
+    <title>Rachunek</title>
     <style>
         body { font-family: DejaVu Sans, sans-serif; font-size: 12px; margin-top: 30px;}
         .section { margin-top: 20px; margin-left: 50px; margin-right: 50px;}
